@@ -1,0 +1,1391 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "University Equipment Lending API",
+    "version": "1.0.0-planned",
+    "description": "Planned implementation baseline. Examples are synthetic expected behavior, not captured traffic. Raw request string maxima apply before trimming; normalized values must remain valid. Dates are ISO LocalDate; overdue uses a Clock in Asia/Beirut. Unknown write properties are rejected. Authentication is required for delivery; implementation is pending."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Local demonstration only; use HTTPS for remote access."
+    }
+  ],
+  "security": [
+    {
+      "staffBasic": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Students"
+    },
+    {
+      "name": "Equipment"
+    },
+    {
+      "name": "Loans"
+    }
+  ],
+  "paths": {
+    "/api/students": {
+      "post": {
+        "operationId": "registerStudent",
+        "tags": [
+          "Students"
+        ],
+        "summary": "Register a borrower",
+        "description": "Register a borrower",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Student"
+                },
+                "example": {
+                  "id": 1,
+                  "name": "Test Student One",
+                  "email": "borrower.one@example.test"
+                }
+              }
+            },
+            "headers": {
+              "Location": {
+                "description": "URI of the created student",
+                "schema": {
+                  "type": "string"
+                },
+                "example": "/api/students/1"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Staff authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "headers": {
+              "WWW-Authenticate": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Basic realm=\"equipment-lending\""
+              }
+            }
+          },
+          "409": {
+            "description": "Email is already registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentWrite"
+              },
+              "example": {
+                "name": "Test Student One",
+                "email": "Borrower.One@Example.test"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/students/{id}": {
+      "get": {
+        "operationId": "getStudent",
+        "tags": [
+          "Students"
+        ],
+        "summary": "Retrieve a student",
+        "description": "Retrieve a student",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Student"
+                },
+                "example": {
+                  "id": 1,
+                  "name": "Test Student One",
+                  "email": "borrower.one@example.test"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Staff authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "headers": {
+              "WWW-Authenticate": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Basic realm=\"equipment-lending\""
+              }
+            }
+          },
+          "404": {
+            "description": "Student not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "description": "Positive record identifier"
+          }
+        ]
+      },
+      "put": {
+        "operationId": "updateStudent",
+        "tags": [
+          "Students"
+        ],
+        "summary": "Replace editable student fields",
+        "description": "Replace editable student fields",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Student"
+                },
+                "example": {
+                  "id": 1,
+                  "name": "Test Student One",
+                  "email": "borrower.one@example.test"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Staff authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "headers": {
+              "WWW-Authenticate": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Basic realm=\"equipment-lending\""
+              }
+            }
+          },
+          "404": {
+            "description": "Student not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Email is already registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "description": "Positive record identifier"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentWrite"
+              },
+              "example": {
+                "name": "Test Student One",
+                "email": "Borrower.One@Example.test"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/equipment": {
+      "post": {
+        "operationId": "createEquipment",
+        "tags": [
+          "Equipment"
+        ],
+        "summary": "Add one physical item",
+        "description": "Add one physical item",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Equipment"
+                },
+                "example": {
+                  "id": 1,
+                  "inventoryCode": "CAM-001",
+                  "name": "Demo Camera",
+                  "category": "Camera",
+                  "description": null,
+                  "available": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Staff authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "headers": {
+              "WWW-Authenticate": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Basic realm=\"equipment-lending\""
+              }
+            }
+          },
+          "409": {
+            "description": "Inventory code is already registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EquipmentWrite"
+              },
+              "example": {
+                "inventoryCode": "cam-001",
+                "name": "Demo Camera",
+                "category": "Camera",
+                "description": null
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listEquipment",
+        "tags": [
+          "Equipment"
+        ],
+        "summary": "List equipment ordered by ID",
+        "description": "List equipment ordered by ID",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Equipment"
+                  }
+                },
+                "example": [
+                  {
+                    "id": 1,
+                    "inventoryCode": "CAM-001",
+                    "name": "Demo Camera",
+                    "category": "Camera",
+                    "description": null,
+                    "available": true
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Staff authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "headers": {
+              "WWW-Authenticate": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Basic realm=\"equipment-lending\""
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "available",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "true: no active loan; false: active loan; omitted: all items."
+          }
+        ]
+      }
+    },
+    "/api/equipment/{id}": {
+      "put": {
+        "operationId": "updateEquipment",
+        "tags": [
+          "Equipment"
+        ],
+        "summary": "Replace editable equipment fields",
+        "description": "Replace editable equipment fields",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Equipment"
+                },
+                "example": {
+                  "id": 1,
+                  "inventoryCode": "CAM-001",
+                  "name": "Demo Camera",
+                  "category": "Camera",
+                  "description": null,
+                  "available": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Staff authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "headers": {
+              "WWW-Authenticate": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Basic realm=\"equipment-lending\""
+              }
+            }
+          },
+          "404": {
+            "description": "Equipment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Inventory code is already registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "description": "Positive record identifier"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EquipmentWrite"
+              },
+              "example": {
+                "inventoryCode": "cam-001",
+                "name": "Demo Camera",
+                "category": "Camera",
+                "description": null
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteEquipment",
+        "tags": [
+          "Equipment"
+        ],
+        "summary": "Delete item only if no loan references it",
+        "description": "Delete item only if no loan references it",
+        "responses": {
+          "204": {
+            "description": "Deleted; empty response body"
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Staff authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "headers": {
+              "WWW-Authenticate": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Basic realm=\"equipment-lending\""
+              }
+            }
+          },
+          "404": {
+            "description": "Equipment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Equipment is referenced by loan history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "description": "Positive record identifier"
+          }
+        ]
+      }
+    },
+    "/api/loans": {
+      "post": {
+        "operationId": "borrowEquipment",
+        "tags": [
+          "Loans"
+        ],
+        "summary": "Record one atomic equipment loan",
+        "description": "dueDate > borrowingDate. Existing student and equipment required. Active loan or confirmed concurrent uniqueness conflict returns 409. No automatic POST retry/idempotency key. Success is returned after transaction commit.",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Loan"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Staff authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "headers": {
+              "WWW-Authenticate": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Basic realm=\"equipment-lending\""
+              }
+            }
+          },
+          "404": {
+            "description": "Student not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Equipment has an active loan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoanWrite"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listLoans",
+        "tags": [
+          "Loans"
+        ],
+        "summary": "List loan history ordered by ID",
+        "description": "Optional studentId and equipmentId combine with AND. Positive but unmatched IDs yield []; no pagination.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Loan"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Staff authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "headers": {
+              "WWW-Authenticate": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Basic realm=\"equipment-lending\""
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "description": "Optional filter; unmatched valid IDs produce an empty array."
+          },
+          {
+            "name": "equipmentId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "description": "Optional filter; unmatched valid IDs produce an empty array."
+          }
+        ]
+      }
+    },
+    "/api/loans/{id}/return": {
+      "post": {
+        "operationId": "returnEquipment",
+        "tags": [
+          "Loans"
+        ],
+        "summary": "Record return once and preserve history",
+        "description": "Return date must be on/after borrowing date. Second return returns 409 LOAN_ALREADY_RETURNED without overwriting the first date.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Loan"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Staff authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "headers": {
+              "WWW-Authenticate": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Basic realm=\"equipment-lending\""
+              }
+            }
+          },
+          "404": {
+            "description": "Loan not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Loan has already been returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "description": "Positive record identifier"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReturnWrite"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/loans/overdue": {
+      "get": {
+        "operationId": "listOverdueLoans",
+        "tags": [
+          "Loans"
+        ],
+        "summary": "List active loans strictly past due",
+        "description": "returnDate is null and dueDate < today in Asia/Beirut. Due today and returned loans are excluded. Results ordered by ID.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Loan"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Staff authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "headers": {
+              "WWW-Authenticate": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Basic realm=\"equipment-lending\""
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "staffBasic": {
+        "type": "http",
+        "scheme": "basic",
+        "description": "One staff credential supplied by environment; no committed passwords. Remote use requires HTTPS."
+      }
+    },
+    "schemas": {
+      "StudentWrite": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "email"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "\\S",
+            "description": "Trim whitespace; must remain nonblank."
+          },
+          "email": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 254,
+            "pattern": "\\S",
+            "description": "Trim and lowercase with Locale.ROOT, then validate email syntax; normalized value must be unique."
+          }
+        },
+        "example": {
+          "name": "Test Student One",
+          "email": "Borrower.One@Example.test"
+        }
+      },
+      "Student": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "email"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 254
+          }
+        },
+        "example": {
+          "id": 1,
+          "name": "Test Student One",
+          "email": "borrower.one@example.test"
+        }
+      },
+      "EquipmentWrite": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "inventoryCode",
+          "name",
+          "category"
+        ],
+        "properties": {
+          "inventoryCode": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "pattern": "\\S",
+            "description": "Trim and uppercase with Locale.ROOT; normalized value must be unique."
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "\\S",
+            "description": "Trim whitespace; must remain nonblank."
+          },
+          "category": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 60,
+            "pattern": "\\S",
+            "description": "Free text; trim and require nonblank."
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1000,
+            "description": "Optional; omitted becomes null on create or replacement update."
+          }
+        },
+        "example": {
+          "inventoryCode": "cam-001",
+          "name": "Demo Camera",
+          "category": "Camera",
+          "description": null
+        }
+      },
+      "Equipment": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "inventoryCode",
+          "name",
+          "category",
+          "description",
+          "available"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "inventoryCode": {
+            "type": "string",
+            "maxLength": 50
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 60
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1000
+          },
+          "available": {
+            "type": "boolean",
+            "description": "Derived from absence of active loan; read only."
+          }
+        },
+        "example": {
+          "id": 1,
+          "inventoryCode": "CAM-001",
+          "name": "Demo Camera",
+          "category": "Camera",
+          "description": null,
+          "available": true
+        }
+      },
+      "LoanWrite": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "studentId",
+          "equipmentId",
+          "borrowingDate",
+          "dueDate"
+        ],
+        "properties": {
+          "studentId": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "equipmentId": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "borrowingDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Must be strictly later than borrowingDate."
+          }
+        }
+      },
+      "ReturnWrite": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "returnDate"
+        ],
+        "properties": {
+          "returnDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Must be on or after the loan borrowingDate."
+          }
+        }
+      },
+      "Loan": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "studentId",
+          "equipmentId",
+          "borrowingDate",
+          "dueDate",
+          "returnDate"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "studentId": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "equipmentId": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "borrowingDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "returnDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          }
+        }
+      },
+      "ApiError": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "timestamp",
+          "status",
+          "code",
+          "message",
+          "path",
+          "fieldErrors"
+        ],
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "integer"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "fieldErrors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Invalid request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Staff authentication required",
+        "headers": {
+          "WWW-Authenticate": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Basic authentication challenge",
+            "example": "Basic realm=\"equipment-lending\""
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Required record not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "Operation conflicts with stored state",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            }
+          }
+        }
+      },
+      "InternalError": {
+        "description": "Unexpected internal failure",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            }
+          }
+        }
+      }
+    }
+  }
+}

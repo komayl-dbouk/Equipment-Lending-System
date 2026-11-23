@@ -1,0 +1,979 @@
+{
+  "timezone": "Asia/Beirut",
+  "boardUrl": "https://equipment-lending-system.atlassian.net/jira/software/c/projects/ELS/boards/34",
+  "note": "Initial planning snapshot. Jira is authoritative for subsequent progress. Hours are provisional estimates, not actual effort. Human reviews and implementation remain pending.",
+  "sprints": [
+    {
+      "n": 1,
+      "id": 1,
+      "name": "ELS Sprint 1 - Foundation and inventory",
+      "state": "active",
+      "goal": "Agree scope and design, then demonstrate a tested API for registering students and managing equipment; preserve reviewed AI plans and evidence before implementation.",
+      "originBoardId": 34,
+      "durationDays": 2
+    },
+    {
+      "n": 2,
+      "id": 2,
+      "name": "ELS Sprint 2 - Complete lending lifecycle",
+      "state": "future",
+      "goal": "Deliver and demonstrate atomic borrowing, returns, availability, overdue/history and database integrity with preserved specification and red/green evidence.",
+      "originBoardId": 34,
+      "durationDays": 2
+    },
+    {
+      "n": 3,
+      "id": 3,
+      "name": "ELS Sprint 3 - Verified quality improvements",
+      "state": "future",
+      "goal": "Audit and improve generated tests, restore a deliberate defect, correct verified design issues, refactor safely and measure quality improvement.",
+      "originBoardId": 34,
+      "durationDays": 2
+    },
+    {
+      "n": 4,
+      "id": 4,
+      "name": "ELS Sprint 4 - Delivery and presentation",
+      "state": "future",
+      "goal": "Verify reproducible execution and staff access, complete acceptance/report evidence and rehearse the team demonstration before the submission deadline.",
+      "originBoardId": 34,
+      "durationDays": 2
+    }
+  ],
+  "epics": [
+    {
+      "id": "GOV",
+      "owner": "Hussein Chreif",
+      "title": "Project planning and responsible AI",
+      "goal": "Maintain proposal, Scrum evidence, effort records, human decisions, and AI disclosure throughout development.",
+      "key": "ELS-14",
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-14"
+    },
+    {
+      "id": "DES",
+      "owner": "Komayl Dbouk",
+      "title": "Requirements architecture and API foundation",
+      "goal": "Specify the equipment domain and API, maintain layered design decisions, reproducible setup, and shared validation conventions.",
+      "key": "ELS-15",
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-15"
+    },
+    {
+      "id": "INV",
+      "owner": "Mostafa Younes",
+      "title": "Student and equipment management",
+      "goal": "Deliver tested student records and equipment inventory with unique identifiers, validation, and history preservation.",
+      "key": "ELS-16",
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-16"
+    },
+    {
+      "id": "LOAN",
+      "owner": "Komayl Dbouk",
+      "title": "Safe equipment lending lifecycle",
+      "goal": "Deliver atomic borrowing, returns, availability, overdue detection, and searchable history.",
+      "key": "ELS-17",
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-17"
+    },
+    {
+      "id": "QUAL",
+      "owner": "Hussein Chreif",
+      "title": "Testing review and measured quality",
+      "goal": "Preserve test-first history, audit generated tests, conduct a deliberate-defect experiment, review design, refactor safely, and measure improvement.",
+      "key": "ELS-18",
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-18"
+    },
+    {
+      "id": "DEL",
+      "owner": "Hussein Chalhoub",
+      "title": "Deployment documentation and submission",
+      "goal": "Deliver staff access controls, reproducible execution, acceptance evidence, maintenance planning, final report, and a rehearsed team presentation.",
+      "key": "ELS-19",
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-19"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "P01",
+      "sprint": 1,
+      "epic": "GOV",
+      "owner": "Hussein Chreif",
+      "hours": 2,
+      "type": "Task",
+      "title": "Review proposal and confirm team working agreement",
+      "deps": [],
+      "acceptance": "Review docs/proposal.md and team plan with all four members; record corrections and the team decision; submit the proposal before substantial implementation; verify instructor repository and board access without claiming submission or access until checked.",
+      "key": "ELS-20",
+      "reviewer": "Hussein Chalhoub",
+      "dependencies": [],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-20"
+    },
+    {
+      "id": "P02",
+      "sprint": 1,
+      "epic": "DES",
+      "owner": "Mostafa Younes",
+      "hours": 2,
+      "type": "Task",
+      "title": "Define requirements and observable acceptance criteria",
+      "deps": [
+        "P01"
+      ],
+      "acceptance": "Create uniquely identified functional and verifiable non-functional requirements, glossary, stakeholder assumptions, exclusions, priorities and traceability skeleton; specify unique email/inventory code, dates, HTTP outcomes and privacy; all Sprint 1 stories have testable acceptance criteria before coding.",
+      "key": "ELS-21",
+      "reviewer": "Komayl Dbouk",
+      "dependencies": [
+        "ELS-20"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-21"
+    },
+    {
+      "id": "P03",
+      "sprint": 1,
+      "epic": "DES",
+      "owner": "Komayl Dbouk",
+      "hours": 2,
+      "type": "Task",
+      "title": "Model domain architecture and database decisions",
+      "deps": [
+        "P01"
+      ],
+      "acceptance": "Create distinct domain and implementation models for Student, Equipment and Loan; document controller/service/repository boundaries, ER relationships, borrowing sequence, date convention, concurrency alternatives and selected database; add decision records with alternatives and trade-offs; peer review before feature implementation.",
+      "key": "ELS-22",
+      "reviewer": "Hussein Chreif",
+      "dependencies": [
+        "ELS-20"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-22"
+    },
+    {
+      "id": "P04",
+      "sprint": 1,
+      "epic": "DES",
+      "owner": "Hussein Chalhoub",
+      "hours": 3,
+      "type": "Task",
+      "title": "Bootstrap build database and agent context",
+      "deps": [
+        "P01",
+        "P03"
+      ],
+      "acceptance": "Create Maven Wrapper and Spring Boot skeleton with pinned compatible supported dependencies, reproducible configuration and database setup; add project-specific AGENTS.md with reviewed-plan requirement and Subject protection; run build and smoke test; document exact commands; no lending implementation.",
+      "key": "ELS-23",
+      "reviewer": "Mostafa Younes",
+      "dependencies": [
+        "ELS-20",
+        "ELS-22"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-23"
+    },
+    {
+      "id": "P05",
+      "sprint": 1,
+      "epic": "INV",
+      "owner": "Mostafa Younes",
+      "hours": 3,
+      "type": "New Feature",
+      "title": "Register retrieve and update student records",
+      "deps": [
+        "P02",
+        "P04",
+        "P08",
+        "P10"
+      ],
+      "acceptance": "As university staff I want to register and maintain borrowers so loans reference valid students. POST returns 201, GET and PUT work for an existing ID, unknown IDs return 404, invalid names/emails return 400, duplicate normalized email returns 409; use DTOs and service rules; include meaningful service/controller/database tests and API examples.",
+      "key": "ELS-29",
+      "reviewer": "Komayl Dbouk",
+      "dependencies": [
+        "ELS-21",
+        "ELS-23",
+        "ELS-25",
+        "ELS-28"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-29"
+    },
+    {
+      "id": "P06",
+      "sprint": 1,
+      "epic": "INV",
+      "owner": "Komayl Dbouk",
+      "hours": 3,
+      "type": "New Feature",
+      "title": "Create list update and delete equipment",
+      "deps": [
+        "P02",
+        "P04",
+        "P08"
+      ],
+      "acceptance": "As university staff I want to manage physical equipment so inventory stays accurate. Unique inventory code; valid create returns 201; list/update work; missing item returns 404; invalid payload returns 400; duplicate code returns 409; delete unreferenced item returns 204; specify preservation of future loan history and cover persistence behavior; tests and examples pass.",
+      "key": "ELS-26",
+      "reviewer": "Hussein Chreif",
+      "dependencies": [
+        "ELS-21",
+        "ELS-23",
+        "ELS-25"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-26"
+    },
+    {
+      "id": "P07",
+      "sprint": 1,
+      "epic": "QUAL",
+      "owner": "Hussein Chreif",
+      "hours": 2,
+      "type": "Task",
+      "title": "Define testing strategy GQM goals and evidence map",
+      "deps": [
+        "P02"
+      ],
+      "acceptance": "Document unit, controller, database, integration, system and acceptance testing with owners, data, environment, entry/exit criteria and limitations; define GQM questions and metric collection including service line coverage target 80 percent as a team target; create reference-practice map and truthful effort/AI-log templates; no invented results.",
+      "key": "ELS-24",
+      "reviewer": "Hussein Chalhoub",
+      "dependencies": [
+        "ELS-21"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-24"
+    },
+    {
+      "id": "P08",
+      "sprint": 1,
+      "epic": "DES",
+      "owner": "Hussein Chalhoub",
+      "hours": 2,
+      "type": "Task",
+      "title": "Implement shared validation and API error contract",
+      "deps": [
+        "P02",
+        "P04"
+      ],
+      "acceptance": "Define and implement consistent JSON errors for 400 validation, 404 missing record, 409 business conflict and sanitized 500 failures; map service exceptions centrally; verify stable error fields and that stack traces/internal details are not returned; coordinate shared code ownership with student/equipment owners.",
+      "key": "ELS-25",
+      "reviewer": "Mostafa Younes",
+      "dependencies": [
+        "ELS-21",
+        "ELS-23"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-25"
+    },
+    {
+      "id": "P09",
+      "sprint": 1,
+      "epic": "LOAN",
+      "owner": "Hussein Chreif",
+      "hours": 2,
+      "type": "Task",
+      "title": "Specify borrowing feature and review agent plan",
+      "deps": [
+        "P02",
+        "P03"
+      ],
+      "acceptance": "Write substantial borrowing specification covering preconditions, normal/error flows, data, interfaces, constraints, concurrency, acceptance criteria, forbidden changes and completion conditions; ask an agent for understanding/files/commands/tests/plan; all four review and record approval or corrections before lending implementation; preserve spec commit.",
+      "key": "ELS-27",
+      "reviewer": "Hussein Chalhoub",
+      "dependencies": [
+        "ELS-21",
+        "ELS-22"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-27"
+    },
+    {
+      "id": "P10",
+      "sprint": 1,
+      "epic": "DES",
+      "owner": "Komayl Dbouk",
+      "hours": 1,
+      "type": "Task",
+      "title": "Peer review student contract and domain privacy",
+      "deps": [
+        "P02",
+        "P03"
+      ],
+      "acceptance": "Review Mostafa's requirements and planned student API for ambiguous acceptance criteria, unnecessary personal data, uniqueness and error outcomes; log accepted/modified/rejected feedback and corrections; synchronize models and contract; review before P05 implementation.",
+      "key": "ELS-28",
+      "reviewer": "Hussein Chreif",
+      "dependencies": [
+        "ELS-21",
+        "ELS-22"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-28"
+    },
+    {
+      "id": "P11",
+      "sprint": 1,
+      "epic": "DEL",
+      "owner": "Hussein Chalhoub",
+      "hours": 1,
+      "type": "Task",
+      "title": "Add automated build and test pipeline",
+      "deps": [
+        "P04"
+      ],
+      "acceptance": "Add repository CI that checks out source, configures the selected JDK, runs Maven Wrapper verification and reports failure; ensure local command matches CI; record actual remote result if run, otherwise mark remote verification pending; preserve deliberate red-phase evidence on a feature branch without breaking the main branch.",
+      "key": "ELS-30",
+      "reviewer": "Mostafa Younes",
+      "dependencies": [
+        "ELS-23"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-30"
+    },
+    {
+      "id": "P12",
+      "sprint": 1,
+      "epic": "GOV",
+      "owner": "Mostafa Younes",
+      "hours": 1,
+      "type": "Task",
+      "title": "Run Sprint 1 review retrospective and effort reconciliation",
+      "deps": [
+        "P05",
+        "P06",
+        "P07",
+        "P09",
+        "P10",
+        "P11"
+      ],
+      "acceptance": "Demonstrate student and equipment API increment; record review feedback, acceptance results, initial estimate versus actual effort including AI/review/test time, blockers and backlog changes; retrospective identifies one improvement; confirm Sprint 2 scope and capacity with all members; retain evidence links.",
+      "key": "ELS-31",
+      "reviewer": "Komayl Dbouk",
+      "dependencies": [
+        "ELS-29",
+        "ELS-26",
+        "ELS-24",
+        "ELS-27",
+        "ELS-28",
+        "ELS-30"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-31"
+    },
+    {
+      "id": "P13",
+      "sprint": 2,
+      "epic": "QUAL",
+      "owner": "Hussein Chreif",
+      "hours": 3,
+      "type": "Task",
+      "title": "Commit failing borrowing tests before implementation",
+      "deps": [
+        "P09"
+      ],
+      "acceptance": "Translate approved borrowing criteria into reviewed test oracles; commit tests before lending code; run and retain expected red output for missing student/item, dates, active-loan conflict and success; preserve meaningful behavior failures; obtain human review of minimal implementation plan before P14; do not squash away red/green history.",
+      "key": "ELS-32",
+      "reviewer": "Hussein Chalhoub",
+      "dependencies": [
+        "ELS-27"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-32"
+    },
+    {
+      "id": "P14",
+      "sprint": 2,
+      "epic": "LOAN",
+      "owner": "Komayl Dbouk",
+      "hours": 5,
+      "type": "New Feature",
+      "title": "Create loans atomically and prevent double borrowing",
+      "deps": [
+        "P13"
+      ],
+      "acceptance": "As staff I want a valid loan recorded once so one item cannot be lent twice. Existing student/item plus due date later than borrowing date yields 201; missing references 404, invalid dates 400, active-loan conflict 409; transaction plus database/locking strategy prevents two simultaneous successes; retain green result and specification comparison; real target-database concurrency test required.",
+      "key": "ELS-33",
+      "reviewer": "Hussein Chreif",
+      "dependencies": [
+        "ELS-32"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-33"
+    },
+    {
+      "id": "P15",
+      "sprint": 2,
+      "epic": "LOAN",
+      "owner": "Mostafa Younes",
+      "hours": 3,
+      "type": "New Feature",
+      "title": "Record returns once and restore availability",
+      "deps": [
+        "P14"
+      ],
+      "acceptance": "As staff I want to record a return so equipment becomes available and history is preserved. Valid return works; missing loan 404, second return 409, return before borrowing date 400; no history deletion; test state changes, boundary dates, and borrowing again after return.",
+      "key": "ELS-34",
+      "reviewer": "Komayl Dbouk",
+      "dependencies": [
+        "ELS-33"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-34"
+    },
+    {
+      "id": "P16",
+      "sprint": 2,
+      "epic": "LOAN",
+      "owner": "Hussein Chalhoub",
+      "hours": 3,
+      "type": "New Feature",
+      "title": "List availability overdue loans and filtered history",
+      "deps": [
+        "P14"
+      ],
+      "acceptance": "As staff I want current availability, overdue loans and history so I can manage lending. available=true excludes active loans; overdue means no return and due date strictly before the agreed current date; due today is not overdue; student/equipment filters return matching history and empty lists when none; deterministic Clock-based tests cover boundaries.",
+      "key": "ELS-35",
+      "reviewer": "Mostafa Younes",
+      "dependencies": [
+        "ELS-33"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-35"
+    },
+    {
+      "id": "P17",
+      "sprint": 2,
+      "epic": "QUAL",
+      "owner": "Mostafa Younes",
+      "hours": 3,
+      "type": "Task",
+      "title": "Verify full lending workflow and database integrity",
+      "deps": [
+        "P14",
+        "P15",
+        "P16"
+      ],
+      "acceptance": "Run register/add/borrow/reject duplicate/return/borrow again/history end-to-end; exercise concurrent requests against the chosen delivery database and assert exactly one loan created and one conflict; enforce deletion restriction for equipment with any historical loan; validate invalid requests do not partially write; record observed results.",
+      "key": "ELS-36",
+      "reviewer": "Komayl Dbouk",
+      "dependencies": [
+        "ELS-33",
+        "ELS-34",
+        "ELS-35"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-36"
+    },
+    {
+      "id": "P18",
+      "sprint": 2,
+      "epic": "DES",
+      "owner": "Komayl Dbouk",
+      "hours": 2,
+      "type": "Task",
+      "title": "Update API examples diagrams and specification alignment",
+      "deps": [
+        "P14",
+        "P15",
+        "P16"
+      ],
+      "acceptance": "Publish runnable sample requests/OpenAPI for implemented endpoints; update class/data/sequence/state diagrams to actual code; link requirements to implementation and tests; classify substantial spec criteria as implemented, ambiguous or missed and resolve gaps; peer review without exposing real student data.",
+      "key": "ELS-37",
+      "reviewer": "Hussein Chreif",
+      "dependencies": [
+        "ELS-33",
+        "ELS-34",
+        "ELS-35"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-37"
+    },
+    {
+      "id": "P19",
+      "sprint": 2,
+      "epic": "GOV",
+      "owner": "Hussein Chalhoub",
+      "hours": 1,
+      "type": "Task",
+      "title": "Record Sprint 2 demonstration retrospective and effort",
+      "deps": [
+        "P17",
+        "P18"
+      ],
+      "acceptance": "Demonstrate complete lending MVP; preserve red/test, green/implementation and regression links; reconcile estimates and actual effort; record feedback, AI rework and one process improvement; plan remaining quality work.",
+      "key": "ELS-38",
+      "reviewer": "Mostafa Younes",
+      "dependencies": [
+        "ELS-36",
+        "ELS-37"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-38"
+    },
+    {
+      "id": "P20",
+      "sprint": 3,
+      "epic": "QUAL",
+      "owner": "Mostafa Younes",
+      "hours": 3,
+      "type": "Task",
+      "title": "Audit generated tests and correct three weaknesses",
+      "deps": [
+        "P17"
+      ],
+      "acceptance": "Manually audit a representative set of at least ten AI-assisted tests as meaningful, weak, wrong oracle or missing scenario; record requirement/reason/correction; fix at least three identified weaknesses; retain before/after diffs and passing regression results; humans verify expected behavior.",
+      "key": "ELS-39",
+      "reviewer": "Komayl Dbouk",
+      "dependencies": [
+        "ELS-36"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-39"
+    },
+    {
+      "id": "P21",
+      "sprint": 3,
+      "epic": "QUAL",
+      "owner": "Hussein Chalhoub",
+      "hours": 2,
+      "type": "Task",
+      "title": "Run deliberate defect experiment and restore implementation",
+      "deps": [
+        "P17"
+      ],
+      "acceptance": "Establish green baseline; temporarily reverse a lending/date rule or remove a validation; run relevant tests and record failures and unexpected passes; restore correct code and run full suite; explain detection gaps; do not merge or leave the deliberate defect.",
+      "key": "ELS-40",
+      "reviewer": "Mostafa Younes",
+      "dependencies": [
+        "ELS-36"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-40"
+    },
+    {
+      "id": "P22",
+      "sprint": 3,
+      "epic": "QUAL",
+      "owner": "Hussein Chreif",
+      "hours": 3,
+      "type": "Task",
+      "title": "Review design and correct two important verified findings",
+      "deps": [
+        "P18"
+      ],
+      "acceptance": "Ask agent to review substantial codebase for responsibilities, coupling, validation, privacy, contracts and test gaps; classify critical/important/minor; human verifies findings and records accepted/modified/rejected decisions with evidence; correct at least two important verified concerns and rerun tests; avoid manufacturing defects.",
+      "key": "ELS-41",
+      "reviewer": "Hussein Chalhoub",
+      "dependencies": [
+        "ELS-37"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-41"
+    },
+    {
+      "id": "P23",
+      "sprint": 3,
+      "epic": "QUAL",
+      "owner": "Komayl Dbouk",
+      "hours": 3,
+      "type": "Improvement",
+      "title": "Document and perform three safe refactorings",
+      "deps": [
+        "P22"
+      ],
+      "acceptance": "Identify at least three actual smells, affected code and suitable refactorings; for each retain before state, green baseline, change, passing tests, after state and maintainability explanation; no behavior changes disguised as refactoring; synchronize design/context.",
+      "key": "ELS-42",
+      "reviewer": "Hussein Chreif",
+      "dependencies": [
+        "ELS-41"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-42"
+    },
+    {
+      "id": "P24",
+      "sprint": 3,
+      "epic": "QUAL",
+      "owner": "Hussein Chalhoub",
+      "hours": 3,
+      "type": "Task",
+      "title": "Measure coverage static analysis and quality improvement",
+      "deps": [
+        "P20",
+        "P23"
+      ],
+      "acceptance": "Run JaCoCo and suitable static analysis such as PMD/SpotBugs; record actual coverage, warnings and relevant complexity; confirm one significant measured issue, correct it, rerun tools and compare; complete GQM results/interpretation/action; target at least 80 percent service line coverage without replacing meaningful assertions.",
+      "key": "ELS-43",
+      "reviewer": "Mostafa Younes",
+      "dependencies": [
+        "ELS-39",
+        "ELS-42"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-43"
+    },
+    {
+      "id": "P25",
+      "sprint": 3,
+      "epic": "GOV",
+      "owner": "Mostafa Younes",
+      "hours": 1,
+      "type": "Task",
+      "title": "Review Sprint 3 quality evidence and remaining release risks",
+      "deps": [
+        "P20",
+        "P21",
+        "P22",
+        "P23",
+        "P24"
+      ],
+      "acceptance": "Present verified test audit, mutation, review/refactoring and measurement evidence; record effort and retrospective; check all mandatory numerical criteria; prioritize remaining release blockers without inventing completed evidence.",
+      "key": "ELS-44",
+      "reviewer": "Komayl Dbouk",
+      "dependencies": [
+        "ELS-39",
+        "ELS-40",
+        "ELS-41",
+        "ELS-42",
+        "ELS-43"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-44"
+    },
+    {
+      "id": "P26",
+      "sprint": 4,
+      "epic": "DEL",
+      "owner": "Hussein Chalhoub",
+      "hours": 3,
+      "type": "Task",
+      "title": "Package application and verify clean setup",
+      "deps": [
+        "P24"
+      ],
+      "acceptance": "Provide Dockerfile/.dockerignore or justified reproducible packaging, database configuration, synthetic seed data and runbook; from a clean clone run build/tests/start and key workflows; verify env vars and no secrets; record actual results and limitations; reliable local demo required even if hosting unavailable.",
+      "key": "ELS-45",
+      "reviewer": "Mostafa Younes",
+      "dependencies": [
+        "ELS-43"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-45"
+    },
+    {
+      "id": "P27",
+      "sprint": 4,
+      "epic": "DEL",
+      "owner": "Komayl Dbouk",
+      "hours": 2,
+      "type": "Task",
+      "title": "Verify staff access privacy and dependency licensing",
+      "deps": [
+        "P18"
+      ],
+      "acceptance": "Define and enforce staff-only access for delivery (single staff credential via environment is sufficient; no student portal); test unauthenticated rejection and authorized workflow; use synthetic data and sanitized logs/errors; review dependency legitimacy/licenses and secret exposure; document local network and deployment boundary.",
+      "key": "ELS-46",
+      "reviewer": "Hussein Chreif",
+      "dependencies": [
+        "ELS-37"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-46"
+    },
+    {
+      "id": "P28",
+      "sprint": 4,
+      "epic": "QUAL",
+      "owner": "Mostafa Younes",
+      "hours": 2,
+      "type": "Task",
+      "title": "Execute acceptance scenarios and final regression",
+      "deps": [
+        "P26",
+        "P27"
+      ],
+      "acceptance": "Run agreed principal workflows and error/boundary/concurrency cases in delivery environment; record preconditions, steps, expected/observed outcome, pass/fail and follow-up; full automated suite passes; link every core requirement to result/evidence and explicitly record limitations.",
+      "key": "ELS-47",
+      "reviewer": "Komayl Dbouk",
+      "dependencies": [
+        "ELS-45",
+        "ELS-46"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-47"
+    },
+    {
+      "id": "P29",
+      "sprint": 4,
+      "epic": "DEL",
+      "owner": "Hussein Chreif",
+      "hours": 3,
+      "type": "Task",
+      "title": "Consolidate report reference traceability and maintenance plan",
+      "deps": [
+        "P25"
+      ],
+      "acceptance": "Prepare report covering scope, decisions, teamwork, lifecycle evidence, estimate/actual reflection, AI disclosure and lessons; complete reference-practice table with direct links; discuss corrective/adaptive/perfective/preventive maintenance, debt and dependency/schema/context/test updates; include actual results only; review with all four members.",
+      "key": "ELS-48",
+      "reviewer": "Hussein Chalhoub",
+      "dependencies": [
+        "ELS-44"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-48"
+    },
+    {
+      "id": "P30",
+      "sprint": 4,
+      "epic": "DEL",
+      "owner": "Komayl Dbouk",
+      "hours": 2,
+      "type": "Task",
+      "title": "Prepare slides and rehearse individual explanations",
+      "deps": [
+        "P28",
+        "P29"
+      ],
+      "acceptance": "Prepare concise presentation and deterministic live demo with reset/backup; each member explains problem, architecture, own feature, test oracle, corrected AI output and quality improvement; rehearse debugging/questioning and handovers; record issues and fixes; every member understands principal decisions.",
+      "key": "ELS-49",
+      "reviewer": "Hussein Chreif",
+      "dependencies": [
+        "ELS-47",
+        "ELS-48"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-49"
+    },
+    {
+      "id": "P31",
+      "sprint": 4,
+      "epic": "GOV",
+      "owner": "Hussein Chalhoub",
+      "hours": 1,
+      "type": "Task",
+      "title": "Complete release review retrospective and submission checklist",
+      "deps": [
+        "P28",
+        "P29",
+        "P30"
+      ],
+      "acceptance": "Verify source/tests/docs/AI logs/reports/deployment links, incremental history, instructor access and subject exclusion from tracked files; record final sprint review/retro and effort; identify submission owner Hussein Chreif and confirm submission deadline time; mark submission complete only with actual receipt; reserve the final buffer for fixes and submission.",
+      "key": "ELS-50",
+      "reviewer": "Mostafa Younes",
+      "dependencies": [
+        "ELS-47",
+        "ELS-48",
+        "ELS-49"
+      ],
+      "url": "https://equipment-lending-system.atlassian.net/browse/ELS-50"
+    }
+  ],
+  "dependencyLinks": [
+    {
+      "from": "ELS-20",
+      "to": "ELS-21"
+    },
+    {
+      "from": "ELS-20",
+      "to": "ELS-22"
+    },
+    {
+      "from": "ELS-20",
+      "to": "ELS-23"
+    },
+    {
+      "from": "ELS-22",
+      "to": "ELS-23"
+    },
+    {
+      "from": "ELS-21",
+      "to": "ELS-29"
+    },
+    {
+      "from": "ELS-23",
+      "to": "ELS-29"
+    },
+    {
+      "from": "ELS-25",
+      "to": "ELS-29"
+    },
+    {
+      "from": "ELS-28",
+      "to": "ELS-29"
+    },
+    {
+      "from": "ELS-21",
+      "to": "ELS-26"
+    },
+    {
+      "from": "ELS-23",
+      "to": "ELS-26"
+    },
+    {
+      "from": "ELS-25",
+      "to": "ELS-26"
+    },
+    {
+      "from": "ELS-21",
+      "to": "ELS-24"
+    },
+    {
+      "from": "ELS-21",
+      "to": "ELS-25"
+    },
+    {
+      "from": "ELS-23",
+      "to": "ELS-25"
+    },
+    {
+      "from": "ELS-21",
+      "to": "ELS-27"
+    },
+    {
+      "from": "ELS-22",
+      "to": "ELS-27"
+    },
+    {
+      "from": "ELS-21",
+      "to": "ELS-28"
+    },
+    {
+      "from": "ELS-22",
+      "to": "ELS-28"
+    },
+    {
+      "from": "ELS-23",
+      "to": "ELS-30"
+    },
+    {
+      "from": "ELS-29",
+      "to": "ELS-31"
+    },
+    {
+      "from": "ELS-26",
+      "to": "ELS-31"
+    },
+    {
+      "from": "ELS-24",
+      "to": "ELS-31"
+    },
+    {
+      "from": "ELS-27",
+      "to": "ELS-31"
+    },
+    {
+      "from": "ELS-28",
+      "to": "ELS-31"
+    },
+    {
+      "from": "ELS-30",
+      "to": "ELS-31"
+    },
+    {
+      "from": "ELS-27",
+      "to": "ELS-32"
+    },
+    {
+      "from": "ELS-32",
+      "to": "ELS-33"
+    },
+    {
+      "from": "ELS-33",
+      "to": "ELS-34"
+    },
+    {
+      "from": "ELS-33",
+      "to": "ELS-35"
+    },
+    {
+      "from": "ELS-33",
+      "to": "ELS-36"
+    },
+    {
+      "from": "ELS-34",
+      "to": "ELS-36"
+    },
+    {
+      "from": "ELS-35",
+      "to": "ELS-36"
+    },
+    {
+      "from": "ELS-33",
+      "to": "ELS-37"
+    },
+    {
+      "from": "ELS-34",
+      "to": "ELS-37"
+    },
+    {
+      "from": "ELS-35",
+      "to": "ELS-37"
+    },
+    {
+      "from": "ELS-36",
+      "to": "ELS-38"
+    },
+    {
+      "from": "ELS-37",
+      "to": "ELS-38"
+    },
+    {
+      "from": "ELS-36",
+      "to": "ELS-39"
+    },
+    {
+      "from": "ELS-36",
+      "to": "ELS-40"
+    },
+    {
+      "from": "ELS-37",
+      "to": "ELS-41"
+    },
+    {
+      "from": "ELS-41",
+      "to": "ELS-42"
+    },
+    {
+      "from": "ELS-39",
+      "to": "ELS-43"
+    },
+    {
+      "from": "ELS-42",
+      "to": "ELS-43"
+    },
+    {
+      "from": "ELS-39",
+      "to": "ELS-44"
+    },
+    {
+      "from": "ELS-40",
+      "to": "ELS-44"
+    },
+    {
+      "from": "ELS-41",
+      "to": "ELS-44"
+    },
+    {
+      "from": "ELS-42",
+      "to": "ELS-44"
+    },
+    {
+      "from": "ELS-43",
+      "to": "ELS-44"
+    },
+    {
+      "from": "ELS-43",
+      "to": "ELS-45"
+    },
+    {
+      "from": "ELS-37",
+      "to": "ELS-46"
+    },
+    {
+      "from": "ELS-45",
+      "to": "ELS-47"
+    },
+    {
+      "from": "ELS-46",
+      "to": "ELS-47"
+    },
+    {
+      "from": "ELS-44",
+      "to": "ELS-48"
+    },
+    {
+      "from": "ELS-47",
+      "to": "ELS-49"
+    },
+    {
+      "from": "ELS-48",
+      "to": "ELS-49"
+    },
+    {
+      "from": "ELS-47",
+      "to": "ELS-50"
+    },
+    {
+      "from": "ELS-48",
+      "to": "ELS-50"
+    },
+    {
+      "from": "ELS-49",
+      "to": "ELS-50"
+    }
+  ],
+  "verification": {
+    "issues": 37,
+    "workCards": 31,
+    "epics": 6,
+    "assigneesAndEstimatesAndEpicParentsChecked": true,
+    "sprint1Cards": 12,
+    "sprint1Hours": 24,
+    "subjectStaged": false
+  }
+}

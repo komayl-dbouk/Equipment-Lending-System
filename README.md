@@ -6,6 +6,12 @@ The system will help university staff maintain an inventory of equipment, record
 
 > **Status:** Proposal / planning. The features and endpoints below describe the intended first version and are not yet implemented.
 
+The [project proposal](docs/proposal.md), [team plan and Sprint 1 kickoff](docs/team-plan.md), and [initial Jira backlog snapshot](docs/jira-backlog.json) define the delivery plan for the submission deadline. Work is tracked on the [ELS Scrum board](https://equipment-lending-system.atlassian.net/jira/software/c/projects/ELS/boards/34).
+
+The [test strategy](docs/testing/test-strategy.md), [GQM measurement plan](docs/testing/gqm-plan.md), and [reference practice evidence map](docs/reference-practice-traceability.md) guide verification. Use the [testing and effort templates](docs/testing/evidence-templates.md) and [AI interaction template](ai-log/interaction-template.md) to record evidence as work occurs.
+
+The [Sprint 1 artifact index](docs/sprint-1-artifacts.md) links the [detailed requirements](docs/requirements/requirements.md), [architecture and models](docs/design/architecture.md), [OpenAPI contract](docs/api/openapi.json), [borrowing specification](docs/specifications/borrow-equipment.md), and review records needed before implementation.
+
 ## Overview
 
 University equipment such as laptops, projectors, cameras, and laboratory tools is often tracked using spreadsheets or paper records. This can make it difficult to identify available items, confirm who has borrowed an item, and monitor return deadlines.
