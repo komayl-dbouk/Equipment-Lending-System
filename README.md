@@ -100,3 +100,7 @@ If the due date passes without a recorded return, the loan appears in the overdu
 Core tests will cover successful borrowing and returns, unavailable equipment, duplicate returns, invalid dates, overdue detection, and simultaneous requests for the same item.
 
 The planned deliverables are the Spring Boot source code, relational data model, documented API with sample requests, automated tests, and a demonstration of the lending workflow.
+
+## Local setup
+
+The application foundation uses Java 17, Spring Boot 3.5.16, Maven Wrapper 3.9.11 and PostgreSQL 17.5. Follow the exact environment setup, build, database verification and run commands in [Local setup and verification](docs/deployment/local-setup.md). Credentials are supplied only through environment variables; `.env.example` contains placeholders, not usable secrets.
