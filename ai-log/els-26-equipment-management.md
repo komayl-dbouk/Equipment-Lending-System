@@ -17,7 +17,7 @@
 | Problems identified by human review | No correction was requested after plan approval. |
 | Corrections requested and made | Quoted the Maven `-Dtest` argument after the PowerShell parse failure. The missing JDK cannot be corrected without installing/configuring a tool outside task scope. |
 | Final accepted, modified or rejected decision and reason | Implementation is prepared for human review, but automated results remain unclaimed until Java/PostgreSQL CI executes the tests. |
-| Evidence links and lesson learned | Local commits `953318d` and `ae7a57c`; focused tests and PostgreSQL integration tests are under the equipment test package. Record command-level environment failures separately from code-test failures. |
+| Evidence links and lesson learned | Local commits `953318d`, `ae7a57c`, `4472624` and `70f3b2d`; focused tests and PostgreSQL integration tests are under the equipment test package. Record command-level environment failures separately from code-test failures. |
 
 ## Jira connector limitation
 
