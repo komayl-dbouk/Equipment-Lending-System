@@ -119,7 +119,7 @@
               },
               "example": {
                 "name": "Test Student One",
-                "email": "Borrower.One@Example.test"
+                "email": " Borrower.One@Example.test "
               }
             }
           }
@@ -317,7 +317,7 @@
               },
               "example": {
                 "name": "Test Student One",
-                "email": "Borrower.One@Example.test"
+                "email": " Borrower.One@Example.test "
               }
             }
           }
@@ -1054,6 +1054,7 @@
     "schemas": {
       "StudentWrite": {
         "type": "object",
+        "description": "POST and PUT require both editable fields. Raw lengths include padding; validate email syntax after normalization. Generated IDs are never writable.",
         "additionalProperties": false,
         "required": [
           "name",
@@ -1077,7 +1078,7 @@
         },
         "example": {
           "name": "Test Student One",
-          "email": "Borrower.One@Example.test"
+          "email": " Borrower.One@Example.test "
         }
       },
       "Student": {

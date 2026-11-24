@@ -45,6 +45,8 @@ classDiagram
 
 Repositories should not invoke controllers or services. Services share repositories rather than introducing circular service dependencies. DTO mapping stays explicit and small. No microservice, queue or event infrastructure is needed.
 
+ELS-29 implements the student layers under `edu.university.equipmentlending.student`: StudentController, StudentService, persistence.StudentRepository and the existing persistence.StudentEntity. dto.StudentWrite accepts only name/email; dto.Student returns only id/name/email. The service validates raw limits before normalization and checks normalized email syntax before persistence. Read transactions are read-only; writes use a service-owned TransactionTemplate with REQUIRES_NEW so the transaction finishes before a confirmed student_email_key uniqueness violation is translated to DUPLICATE_EMAIL. PostgreSQL uniqueness protects canonical email values stored by the API. V1 and other feature mappings are unchanged. See [student verification evidence](../testing/els-29-student-management.md) for tests and pending PostgreSQL execution.
+
 ## Relational model
 
 ```mermaid

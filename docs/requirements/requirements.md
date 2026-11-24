@@ -73,4 +73,4 @@ Principal workflow: register borrower, add camera, create valid loan, reject com
 
 PostgreSQL is the delivery database; see ADR 002. No external service is required. ELS-23 pins the Java/Spring/Maven versions and prepares configuration. The API contract is [openapi.json](../api/openapi.json), with [human-readable conventions](../api/contract.md). Business behavior changes require updates here, to relevant scenarios/specification, to the contract and to Jira before implementation. Future decisions cannot retroactively establish earlier approval.
 
-Version history: v1 establishes the initial baseline to fill missing Sprint 1 specification artifacts. Implementation and acceptance results remain pending.
+Version history: v1 establishes the initial baseline to fill missing Sprint 1 specification artifacts. FR01 implementation and database-free test results are recorded in [ELS-29 evidence](../testing/els-29-student-management.md); PostgreSQL execution and human acceptance remain pending. Other feature implementation/acceptance results remain tracked separately. This implementation does not change FR01 behavior.

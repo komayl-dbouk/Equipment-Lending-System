@@ -6,7 +6,7 @@ Version 2. Jira: [ELS-24](https://equipment-lending-system.atlassian.net/browse/
 
 Verify that staff can manage students and equipment, create valid loans, record returns, detect overdue loans and retain history. Protect against duplicate identifiers, double lending, partial writes and exposure of private information. Check the externally visible outcome and persisted state, not just whether a method executes.
 
-Scope covers the backend, database, staff access configuration, documented API and reproducible local deployment. A frontend, student accounts, notifications, fines and institutional integrations are outside the release. No application or build exists yet; this document defines planned checks and reports no passing tests or measured coverage.
+Scope covers the backend, database, staff access configuration, documented API and reproducible local deployment. A frontend, student accounts, notifications, fines and institutional integrations are outside the release. The application foundation and ELS-29 student implementation now exist; the catalog below remains planned unless linked execution evidence states otherwise. This strategy does not claim measured coverage.
 
 ## Requirements and open decisions
 
@@ -41,6 +41,8 @@ Inject a clock or equivalent controlled date source. Include the day before, on 
 ## Initial scenario catalog
 
 These are planned cases, not implemented test names or results. Bind each to a concrete test method and requirement after implementation.
+
+ELS-29 binds TC01-TC03, the student portion of TC24, and relevant TC20/TC22 checks to concrete student tests in [student verification evidence](els-29-student-management.md). Database-free execution and pending PostgreSQL execution are reported separately there.
 
 | ID | Requirement | Scenario and expected outcome |
 | --- | --- | --- |

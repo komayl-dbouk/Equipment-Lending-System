@@ -61,6 +61,20 @@ Expected 201 body for an illustrative generated ID:
 {"id":1,"name":"Test Student One","email":"borrower.one@example.test"}
 ```
 
+The creation response also includes `Location: /api/students/1`. `GET /api/students/1` returns 200 with the same three fields. To replace the editable fields, send `PUT /api/students/1`:
+
+```json
+{"name":" Updated Test Student ","email":" New.Borrower@Example.test "}
+```
+
+Expected 200 body, retaining the generated ID:
+
+```json
+{"id":1,"name":"Updated Test Student","email":"new.borrower@example.test"}
+```
+
+Both PUT fields are required. Omitting email returns 400 VALIDATION_FAILED and leaves the stored record unchanged; providing an id or loans property also returns 400. JSON name/email values must be strings, not numbers or booleans. Keeping this student's own email with different case/padding succeeds; using another student's normalized email returns 409 DUPLICATE_EMAIL and preserves both records. Missing positive IDs return 404 STUDENT_NOT_FOUND; malformed/nonpositive IDs return 400 VALIDATION_FAILED. Raw maxima include padding, even when trimming would shorten the value. These remain expected examples, not captured HTTP traffic. See [ELS-29 tests and execution evidence](../testing/els-29-student-management.md) for actual verification limits.
+
 Create equipment with {"inventoryCode":"cam-001","name":"Demo Camera","category":"Camera","description":null}. Expected normalized inventoryCode is CAM-001 and available is true.
 
 Borrow using studentId and equipmentId plus ISO-formatted borrowingDate and a later dueDate. Expected 201 Loan has the supplied references and dates, an illustrative generated ID and returnDate:null. A competing request returns 409 EQUIPMENT_UNAVAILABLE in the documented error shape, including a runtime-generated UTC timestamp.
