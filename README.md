@@ -4,7 +4,7 @@ A RESTful Web API for managing equipment loans at a university, built with **Jav
 
 The system will help university staff maintain an inventory of equipment, record student borrowing and returns, check availability, and track overdue loans.
 
-> **Status:** Proposal / planning. The features and endpoints below describe the intended first version and are not yet implemented.
+> **Status:** The Spring Boot/PostgreSQL foundation, shared errors, CI workflow and ELS-26 equipment management are present. ELS-29 implements student registration, retrieval and update with database-free tests; student PostgreSQL verification and human review remain pending. Loan/query endpoints and staff authentication remain planned.
 
 The [project proposal](docs/proposal.md), [team plan and Sprint 1 kickoff](docs/team-plan.md), and [initial Jira backlog snapshot](docs/jira-backlog.json) define the delivery plan for the submission deadline. Work is tracked on the [ELS Scrum board](https://equipment-lending-system.atlassian.net/jira/software/c/projects/ELS/boards/34).
 
@@ -104,3 +104,5 @@ The planned deliverables are the Spring Boot source code, relational data model,
 ## Local setup
 
 The application foundation uses Java 17, Spring Boot 3.5.16, Maven Wrapper 3.9.11 and PostgreSQL 17.5. Follow the exact environment setup, build, database verification and run commands in [Local setup and verification](docs/deployment/local-setup.md). Credentials are supplied only through environment variables; `.env.example` contains placeholders, not usable secrets.
+
+For student requests, replacement-update examples and database-free test commands, see the [API contract](docs/api/contract.md) and [ELS-29 verification evidence](docs/testing/els-29-student-management.md). PostgreSQL tests run through the existing `database-test` profile; local unit/controller checks do not need a database.

@@ -1,10 +1,10 @@
 # Requirements Implementation and Test Traceability
 
-Requirement IDs are stable across proposal, detailed requirements and tests. Targets below are planned elements, not claims that classes/tests exist. Fill revision and result links when actual work runs.
+Requirement IDs are stable across proposal, detailed requirements and tests. Targets remain planned unless the actual-evidence column records implementation and execution. Passing local checks do not establish PostgreSQL results or human acceptance.
 
 | Requirement | Story | Jira | Planned implementation | Planned scenarios | Actual result and evidence |
 | --- | --- | --- | --- | --- | --- |
-| FR01 | US01 | ELS-29 | StudentController, StudentService, StudentRepository | TC01â€“03, TC24 | Not executed |
+| FR01 | US01 | ELS-29 | StudentController, StudentService, StudentRepository, existing StudentEntity; StudentWrite/Student DTOs | TC01-TC03, student TC24; related TC20/TC22 | Implemented in 6e02299; PostgreSQL tests in 8eec279 (rebased onto main at 3edce62). Post-rebase focused rerun: 67 student service/controller tests and 12 shared-error tests pass. Full integrated database-free verify passes with 112 tests and executable JAR packaging. StudentPersistenceIT compiled, execution and human review pending. [Methods and commands](../testing/els-29-student-management.md), [AI log](../../ai-log/els-29-student-management.md). |
 | FR02 | US02 | ELS-26 | EquipmentController, EquipmentService, EquipmentRepository | TC04-TC06, TC24 | Implemented in PR #4. Focused controller, service and normalized-blank regression checks passed (33 tests). Previous branch CI passed: https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/45505314831 . CI for the additional normalization correction is pending. |
 | FR03 | US03 | ELS-33 | LoanController, LoanService, LoanRepository | TC07â€“10 | Not executed |
 | FR04 | US03 | ELS-33 | LoanService transaction, equipment lock, active-loan unique index | TC11 | Not executed |

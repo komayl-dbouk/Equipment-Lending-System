@@ -20,4 +20,19 @@ public class StudentEntity {
 
     @Column(nullable = false, unique = true, length = 254)
     private String email;
+
+    protected StudentEntity() { }
+
+    public StudentEntity(String name, String email) {
+        replaceDetails(name, email);
+    }
+
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+
+    public void replaceDetails(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 }
