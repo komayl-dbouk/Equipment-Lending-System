@@ -1,6 +1,6 @@
 # ELS-29 Prepared Pull Request
 
-Base: main. Head: ELS-29-student-management. Human reviewer to request: Komayl Dbouk. This is prepared text; no push or PR creation has occurred.
+Base: main. Head: ELS-29-student-management. Human reviewer to request: Komayl Dbouk. The user published the original branch and then rebased it onto updated main. The agent has not pushed the rebased history or created a PR.
 
 Title: **ELS-29: implement student registration, retrieval and updates**
 
@@ -10,14 +10,14 @@ Implements [ELS-29](https://equipment-lending-system.atlassian.net/browse/ELS-29
 
 Reuses the existing StudentEntity, shared errors and V1 uniqueness constraint. Confirmed email uniqueness violations become DUPLICATE_EMAIL after transaction rollback; unrelated database failures retain sanitized 500 handling. StudentWrite rejects unknown properties and non-string text fields. No migration or dependency changes.
 
-Validation: 79 database-free tests pass (27 service, 40 controller, 12 shared-error), and Maven Wrapper verify passes with executable JAR packaging. PostgreSQL integration tests compile and cover stored values, own/other-email updates, unchanged state after rejection and competing writes; execution awaits the existing PostgreSQL CI profile. The initial Mockito attachment and packaging-download failures, corrections and exact commands are recorded in [verification evidence](https://github.com/komayl-dbouk/Equipment-Lending-System/blob/ELS-29-student-management/docs/testing/els-29-student-management.md) and [AI log](https://github.com/komayl-dbouk/Equipment-Lending-System/blob/ELS-29-student-management/ai-log/els-29-student-management.md).
+Validation after rebasing onto main at 3edce62: the focused 79 student/shared-error tests pass (27 service, 40 controller, 12 shared-error), and Maven Wrapper verify passes all 112 database-free tests, including equipment, with executable JAR packaging. PostgreSQL integration tests compile and cover stored values, own/other-email updates, unchanged state after rejection and competing writes; execution awaits the existing PostgreSQL CI profile. Setup/memory failures, corrections and exact commands are recorded in [verification evidence](https://github.com/komayl-dbouk/Equipment-Lending-System/blob/ELS-29-student-management/docs/testing/els-29-student-management.md) and [AI log](https://github.com/komayl-dbouk/Equipment-Lending-System/blob/ELS-29-student-management/ai-log/els-29-student-management.md).
 
 Request review from Komayl Dbouk. PostgreSQL CI and human review are required before merging; ELS-29 must not be marked Done before the reviewed merge and required passing checks.
 
 ## User-operated publication
 
 ```powershell
-git push -u origin ELS-29-student-management
+git push --force-with-lease origin ELS-29-student-management
 ```
 
-Then open [the comparison targeting main](https://github.com/komayl-dbouk/Equipment-Lending-System/compare/main...ELS-29-student-management?expand=1), paste the title/body and request Komayl Dbouk as reviewer. Preserve the incremental commit history. No automatic approval or merge is authorized.
+The lease is required to replace the already-published history after the user's rebase; it protects against overwriting an unobserved remote update. Then open [the comparison targeting main](https://github.com/komayl-dbouk/Equipment-Lending-System/compare/main...ELS-29-student-management?expand=1), paste the title/body and request Komayl Dbouk as reviewer. Preserve the incremental commit history. No automatic approval or merge is authorized.

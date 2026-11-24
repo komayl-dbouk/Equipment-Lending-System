@@ -59,3 +59,37 @@ Incremental commits: 5315951 implements the endpoints and 67 student service/con
 At implementation readiness, listed the current Jira transitions and successfully used transition 51 to move ELS-29 to the existing **CODE REVIEW** status. The named human reviewer remains Komayl Dbouk; no human review, PR request or merge has occurred. [Prepared PR text](../docs/reviews/els-29-student-management-pr.md) includes the exact user-operated push command and comparison URL targeting main.
 
 No Docker or PostgreSQL environment has been started. PostgreSQL execution, remote CI, Komayl's review, push/PR creation and reviewed merge remain pending. No passing integration result, measured coverage, actual human review or Jira Done status is claimed.
+
+## Rebase conflict resolution and regression checks
+
+The preceding entries describe the original implementation stage. The user subsequently supplied a successful push transcript for the original branch, fetched main at 3edce62 and requested resolution of their interrupted rebase. Inspection confirmed one conflict, docs/requirements/traceability.md, at the final documentation commit; no rebase commands remained. Kept ELS-29's FR01 implementation evidence and main's ELS-26 FR02 evidence, while preserving main's FR07 history entry. No production/test source changes were needed.
+
+Inspected git diff --check, the explicit staged list, the resolved staged traceability diff and the staged documents compared with the original 11f940f revision. The only differences from that documentation revision were main's equipment evidence entries. Ran `git -c core.editor=true rebase --continue` successfully, retaining three separate commits:
+
+| Original | Rebased | Purpose |
+| --- | --- | --- |
+| 5315951 | 6e02299 | Student implementation and database-free tests |
+| fd26dfc | 8eec279 | PostgreSQL integration tests |
+| 11f940f | 80e65bc | Documentation, combined traceability and original evidence |
+
+`git range-diff c14dff1..11f940f origin/main..HEAD` confirmed both source/test commits are unchanged; only the documentation commit's context reflects the preserved ELS-26 traceability. Updated the live FR01 references to the rebased hashes, corrected README's equipment status and changed the prepared user push command to force-with-lease because the old history was already published. Original hashes above remain as historical evidence.
+
+Post-rebase focused attempts first failed native JVM memory allocation: the original 256 MiB heap attempt failed during compilation; a reduced-memory forked attempt failed before any tests ran. Moved only these generated crash/replay reports into ignored target/ output. Retried without a separate Surefire JVM and with process-local memory limits:
+
+```powershell
+$env:JAVA_HOME = 'C:/Program Files/JetBrains/PyCharm Community Edition 2022.3.1/jbr'
+$env:JAVA_TOOL_OPTIONS = '-Xms16m -Xmx128m -XX:+UseSerialGC -XX:TieredStopAtLevel=1 -XX:ReservedCodeCacheSize=32m -XX:MaxMetaspaceSize=160m -Xss512k'
+.\mvnw.cmd --batch-mode --no-transfer-progress '-DforkCount=0' '-Dtest=StudentServiceTest,StudentControllerTest,ApiExceptionHandlerTest' test
+```
+
+Observed: exit 0, BUILD SUCCESS, 79 tests with zero failures/errors/skips (27 student service, 40 student controller, 12 shared errors). Output: target/els-29-rebase-focused-inprocess.log. The prior failures are captured in target/els-29-rebase-focused.log and target/els-29-rebase-focused-retry.log; they do not establish failing business tests. No Docker or database profile was run, and no automatic push or PR action was taken.
+
+Full integrated verification used the same one-JVM limits plus the already-cached Byte Buddy agent for main's equipment mocks; no dependency or test configuration was changed:
+
+```powershell
+$env:JAVA_TOOL_OPTIONS += ' -javaagent:C:/Users/mosta/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar'
+$env:MAVEN_OPTS = '-Djavax.net.ssl.trustStoreType=Windows-ROOT -Djavax.net.ssl.trustStore=NONE'
+.\mvnw.cmd --batch-mode --no-transfer-progress '-DforkCount=0' '-Daether.connector.connectTimeout=15000' '-Daether.connector.requestTimeout=30000' verify
+```
+
+Observed: exit 0, BUILD SUCCESS, 112 tests with zero failures/errors/skips (79 student/shared plus 33 equipment) and executable JAR packaging. Output: target/els-29-rebase-verify.log. PostgreSQL execution remains pending CI. No unrelated source or original assignment content was modified; crash reports remain only in ignored target/ output.

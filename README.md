@@ -4,7 +4,7 @@ A RESTful Web API for managing equipment loans at a university, built with **Jav
 
 The system will help university staff maintain an inventory of equipment, record student borrowing and returns, check availability, and track overdue loans.
 
-> **Status:** The Spring Boot/PostgreSQL foundation, shared errors and CI workflow are present. ELS-29 implements student registration, retrieval and update with database-free tests; PostgreSQL verification and human review remain pending. Other feature endpoints and staff authentication remain planned.
+> **Status:** The Spring Boot/PostgreSQL foundation, shared errors, CI workflow and ELS-26 equipment management are present. ELS-29 implements student registration, retrieval and update with database-free tests; student PostgreSQL verification and human review remain pending. Loan/query endpoints and staff authentication remain planned.
 
 The [project proposal](docs/proposal.md), [team plan and Sprint 1 kickoff](docs/team-plan.md), and [initial Jira backlog snapshot](docs/jira-backlog.json) define the delivery plan for the submission deadline. Work is tracked on the [ELS Scrum board](https://equipment-lending-system.atlassian.net/jira/software/c/projects/ELS/boards/34).
 
