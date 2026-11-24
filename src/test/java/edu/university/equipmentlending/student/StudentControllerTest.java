@@ -72,7 +72,8 @@ class StudentControllerTest {
     void registrationReturnsCreatedLocationAndExactlyTheNormalizedDto() throws Exception {
         stubInsert(41);
         mvc.perform(post("/api/students").contentType(MediaType.APPLICATION_JSON)
-                        .content(body("  Test Student One \t", " Borrower.One@Example.test ")))
+                        .content(body("\u2003  Test Student One \t\u2003",
+                                "\u2003 Borrower.One@Example.test \u2003")))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", "/api/students/41"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

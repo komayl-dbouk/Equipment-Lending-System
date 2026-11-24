@@ -93,3 +93,11 @@ $env:MAVEN_OPTS = '-Djavax.net.ssl.trustStoreType=Windows-ROOT -Djavax.net.ssl.t
 ```
 
 Observed: exit 0, BUILD SUCCESS, 112 tests with zero failures/errors/skips (79 student/shared plus 33 equipment) and executable JAR packaging. Output: target/els-29-rebase-verify.log. PostgreSQL execution remains pending CI. No unrelated source or original assignment content was modified; crash reports remain only in ignored target/ output.
+
+## Unicode whitespace validation correction
+
+Review reproduced an EM SPACE-only student name being accepted on both POST (201) and PUT (200), instead of 400 VALIDATION_FAILED. Normalization now applies strip() after the existing trim() to both name and email, retaining control-character trimming while removing surrounding Unicode whitespace. Raw validation still precedes normalization; normalized validation rejects required fields that become blank before starting a transaction or accessing repositories.
+
+Regression inputs cover EM SPACE alone and mixed ASCII/Unicode whitespace on registration and replacement updates, with no persistence or transaction interactions. Positive controller/service cases verify that Unicode-padded valid names and emails normalize correctly. StudentPersistenceIT also includes an EM SPACE-only name and checks that both rejected operations preserve database state.
+
+Executed focused validation offline with Java 17 and cached dependencies: mvn -o -q -Denforcer.skip=true -Dtest=StudentServiceTest,StudentControllerTest,ApiExceptionHandlerTest test. Result: 83 tests passed (29 service, 42 controller, 12 shared errors), zero failures/errors/skips. The override accommodates the installed local Maven version without changing the pinned project configuration. PostgreSQL tests compiled but were not executed locally; the new PR CI run must verify that regression. No Docker or dependency downloads were needed. The user requested the fix on Mostafa's existing PR; human approval and merge remain separate.

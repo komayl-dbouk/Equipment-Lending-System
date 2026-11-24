@@ -61,8 +61,8 @@ class StudentServiceTest {
             return student;
         });
 
-        Student result = service.register(new StudentWrite("  Test Student One \t",
-                " Borrower.One@Example.test "));
+        Student result = service.register(new StudentWrite("\u2003  Test Student One \t\u2003",
+                "\u2003 Borrower.One@Example.test \u2003"));
 
         assertThat(result).isEqualTo(new Student(41, "Test Student One", "borrower.one@example.test"));
         var order = inOrder(repository, transactions);
@@ -153,6 +153,8 @@ class StudentServiceTest {
                 new StudentWrite(null, "one@example.test"),
                 new StudentWrite("", "one@example.test"),
                 new StudentWrite(" \t\r\n", "one@example.test"),
+                new StudentWrite("\u2003", "one@example.test"),
+                new StudentWrite(" \t\u2003\r\n", "one@example.test"),
                 new StudentWrite("\u0000", "one@example.test"),
                 new StudentWrite(" ".repeat(2) + "n".repeat(119), "one@example.test"),
                 new StudentWrite("n".repeat(121), "one@example.test"),

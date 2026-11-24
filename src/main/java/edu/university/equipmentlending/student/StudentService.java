@@ -56,8 +56,8 @@ public class StudentService {
 
     private StudentWrite normalize(StudentWrite input) {
         validate(input, Default.class);
-        StudentWrite normalized = new StudentWrite(input.name().trim(),
-                input.email().trim().toLowerCase(Locale.ROOT));
+        StudentWrite normalized = new StudentWrite(input.name().trim().strip(),
+                input.email().trim().strip().toLowerCase(Locale.ROOT));
         validate(normalized, Default.class, StudentWrite.Normalized.class);
         return normalized;
     }

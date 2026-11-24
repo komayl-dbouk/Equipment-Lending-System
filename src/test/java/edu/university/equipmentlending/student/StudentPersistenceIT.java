@@ -154,6 +154,7 @@ class StudentPersistenceIT {
 
     static Stream<String> invalidBodies() {
         return Stream.of(
+                "{\"name\":\"\u2003\",\"email\":\"one@els29.example.test\"}",
                 "{\"name\":\" \",\"email\":\"one@els29.example.test\"}",
                 "{\"name\":\"Test Student\",\"email\":\"not-an-email\"}",
                 "{\"name\":\" " + "n".repeat(120) + "\",\"email\":\"one@els29.example.test\"}",
