@@ -1,0 +1,9 @@
+# ELS-25 Validation and Error Handling
+
+Owner: Hussein Chreif. Implementation was explicitly authorized by the user, including reassignment, one combined local branch for ELS-25/ELS-30, separate task commits, minimal validation, no Docker and no push. These instructions override the default one-card-per-branch convention for this work.
+
+Added the shared ApiError contract, safe centralized MVC error handling, intentional API exceptions and strict unknown-property deserialization. Feature controllers remain out of scope. The advice preserves standard Spring error statuses and headers, handles body/parameter validation and returns sanitized unexpected failures. Domain services must supply safe public messages and classify confirmed persistence conflicts themselves. Authentication integration remains a later task.
+
+Validation: the focused ApiExceptionHandlerTest suite ran successfully with 12 tests and zero failures/errors, without a Spring Boot database context or Docker. It covers field validation, malformed/unknown JSON, malformed/nonpositive IDs, missing query parameters, explicit 400/404/409 errors, sanitized 500 responses and valid input. No business endpoint was added: its fixture exists only in test sources.
+
+The offline attempt was blocked by the uncached pinned Spring Boot parent. A focused Maven run then resolved necessary dependencies. The local Maven installation was used with Java 17 and -Denforcer.skip=true to avoid downloading another Maven distribution; the committed project toolchain requirements were not changed. The command was mvn -q -Denforcer.skip=true -Dtest=ApiExceptionHandlerTest test, with Windows-root certificate trust configured for this process. No full database/profile, startup or remote CI result is claimed. git diff --check passed. Human code review and pushing remain the user's responsibility.

@@ -1,0 +1,9 @@
+# ELS-30 Build and Test Pipeline
+
+Owner: Hussein Chreif. The user authorized this card alongside ELS-25 on one local branch, with separate commits and no push. Added a pull-request/main/manual GitHub Actions workflow using Java 17, the pinned Maven Wrapper and PostgreSQL on the hosted runner. Verify executes unit tests and the existing database-test integration profile. Test reports are retained on failures; repository permissions are read-only, duplicate ref runs are cancelled and execution is time-limited.
+
+Validation: parsed the workflow with the existing cached SnakeYAML parser and checked triggers, permissions, PostgreSQL image/credential alignment, Maven verification and unconditional report retention. The initial Python YAML parser was unavailable, so no package was installed; Java parsing was used instead. The shared error suite already passed 12 focused tests in the ELS-25 change. No additional application test run was needed for this workflow-only change. git diff --check passed.
+
+Docker, PostgreSQL integration, startup and remote GitHub Actions were not run locally. The PostgreSQL service will be provisioned on GitHub after the user pushes and opens a pull request or dispatches the workflow. No successful remote run, PR or human approval is claimed. Pushing and review remain the user's responsibility; Mostafa Younes remains the assigned peer reviewer. No secrets, subject files or unrelated task implementation are included.
+
+Follow-up: the user's screenshot shows the workflow succeeded but emitted Node runtime/setup-java deprecation warnings. Updated checkout to v5, setup-java to v5 and upload-artifact to v6 after checking their official action manifests for Node 24. Java remains 17. Validation is limited to the three action references and git diff --check; no local Docker or application rerun is needed for this version-only change. The updated remote run remains to be observed after the user pushes.
