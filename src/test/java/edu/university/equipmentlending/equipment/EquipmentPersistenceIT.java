@@ -48,6 +48,7 @@ class EquipmentPersistenceIT {
 
         assertHistoryConflict(equipmentId);
         assertRowsPreserved(equipmentId, 1L);
+        assertThat(equipmentService.list().get(0).available()).isFalse();
     }
 
     @Test

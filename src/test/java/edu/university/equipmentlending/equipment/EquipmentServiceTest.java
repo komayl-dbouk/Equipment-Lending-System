@@ -42,7 +42,6 @@ class EquipmentServiceTest {
     @Test
     void createNormalizesFieldsAndDerivesAvailability() {
         when(equipmentRepository.existsByInventoryCode("CAM-001")).thenReturn(false);
-        when(loanRepository.existsByEquipmentIdAndReturnDateIsNull(any())).thenReturn(false);
 
         EquipmentResponse response = service.create(new EquipmentWrite(
                 "  cam-001  ", "  Demo Camera  ", "  Camera  ", "  Lab use  "));
