@@ -1,0 +1,63 @@
+name: Build and test
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Java and PostgreSQL verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17.5-alpine
+        env:
+          POSTGRES_DB: equipment_lending_test
+          POSTGRES_USER: equipment_test
+          # Disposable CI-only credentials for this isolated runner service.
+          POSTGRES_PASSWORD: integration-test-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U equipment_test -d equipment_lending_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      ELS_TEST_DB_URL: jdbc:postgresql://localhost:5432/equipment_lending_test
+      ELS_TEST_DB_USERNAME: equipment_test
+      ELS_TEST_DB_PASSWORD: integration-test-password
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Java 17 and Maven dependency cache
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Enable Maven Wrapper
+        run: chmod +x mvnw
+      - name: Build and run unit and PostgreSQL integration tests
+        run: ./mvnw --batch-mode --no-transfer-progress -Pdatabase-test verify
+      - name: Retain test reports even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            target/surefire-reports/
+            target/failsafe-reports/
+          if-no-files-found: warn
+          retention-days: 7
