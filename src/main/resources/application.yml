@@ -1,6 +1,9 @@
 spring:
   application:
     name: equipment-lending-system
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
   datasource:
     url: ${ELS_DB_URL}
     username: ${ELS_DB_USERNAME}
