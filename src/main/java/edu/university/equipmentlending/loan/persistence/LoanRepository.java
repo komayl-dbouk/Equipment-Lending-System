@@ -7,4 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface LoanRepository extends JpaRepository<LoanEntity, Long> {
 
     List<LoanEntity> findAllByEquipmentIdOrderByIdAsc(Long equipmentId);
+
+    boolean existsByEquipmentId(Long equipmentId);
+
+    boolean existsByEquipmentIdAndReturnDateIsNull(Long equipmentId);
 }
