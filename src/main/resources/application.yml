@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: equipment-lending-system
+  datasource:
+    url: ${ELS_DB_URL}
+    username: ${ELS_DB_USERNAME}
+    password: ${ELS_DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+app:
+  clock-zone: Asia/Beirut
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
