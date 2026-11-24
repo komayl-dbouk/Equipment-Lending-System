@@ -26,4 +26,42 @@ public class EquipmentEntity {
 
     @Column(length = 1000)
     private String description;
+
+    protected EquipmentEntity() {
+    }
+
+    public EquipmentEntity(String inventoryCode, String name, String category, String description) {
+        this.inventoryCode = inventoryCode;
+        this.name = name;
+        this.category = category;
+        this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getInventoryCode() {
+        return inventoryCode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void replaceEditableFields(
+            String inventoryCode, String name, String category, String description) {
+        this.inventoryCode = inventoryCode;
+        this.name = name;
+        this.category = category;
+        this.description = description;
+    }
 }
