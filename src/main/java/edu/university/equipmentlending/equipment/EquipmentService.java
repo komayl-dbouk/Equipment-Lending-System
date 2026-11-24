@@ -110,13 +110,16 @@ public class EquipmentService {
 
     private static NormalizedEquipment normalize(EquipmentWrite request) {
         String inventoryCode = request.inventoryCode().strip().toUpperCase(Locale.ROOT);
-        if (inventoryCode.length() > 50) {
+        String name = request.name().strip();
+        String category = request.category().strip();
+        if (inventoryCode.isBlank() || name.isBlank() || category.isBlank()
+                || inventoryCode.length() > 50) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "VALIDATION_FAILED", "Invalid request");
         }
         return new NormalizedEquipment(
                 inventoryCode,
-                request.name().strip(),
-                request.category().strip(),
+                name,
+                category,
                 request.description() == null ? null : request.description().strip());
     }
 
