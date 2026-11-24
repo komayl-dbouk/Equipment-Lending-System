@@ -19,6 +19,12 @@
 | Final accepted, modified or rejected decision and reason | Implementation is prepared for human review, but automated results remain unclaimed until Java/PostgreSQL CI executes the tests. |
 | Evidence links and lesson learned | Local commits `953318d`, `ae7a57c`, `4472624` and `70f3b2d`; focused tests and PostgreSQL integration tests are under the equipment test package. Record command-level environment failures separately from code-test failures. |
 
+## Controller validation correction
+
+Review reproduced two controller-test failures: deleting IDs zero and negative one returned 204 instead of 400 in standalone MockMvc. Removed class-level @Validated and its import so Spring MVC's built-in method validation applies to @Positive parameters. Existing @Positive and @Valid annotations and test expectations remain unchanged. The user authorized committing and pushing this correction to the existing PR branch. Focused validation uses cached dependencies and no Docker; PostgreSQL integration remains for CI.
+
+Verification passed on this branch: EquipmentControllerTest (15 tests) and EquipmentServiceTest (12 tests), with zero failures/errors. Ran Maven offline with Java 17 and -Denforcer.skip=true for the available local Maven installation; no pinned project toolchain setting was changed. git diff --check passed. The user subsequently authorized Docker when needed; this focused correction did not require it.
+
 ## Jira connector limitation
 
 The available Atlassian connector authorized a different site than the Jira URL recorded in the repository, and `ELS-26` was not found on that authorized site. No unrelated issue was modified. The owner must apply the prepared status and evidence update to the project Jira site unless its connector authorization is corrected.
