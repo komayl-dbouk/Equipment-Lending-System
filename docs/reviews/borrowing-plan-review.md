@@ -30,3 +30,7 @@ These corrections are reflected in [the specification](../specifications/borrow-
 | Implementation and green results | Not executed |
 
 This provides a concrete plan to review before implementation; the Jira Done status was an administrative closure requested by the user and does not replace these records.
+
+## ELS-32 source reconciliation
+
+The earlier missing-skeleton assumptions are superseded by the updated borrowing agent plan at baseline 854ae16. Existing loan persistence, equipment locking, V1 constraints, shared error handling and guarded PostgreSQL test setup have been inspected and will be reused. ELS-32 adds only compiling contract tests and evidence; no lending implementation or human review decision is inferred. Hussein Chalhoub remains the red-test reviewer, and Hussein Chreif must review the ELS-33 minimum implementation plan before feature code.
