@@ -1,0 +1,198 @@
+{
+  "issue": "ELS-51",
+  "branch": "ELS-51-validation-hardening",
+  "base": "ea3d4bb",
+  "result": "pass",
+  "automated": {
+    "surefire-reports": {
+      "tests": 164,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failsafe-reports": {
+      "tests": 39,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "live": {
+    "requests": 220,
+    "checks": 1259,
+    "passed": 1259,
+    "failed": 0
+  },
+  "postman": {
+    "requests": 15,
+    "assertions": 40,
+    "failed": 0,
+    "exit_code": 0,
+    "cloud_published": false
+  },
+  "isolated_probes": {
+    "cases": 22,
+    "passed": 22,
+    "results": [
+      {
+        "case": "equipment inventoryCode int POST",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment inventoryCode int PUT",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment inventoryCode bool POST",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment inventoryCode bool PUT",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment name int POST",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment name int PUT",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment name bool POST",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment name bool PUT",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment category int POST",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment category int PUT",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment category bool POST",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment category bool PUT",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment description int POST",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment description int PUT",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment description bool POST",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment description bool PUT",
+        "expected": 400,
+        "actual": 400,
+        "returned_value": null,
+        "stored_type": "NoneType"
+      },
+      {
+        "case": "equipment embedded NUL inventoryCode",
+        "expected": 400,
+        "actual": 400,
+        "code": "VALIDATION_FAILED"
+      },
+      {
+        "case": "equipment embedded NUL name",
+        "expected": 400,
+        "actual": 400,
+        "code": "VALIDATION_FAILED"
+      },
+      {
+        "case": "equipment embedded NUL category",
+        "expected": 400,
+        "actual": 400,
+        "code": "VALIDATION_FAILED"
+      },
+      {
+        "case": "equipment embedded NUL description",
+        "expected": 400,
+        "actual": 400,
+        "code": "VALIDATION_FAILED"
+      },
+      {
+        "case": "student embedded NUL name",
+        "expected": 400,
+        "actual": 400,
+        "code": "VALIDATION_FAILED"
+      },
+      {
+        "case": "Unicode student name",
+        "expected": 201,
+        "actual": 201
+      }
+    ]
+  },
+  "database_safety": {
+    "markerAfter": 1,
+    "guardMessageFound": true,
+    "unsafeTargetRejected": true,
+    "markerBefore": 1
+  },
+  "test_guard_in_packaged_application": false,
+  "cleanup": {
+    "validation_app_stopped": true,
+    "disposable_databases_removed": true,
+    "temporary_credentials_removed": true
+  }
+}

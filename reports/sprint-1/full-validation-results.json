@@ -1,0 +1,316 @@
+{
+  "revision": "ea3d4bb",
+  "result": "fail",
+  "automated": {
+    "unit_controller": 116,
+    "postgresql_integration": 25,
+    "failed": 0,
+    "skipped": 0
+  },
+  "live": {
+    "requests": 220,
+    "checks": 1247,
+    "passed": 1222,
+    "failed": 25
+  },
+  "postman": {
+    "requests": 15,
+    "assertions": 40,
+    "failed_assertions": 2,
+    "exit_code": 1,
+    "cloud_publication": "not performed"
+  },
+  "isolated_probes": [
+    {
+      "case": "equipment inventoryCode int POST",
+      "expected": 400,
+      "actual": 201,
+      "returned_value": "100001",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment inventoryCode int PUT",
+      "expected": 400,
+      "actual": 200,
+      "returned_value": "100001",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment inventoryCode bool POST",
+      "expected": 400,
+      "actual": 201,
+      "returned_value": "FALSE",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment inventoryCode bool PUT",
+      "expected": 400,
+      "actual": 200,
+      "returned_value": "FALSE",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment name int POST",
+      "expected": 400,
+      "actual": 201,
+      "returned_value": "100001",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment name int PUT",
+      "expected": 400,
+      "actual": 200,
+      "returned_value": "100001",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment name bool POST",
+      "expected": 400,
+      "actual": 201,
+      "returned_value": "false",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment name bool PUT",
+      "expected": 400,
+      "actual": 200,
+      "returned_value": "false",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment category int POST",
+      "expected": 400,
+      "actual": 201,
+      "returned_value": "100001",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment category int PUT",
+      "expected": 400,
+      "actual": 200,
+      "returned_value": "100001",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment category bool POST",
+      "expected": 400,
+      "actual": 201,
+      "returned_value": "false",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment category bool PUT",
+      "expected": 400,
+      "actual": 200,
+      "returned_value": "false",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment description int POST",
+      "expected": 400,
+      "actual": 201,
+      "returned_value": "100001",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment description int PUT",
+      "expected": 400,
+      "actual": 200,
+      "returned_value": "100001",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment description bool POST",
+      "expected": 400,
+      "actual": 201,
+      "returned_value": "false",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment description bool PUT",
+      "expected": 400,
+      "actual": 200,
+      "returned_value": "false",
+      "stored_type": "str"
+    },
+    {
+      "case": "equipment embedded NUL inventoryCode",
+      "expected": 400,
+      "actual": 500,
+      "code": "INTERNAL_ERROR"
+    },
+    {
+      "case": "equipment embedded NUL name",
+      "expected": 400,
+      "actual": 500,
+      "code": "INTERNAL_ERROR"
+    },
+    {
+      "case": "equipment embedded NUL category",
+      "expected": 400,
+      "actual": 500,
+      "code": "INTERNAL_ERROR"
+    },
+    {
+      "case": "equipment embedded NUL description",
+      "expected": 400,
+      "actual": 500,
+      "code": "INTERNAL_ERROR"
+    },
+    {
+      "case": "student embedded NUL name",
+      "expected": 400,
+      "actual": 500,
+      "code": "INTERNAL_ERROR"
+    },
+    {
+      "case": "Unicode student name",
+      "expected": 201,
+      "actual": 201
+    }
+  ],
+  "recovery": [
+    {
+      "name": "Database outage health is 503 DOWN",
+      "passed": true
+    },
+    {
+      "name": "Database outage API gives sanitized 500",
+      "passed": true
+    },
+    {
+      "name": "Database recovery restores health",
+      "passed": true
+    },
+    {
+      "name": "Database recovery restores API without application restart",
+      "passed": true
+    },
+    {
+      "name": "Database restart preserves every fixture row",
+      "passed": true
+    }
+  ],
+  "application_restart": {
+    "application_restart_health_up": true,
+    "application_restart_preserves_all_rows": true
+  },
+  "test_isolation_marker": {
+    "after": 0,
+    "testExit": 0,
+    "database": "equipment_lending_test",
+    "before": 1
+  },
+  "failed_live_assertions": [
+    {
+      "name": "/api/equipment POST inventoryCode 123 status",
+      "expected": 400,
+      "actual": 201
+    },
+    {
+      "name": "/api/equipment PUT inventoryCode 123 status",
+      "expected": 400,
+      "actual": 409
+    },
+    {
+      "name": "/api/equipment PUT inventoryCode 123 error code"
+    },
+    {
+      "name": "/api/equipment POST inventoryCode True status",
+      "expected": 400,
+      "actual": 201
+    },
+    {
+      "name": "/api/equipment PUT inventoryCode True status",
+      "expected": 400,
+      "actual": 409
+    },
+    {
+      "name": "/api/equipment PUT inventoryCode True error code"
+    },
+    {
+      "name": "/api/equipment POST name 123 status",
+      "expected": 400,
+      "actual": 201
+    },
+    {
+      "name": "/api/equipment PUT name 123 status",
+      "expected": 400,
+      "actual": 409
+    },
+    {
+      "name": "/api/equipment PUT name 123 error code"
+    },
+    {
+      "name": "/api/equipment POST name True status",
+      "expected": 400,
+      "actual": 409
+    },
+    {
+      "name": "/api/equipment POST name True error code"
+    },
+    {
+      "name": "/api/equipment PUT name True status",
+      "expected": 400,
+      "actual": 409
+    },
+    {
+      "name": "/api/equipment PUT name True error code"
+    },
+    {
+      "name": "/api/equipment POST category 123 status",
+      "expected": 400,
+      "actual": 409
+    },
+    {
+      "name": "/api/equipment POST category 123 error code"
+    },
+    {
+      "name": "/api/equipment PUT category 123 status",
+      "expected": 400,
+      "actual": 409
+    },
+    {
+      "name": "/api/equipment PUT category 123 error code"
+    },
+    {
+      "name": "/api/equipment POST category True status",
+      "expected": 400,
+      "actual": 409
+    },
+    {
+      "name": "/api/equipment POST category True error code"
+    },
+    {
+      "name": "/api/equipment PUT category True status",
+      "expected": 400,
+      "actual": 409
+    },
+    {
+      "name": "/api/equipment PUT category True error code"
+    },
+    {
+      "name": "Embedded NUL rejected /api/students status",
+      "expected": 400,
+      "actual": 500
+    },
+    {
+      "name": "Embedded NUL rejected /api/students error code"
+    },
+    {
+      "name": "Embedded NUL rejected /api/equipment status",
+      "expected": 400,
+      "actual": 500
+    },
+    {
+      "name": "Embedded NUL rejected /api/equipment error code"
+    }
+  ],
+  "cleanup": {
+    "application_stopped": true,
+    "disposable_database_removed": true,
+    "temporary_credentials_removed": true,
+    "nul_fixture_rows_student": 0,
+    "nul_fixture_rows_equipment": 0
+  }
+}

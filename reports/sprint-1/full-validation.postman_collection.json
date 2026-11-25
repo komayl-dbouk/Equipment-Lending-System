@@ -1,0 +1,496 @@
+{
+  "info": {
+    "name": "Sprint 1 live validation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:18087"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/actuator/health"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const value = pm.response.json();",
+              "pm.test(\"UP\", () => pm.expect(value.status).to.eql(\"UP\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Register student",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/students",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \" PM Student \", \"email\": \" PM@VALIDATION.EXAMPLE.TEST \"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+              "const value = pm.response.json();",
+              "pm.collectionVariables.set(\"studentId\", value.id); pm.test(\"Normalized student\", () => { pm.expect(value.name).to.eql(\"PM Student\"); pm.expect(value.email).to.eql(\"pm@validation.example.test\"); pm.expect(Object.keys(value)).to.have.lengthOf(3); }); pm.test(\"Location\", () => pm.expect(pm.response.headers.get(\"Location\")).to.eql(\"/api/students/\"+value.id));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Read student",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/students/{{studentId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const value = pm.response.json();",
+              "pm.test(\"Stored normalized email\", () => pm.expect(value.email).to.eql(\"pm@validation.example.test\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Replace student",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/students/{{studentId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Changed Student\", \"email\": \" PM@VALIDATION.EXAMPLE.TEST \"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const value = pm.response.json();",
+              "pm.test(\"Replacement\", () => pm.expect(value.name).to.eql(\"Changed Student\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Duplicate email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/students",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Duplicate\", \"email\": \"PM@VALIDATION.EXAMPLE.TEST\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "const value = pm.response.json();",
+              "pm.test(\"Error shape\", () => pm.expect(Object.keys(value).sort()).to.eql([\"timestamp\",\"status\",\"code\",\"message\",\"path\",\"fieldErrors\"].sort()));",
+              "pm.test(\"No SQL or stacktrace leak\", () => pm.expect(pm.response.text()).not.to.match(/SQLException|org\\.hibernate|stackTrace/));",
+              "pm.test(\"Duplicate code\", () => pm.expect(value.code).to.eql(\"DUPLICATE_EMAIL\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid name",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/students/{{studentId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"\\u2003\", \"email\": \"pm@validation.example.test\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const value = pm.response.json();",
+              "pm.test(\"Error shape\", () => pm.expect(Object.keys(value).sort()).to.eql([\"timestamp\",\"status\",\"code\",\"message\",\"path\",\"fieldErrors\"].sort()));",
+              "pm.test(\"No SQL or stacktrace leak\", () => pm.expect(pm.response.text()).not.to.match(/SQLException|org\\.hibernate|stackTrace/));",
+              "pm.test(\"Validation code\", () => pm.expect(value.code).to.eql(\"VALIDATION_FAILED\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rejected update leaves student unchanged",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/students/{{studentId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const value = pm.response.json();",
+              "pm.test(\"No rejected update\", () => pm.expect(value.name).to.eql(\"Changed Student\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create equipment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/equipment",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"inventoryCode\": \" pm-cam \", \"name\": \" PM Camera \", \"category\": \" Camera \", \"description\": \" Detail \"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+              "const value = pm.response.json();",
+              "pm.collectionVariables.set(\"equipmentId\", value.id); pm.test(\"Normalized equipment\", () => { pm.expect(value.inventoryCode).to.eql(\"PM-CAM\"); pm.expect(value.available).to.eql(true); pm.expect(value.description).to.eql(\"Detail\"); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Replace equipment",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/equipment/{{equipmentId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"inventoryCode\": \"PM-CAM\", \"name\": \"Changed Camera\", \"category\": \"Camera\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const value = pm.response.json();",
+              "pm.test(\"Omitted description becomes null\", () => pm.expect(value.description).to.eql(null));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Duplicate equipment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/equipment",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"inventoryCode\": \" pm-cam \", \"name\": \"Duplicate\", \"category\": \"Camera\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "const value = pm.response.json();",
+              "pm.test(\"Error shape\", () => pm.expect(Object.keys(value).sort()).to.eql([\"timestamp\",\"status\",\"code\",\"message\",\"path\",\"fieldErrors\"].sort()));",
+              "pm.test(\"No SQL or stacktrace leak\", () => pm.expect(pm.response.text()).not.to.match(/SQLException|org\\.hibernate|stackTrace/));",
+              "pm.test(\"Duplicate code\", () => pm.expect(value.code).to.eql(\"DUPLICATE_INVENTORY_CODE\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sorted equipment list",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/equipment"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const value = pm.response.json();",
+              "pm.test(\"Sorted array\", () => { const ids=value.map(v=>v.id); pm.expect(ids).to.eql([...ids].sort((a,b)=>a-b)); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Unknown write fields",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/equipment",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"inventoryCode\": \"PM-UNKNOWN\", \"name\": \"Camera\", \"category\": \"Camera\", \"available\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const value = pm.response.json();",
+              "pm.test(\"Error shape\", () => pm.expect(Object.keys(value).sort()).to.eql([\"timestamp\",\"status\",\"code\",\"message\",\"path\",\"fieldErrors\"].sort()));",
+              "pm.test(\"No SQL or stacktrace leak\", () => pm.expect(pm.response.text()).not.to.match(/SQLException|org\\.hibernate|stackTrace/));",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Numeric name must be rejected",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/equipment",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"inventoryCode\": \"PM-NUMERIC\", \"name\": 123, \"category\": \"Camera\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const value = pm.response.json();",
+              "pm.test(\"Error shape\", () => pm.expect(Object.keys(value).sort()).to.eql([\"timestamp\",\"status\",\"code\",\"message\",\"path\",\"fieldErrors\"].sort()));",
+              "pm.test(\"No SQL or stacktrace leak\", () => pm.expect(pm.response.text()).not.to.match(/SQLException|org\\.hibernate|stackTrace/));",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Delete unreferenced equipment",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/equipment/{{equipmentId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));",
+              "pm.test(\"Empty body\", () => pm.expect(pm.response.text()).to.eql(\"\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Deleted equipment missing",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/equipment/{{equipmentId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+              "const value = pm.response.json();",
+              "pm.test(\"Error shape\", () => pm.expect(Object.keys(value).sort()).to.eql([\"timestamp\",\"status\",\"code\",\"message\",\"path\",\"fieldErrors\"].sort()));",
+              "pm.test(\"No SQL or stacktrace leak\", () => pm.expect(pm.response.text()).not.to.match(/SQLException|org\\.hibernate|stackTrace/));",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

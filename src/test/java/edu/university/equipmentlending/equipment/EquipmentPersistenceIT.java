@@ -2,23 +2,71 @@ package edu.university.equipmentlending.equipment;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.university.equipmentlending.equipment.dto.EquipmentWrite;
 import edu.university.equipmentlending.shared.error.ApiException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class EquipmentPersistenceIT {
     @Autowired
     private EquipmentService equipmentService;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private MockMvc mvc;
+
+    @Autowired
+    private ObjectMapper mapper;
+
+    @ParameterizedTest
+    @CsvSource({
+            "inventoryCode, number", "inventoryCode, boolean", "inventoryCode, nul",
+            "name, number", "name, boolean", "name, nul",
+            "category, number", "category, boolean", "category, nul",
+            "description, number", "description, boolean", "description, nul"
+    })
+    void rejectedTextWritesPreserveStoredEquipment(String field, String kind) throws Exception {
+        long id = equipmentService.create(write("ORIGINAL")).id();
+        var before = jdbcTemplate.queryForMap("SELECT * FROM equipment WHERE id = ?", id);
+        Map<String, Object> body = new LinkedHashMap<>(Map.of(
+                "inventoryCode", "REPLACEMENT", "name", "Replacement", "category", "Camera",
+                "description", "New description"));
+        body.put(field, switch (kind) {
+            case "number" -> 123;
+            case "boolean" -> true;
+            default -> "Bad\0Value";
+        });
+        String json = mapper.writeValueAsString(body);
+        mvc.perform(post("/api/equipment").contentType(MediaType.APPLICATION_JSON).content(json))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("VALIDATION_FAILED"));
+        mvc.perform(put("/api/equipment/" + id).contentType(MediaType.APPLICATION_JSON).content(json))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("VALIDATION_FAILED"));
+        assertThat(jdbcTemplate.queryForObject("SELECT count(*) FROM equipment", Long.class)).isEqualTo(1L);
+        assertThat(jdbcTemplate.queryForMap("SELECT * FROM equipment WHERE id = ?", id)).isEqualTo(before);
+    }
 
     @BeforeEach
     void clearFixtures() {

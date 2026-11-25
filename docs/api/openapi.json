@@ -1065,14 +1065,14 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 120,
-            "pattern": "\\S",
+            "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000]*$",
             "description": "Trim whitespace; must remain nonblank."
           },
           "email": {
             "type": "string",
             "minLength": 1,
             "maxLength": 254,
-            "pattern": "\\S",
+            "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000]*$",
             "description": "Trim and lowercase with Locale.ROOT, then validate email syntax; normalized value must be unique."
           }
         },
@@ -1124,28 +1124,29 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 50,
-            "pattern": "\\S",
+            "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000]*$",
             "description": "Trim and uppercase with Locale.ROOT; normalized value must be unique."
           },
           "name": {
             "type": "string",
             "minLength": 1,
             "maxLength": 120,
-            "pattern": "\\S",
+            "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000]*$",
             "description": "Trim whitespace; must remain nonblank."
           },
           "category": {
             "type": "string",
             "minLength": 1,
             "maxLength": 60,
-            "pattern": "\\S",
+            "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000]*$",
             "description": "Free text; trim and require nonblank."
           },
           "description": {
             "type": "string",
             "nullable": true,
             "maxLength": 1000,
-            "description": "Optional; omitted becomes null on create or replacement update."
+            "description": "Optional; omitted becomes null on create or replacement update.",
+            "pattern": "^[^\\u0000]*$"
           }
         },
         "example": {
