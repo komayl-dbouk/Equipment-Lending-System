@@ -17,15 +17,16 @@ docker compose --env-file .env up -d --wait
 $env:ELS_DB_USERNAME = 'equipment_app'
 $env:ELS_DB_PASSWORD = '<your-local-secret>'
 $env:ELS_DB_URL = 'jdbc:postgresql://localhost:5432/equipment_lending'
-$env:ELS_TEST_DB_USERNAME = $env:ELS_DB_USERNAME
-$env:ELS_TEST_DB_PASSWORD = $env:ELS_DB_PASSWORD
-$env:ELS_TEST_DB_URL = $env:ELS_DB_URL
+$env:ELS_TEST_DB_USERNAME = 'equipment_test'
+$env:ELS_TEST_DB_PASSWORD = '<your-separate-test-secret>'
+$env:ELS_TEST_DB_URL = 'jdbc:postgresql://localhost:5433/equipment_lending_test'
+docker compose -p els-tests -f compose.test.yaml --env-file .env up -d --wait
 .\mvnw.cmd verify
 .\mvnw.cmd -Pdatabase-test verify
 .\mvnw.cmd spring-boot:run
 ```
 
-Run `docker compose --env-file .env down` when finished. Do not commit `.env` or any credential. Use `./mvnw` on POSIX shells.
+Run `docker compose --env-file .env down` and `docker compose -p els-tests -f compose.test.yaml --env-file .env down` when finished. Do not commit `.env` or any credential. Use `./mvnw` on POSIX shells.
 
 ## Conventions and scope
 
