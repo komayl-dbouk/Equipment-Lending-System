@@ -42,4 +42,3 @@ Human review of the audit matrix and implementation remains pending. Coverage/st
 ## Jira
 
 [ELS-39 — Audit generated tests and correct three weaknesses](https://equipment-lending-system.atlassian.net/browse/ELS-39)
-
