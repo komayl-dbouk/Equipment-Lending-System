@@ -1,0 +1,146 @@
+{
+    "card":  "ELS-34",
+    "phase":  "green",
+    "baseline":  "6cf5e8f",
+    "redCommit":  "cc53560",
+    "focusedCommand":  "mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dtest=LoanServiceTest -Dit.test=LoanReturnContractIT -Dlogging.level.root=ERROR verify",
+    "focusedExitCode":  0,
+    "focusedReturnTests":  57,
+    "focusedUnchangedBorrowingServiceTests":  8,
+    "fullCommand":  "mvnw.cmd -Pdatabase-test verify",
+    "fullExitCode":  0,
+    "java":  "17.0.21.1",
+    "maven":  "3.9.11",
+    "postgresql":  "17.5",
+    "database":  "isolated equipment_lending_test on 127.0.0.1:15434",
+    "unitTests":  172,
+    "integrationTests":  158,
+    "totalTests":  330,
+    "failures":  0,
+    "errors":  0,
+    "skipped":  0,
+    "testSourceSha256":  "D384D740EC2FBEE3EFCB856ADBE69204D7F786D7524A3798EE038FCB68435864",
+    "suites":  [
+                   {
+                       "kind":  "surefire",
+                       "name":  "edu.university.equipmentlending.DatabaseTestSafetyProcessorTest",
+                       "tests":  12,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "surefire",
+                       "name":  "edu.university.equipmentlending.equipment.EquipmentControllerTest",
+                       "tests":  15,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "surefire",
+                       "name":  "edu.university.equipmentlending.equipment.EquipmentNormalizationTest",
+                       "tests":  6,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "surefire",
+                       "name":  "edu.university.equipmentlending.equipment.EquipmentServiceTest",
+                       "tests":  12,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "surefire",
+                       "name":  "edu.university.equipmentlending.loan.LoanServiceTest",
+                       "tests":  8,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "surefire",
+                       "name":  "edu.university.equipmentlending.shared.error.ApiExceptionHandlerTest",
+                       "tests":  12,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "surefire",
+                       "name":  "edu.university.equipmentlending.StrictWriteValidationTest",
+                       "tests":  36,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "surefire",
+                       "name":  "edu.university.equipmentlending.student.StudentControllerTest",
+                       "tests":  42,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "surefire",
+                       "name":  "edu.university.equipmentlending.student.StudentServiceTest",
+                       "tests":  29,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "failsafe",
+                       "name":  "edu.university.equipmentlending.DatabaseSetupIT",
+                       "tests":  1,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "failsafe",
+                       "name":  "edu.university.equipmentlending.equipment.EquipmentPersistenceIT",
+                       "tests":  16,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "failsafe",
+                       "name":  "edu.university.equipmentlending.loan.BorrowingContractIT",
+                       "tests":  53,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "failsafe",
+                       "name":  "edu.university.equipmentlending.loan.LoanDateValidationIT",
+                       "tests":  9,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "failsafe",
+                       "name":  "edu.university.equipmentlending.loan.LoanReturnContractIT",
+                       "tests":  57,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "kind":  "failsafe",
+                       "name":  "edu.university.equipmentlending.student.StudentPersistenceIT",
+                       "tests":  22,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0
+                   }
+               ],
+    "humanImplementationApproval":  "pending"
+}
