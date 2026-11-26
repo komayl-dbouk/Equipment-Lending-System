@@ -38,3 +38,9 @@ Sanitized suite counts, source hashes and commands are in [green results](../../
 Borrowing controller/service and all pre-existing tests remain unchanged. Separate return controller/service and DTO isolate the endpoint; shared persistence additions are explicit scalar/locking queries, mapped relationship accessors and return-date mutation. No migration, dependency, fines, date-limit rule or unrelated endpoint was added.
 
 Fresh origin fetch after focused verification still reported main at 6cf5e8f; no open ELS-35 PR was returned. Main integration and CI are checked again during delivery. Subject/ is neither tracked nor ignored; no subject content was read/copied/modified. Credentials and execution dates are absent from document names/metadata. ELS-46 authentication, ELS-35 queries, ELS-36 broader acceptance and human peer review remain separate work.
+
+## Delivery observation
+
+Branch pushed with red commit cc53560 and implementation commit 756a435. Final origin fetch still shows main 6cf5e8f; ELS-32 red commit a847e09 is preserved in ancestry. GitHub rejected PR creation with HTTP 403 Resource not accessible by integration, so no PR/reviewer request is claimed. At implementation head GitHub returned no statuses/PR workflow runs; feature-branch push alone is outside the workflow triggers. The [prepared first-person PR](../reviews/els-34-loan-returns-pr.md) can be used after access correction. Jira comment 10066 records results and delivery blocker; the card remains In Progress pending PR/review.
+
+Cleanup completed: task-created PostgreSQL stopped; its disposable data directory and generated password removed after checking the resolved D: path. Portable Java/PostgreSQL binaries remain cached on D:. Task-started Docker is stopped. Raw test logs/JUnit reports remain under ignored target/.
