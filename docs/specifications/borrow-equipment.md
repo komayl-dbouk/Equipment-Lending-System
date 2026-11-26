@@ -79,3 +79,9 @@ This execution update supersedes the pending-approval and not-executed statement
 ## Prohibited modifications
 
 Do not alter unrelated student/equipment behavior, approved public contracts, subject files, security boundaries or dependencies without a justified scope decision. Do not implement return/query features in this card. Do not squash away test-first history or invent human plan approval, test execution or actual effort.
+
+## ELS-33 date-boundary review correction
+
+The request transport format is exactly YYYY-MM-DD with four unsigned year digits and a valid calendar day. Signed/expanded years are rejected with 400 VALIDATION_FAILED before date ordering or persistence, preventing out-of-range PostgreSQL writes. This is input-format validation, not an added business restriction on future borrowing dates or maximum loan duration.
+
+The added LoanDateValidationIT passes nine PostgreSQL cases across both date fields, including a valid year-9999 boundary and independent persisted-state checks. The original 53 BorrowingContractIT cases remain unchanged and pass. The final full suite passes 273 tests (172 unit/controller and 101 PostgreSQL), zero failures/errors/skips; live boundary checks pass 11 requests/11 assertions. [Correction evidence](../../reports/sprint-2/els-33-date-validation-results.json) supersedes the earlier 264-test count.

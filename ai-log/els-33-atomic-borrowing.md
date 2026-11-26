@@ -18,3 +18,13 @@
 | External blocker | The connected GitHub app returned HTTP 403 `Resource not accessible by integration` on PR creation. GitHub CLI is unavailable. The environment's auto-review rejected an attempt to use the stored Git credential, explicitly prohibiting an authorization-path workaround. No PR or review request was created; PR CI status cannot yet be observed. The Atlassian connector also cannot access the ELS Jira site, so its In Progress transition was not made. Manual authorization/PR creation and Jira status update remain necessary. |
 
 The ELS-32 red run and its original evidence remain unchanged in `reports/sprint-2/els-32-test-first-evidence.md`.
+
+## PR review correction: loan date format
+
+Independent review of PR #9 reproduced expanded years accepted by LocalDate.parse: +10000-01-01 returned 201, while +10000000-01-01 and LocalDate's maximum year reached PostgreSQL and returned 500. The user explicitly requested a correction on the existing PR branch.
+
+StrictLoanDateDeserializer now requires the published YYYY-MM-DD shape with four unsigned ASCII year digits before strict calendar parsing. LoanDateValidationIT adds eight rejected-input cases across borrowingDate/dueDate and one valid year-9999 boundary case. Rejections assert VALIDATION_FAILED and no loan/equipment mutation; the positive case checks persisted dates and proves no arbitrary future-date limit was added. Existing BorrowingContractIT remains unchanged.
+
+Executed mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dit.test=LoanDateValidationIT verify: 9/9 integration regressions pass. Full database-test verify passes 273/273 tests (172 unit/controller, 101 PostgreSQL integration), zero failures/errors/skips, using Java 17 and the pinned wrapper/PostgreSQL without an enforcer override. This supersedes the earlier 264-test total after adding nine regressions. The same live Postman boundary collection that failed review now passes 11 requests/11 assertions, exit 0, against the packaged app and an independent live database. No cloud result publication is claimed.
+
+API explanation and OpenAPI request patterns now state the date format explicitly. No migration, borrowing business rule or unrelated feature was changed. Correction results are in reports/sprint-2/els-33-date-validation-results.json; raw logs remain ignored under target/els-33-date-fix. Disposable services and credentials are removed after verification. Peer approval and merge remain separate.

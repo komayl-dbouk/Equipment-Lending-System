@@ -1,0 +1,36 @@
+{
+  "issue": "ELS-33",
+  "pr": 9,
+  "reviewed_base": "02eae99",
+  "correction": "Require exactly four unsigned year digits in YYYY-MM-DD before strict calendar parsing",
+  "automated": {
+    "surefire-reports": {
+      "tests": 172,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failsafe-reports": {
+      "tests": 101,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "new_postgresql_regressions": 9,
+  "original_borrowing_tests_unchanged": 53,
+  "live_postman": {
+    "requests": 11,
+    "assertions": 11,
+    "failures": 0,
+    "exit_code": 0,
+    "cloud_publication": false
+  },
+  "rejected_for_both_date_fields": [
+    "+10000-01-01",
+    "+10000000-01-01",
+    "+999999999-12-31",
+    "-0001-01-01"
+  ],
+  "valid_four_digit_boundary": "9999-12-30 through 9999-12-31"
+}

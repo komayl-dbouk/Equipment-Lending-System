@@ -17,8 +17,12 @@ public final class StrictLoanDateDeserializer extends JsonDeserializer<LocalDate
         if (parser.currentToken() != JsonToken.VALUE_STRING) {
             throw JsonMappingException.from(parser, "Expected an ISO calendar date");
         }
+        String value = parser.getText();
+        if (!value.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
+            throw JsonMappingException.from(parser, "Expected a YYYY-MM-DD calendar date");
+        }
         try {
-            return LocalDate.parse(parser.getText());
+            return LocalDate.parse(value);
         } catch (DateTimeParseException exception) {
             throw JsonMappingException.from(parser, "Invalid ISO calendar date", exception);
         }
