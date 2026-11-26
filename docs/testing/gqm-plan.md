@@ -1,6 +1,6 @@
 # Equipment Lending Goal Question Metric Plan
 
-Version 1. Owner: Hussein Chreif. Reviewer: Hussein Chalhoub. Planning card: ELS-24. Collection and improvement card: ELS-43. Results are not yet collected. Goals apply to the equipment project; previous lab values are excluded.
+Version 1. Owner: Hussein Chreif. Reviewer: Hussein Chalhoub. Planning card: ELS-24. Collection and improvement card: ELS-43. An initial pre-change acceptance/quality baseline is collected below; after-change measurements remain pending. Goals apply to the equipment project; previous lab values are excluded.
 
 ## Goals questions and measurements
 
@@ -24,11 +24,11 @@ Actual effort is the sum of human work by contributors, including prompting, rev
 
 | Measurement | Baseline revision and result | After revision and result | Interpretation | Action and evidence |
 | --- | --- | --- | --- | --- |
-| Core requirement acceptance and integrity defects | Not collected | Not collected | Pending | ELS-36 and ELS-47 |
-| Service line and branch coverage | Not collected | Not collected | Pending | ELS-43 |
+| Core requirement acceptance and integrity defects | FR01-FR07 lending acceptance reverified on b5e6a32; no blocking integrity regression found in the scoped audit | Not collected | Automated acceptance; final release/access checks remain pending | [ELS-38 audit](../../reports/sprint-2/progress-review-and-retrospective.md); ELS-47 |
+| Service line and branch coverage | b5e6a32: line 160/168 (95.24%); branch 61/68 (89.71%); JaCoCo 0.8.11, five service classes | Not collected | Line target met at baseline; assertion quality and uncovered paths still need review | [Baseline](../../reports/sprint-2/quality-baseline.md); ELS-43 |
 | Generated test audit and corrected weaknesses | Not collected | Not collected | Pending | ELS-39 |
 | Deliberate defect detection and restoration | Not collected | Not collected | Pending | ELS-40 |
-| Static analysis and measured correction | Not collected | Not collected | Pending | ELS-43 |
+| Static analysis and measured correction | b5e6a32: SpotBugs plugin 4.8.3.1 / engine 4.8.3, Max effort, Low threshold: 9 warnings, 0 analysis errors | Not collected | Findings require triage; no correction or improvement is claimed | [Baseline](../../reports/sprint-2/quality-baseline.md); ELS-43 |
 | Verified design findings and refactorings | Not collected | Not collected | Pending | ELS-41 and ELS-42 |
 | Estimate versus actual person-hours | Actual effort not supplied | Not collected | Pending | Sprint review cards |
 | Clean setup and delivery acceptance | Not collected | Not collected | Pending | ELS-45 and ELS-47 |

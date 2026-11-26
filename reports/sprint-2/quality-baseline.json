@@ -1,0 +1,288 @@
+{
+  "card": "ELS-38",
+  "purpose": "Pre-Sprint-3 quality baseline; final ELS-43 comparison remains outstanding",
+  "sourceCommit": "b5e6a32ac0485e01cd3dee198785c1cdb45e636b",
+  "sourceTree": "16e6641a417bb92959ec66de20e2b099e7385b49",
+  "jacoco": {
+    "pluginVersion": "0.8.11",
+    "scope": "All production classes reported; service aggregate includes the five top-level feature Service classes; no custom exclusions",
+    "executionData": "Fresh file; append=true accumulates unit and PostgreSQL integration JVMs",
+    "jvmSessionCount": 2,
+    "classesAnalyzed": 36,
+    "serviceAggregate": {
+      "LINE": {
+        "covered": 160,
+        "missed": 8,
+        "total": 168,
+        "percent": 95.24
+      },
+      "BRANCH": {
+        "covered": 61,
+        "missed": 7,
+        "total": 68,
+        "percent": 89.71
+      },
+      "COMPLEXITY": {
+        "covered": 72,
+        "missed": 5,
+        "total": 77,
+        "percent": 93.51
+      }
+    },
+    "services": [
+      {
+        "class": "edu.university.equipmentlending.student.StudentService",
+        "counters": {
+          "INSTRUCTION": {
+            "missed": 0,
+            "covered": 219
+          },
+          "BRANCH": {
+            "missed": 0,
+            "covered": 10
+          },
+          "LINE": {
+            "missed": 0,
+            "covered": 37
+          },
+          "COMPLEXITY": {
+            "missed": 0,
+            "covered": 19
+          },
+          "METHOD": {
+            "missed": 0,
+            "covered": 14
+          },
+          "CLASS": {
+            "missed": 0,
+            "covered": 1
+          }
+        }
+      },
+      {
+        "class": "edu.university.equipmentlending.equipment.EquipmentService",
+        "counters": {
+          "INSTRUCTION": {
+            "missed": 21,
+            "covered": 280
+          },
+          "BRANCH": {
+            "missed": 7,
+            "covered": 33
+          },
+          "LINE": {
+            "missed": 8,
+            "covered": 67
+          },
+          "COMPLEXITY": {
+            "missed": 5,
+            "covered": 29
+          },
+          "METHOD": {
+            "missed": 0,
+            "covered": 14
+          },
+          "CLASS": {
+            "missed": 0,
+            "covered": 1
+          }
+        }
+      },
+      {
+        "class": "edu.university.equipmentlending.loan.LoanReturnService",
+        "counters": {
+          "INSTRUCTION": {
+            "missed": 0,
+            "covered": 115
+          },
+          "BRANCH": {
+            "missed": 0,
+            "covered": 4
+          },
+          "LINE": {
+            "missed": 0,
+            "covered": 20
+          },
+          "COMPLEXITY": {
+            "missed": 0,
+            "covered": 7
+          },
+          "METHOD": {
+            "missed": 0,
+            "covered": 5
+          },
+          "CLASS": {
+            "missed": 0,
+            "covered": 1
+          }
+        }
+      },
+      {
+        "class": "edu.university.equipmentlending.loan.LoanService",
+        "counters": {
+          "INSTRUCTION": {
+            "missed": 0,
+            "covered": 159
+          },
+          "BRANCH": {
+            "missed": 0,
+            "covered": 14
+          },
+          "LINE": {
+            "missed": 0,
+            "covered": 30
+          },
+          "COMPLEXITY": {
+            "missed": 0,
+            "covered": 14
+          },
+          "METHOD": {
+            "missed": 0,
+            "covered": 7
+          },
+          "CLASS": {
+            "missed": 0,
+            "covered": 1
+          }
+        }
+      },
+      {
+        "class": "edu.university.equipmentlending.loan.LoanQueryService",
+        "counters": {
+          "INSTRUCTION": {
+            "missed": 0,
+            "covered": 22
+          },
+          "LINE": {
+            "missed": 0,
+            "covered": 6
+          },
+          "COMPLEXITY": {
+            "missed": 0,
+            "covered": 3
+          },
+          "METHOD": {
+            "missed": 0,
+            "covered": 3
+          },
+          "CLASS": {
+            "missed": 0,
+            "covered": 1
+          }
+        }
+      }
+    ]
+  },
+  "spotbugs": {
+    "mavenPluginVersion": "4.8.3.1",
+    "engineVersion": "4.8.3",
+    "effort": "Max",
+    "threshold": "Low",
+    "scope": "All production classes; no custom include/exclude filter",
+    "analysisErrors": 0,
+    "warningCount": 9,
+    "priorityCounts": {
+      "2": 8,
+      "3": 1
+    },
+    "findings": [
+      {
+        "type": "EI_EXPOSE_REP2",
+        "priority": 2,
+        "category": "MALICIOUS_CODE",
+        "class": "edu.university.equipmentlending.equipment.EquipmentController",
+        "method": "<init>",
+        "sourcePath": "edu/university/equipmentlending/equipment/EquipmentController.java",
+        "startLine": 27,
+        "disposition": "untriaged tool warning"
+      },
+      {
+        "type": "NP_BOOLEAN_RETURN_NULL",
+        "priority": 2,
+        "category": "BAD_PRACTICE",
+        "class": "edu.university.equipmentlending.equipment.EquipmentController",
+        "method": "parseAvailable",
+        "sourcePath": "edu/university/equipmentlending/equipment/EquipmentController.java",
+        "startLine": 56,
+        "disposition": "untriaged tool warning"
+      },
+      {
+        "type": "EI_EXPOSE_REP",
+        "priority": 2,
+        "category": "MALICIOUS_CODE",
+        "class": "edu.university.equipmentlending.loan.persistence.LoanEntity",
+        "method": "getEquipment",
+        "sourcePath": "edu/university/equipmentlending/loan/persistence/LoanEntity.java",
+        "startLine": 61,
+        "disposition": "untriaged tool warning"
+      },
+      {
+        "type": "EI_EXPOSE_REP",
+        "priority": 2,
+        "category": "MALICIOUS_CODE",
+        "class": "edu.university.equipmentlending.loan.persistence.LoanEntity",
+        "method": "getStudent",
+        "sourcePath": "edu/university/equipmentlending/loan/persistence/LoanEntity.java",
+        "startLine": 57,
+        "disposition": "untriaged tool warning"
+      },
+      {
+        "type": "EI_EXPOSE_REP2",
+        "priority": 2,
+        "category": "MALICIOUS_CODE",
+        "class": "edu.university.equipmentlending.loan.persistence.LoanEntity",
+        "method": "<init>",
+        "sourcePath": "edu/university/equipmentlending/loan/persistence/LoanEntity.java",
+        "startLine": 47,
+        "disposition": "untriaged tool warning"
+      },
+      {
+        "type": "EI_EXPOSE_REP2",
+        "priority": 2,
+        "category": "MALICIOUS_CODE",
+        "class": "edu.university.equipmentlending.loan.persistence.LoanEntity",
+        "method": "<init>",
+        "sourcePath": "edu/university/equipmentlending/loan/persistence/LoanEntity.java",
+        "startLine": 46,
+        "disposition": "untriaged tool warning"
+      },
+      {
+        "type": "SE_NO_SERIALVERSIONID",
+        "priority": 3,
+        "category": "BAD_PRACTICE",
+        "class": "edu.university.equipmentlending.shared.config.StrictTextDeserializer",
+        "method": null,
+        "sourcePath": "edu/university/equipmentlending/shared/config/StrictTextDeserializer.java",
+        "startLine": 9,
+        "disposition": "untriaged tool warning"
+      },
+      {
+        "type": "CT_CONSTRUCTOR_THROW",
+        "priority": 2,
+        "category": "BAD_PRACTICE",
+        "class": "edu.university.equipmentlending.shared.error.ApiException",
+        "method": "<init>",
+        "sourcePath": "edu/university/equipmentlending/shared/error/ApiException.java",
+        "startLine": 13,
+        "disposition": "untriaged tool warning"
+      },
+      {
+        "type": "EI_EXPOSE_REP2",
+        "priority": 2,
+        "category": "MALICIOUS_CODE",
+        "class": "edu.university.equipmentlending.student.StudentController",
+        "method": "<init>",
+        "sourcePath": "edu/university/equipmentlending/student/StudentController.java",
+        "startLine": 22,
+        "disposition": "untriaged tool warning"
+      }
+    ]
+  },
+  "tests": {
+    "unitController": 185,
+    "postgresqlIntegration": 177,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+}
