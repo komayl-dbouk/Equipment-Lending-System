@@ -8,7 +8,6 @@ import edu.university.equipmentlending.loan.persistence.LoanRepository;
 import edu.university.equipmentlending.shared.error.ApiException;
 import edu.university.equipmentlending.shared.error.BusinessConflictException;
 import edu.university.equipmentlending.shared.error.ResourceNotFoundException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -58,10 +57,7 @@ public class EquipmentService {
 
     @Transactional(readOnly = true)
     public List<EquipmentResponse> list(Boolean available) {
-        return equipmentRepository.findAllByOrderByIdAsc().stream()
-                .map(this::response)
-                .filter(response -> available == null || response.available() == available)
-                .toList();
+        return equipmentRepository.findAllResponses(available);
     }
 
     @Transactional
@@ -133,19 +129,14 @@ public class EquipmentService {
             DataIntegrityViolationException exception, String sqlState, String constraintName) {
         Throwable cause = exception;
         while (cause != null) {
-            if (cause instanceof SQLException sqlException
-                    && sqlState.equals(sqlException.getSQLState())
-                    && containsConstraint(sqlException.getMessage(), constraintName)) {
+            if (cause instanceof org.hibernate.exception.ConstraintViolationException violation
+                    && sqlState.equals(violation.getSQLState())
+                    && constraintName.equals(violation.getConstraintName())) {
                 return true;
             }
             cause = cause.getCause();
         }
         return false;
-    }
-
-    private static boolean containsConstraint(String message, String constraintName) {
-        return message != null
-                && message.toLowerCase(Locale.ROOT).contains(constraintName.toLowerCase(Locale.ROOT));
     }
 
     private static ResourceNotFoundException equipmentNotFound() {
