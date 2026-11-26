@@ -70,7 +70,21 @@
     "jarSha256": "1c3a7512d1b5889f1d2d5849155bb8c9ca983ea559ff106a1bf55dd08f46410e"
   },
   "humanEvidence": {
-    "actualPersonHours": "not recorded",
+    "actualPersonHours": {
+      "classification": "project-lead-confirmed approximate actual effort",
+      "confirmedBy": "Hussein Chreif",
+      "members": {
+        "Hussein Chreif": 6,
+        "Komayl Dbouk": 5,
+        "Mostafa Younes": 5,
+        "Hussein Chalhoub": 4
+      },
+      "total": 20,
+      "originalEstimateTotal": 20,
+      "varianceTotal": 0,
+      "perCardSessions": "not supplied",
+      "precision": "retrospective estimate; not precise time tracking"
+    },
     "meetingAttendance": "not recorded",
     "teamFeedback": "technical observations; no attributed meeting feedback",
     "peerReview": "waived by project lead for ELS-38"

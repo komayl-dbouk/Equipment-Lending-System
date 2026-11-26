@@ -30,5 +30,5 @@ Actual effort is the sum of human work by contributors, including prompting, rev
 | Deliberate defect detection and restoration | Not collected | Not collected | Pending | ELS-40 |
 | Static analysis and measured correction | b5e6a32: SpotBugs plugin 4.8.3.1 / engine 4.8.3, Max effort, Low threshold: 9 warnings, 0 analysis errors | Not collected | Findings require triage; no correction or improvement is claimed | [Baseline](../../reports/sprint-2/quality-baseline.md); ELS-43 |
 | Verified design findings and refactorings | Not collected | Not collected | Pending | ELS-41 and ELS-42 |
-| Estimate versus actual person-hours | Actual effort not supplied | Not collected | Pending | Sprint review cards |
+| Estimate versus actual person-hours | Sprint 2: original 20h; project-lead-confirmed approximate actual 20h; variance 0h, ratio 1.00 | Later sprint not collected | Retrospective estimates; per-card sessions and variance explanations not supplied | [Sprint 2 effort record](../../reports/sprint-2/progress-review-and-retrospective.md) |
 | Clean setup and delivery acceptance | Not collected | Not collected | Pending | ELS-45 and ELS-47 |

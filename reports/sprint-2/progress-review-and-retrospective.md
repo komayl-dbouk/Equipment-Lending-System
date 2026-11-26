@@ -6,7 +6,7 @@ Jira: ELS-38. Owner: Hussein Chreif. The project lead waived the separate Mostaf
 
 The lending increment is technically verified on merged main `b5e6a32ac0485e01cd3dee198785c1cdb45e636b`. Borrowing, returns, availability, overdue loans, filtered history and PostgreSQL integrity meet the Sprint 2 implementation criteria. No blocking product regression was found in this audit. ELS-32 through ELS-37 are Done; ELS-38 records the technical audit and administrative closeout. The effort limitations below remain explicit; no additional peer approval is required for this card.
 
-The results describe automated and source-based validation. A four-person meeting, attendance, actual person-hours and team consensus are not established by automated execution. Actual hours are not recorded. The retrospective records technical observations from inspected evidence.
+The results describe automated and source-based validation. A four-person meeting, attendance, actual person-hours and team consensus are not established by automated execution. Approximate actual effort is confirmed by the project lead in the effort record below. The retrospective records technical observations from inspected evidence.
 
 ## Merged work and verified peer decisions
 
@@ -57,17 +57,17 @@ ELS-37 documentation is byte-for-byte unchanged from the independently reviewed 
 
 ## Effort record
 
-Original estimates remain unchanged. Actual person-hours were not recorded, so no actual total, estimate variance or productivity ratio is reported. Human effort includes prompting, inspection, correction, testing, documentation and peer review, rather than AI elapsed runtime.
+Original estimates remain unchanged. Hussein Chreif confirmed the following retrospective estimates of actual effort: 6h for Hussein Chreif, 5h for Komayl Dbouk, 5h for Mostafa Younes and 4h for Hussein Chalhoub. These are approximate actual person-hours confirmed by the project lead, not precise time tracking or separate confirmations from each member. They include prompting, inspection, correction, testing, documentation and peer review, rather than AI elapsed runtime.
 
-| Member | Assigned Sprint 2 cards | Original estimate | Actual person-hours |
-| --- | --- | --- | --- |
-| Hussein Chreif | ELS-32, ELS-38 | 4h | Not recorded |
-| Komayl Dbouk | ELS-33, ELS-37 | 7h | Not recorded |
-| Mostafa Younes | ELS-34, ELS-36 | 6h | Not recorded |
-| Hussein Chalhoub | ELS-35 | 3h | Not recorded |
-| Total | Seven cards | 20h | Not recorded |
+| Member | Assigned Sprint 2 cards | Original estimate | Confirmed approximate actual | Variance |
+| --- | --- | --- | --- | --- |
+| Hussein Chreif | ELS-32, ELS-38 | 4h | 6h | +2h |
+| Komayl Dbouk | ELS-33, ELS-37 | 7h | 5h | -2h |
+| Mostafa Younes | ELS-34, ELS-36 | 6h | 5h | -1h |
+| Hussein Chalhoub | ELS-35 | 3h | 4h | +1h |
+| Total | Seven cards | 20h | 20h | 0h |
 
-The [effort template](../../docs/testing/evidence-templates.md) supports recording real sessions in subsequent work. No estimated allowance is entered as an actual Jira worklog.
+Variance is confirmed approximate actual minus original assigned-card estimates. The aggregate ratio is 20/20 = 1.00; this does not establish productivity or explain individual differences. Per-card/session allocations and variance explanations are not supplied, so no detailed Jira worklogs are inferred. The [effort template](../../docs/testing/evidence-templates.md) supports more precise session records in subsequent work.
 
 ## Technical retrospective
 
@@ -85,7 +85,7 @@ Sprint 3 process improvement: preserve a coverage/static-analysis baseline on th
 
 | Item | Owner / follow-up | Effect |
 | --- | --- | --- |
-| Human effort and meeting records | Retain the explicit limitation | Not recorded; no additional peer review required for ELS-38 by the project lead's instruction |
+| Human effort and meeting records | Project lead confirmed approximate effort; preserve evidence limits | 20 person-hours confirmed in aggregate; per-card sessions and meeting records not supplied; ELS-38 review waived |
 | Baseline measurement before quality changes | Captured for ELS-43 handoff | [Measured baseline](quality-baseline.md) retained; final ELS-43 comparison/correction remains outstanding |
 | Audit at least ten generated tests and correct at least three real weaknesses | Mostafa, ELS-39 | Planned Sprint 3 quality evidence |
 | Deliberate defect detection and restoration | Hussein Chalhoub, ELS-40 | Temporary experiment only; never merge the deliberate defect |
@@ -99,6 +99,6 @@ The future quality/delivery schedules were reconciled in Jira into nonoverlappin
 
 ## Closeout decision
 
-Technical increment: passed. The project lead requested administrative closeout and waived Mostafa's separate ELS-38 review. Actual hours and a team meeting remain unrecorded; these limitations do not become completed measurements. The closeout changes use the normal issue branch and PR workflow. No production change was necessary for this audit.
+Technical increment: passed. The project lead requested administrative closeout and waived Mostafa's separate ELS-38 review. Approximate actual effort totals 20 person-hours as confirmed by the project lead. Precise sessions and a team meeting remain unrecorded. The closeout changes use the normal issue branch and PR workflow. No production change was necessary for this audit.
 
 The administrative closeout is authorized by the project lead. Repository publication uses an ELS-38 commit and PR; merging remains a human action under AGENTS.md.
