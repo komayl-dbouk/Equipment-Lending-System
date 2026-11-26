@@ -40,3 +40,7 @@ Avoided ELS-41's EquipmentService, EquipmentRepository, EquipmentServiceTest and
 Fourteen baseline methods were inspected: 11 Meaningful and three Weak. Three distinct weak oracles were corrected: complete student history, an observable Beirut date boundary and physical-equipment index selectivity. No wrong-oracle finding, human acceptance, hours, coverage improvement, statistical mutation score or performance result was invented. Human verification of the matrix and implementation remains pending review by Komayl.
 
 The published GQM coverage/static-analysis baseline remains historical. ELS-40/41/42/43 retain their separate acceptance criteria. Authentication and HTTPS remain ELS-46. ELS-44 has not started and requires a separate user decision plus accepted/merged dependencies. No self-approval, merge or premature Done is authorized.
+
+## PR delivery observation
+
+Plan commit 31a63bf, corrected-test/probe commit cc1997b and evidence commit 65ad9a3 were pushed to ELS-39-generated-test-audit. GitHub's integration rejected PR creation with HTTP 403 Resource not accessible by integration. PR creation, reviewer request and remote CI therefore remain unclaimed at this observation. The [prepared author-perspective description](../../docs/reviews/els-39-generated-test-audit-pr.md) contains the exact requested title and structure. Human creation or corrected integration access is required to finish PR delivery; subsequent PR/CI/Jira observations are recorded on ELS-39. Intended reviewer: komayl-dbouk. No ELS-44 work is included.
