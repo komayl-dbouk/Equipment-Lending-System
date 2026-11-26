@@ -1247,7 +1247,8 @@
           "returnDate": {
             "type": "string",
             "format": "date",
-            "description": "Must be on or after the loan borrowingDate."
+            "description": "YYYY-MM-DD with exactly four unsigned year digits and a valid calendar day. Must be on or after the loan borrowingDate; no future-date restriction.",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
           }
         }
       },
