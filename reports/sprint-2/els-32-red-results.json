@@ -1,0 +1,377 @@
+{
+  "issue": "ELS-32",
+  "branch": "ELS-32-borrowing-red-tests",
+  "baseline": "854ae16",
+  "planning_commit": "ef2aa12",
+  "red_test_commit": "a847e09",
+  "phase": "expected-red",
+  "focused_exit_code": 1,
+  "full_profile_exit_code": 1,
+  "unit_tests": [
+    {
+      "suite": "edu.university.equipmentlending.DatabaseTestSafetyProcessorTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "edu.university.equipmentlending.equipment.EquipmentControllerTest",
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "edu.university.equipmentlending.equipment.EquipmentNormalizationTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "edu.university.equipmentlending.equipment.EquipmentServiceTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "edu.university.equipmentlending.shared.error.ApiExceptionHandlerTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "edu.university.equipmentlending.StrictWriteValidationTest",
+      "tests": 36,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "edu.university.equipmentlending.student.StudentControllerTest",
+      "tests": 42,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "edu.university.equipmentlending.student.StudentServiceTest",
+      "tests": 29,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "integration_tests": [
+    {
+      "suite": "edu.university.equipmentlending.DatabaseSetupIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "edu.university.equipmentlending.equipment.EquipmentPersistenceIT",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "edu.university.equipmentlending.loan.BorrowingContractIT",
+      "tests": 53,
+      "failures": 53,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "edu.university.equipmentlending.student.StudentPersistenceIT",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "borrowing_cases": [
+    {
+      "test": "returnedHistoryAllowsReborrowWithoutChangingHistory",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 201\n but was: 404"
+    },
+    {
+      "test": "malformedOrAbsentBodiesDoNotWrite(String)[1]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "malformedOrAbsentBodiesDoNotWrite(String)[2]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "malformedOrAbsentBodiesDoNotWrite(String)[3]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "malformedOrAbsentBodiesDoNotWrite(String)[4]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "omittedAndNullFieldsDoNotWrite(String, boolean)[1]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "omittedAndNullFieldsDoNotWrite(String, boolean)[2]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "omittedAndNullFieldsDoNotWrite(String, boolean)[3]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "omittedAndNullFieldsDoNotWrite(String, boolean)[4]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "omittedAndNullFieldsDoNotWrite(String, boolean)[5]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "omittedAndNullFieldsDoNotWrite(String, boolean)[6]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "omittedAndNullFieldsDoNotWrite(String, boolean)[7]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "omittedAndNullFieldsDoNotWrite(String, boolean)[8]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "equalOrReversedDatesAreRejectedWithoutWrites(int)[1]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "equalOrReversedDatesAreRejectedWithoutWrites(int)[2]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "createsOneCommittedLoanWithExactDtoAndMakesEquipmentUnavailable",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 201\n but was: 404"
+    },
+    {
+      "test": "unknownWriteFieldsDoNotWrite(String)[1]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "unknownWriteFieldsDoNotWrite(String)[2]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "unknownWriteFieldsDoNotWrite(String)[3]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "unknownWriteFieldsDoNotWrite(String)[4]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[1]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[2]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[3]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[4]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[5]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[6]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[7]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[8]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[9]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[10]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[11]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[12]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[13]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[14]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[15]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[16]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[17]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[18]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[19]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[20]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[21]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[22]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[23]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[24]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[25]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[26]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[27]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "invalidFieldTypesValuesAndDatesDoNotWrite(String, Object)[28]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 400\n but was: 404"
+    },
+    {
+      "test": "failedInsertRollsBackAndDoesNotClaimSuccessOrConsumeAvailability",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 500\n but was: 404"
+    },
+    {
+      "test": "activeLoanConflictPreservesOriginalHistory",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: 409\n but was: 404"
+    },
+    {
+      "test": "competingRequestsProduceOneCreatedOneConflictAndOneActiveRow",
+      "failure_type": "java.lang.AssertionError",
+      "message": "Expecting actual:\n  [404, 404]\nto contain exactly in any order:\n  [201, 409]\nelements not found:\n  [201, 409]\nand elements not expected:\n  [404, 404]"
+    },
+    {
+      "test": "missingReferencesHaveBusiness404AndDoNotWrite(String)[1]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: \"STUDENT_NOT_FOUND\"\n but was: \"VALIDATION_FAILED\""
+    },
+    {
+      "test": "missingReferencesHaveBusiness404AndDoNotWrite(String)[2]",
+      "failure_type": "org.opentest4j.AssertionFailedError",
+      "message": "expected: \"EQUIPMENT_NOT_FOUND\"\n but was: \"VALIDATION_FAILED\""
+    }
+  ],
+  "fixture_cleanup": {
+    "owned_students": 0,
+    "owned_equipment": 0,
+    "owned_trigger": 0,
+    "owned_function": 0,
+    "owned_sequence": 0
+  },
+  "implementation": "not added",
+  "human_review": "pending",
+  "delivery_authentication": "deferred to ELS-46",
+  "disposable_database_removed": true,
+  "temporary_credentials_removed": true
+}

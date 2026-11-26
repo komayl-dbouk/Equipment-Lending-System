@@ -37,4 +37,31 @@ public class LoanEntity {
 
     @Column(name = "return_date")
     private LocalDate returnDate;
+
+    protected LoanEntity() {
+    }
+
+    public LoanEntity(StudentEntity student, EquipmentEntity equipment,
+            LocalDate borrowingDate, LocalDate dueDate) {
+        this.student = student;
+        this.equipment = equipment;
+        this.borrowingDate = borrowingDate;
+        this.dueDate = dueDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDate getBorrowingDate() {
+        return borrowingDate;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
 }

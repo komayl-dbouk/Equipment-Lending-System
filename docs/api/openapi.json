@@ -1226,12 +1226,14 @@
           },
           "borrowingDate": {
             "type": "string",
-            "format": "date"
+            "format": "date",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
           },
           "dueDate": {
             "type": "string",
             "format": "date",
-            "description": "Must be strictly later than borrowingDate."
+            "description": "Must be strictly later than borrowingDate.",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
           }
         }
       },

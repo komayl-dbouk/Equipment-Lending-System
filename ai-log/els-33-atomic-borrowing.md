@@ -1,0 +1,30 @@
+# ELS-33 Atomic Borrowing AI Interaction
+
+| Field | Observed record |
+| --- | --- |
+| Owner and reviewer | Komayl Dbouk; Hussein Chreif |
+| Tool | Codex; exact model metadata not recorded |
+| Instruction | Implement only atomic POST /api/loans from reviewed ELS-32 commit b9718fa, preserve red evidence, run focused and full PostgreSQL checks, then push and request review. |
+| Approval | The user confirmed Hussein Chreif's plan approval and Hussein Chalhoub's red-test approval in Jira. PR #8 shows Hussein Chalhoub's APPROVED review and Hussein Chreif's approval statement. Jira comments could not be retrieved through the currently authorized Atlassian site. |
+| Source inspection | Read AGENTS.md, borrowing specification/plan, ELS-32 red evidence, existing persistence, equipment lock, student transaction pattern, shared errors, V1 index and guarded test setup. |
+| Interpretation | Strict loan IDs are JSON integer tokens within int64; dates are ISO calendar-date strings. The service checks date order, verifies student, locks equipment, checks active state and flushes the loan in one REQUIRES_NEW transaction. Only confirmed SQLSTATE 23505 on ux_loan_active_equipment maps to EQUIPMENT_UNAVAILABLE after rollback. |
+| Implementation | Added POST controller, write/response DTOs, strict deserializers, minimal LoanEntity constructor/accessors, service transaction and focused service tests. No migration or unrelated endpoint was added. |
+| Branch and chronology | Created ELS-33-atomic-borrowing at b9718fa. Preserved ELS-32 commits ef2aa12, a847e09 and b9718fa; implementation commit afd9bee follows them. |
+| Commands and results | `git fetch origin --prune` succeeded; exact reviewed commit/ancestor checks succeeded; `git diff --cached --check` passed before implementation commit. Java 17.0.21 and PostgreSQL 17.5 were verified. `mvnw.cmd --batch-mode --no-transfer-progress -Dtest=LoanServiceTest test`: 8/8 passed. Focused `mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dit.test=BorrowingContractIT -Dlogging.level.root=WARN verify`: 53/53 borrowing IT passed; 172 Surefire tests also passed. Full `mvnw.cmd -o -q -Pdatabase-test -Dlogging.level.root=ERROR verify`: exit 0, 172 Surefire plus 92 Failsafe tests, 264 total, zero failures/errors/skips. All database runs used the guarded separate `equipment_lending_test` database on `127.0.0.1:15433` via `compose.test.yaml`. |
+| Jira status | Atlassian connector rejects the ELS site as unauthorized. No unrelated issue was changed; an Atlassian connection suggestion was presented. The owner must apply In Progress/review evidence if access remains unavailable. |
+| Correction | The first focused PostgreSQL attempt reached context startup but adding computed LoanEntity `getEquipmentId`/`getStudentId` getters collided with Spring Data's existing derived query method. Removed those getters, built the DTO from loaded references and reran focused and full profiles successfully. An earlier offline attempt could not resolve an uncached pinned Failsafe plugin; the online retry resolved it. Neither infrastructure failure was recorded as a contract result. |
+| Specification comparison | BOR01–BOR07 met; BOR08 request-shape portion met. Authentication remains ELS-46. See the explicit results in `docs/specifications/borrow-equipment.md`. |
+| Branch delivery | Correction/evidence commit `3f9e49d` follows implementation commit `afd9bee`. `git diff --cached --check` passed before commit; `git diff --check origin/main...HEAD` passed; the ELS-32 red commit remains an ancestor. `git push -u origin ELS-33-atomic-borrowing` succeeded. |
+| External blocker | The connected GitHub app returned HTTP 403 `Resource not accessible by integration` on PR creation. GitHub CLI is unavailable. The environment's auto-review rejected an attempt to use the stored Git credential, explicitly prohibiting an authorization-path workaround. No PR or review request was created; PR CI status cannot yet be observed. The Atlassian connector also cannot access the ELS Jira site, so its In Progress transition was not made. Manual authorization/PR creation and Jira status update remain necessary. |
+
+The ELS-32 red run and its original evidence remain unchanged in `reports/sprint-2/els-32-test-first-evidence.md`.
+
+## PR review correction: loan date format
+
+Independent review of PR #9 reproduced expanded years accepted by LocalDate.parse: +10000-01-01 returned 201, while +10000000-01-01 and LocalDate's maximum year reached PostgreSQL and returned 500. The user explicitly requested a correction on the existing PR branch.
+
+StrictLoanDateDeserializer now requires the published YYYY-MM-DD shape with four unsigned ASCII year digits before strict calendar parsing. LoanDateValidationIT adds eight rejected-input cases across borrowingDate/dueDate and one valid year-9999 boundary case. Rejections assert VALIDATION_FAILED and no loan/equipment mutation; the positive case checks persisted dates and proves no arbitrary future-date limit was added. Existing BorrowingContractIT remains unchanged.
+
+Executed mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dit.test=LoanDateValidationIT verify: 9/9 integration regressions pass. Full database-test verify passes 273/273 tests (172 unit/controller, 101 PostgreSQL integration), zero failures/errors/skips, using Java 17 and the pinned wrapper/PostgreSQL without an enforcer override. This supersedes the earlier 264-test total after adding nine regressions. The same live Postman boundary collection that failed review now passes 11 requests/11 assertions, exit 0, against the packaged app and an independent live database. No cloud result publication is claimed.
+
+API explanation and OpenAPI request patterns now state the date format explicitly. No migration, borrowing business rule or unrelated feature was changed. Correction results are in reports/sprint-2/els-33-date-validation-results.json; raw logs remain ignored under target/els-33-date-fix. Disposable services and credentials are removed after verification. Peer approval and merge remain separate.
