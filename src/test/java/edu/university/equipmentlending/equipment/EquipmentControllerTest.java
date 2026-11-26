@@ -78,7 +78,7 @@ class EquipmentControllerTest {
 
     @Test
     void listReturnsAscendingServiceResultsWithAvailability() throws Exception {
-        when(service.list()).thenReturn(List.of(response(1L, false), response(2L, true)));
+        when(service.list(null)).thenReturn(List.of(response(1L, false), response(2L, true)));
 
         mvc.perform(get("/api/equipment"))
                 .andExpect(status().isOk())
@@ -88,8 +88,20 @@ class EquipmentControllerTest {
     }
 
     @Test
-    void availabilityFilterRemainsReservedForEls35() throws Exception {
+    void availabilityFilterDelegatesExactBooleanValue() throws Exception {
+        when(service.list(true)).thenReturn(List.of(response(2L, true)));
+
         mvc.perform(get("/api/equipment").queryParam("available", "true"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(2))
+                .andExpect(jsonPath("$[0].available").value(true));
+        verify(service).list(true);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", "TRUE", " false", "yes", "1"})
+    void invalidAvailabilityFilterReturnsValidationError(String available) throws Exception {
+        mvc.perform(get("/api/equipment").queryParam("available", available))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("VALIDATION_FAILED"));
     }

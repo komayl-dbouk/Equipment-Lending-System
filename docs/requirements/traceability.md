@@ -25,6 +25,16 @@ This update supersedes the pending ELS-33 cells above. FR03 and FR04 are impleme
 
 ELS-33 review correction: expanded/signed loan years are rejected before persistence under the documented YYYY-MM-DD transport format. LoanDateValidationIT adds nine passing PostgreSQL regressions; the unchanged 53 borrowing cases pass. Latest full profile: 273 tests passed (172 unit/controller, 101 integration), no failures/errors/skips. [Date correction evidence](../../reports/sprint-2/els-33-date-validation-results.json) supersedes the earlier 264-test total.
 
+## ELS-35 execution update
+
+ELS-35 adds read-only lending queries for equipment availability, filtered loan history,
+and overdue loans. Equipment availability is derived from active-loan history; loan filters
+are combined with AND; overdue loans are unreturned loans whose due date is strictly before
+the Beirut-local current date supplied by the application clock.
+
+Focused controller tests passed (28 tests) and the full unit suite passed (185 tests).
+The isolated PostgreSQL 17.5 verification also passed: 116 integration tests with zero failures,
+errors, or skips. The complete database-profile verification therefore passed 301 tests.
 ## ELS-34 execution update
 
 FR05 and the NFR01 return portion are locally verified by 57 new return contract cases on isolated PostgreSQL 17.5, including real equipment-lock contention, a single winning return, preserved original date/history, restored availability, reborrow and flush/deferred-commit rollback. The full profile passes 330/330 tests (172 unit/controller, 158 integration); existing borrowing/date tests are unchanged. [Red results](../../reports/sprint-2/els-34-red-results.json), [green results](../../reports/sprint-2/els-34-green-results.json) and [human-reviewed plan](../specifications/return-agent-plan.md) retain chronology and observations. ELS-36 broader acceptance and ELS-34 human implementation approval remain pending.

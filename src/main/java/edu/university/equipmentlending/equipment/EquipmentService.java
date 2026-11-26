@@ -53,8 +53,14 @@ public class EquipmentService {
 
     @Transactional(readOnly = true)
     public List<EquipmentResponse> list() {
+        return list(null);
+    }
+
+    @Transactional(readOnly = true)
+    public List<EquipmentResponse> list(Boolean available) {
         return equipmentRepository.findAllByOrderByIdAsc().stream()
                 .map(this::response)
+                .filter(response -> available == null || response.available() == available)
                 .toList();
     }
 
