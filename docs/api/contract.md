@@ -1,88 +1,123 @@
 # Equipment Lending API Contract
 
-Version 1. This is the planned interface for ELS-21, ELS-25 and feature implementation. [openapi.json](openapi.json) is the machine-readable interface source. Maintain this explanation, requirements and examples with it; a later generated runtime spec must be compared against this baseline rather than silently replace it.
+This document describes the behavior implemented on `main` for ELS-29, ELS-26, ELS-33,
+ELS-34 and ELS-35. [openapi.json](openapi.json) is the machine-readable companion. The
+requirements remain authoritative for release scope; this contract records what the current
+application actually exposes.
 
-## Conventions
+## Runtime and delivery boundary
 
-Base URL for the local demonstration is http://localhost:8080. Prefix every data route with /api. Requests/responses use application/json, except successful equipment deletion has no response body. Delivery operations require staff Basic authentication; inject credentials through the client environment and never commit them. A 401 includes WWW-Authenticate. Remote access must use HTTPS.
+The local base URL is `http://localhost:8080`; every data route starts with `/api` and uses
+JSON, except a successful equipment deletion, which has no response body. The current
+application does **not** enforce authentication or terminate HTTPS. Staff-only Basic
+authentication, `401` responses and HTTPS for remote delivery remain required under ELS-46.
+They are retained as pending delivery requirements rather than reported as implemented
+behavior.
 
-Use positive integer IDs and strict ISO calendar dates. Loan date inputs must match YYYY-MM-DD with exactly four unsigned year digits and a valid calendar day; signed or expanded years return 400 VALIDATION_FAILED before persistence. StudentWrite is name and email; EquipmentWrite is inventoryCode, name, category and nullable optional description; LoanWrite is studentId, equipmentId, borrowingDate and dueDate; ReturnWrite is returnDate. No writable ID, availability or nested entity. Text properties require JSON strings (or null only where optional); numbers and booleans are rejected rather than coerced. Embedded U+0000 is rejected with 400 VALIDATION_FAILED before persistence. Required fields and maxima are defined in [requirements](../requirements/requirements.md) and OpenAPI.
+Requests use server-generated positive 64-bit IDs. Loan date inputs accept only JSON strings
+matching `YYYY-MM-DD` with exactly four unsigned year digits and a valid calendar day. Signed,
+expanded, impossible and non-string dates return `400 VALIDATION_FAILED`. Error timestamps
+are UTC instants; the overdue boundary uses the injected application clock in `Asia/Beirut`.
 
-Student responses contain id, name and normalized email. Equipment responses contain id, normalized inventoryCode, name, category, description and derived available. Loan responses contain id, studentId, equipmentId, borrowingDate, dueDate and nullable returnDate. Lists are arrays ordered by ascending ID.
+Unknown write properties are rejected. Text properties must be JSON strings, except that
+equipment `description` may be null or omitted. Numbers and booleans are not coerced to text.
+Embedded U+0000 is rejected. Raw request strings must satisfy their maximum lengths before
+normalization.
 
-## Operations and acceptance
+## Endpoint inventory
 
-| Method | Route | Success | Business and validation errors |
+| Method | Route | Implemented success | Implemented client failures |
 | --- | --- | --- | --- |
-| POST | /api/students | 201 Student; Location points to /api/students/{id} | 400 invalid body; 409 duplicate normalized email |
-| GET | /api/students/{id} | 200 Student | 400 invalid ID; 404 unknown student |
-| PUT | /api/students/{id} | 200 Student; full replacement of editable fields | 400 invalid input; 404 missing; 409 email used by another student |
-| POST | /api/equipment | 201 Equipment | 400 invalid body; 409 duplicate normalized code |
-| GET | /api/equipment | 200 Equipment[] | 400 invalid boolean filter |
-| PUT | /api/equipment/{id} | 200 Equipment; full replacement of editable fields | 400 invalid input; 404 missing; 409 code used by another item |
-| DELETE | /api/equipment/{id} | 204 with no body | 400 invalid ID; 404 missing; 409 any loan references item |
-| POST | /api/loans | 201 Loan | 400 invalid dates/body; 404 missing student/item; 409 active loan |
-| GET | /api/loans | 200 Loan[] | 400 invalid filter IDs |
-| POST | /api/loans/{id}/return | 200 updated Loan | 400 invalid date/body; 404 missing loan; 409 already returned |
-| GET | /api/loans/overdue | 200 Loan[] | Invalid route/query handling follows shared validation |
+| `POST` | `/api/students` | `201 Student`; relative `Location` header | `400 VALIDATION_FAILED`; `409 DUPLICATE_EMAIL` |
+| `GET` | `/api/students/{id}` | `200 Student` | `400 VALIDATION_FAILED`; `404 STUDENT_NOT_FOUND` |
+| `PUT` | `/api/students/{id}` | `200 Student`; full editable-field replacement | `400 VALIDATION_FAILED`; `404 STUDENT_NOT_FOUND`; `409 DUPLICATE_EMAIL` |
+| `POST` | `/api/equipment` | `201 Equipment` | `400 VALIDATION_FAILED`; `409 DUPLICATE_INVENTORY_CODE` |
+| `GET` | `/api/equipment` | `200 Equipment[]` | `400 VALIDATION_FAILED` for an invalid `available` value |
+| `PUT` | `/api/equipment/{id}` | `200 Equipment`; full editable-field replacement | `400 VALIDATION_FAILED`; `404 EQUIPMENT_NOT_FOUND`; `409 DUPLICATE_INVENTORY_CODE` |
+| `DELETE` | `/api/equipment/{id}` | `204`, empty body | `400 VALIDATION_FAILED`; `404 EQUIPMENT_NOT_FOUND`; `409 EQUIPMENT_HAS_HISTORY` |
+| `POST` | `/api/loans` | `201 Loan` after commit | `400 VALIDATION_FAILED` or `INVALID_LOAN_DATES`; `404 STUDENT_NOT_FOUND` or `EQUIPMENT_NOT_FOUND`; `409 EQUIPMENT_UNAVAILABLE` |
+| `GET` | `/api/loans` | `200 Loan[]` | `400 VALIDATION_FAILED` for an invalid filter ID |
+| `POST` | `/api/loans/{id}/return` | `200 Loan` after commit | `400 VALIDATION_FAILED` or `INVALID_RETURN_DATE`; `404 LOAN_NOT_FOUND`; `409 LOAN_ALREADY_RETURNED` |
+| `GET` | `/api/loans/overdue` | `200 Loan[]` | No defined client-error input |
 
-Equipment available=true means no active loan; false means active loan; omission means all. Loan studentId and equipmentId filters combine with AND. Well-formed unmatched filters return an empty array. /overdue is a fixed route. All operations may return 401 for authentication and sanitized 500 on unexpected failures. No student-delete, loan-delete or record-edit loan route is exposed.
+All operations may return a sanitized `500 INTERNAL_ERROR` for an unexpected failure. There
+is no student list/delete endpoint, direct equipment/loan retrieval endpoint, loan edit/delete
+endpoint or stored availability field.
 
-Validate authentication, request shape/types/fields/IDs, date order, existence and then state conflict. With multiple invalid conditions the client must fix the first reported condition and retry; validation-error order within a payload is not a public guarantee. A uniqueness race has the same conflict outcome as an ordinary duplicate.
+## Request and response fields
 
-## Error shape and codes
+| Shape | Fields and rules |
+| --- | --- |
+| `StudentWrite` | Required `name` string, raw maximum 120; required `email` string, raw maximum 254. Both are trimmed; email is lowercased with `Locale.ROOT`, validated after normalization and unique. |
+| `Student` | Exactly `id`, normalized `name`, normalized `email`. |
+| `EquipmentWrite` | Required strings `inventoryCode` (50), `name` (120), `category` (60); optional nullable `description` (1000). Strings are trimmed; inventory code is uppercased with `Locale.ROOT`. Omitted description becomes null on create or replacement update. |
+| `Equipment` | Exactly `id`, normalized editable fields, nullable `description`, and derived boolean `available`. |
+| `LoanWrite` | Required integer `studentId` and `equipmentId`, both positive and within signed 64-bit range; required strict dates `borrowingDate` and `dueDate`; due date must be later. |
+| `ReturnWrite` | Exactly one required strict date, `returnDate`; it must be on or after the stored borrowing date. No future-date restriction exists. |
+| `Loan` | Exactly `id`, `studentId`, `equipmentId`, `borrowingDate`, `dueDate`, and nullable `returnDate`. References and original borrowing/due dates are immutable through the API. |
 
-Error fields are timestamp (UTC instant), status (integer), code (stable identifier), message (safe summary), path and fieldErrors (object mapping field names to safe messages, empty when not field-specific). Do not echo passwords, tokens, SQL, stack traces or raw invalid private values.
+List results are ordered by ascending generated ID. `available=true` selects items without an
+active loan; `available=false` selects items with an active loan; omission selects all items.
+Only the lowercase strings `true` and `false` are accepted. Loan `studentId` and `equipmentId`
+filters are optional and combine with AND. A syntactically valid unmatched filter returns
+`200 []`; filters do not require the referenced row to exist. The overdue list contains only
+unreturned loans whose due date is strictly before the Beirut-local current date. A loan due
+today and every returned loan are excluded.
 
-| HTTP | Example code | Meaning |
-| --- | --- | --- |
-| 400 | VALIDATION_FAILED | Missing, malformed, unknown or invalid field/filter |
-| 400 | INVALID_LOAN_DATES | dueDate is not after borrowingDate |
-| 400 | INVALID_RETURN_DATE | returnDate precedes borrowingDate |
-| 401 | UNAUTHORIZED | Missing or invalid staff authentication |
-| 404 | STUDENT_NOT_FOUND, EQUIPMENT_NOT_FOUND, LOAN_NOT_FOUND | Required target absent |
-| 409 | DUPLICATE_EMAIL, DUPLICATE_INVENTORY_CODE | Normalized identifier already used |
-| 409 | EQUIPMENT_UNAVAILABLE | Active loan already exists |
-| 409 | LOAN_ALREADY_RETURNED | Return recorded previously |
-| 409 | EQUIPMENT_HAS_HISTORY | Deletion would destroy referenced inventory |
-| 500 | INTERNAL_ERROR | Unexpected technical failure; details stay in protected logs |
+## State, locking and history
 
-## Synthetic examples
+Borrowing validates date order, then performs the student lookup, pessimistic equipment lock,
+active-loan check and insert in a service-owned transaction. The PostgreSQL partial unique
+index on active loans is the final invariant. Return first reads the loan's immutable equipment
+reference, then locks equipment before locking and rereading the loan. It changes only
+`returnDate`. A second return cannot overwrite the first. Equipment deletion also locks the
+equipment row and rejects every active or returned history reference.
 
-Register a borrower:
+Availability is computed from active-loan existence. It is a point-in-time view, not a
+reservation. A successful return makes the item available when no other active loan exists;
+reborrowing inserts a new loan and preserves the returned row.
+
+## Error body
+
+Every handled error uses the exact shape below. `fieldErrors` maps invalid field names to safe
+messages and is empty for non-field-specific errors. Responses never echo credentials, SQL,
+stack traces or rejected private values.
 
 ```json
-{"name":"Test Student One","email":" Borrower.One@Example.test "}
+{
+  "timestamp": "2030-01-10T08:30:00Z",
+  "status": 409,
+  "code": "EQUIPMENT_UNAVAILABLE",
+  "message": "Equipment is already on loan",
+  "path": "/api/loans",
+  "fieldErrors": {}
+}
 ```
 
-Expected 201 body for an illustrative generated ID:
+## Reproducible synthetic workflow
 
-```json
-{"id":1,"name":"Test Student One","email":"borrower.one@example.test"}
+[examples.ps1](examples.ps1) is the runnable example. It generates unique synthetic identifiers,
+captures every server-generated ID and asserts the relevant status, business code, normalized
+value, filter result and state transition. It never assumes an empty database or ID `1`.
+
+Prerequisites:
+
+1. Configure and start PostgreSQL and the application using
+   [local setup](../deployment/local-setup.md). Use an isolated disposable database because the
+   API intentionally has no student/loan deletion endpoints.
+2. Leave `ELS_API_BASE_URL` unset for `http://localhost:8080`, or set it to another local base
+   URL. Do not put credentials in the script. ELS-46 authentication is not implemented yet.
+3. From the repository root run:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\docs\api\examples.ps1
 ```
 
-The creation response also includes `Location: /api/students/1`. `GET /api/students/1` returns 200 with the same three fields. To replace the editable fields, send `PUT /api/students/1`:
+`-ExecutionPolicy Bypass` applies only to this child PowerShell process; it does not change the
+machine or user execution policy.
 
-```json
-{"name":" Updated Test Student ","email":" New.Borrower@Example.test "}
-```
-
-Expected 200 body, retaining the generated ID:
-
-```json
-{"id":1,"name":"Updated Test Student","email":"new.borrower@example.test"}
-```
-
-Both PUT fields are required. Omitting email returns 400 VALIDATION_FAILED and leaves the stored record unchanged; providing an id or loans property also returns 400. JSON name/email values must be strings, not numbers or booleans. Keeping this student's own email with different case/padding succeeds; using another student's normalized email returns 409 DUPLICATE_EMAIL and preserves both records. Missing positive IDs return 404 STUDENT_NOT_FOUND; malformed/nonpositive IDs return 400 VALIDATION_FAILED. Raw maxima include padding, even when trimming would shorten the value. These remain expected examples, not captured HTTP traffic. See [ELS-29 tests and execution evidence](../testing/els-29-student-management.md) for actual verification limits.
-
-Create equipment with {"inventoryCode":"cam-001","name":"Demo Camera","category":"Camera","description":null}. Expected normalized inventoryCode is CAM-001 and available is true.
-
-Borrow using studentId and equipmentId plus ISO-formatted borrowingDate and a later dueDate. Expected 201 Loan has the supplied references and dates, an illustrative generated ID and returnDate:null. A competing request returns 409 EQUIPMENT_UNAVAILABLE in the documented error shape, including a runtime-generated UTC timestamp.
-
-Return with returnDate on or after borrowingDate and expect 200 Loan with that returnDate. A second return returns 409 LOAN_ALREADY_RETURNED. For overdue scenarios use a fixed test clock: an unreturned loan due yesterday is overdue, while one due today and any returned loan are excluded.
-
-`POST /api/loans/{id}/return` accepts exactly `{"returnDate":"2030-01-10"}` (illustrative date). The field is required and must use the same strict YYYY-MM-DD calendar-date parser as borrowing. Missing/null fields, unknown properties, incorrect JSON types, malformed/signed/expanded dates and malformed/nonpositive/overflow IDs return 400 VALIDATION_FAILED. A date before borrowingDate returns 400 INVALID_RETURN_DATE, a missing loan returns 404 LOAN_NOT_FOUND and an already returned loan returns 409 LOAN_ALREADY_RETURNED without changing its original date. Date order is checked before returned-state conflict, following the validation order above. Equal and future dates are accepted.
-
-The return service reads the immutable equipment reference, locks equipment before locking/reading the loan, and rechecks date/state under those locks. It changes only returnDate and completes its transaction before sending the exact six-field Loan DTO with 200. Competing valid returns produce one 200 and one 409. History remains intact, availability becomes true when no active loan remains, and a new borrowing can create a separate active row. A failure at flush or commit rolls back and produces a sanitized 500, without claiming success. See [ELS-34 verification evidence](../testing/els-34-loan-returns.md).
-
-These are expected examples, not captured traffic. Generated IDs are illustrative. The API provides no idempotency key: after a network timeout inspect matching loan history before deciding whether to resubmit; never blindly retry a state-changing POST. Availability lookup is advisory; borrowing enforces the actual invariant.
+The script covers registration, retrieval and update; equipment creation and availability;
+borrowing and competing-borrow rejection; combined history filters; overdue inclusion;
+return-once behavior; restored availability; reborrowing with retained history; and protected
+equipment deletion. A final `PASS` line means those HTTP assertions executed successfully.
+JSON examples embedded in OpenAPI are illustrative only; they are not execution evidence.

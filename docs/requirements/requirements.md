@@ -1,6 +1,9 @@
 # Equipment Lending Requirements
 
-Version 1. Jira: ELS-21. Responsible member: Mostafa Younes. Assigned reviewer: Komayl Dbouk. This implementation baseline expands the agreed proposal into observable behavior. The decisions below are prepared for team adoption; authorship and human review must be recorded by the actual participants.
+Version 1. Jira: ELS-21. Responsible member: Mostafa Younes. Assigned reviewer: Komayl
+Dbouk. This is the release requirement baseline. Implementation and execution state is tracked
+separately in [requirements traceability](traceability.md), so a requirement below is not itself
+evidence that the behavior exists.
 
 ## Vision scope and elicitation
 
@@ -32,7 +35,7 @@ Student and equipment IDs cannot be changed through an update. Loan studentId, e
 
 All FR requirements are Must priority for the release and have high stability except additive field-length limits, which may change with a versioned decision. Protected delivery operations assume valid staff authentication; otherwise return 401 before executing business operations.
 
-| ID | Staff need and acceptance criteria | Implementation card | Planned tests |
+| ID | Staff need and acceptance criteria | Implementation card | Test scenarios |
 | --- | --- | --- | --- |
 | FR01 | Register student with valid name/email: 201 and stored normalized record. Retrieve/update existing ID: 200. Missing ID: 404. Invalid/unknown fields: 400. Duplicate normalized email: 409; updating the same student with its own email succeeds | ELS-29 | TC01â€“TC03, TC24 |
 | FR02 | Create equipment: 201 with unique normalized code; list/update: 200; missing update/delete target: 404; invalid payload: 400; duplicate normalized code: 409; delete unreferenced item: 204 with empty body | ELS-26 | TC04â€“TC06, TC24 |
@@ -73,4 +76,7 @@ Principal workflow: register borrower, add camera, create valid loan, reject com
 
 PostgreSQL is the delivery database; see ADR 002. No external service is required. ELS-23 pins the Java/Spring/Maven versions and prepares configuration. The API contract is [openapi.json](../api/openapi.json), with [human-readable conventions](../api/contract.md). Business behavior changes require updates here, to relevant scenarios/specification, to the contract and to Jira before implementation. Future decisions cannot retroactively establish earlier approval.
 
-Version history: v1 establishes the initial baseline to fill missing Sprint 1 specification artifacts. FR01 implementation and database-free test results are recorded in [ELS-29 evidence](../testing/els-29-student-management.md); PostgreSQL execution and human acceptance remain pending. Other feature implementation/acceptance results remain tracked separately. This implementation does not change FR01 behavior.
+Version history: v1 establishes the agreed behavioral baseline. Feature implementation,
+PostgreSQL execution, review state and unresolved gaps are maintained in
+[requirements traceability](traceability.md). ELS-37 aligns the explanatory API and diagrams
+without changing these requirements or application behavior.

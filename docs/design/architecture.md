@@ -1,58 +1,116 @@
 # Equipment Lending Architecture and Data Design
 
-Prepared for ELS-22. Responsible member: Komayl Dbouk; assigned reviewer: Hussein Chreif. These are the target implementation models. Synchronize them with actual source during ELS-37.
+This document reflects the implementation merged through ELS-35. Responsible member: Komayl
+Dbouk; assigned ELS-37 reviewer: Hussein Chalhoub (`husseinchalhoubb`).
 
 ## Components and responsibilities
 
-Use a single Spring Boot application with feature packages student, equipment and loan, plus shared error/configuration code. Controllers map HTTP and validate DTOs. Services enforce business rules and own transaction boundaries. Repositories persist/query entities. Request DTOs never accept generated IDs or availability; responses do not serialize JPA graphs.
+The system is one Spring Boot application rooted at `edu.university.equipmentlending`.
+`student`, `equipment` and `loan` own their controllers, DTOs, services and feature-specific
+repositories. Controllers bind HTTP and DTO validation. Services own transaction boundaries,
+normalization and business rules. Repositories access JPA entities or read-only DTO
+projections. `shared/config` supplies the strict text parser and application clock;
+`shared/error` supplies the public error contract.
 
 ```mermaid
 flowchart TB
-  Client[Staff API client] --> Auth[Staff access filter]
-  Auth --> Controllers[Student Equipment Loan controllers]
-  Controllers --> Services[Student Equipment Loan services]
-  Services --> Repositories[JPA repositories]
-  Repositories --> DB[(PostgreSQL)]
-  Controllers --> Errors[Central error handler]
-  Services --> Clock[Injected Clock in Asia Beirut]
+  Client[Local staff API client] --> StudentC[StudentController]
+  Client --> EquipmentC[EquipmentController]
+  Client --> LoanC[LoanController]
+  Client --> ReturnC[LoanReturnController]
+  Client --> QueryC[LoanQueryController]
+
+  StudentC --> StudentS[StudentService]
+  EquipmentC --> EquipmentS[EquipmentService]
+  LoanC --> LoanS[LoanService]
+  ReturnC --> ReturnS[LoanReturnService]
+  QueryC --> QueryS[LoanQueryService]
+
+  StudentS --> StudentR[StudentRepository]
+  EquipmentS --> EquipmentR[EquipmentRepository]
+  EquipmentS --> LoanR[LoanRepository]
+  LoanS --> StudentR
+  LoanS --> EquipmentR
+  LoanS --> LoanR
+  ReturnS --> EquipmentR
+  ReturnS --> LoanR
+  QueryS --> QueryR[LoanQueryRepository]
+  QueryS --> Clock[Clock in Asia/Beirut]
+
+  StudentR --> DB[(PostgreSQL)]
+  EquipmentR --> DB
+  LoanR --> DB
+  QueryR --> DB
+  Errors[ApiExceptionHandler] -. handles controller failures .-> StudentC
+  Errors -.-> EquipmentC
+  Errors -.-> LoanC
+  Errors -.-> ReturnC
+  Errors -.-> QueryC
+  Pending[ELS-46 staff authentication and remote HTTPS] -. pending delivery boundary .-> Client
 ```
 
-Staff protection is required for delivery under ELS-46. Internal tests may isolate security explicitly, but that configuration must not become a public demo deployment.
+The pending ELS-46 node is a requirement, not an active filter. The current application has no
+Spring Security configuration and does not emit an authentication challenge. Remote deployment
+must not be represented as staff-protected until ELS-46 is implemented and verified.
 
 ## Implementation class model
 
 ```mermaid
 classDiagram
   StudentController --> StudentService
-  EquipmentController --> EquipmentService
-  LoanController --> LoanService
+  StudentController ..> StudentWrite
+  StudentController ..> StudentDto
   StudentService --> StudentRepository
+  StudentService --> StudentEntity
+
+  EquipmentController --> EquipmentService
+  EquipmentController ..> EquipmentWrite
+  EquipmentController ..> EquipmentResponse
   EquipmentService --> EquipmentRepository
   EquipmentService --> LoanRepository
+  EquipmentRepository --> EquipmentEntity
+
+  LoanController --> LoanService
+  LoanReturnController --> LoanReturnService
+  LoanQueryController --> LoanQueryService
   LoanService --> StudentRepository
   LoanService --> EquipmentRepository
   LoanService --> LoanRepository
-  LoanService --> Clock
-  StudentRepository --> Student
-  EquipmentRepository --> Equipment
-  LoanRepository --> Loan
-  Loan "*" --> "1" Student
-  Loan "*" --> "1" Equipment
-  ApiExceptionHandler ..> StudentController
-  ApiExceptionHandler ..> EquipmentController
-  ApiExceptionHandler ..> LoanController
+  LoanReturnService --> EquipmentRepository
+  LoanReturnService --> LoanRepository
+  LoanQueryService --> LoanQueryRepository
+  LoanQueryService --> Clock
+  LoanController ..> LoanWrite
+  LoanReturnController ..> ReturnWrite
+  LoanController ..> LoanDto
+  LoanReturnController ..> LoanDto
+  LoanQueryController ..> LoanDto
+  LoanRepository --> LoanEntity
+  LoanQueryRepository ..> LoanDto
+
+  LoanEntity "*" --> "1" StudentEntity
+  LoanEntity "*" --> "1" EquipmentEntity
+  ApiExceptionHandler ..> ApiError
 ```
 
-Repositories should not invoke controllers or services. Services share repositories rather than introducing circular service dependencies. DTO mapping stays explicit and small. No microservice, queue or event infrastructure is needed.
+`StudentDto` and `LoanDto` label the Java records
+`student.dto.Student` and `loan.dto.Loan`; they are not persistence entities. DTO mapping is
+explicit, and controllers never serialize JPA graphs. Repositories do not invoke services or
+controllers. Services may share repositories to preserve one lock order without introducing
+circular service dependencies.
 
-ELS-29 implements the student layers under `edu.university.equipmentlending.student`: StudentController, StudentService, persistence.StudentRepository and the existing persistence.StudentEntity. dto.StudentWrite accepts only name/email; dto.Student returns only id/name/email. The service validates raw limits before normalization and checks normalized email syntax before persistence. Read transactions are read-only; writes use a service-owned TransactionTemplate with REQUIRES_NEW so the transaction finishes before a confirmed student_email_key uniqueness violation is translated to DUPLICATE_EMAIL. PostgreSQL uniqueness protects canonical email values stored by the API. V1 and other feature mappings are unchanged. See [student verification evidence](../testing/els-29-student-management.md) for tests and pending PostgreSQL execution.
+Student raw limits are validated before trimming. The service trims names, trims and lowercases
+email with `Locale.ROOT`, validates normalized email syntax, then writes through a
+`REQUIRES_NEW` `TransactionTemplate`. Equipment services trim text, uppercase inventory
+codes and use Spring transactions. Loan writes use dedicated transaction templates so commit or
+rollback completes before a success or classified conflict leaves the service.
 
 ## Relational model
 
 ```mermaid
 erDiagram
-  STUDENT ||--o{ LOAN : borrows
-  EQUIPMENT ||--o{ LOAN : is_loaned
+  STUDENT ||--o{ LOAN : borrower_history
+  EQUIPMENT ||--o{ LOAN : item_history
   STUDENT {
     bigint id PK
     varchar name
@@ -75,63 +133,121 @@ erDiagram
   }
 ```
 
-| Column or constraint | Design |
+| Column or constraint | Implemented design |
 | --- | --- |
-| Primary IDs | Generated positive BIGINT; stable references |
-| Student name/email | NOT NULL, maximum 120/254; normalized email unique |
-| Equipment code/name/category | NOT NULL, maximum 50/120/60; normalized inventory code unique |
-| Equipment description | Nullable, maximum 1000 |
-| Loan references | NOT NULL foreign keys; restrictive delete behavior, no cascading deletion of history |
-| Loan dates | Borrowing/due required; return nullable; due > borrowing and return >= borrowing when non-null |
-| Active-loan invariant | PostgreSQL unique partial index on equipment_id for rows with return_date IS NULL |
-| Query support | Index loan.student_id and loan.equipment_id for history; consider active due-date index after measurement |
+| Primary IDs | Database-generated `BIGINT` primary keys |
+| Student identifier | Stored normalized email is unique; name/email are required |
+| Equipment identifier | Stored normalized inventory code is unique |
+| Loan references | Required restrictive foreign keys; history cannot be cascade-deleted |
+| Loan dates | Borrowing/due required; return nullable; database checks enforce due after borrowing and return on/after borrowing |
+| Active-loan invariant | Partial unique index on `loan(equipment_id)` where `return_date IS NULL` |
+| History lookup | Indexes on `loan.student_id` and `loan.equipment_id` |
+| Availability and overdue | Derived by queries; no mutable status or availability column |
 
-Versioned schema migrations establish constraints. JPA schema auto-update must not be the delivery schema-management strategy. H2 may support isolated fast tests but cannot establish PostgreSQL behavior.
+Flyway V1 owns this schema and Hibernate runs with `ddl-auto=validate`. PostgreSQL, rather than
+H2, is required to establish the foreign-key, check, partial-index and locking behavior.
 
-## Atomic borrowing sequence
+## Borrowing transaction
 
 ```mermaid
 sequenceDiagram
   actor Staff
-  participant API as LoanController
+  participant C as LoanController
   participant S as LoanService
-  participant E as EquipmentRepository
-  participant L as LoanRepository
+  participant SR as StudentRepository
+  participant ER as EquipmentRepository
+  participant LR as LoanRepository
   participant DB as PostgreSQL
-  Staff->>API: POST /api/loans with dates and IDs
-  API->>S: validated request
-  S->>S: check student exists and date rule
-  S->>E: lock equipment row in transaction
-  E->>DB: SELECT FOR UPDATE
-  DB-->>S: item or missing result
-  S->>L: check active loan under lock
+
+  Staff->>C: POST /api/loans
+  C->>S: validated LoanWrite
+  S->>S: reject dueDate <= borrowingDate
+  S->>S: begin REQUIRES_NEW transaction
+  S->>SR: find student
+  SR->>DB: SELECT student
+  S->>ER: findByIdForUpdate equipment
+  ER->>DB: SELECT equipment FOR UPDATE
+  S->>LR: active-loan existence check
+  LR->>DB: SELECT active loan
   alt active loan exists
-    S-->>API: business conflict
-    API-->>Staff: 409 with stable error code
+    S-->>C: 409 EQUIPMENT_UNAVAILABLE
   else available
-    S->>L: insert loan and flush
-    L->>DB: enforce FK date and unique constraints
-    S->>S: transaction commits
-    API-->>Staff: 201 and Loan response
+    S->>LR: saveAndFlush new LoanEntity
+    LR->>DB: INSERT and enforce FK, dates and partial unique index
+    S->>S: commit
+    S-->>C: exact six-field Loan DTO
+    C-->>Staff: 201
   end
 ```
 
-Transaction isolation is READ COMMITTED with explicit equipment row locking. Two contenders serialize on that item; the second checks state after the first commits. The partial unique index protects the invariant from alternate write paths. Map a confirmed active-loan unique violation to 409 outside the failed transaction; do not reuse an aborted transaction or convert unrelated database failures into borrowing conflicts. Unexpected failures remain sanitized 500 responses. No success response is sent before commit.
+The student lookup occurs before the equipment lock, but equipment is the first locked mutable
+resource. Borrow, return and equipment deletion all serialize on that equipment row. A confirmed
+`ux_loan_active_equipment` violation is translated after rollback; unrelated persistence
+failures remain sanitized `500 INTERNAL_ERROR`. No successful DTO is returned before commit.
 
-Borrow, return and equipment deletion all obtain the equipment lock first. Return may read the loan's immutable equipment ID to locate the lock, then lock/re-read the loan and recheck active state. Delete checks all historical references while locked and also relies on FK restriction. Keep transactions short and never perform network calls inside locks. Availability is a point-in-time query, not a reservation guarantee.
+## Return transaction
+
+```mermaid
+sequenceDiagram
+  actor Staff
+  participant C as LoanReturnController
+  participant S as LoanReturnService
+  participant LR as LoanRepository
+  participant ER as EquipmentRepository
+  participant DB as PostgreSQL
+
+  Staff->>C: POST /api/loans/{id}/return
+  C->>S: validated ReturnWrite
+  S->>S: begin REQUIRES_NEW transaction
+  S->>LR: read immutable equipment ID
+  LR->>DB: scalar SELECT
+  S->>ER: lock equipment
+  ER->>DB: SELECT equipment FOR UPDATE
+  S->>LR: lock and reread loan
+  LR->>DB: SELECT loan FOR UPDATE
+  alt returnDate before borrowingDate
+    S-->>C: 400 INVALID_RETURN_DATE
+  else return already recorded
+    S-->>C: 409 LOAN_ALREADY_RETURNED
+  else active loan
+    S->>LR: set only returnDate and flush
+    LR->>DB: UPDATE and enforce date check
+    S->>S: commit
+    C-->>Staff: 200 with updated Loan DTO
+  end
+```
+
+The scalar reference lookup does not place an unlocked loan entity in the persistence context.
+After waiting for equipment, the service locks and rereads the loan, so two valid returns yield
+one committed success and one conflict. The original student, equipment and borrowing/due dates
+remain immutable; reborrowing creates another row.
+
+Read-only query transactions project loan DTOs directly. History filters combine with AND and
+order by loan ID. Equipment availability checks active-loan existence for each listed item.
+Overdue uses `returnDate IS NULL AND dueDate < today`, where today comes from the injected
+Beirut clock.
 
 ## Deployment model
 
 ```mermaid
 flowchart LR
-  Staff[Staff on demonstration machine] -->|HTTP localhost or HTTPS when remote| App[Spring Boot application process]
-  App -->|Private database connection| DB[(PostgreSQL process or container)]
-  Env[Environment credentials and configuration] --> App
-  Build[Reproducible Maven build and package] --> App
+  Staff[Local staff operator] -->|HTTP on localhost| App[Spring Boot process]
+  App -->|JDBC with environment credentials| DB[(PostgreSQL 17.5)]
+  Compose[Docker Compose database option] --> DB
+  Flyway[Flyway migrations] --> DB
+  Env[ELS_DB_* environment variables] --> App
+  Security[ELS-46 auth and remote HTTPS] -. not implemented .-> App
 ```
 
-The reliable baseline is a local demonstration. Docker packaging is planned, with a documented Maven plus local PostgreSQL alternative if containers are unavailable. Remote access needs transport security and staff authentication; do not expose a development profile. ELS-23 selects compatible pinned dependency versions and exact commands.
+The reproducible baseline runs the Java process locally and may run PostgreSQL through Docker
+Compose. No application container image exists. Secrets belong in an ignored local `.env` and
+process environment. Remote access remains prohibited until transport security and staff access
+are implemented and verified.
 
 ## Decision records
 
-[ADR 001](../decisions/001-layered-application.md) covers architecture, [ADR 002](../decisions/002-database-and-concurrency.md) persistence/concurrency and [ADR 003](../decisions/003-dates-privacy-and-contract.md) dates/privacy/API conventions. [The contract](../api/contract.md) and [OpenAPI](../api/openapi.json) define interface details.
+[ADR 001](../decisions/001-layered-application.md) covers architecture,
+[ADR 002](../decisions/002-database-and-concurrency.md) covers persistence and locking, and
+[ADR 003](../decisions/003-dates-privacy-and-contract.md) covers dates, privacy and API
+conventions. See the [human-readable API contract](../api/contract.md) and
+[OpenAPI document](../api/openapi.json) for the exact external shapes.

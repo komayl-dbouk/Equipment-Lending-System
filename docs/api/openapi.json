@@ -2,8 +2,8 @@
   "openapi": "3.0.3",
   "info": {
     "title": "University Equipment Lending API",
-    "version": "1.0.0-planned",
-    "description": "Planned implementation baseline. Examples are synthetic expected behavior, not captured traffic. Raw request string maxima apply before trimming; normalized values must remain valid. Dates are ISO LocalDate; overdue uses a Clock in Asia/Beirut. Unknown write properties are rejected. Authentication is required for delivery; implementation is pending."
+    "version": "1.0.0",
+    "description": "Implemented API through ELS-35. Examples in this file are illustrative; docs/api/examples.ps1 is executable and captures generated IDs. Raw request string maxima apply before trimming; normalized values must remain valid. Loan dates are strict four-digit ISO calendar dates; overdue uses the injected Asia/Beirut clock. Unknown write properties are rejected. Staff authentication and remote HTTPS are required for delivery but remain pending under ELS-46."
   },
   "servers": [
     {
@@ -11,20 +11,24 @@
       "description": "Local demonstration only; use HTTPS for remote access."
     }
   ],
-  "security": [
-    {
-      "staffBasic": []
-    }
-  ],
+  "x-delivery-security": {
+    "status": "pending",
+    "jira": "ELS-46",
+    "description": "The current runtime does not authenticate requests or emit 401 responses. Staff Basic authentication and HTTPS for remote access remain delivery requirements."
+  },
+  "security": [],
   "tags": [
     {
-      "name": "Students"
+      "name": "Students",
+      "description": "Register, retrieve and replace student borrower records."
     },
     {
-      "name": "Equipment"
+      "name": "Equipment",
+      "description": "Create, list, filter, replace and conditionally delete physical equipment."
     },
     {
-      "name": "Loans"
+      "name": "Loans",
+      "description": "Borrow, return and query immutable loan history."
     }
   ],
   "paths": {
@@ -62,35 +66,17 @@
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "Invalid request: VALIDATION_FAILED",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiError"
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Staff authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            },
-            "headers": {
-              "WWW-Authenticate": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Basic realm=\"equipment-lending\""
               }
             }
           },
           "409": {
-            "description": "Email is already registered",
+            "description": "DUPLICATE_EMAIL: normalized email is already registered",
             "content": {
               "application/json": {
                 "schema": {
@@ -151,35 +137,17 @@
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "VALIDATION_FAILED: malformed or invalid request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiError"
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Staff authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            },
-            "headers": {
-              "WWW-Authenticate": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Basic realm=\"equipment-lending\""
               }
             }
           },
           "404": {
-            "description": "Student not found",
+            "description": "STUDENT_NOT_FOUND: student does not exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -237,35 +205,17 @@
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "VALIDATION_FAILED: malformed or invalid request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiError"
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Staff authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            },
-            "headers": {
-              "WWW-Authenticate": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Basic realm=\"equipment-lending\""
               }
             }
           },
           "404": {
-            "description": "Student not found",
+            "description": "STUDENT_NOT_FOUND: student does not exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -275,7 +225,7 @@
             }
           },
           "409": {
-            "description": "Email is already registered",
+            "description": "DUPLICATE_EMAIL: normalized email is already registered",
             "content": {
               "application/json": {
                 "schema": {
@@ -352,35 +302,17 @@
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "VALIDATION_FAILED: malformed or invalid request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiError"
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Staff authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            },
-            "headers": {
-              "WWW-Authenticate": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Basic realm=\"equipment-lending\""
               }
             }
           },
           "409": {
-            "description": "Inventory code is already registered",
+            "description": "DUPLICATE_INVENTORY_CODE: normalized inventory code is already registered",
             "content": {
               "application/json": {
                 "schema": {
@@ -449,30 +381,12 @@
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "VALIDATION_FAILED: malformed or invalid request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiError"
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Staff authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            },
-            "headers": {
-              "WWW-Authenticate": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Basic realm=\"equipment-lending\""
               }
             }
           },
@@ -528,35 +442,17 @@
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "VALIDATION_FAILED: malformed or invalid request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiError"
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Staff authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            },
-            "headers": {
-              "WWW-Authenticate": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Basic realm=\"equipment-lending\""
               }
             }
           },
           "404": {
-            "description": "Equipment not found",
+            "description": "EQUIPMENT_NOT_FOUND: equipment does not exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -566,7 +462,7 @@
             }
           },
           "409": {
-            "description": "Inventory code is already registered",
+            "description": "DUPLICATE_INVENTORY_CODE: normalized inventory code is already registered",
             "content": {
               "application/json": {
                 "schema": {
@@ -628,35 +524,17 @@
             "description": "Deleted; empty response body"
           },
           "400": {
-            "description": "Invalid request",
+            "description": "VALIDATION_FAILED: malformed or invalid request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiError"
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Staff authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            },
-            "headers": {
-              "WWW-Authenticate": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Basic realm=\"equipment-lending\""
               }
             }
           },
           "404": {
-            "description": "Equipment not found",
+            "description": "EQUIPMENT_NOT_FOUND: equipment does not exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -666,7 +544,7 @@
             }
           },
           "409": {
-            "description": "Equipment is referenced by loan history",
+            "description": "EQUIPMENT_HAS_HISTORY: active or returned loan history references the item",
             "content": {
               "application/json": {
                 "schema": {
@@ -708,7 +586,7 @@
           "Loans"
         ],
         "summary": "Record one atomic equipment loan",
-        "description": "dueDate > borrowingDate. Existing student and equipment required. Active loan or confirmed concurrent uniqueness conflict returns 409. No automatic POST retry/idempotency key. Success is returned after transaction commit.",
+        "description": "dueDate must be later than borrowingDate; equal/reversed dates return 400 INVALID_LOAN_DATES, while malformed input returns 400 VALIDATION_FAILED. Existing student and equipment are required. An active loan or confirmed concurrent uniqueness conflict returns 409 EQUIPMENT_UNAVAILABLE. There is no idempotency key or automatic POST retry. Success is returned only after commit.",
         "responses": {
           "201": {
             "description": "Created",
@@ -721,35 +599,17 @@
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "VALIDATION_FAILED: malformed or invalid request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiError"
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Staff authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            },
-            "headers": {
-              "WWW-Authenticate": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Basic realm=\"equipment-lending\""
               }
             }
           },
           "404": {
-            "description": "Student not found",
+            "description": "STUDENT_NOT_FOUND or EQUIPMENT_NOT_FOUND: required reference does not exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -759,7 +619,7 @@
             }
           },
           "409": {
-            "description": "Equipment has an active loan",
+            "description": "EQUIPMENT_UNAVAILABLE: equipment has an active loan",
             "content": {
               "application/json": {
                 "schema": {
@@ -812,30 +672,12 @@
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "VALIDATION_FAILED: malformed or invalid request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiError"
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Staff authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            },
-            "headers": {
-              "WWW-Authenticate": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Basic realm=\"equipment-lending\""
               }
             }
           },
@@ -883,7 +725,7 @@
           "Loans"
         ],
         "summary": "Record return once and preserve history",
-        "description": "Return date must be on/after borrowing date. Second return returns 409 LOAN_ALREADY_RETURNED without overwriting the first date.",
+        "description": "returnDate must be on/after borrowingDate; an earlier date returns 400 INVALID_RETURN_DATE and malformed input returns 400 VALIDATION_FAILED. A second return returns 409 LOAN_ALREADY_RETURNED without overwriting the first date. Success is returned only after commit.",
         "responses": {
           "200": {
             "description": "Success",
@@ -896,35 +738,17 @@
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "VALIDATION_FAILED: malformed or invalid request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiError"
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Staff authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            },
-            "headers": {
-              "WWW-Authenticate": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Basic realm=\"equipment-lending\""
               }
             }
           },
           "404": {
-            "description": "Loan not found",
+            "description": "LOAN_NOT_FOUND: loan does not exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -934,7 +758,7 @@
             }
           },
           "409": {
-            "description": "Loan has already been returned",
+            "description": "LOAN_ALREADY_RETURNED: first return date is preserved",
             "content": {
               "application/json": {
                 "schema": {
@@ -1001,34 +825,6 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Staff authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            },
-            "headers": {
-              "WWW-Authenticate": {
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Basic realm=\"equipment-lending\""
-              }
-            }
-          },
           "500": {
             "description": "Unexpected internal failure",
             "content": {
@@ -1048,7 +844,7 @@
       "staffBasic": {
         "type": "http",
         "scheme": "basic",
-        "description": "One staff credential supplied by environment; no committed passwords. Remote use requires HTTPS."
+        "description": "Reserved for pending ELS-46 delivery configuration; not active in the current runtime. The future credential must come from the environment and remote use requires HTTPS."
       }
     },
     "schemas": {
@@ -1326,67 +1122,6 @@
             "type": "object",
             "additionalProperties": {
               "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "responses": {
-      "BadRequest": {
-        "description": "Invalid request",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
-            }
-          }
-        }
-      },
-      "Unauthorized": {
-        "description": "Staff authentication required",
-        "headers": {
-          "WWW-Authenticate": {
-            "schema": {
-              "type": "string"
-            },
-            "description": "Basic authentication challenge",
-            "example": "Basic realm=\"equipment-lending\""
-          }
-        },
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
-            }
-          }
-        }
-      },
-      "NotFound": {
-        "description": "Required record not found",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
-            }
-          }
-        }
-      },
-      "Conflict": {
-        "description": "Operation conflicts with stored state",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
-            }
-          }
-        }
-      },
-      "InternalError": {
-        "description": "Unexpected internal failure",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
             }
           }
         }
