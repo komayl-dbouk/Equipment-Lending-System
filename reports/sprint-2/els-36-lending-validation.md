@@ -68,3 +68,11 @@ The tests accept the other valid serial outcomes as well: return before borrowin
 Application processes are always stopped by captured task PID. The live runner intentionally retains synthetic rows for inspection; its explicit cleanup mode only deletes ELS36 inventory/email fixtures after rechecking the target. Task-owned database/credential cleanup and PR/CI observations are recorded in the delivery update.
 
 Authentication and HTTPS are **not implemented or accepted** by this card; ELS-46 owns them. Native Windows PostgreSQL verifies the selected database engine; remote Linux/container CI must be checked on the actual PR head. Human review, merge, final deployment, performance measurements, coverage metrics and actual human effort remain unclaimed. No Done transition, self-approval or self-merge is authorized.
+
+## Delivery update
+
+Pushed ELS-36-lending-validation with 63e1e4b (approved plan), 32cda80 (tests/tools) and eec9da5 (verified evidence). Final origin fetch still reports main 90dc0a1. GitHub rejected PR creation with HTTP 403 **Resource not accessible by integration**. No PR, reviewer request or passing remote CI is claimed. GitHub search returned no matching PR; head eec9da5 had no statuses or PR workflow runs. The workflow only starts on PRs into main or main pushes, so this feature-branch push does not initiate CI.
+
+The [prepared first-person PR description](../../docs/reviews/els-36-lending-validation-pr.md) uses the required title and Purpose/Changes/Validation/Limitations/Jira structure. Intended reviewer: komayl-dbouk. An access correction or manually created PR number was requested in chat. ELS-36 remains In Progress while formal PR delivery/CI is blocked; CODE REVIEW and peer acceptance are not fabricated.
+
+Cleanup succeeded: explicit namespace cleanup removed six loan rows, five equipment rows and two synthetic student rows from the disposable workflow database; a subsequent empty-target preflight passed. The runner had stopped its own application PID. The task-created PostgreSQL instance was stopped, its resolved task-only data directory removed, and both generated password files deleted. Cached tool binaries and unrelated resources remain untouched.
