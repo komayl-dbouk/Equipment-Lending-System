@@ -1,6 +1,8 @@
 # Equipment Lending Domain and Use Cases
 
-Prepared for ELS-22. This analysis describes university lending concepts and actor goals independently of Java classes or database implementation.
+Prepared for ELS-22 and reconciled with the implemented lifecycle under ELS-37. This
+analysis describes university lending concepts and actor goals independently of Java classes
+or database implementation.
 
 ## System context
 
@@ -69,12 +71,17 @@ UC03 is expanded in [the borrowing specification](../specifications/borrow-equip
 ```mermaid
 stateDiagram-v2
   [*] --> Active: valid borrowing
-  Active --> Returned: valid return
-  Returned --> [*]
   state Active {
     [*] --> DueOrFuture
-    DueOrFuture --> Overdue: clock passes due date
+    DueOrFuture --> Overdue: Beirut date becomes later than dueDate
   }
+  Active --> Returned: first valid return
+  Returned --> Returned: later return attempt rejected
+  Returned --> [*]: immutable history retained
 ```
 
-Overdue is a computed view of an active loan. It is not persisted as a mutable status, and does not block a valid return. A new borrowing after return creates a new Loan rather than resetting the historical record.
+Overdue is a computed view of an active loan, not a stored transition or mutable status. A loan
+is overdue only while unreturned and `dueDate < today`; due today is not overdue. Overdue does
+not block a valid return. The self-transition represents a rejected second-return request:
+stored history does not change. A later borrowing of the same equipment creates a separate Loan
+and therefore a separate state-machine instance; it does not reactivate the returned Loan.
