@@ -46,6 +46,8 @@ class LendingQueriesIT {
     private long dueTodayEquipment;
     private long returnedEquipment;
     private long overdueLoan;
+    private long dueTodayLoan;
+    private long returnedLoan;
 
     @BeforeEach
     void seedFixtures() {
@@ -59,8 +61,8 @@ class LendingQueriesIT {
 
         overdueLoan = insertLoan(studentOne, overdueEquipment,
                 TODAY.minusDays(7), TODAY.minusDays(1), null);
-        insertLoan(studentTwo, dueTodayEquipment, TODAY.minusDays(2), TODAY, null);
-        insertLoan(studentOne, returnedEquipment,
+        dueTodayLoan = insertLoan(studentTwo, dueTodayEquipment, TODAY.minusDays(2), TODAY, null);
+        returnedLoan = insertLoan(studentOne, returnedEquipment,
                 TODAY.minusDays(9), TODAY.minusDays(3), TODAY.minusDays(2));
     }
 
@@ -99,11 +101,17 @@ class LendingQueriesIT {
         JsonNode byEquipment = array(performGet("/api/loans?equipmentId=" + overdueEquipment));
         JsonNode combined = array(performGet("/api/loans?studentId=" + studentOne
                 + "&equipmentId=" + overdueEquipment));
+        JsonNode otherStudent = array(performGet("/api/loans?studentId=" + studentTwo));
 
         assertAscending(byStudent);
-        assertThat(ids(byStudent)).contains(overdueLoan);
+        assertThat(ids(byStudent)).containsExactly(overdueLoan, returnedLoan);
+        assertThat(ids(otherStudent)).containsExactly(dueTodayLoan);
         assertThat(ids(byEquipment)).containsExactly(overdueLoan);
         assertThat(ids(combined)).containsExactly(overdueLoan);
+        assertLoanShape(byStudent.get(0), overdueLoan, studentOne, overdueEquipment,
+                TODAY.minusDays(7), TODAY.minusDays(1), null);
+        assertLoanShape(byStudent.get(1), returnedLoan, studentOne, returnedEquipment,
+                TODAY.minusDays(9), TODAY.minusDays(3), TODAY.minusDays(2));
         assertLoanShape(combined.get(0), overdueLoan, studentOne, overdueEquipment,
                 TODAY.minusDays(7), TODAY.minusDays(1), null);
     }
@@ -221,7 +229,8 @@ class LendingQueriesIT {
         @Bean
         @Primary
         Clock fixedQueryClock() {
-            return Clock.fixed(Instant.parse("2030-06-15T09:00:00Z"), ZoneId.of("Asia/Beirut"));
+            // UTC is still the previous day; replacing the Beirut date with UTC must fail.
+            return Clock.fixed(Instant.parse("2030-06-14T21:30:00Z"), ZoneId.of("Asia/Beirut"));
         }
     }
 }
