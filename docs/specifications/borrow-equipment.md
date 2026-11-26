@@ -61,6 +61,21 @@ The agent understands that this is one atomic lending operation with database pr
 
 Before implementation preserve this specification in a commit, write tests and retain the expected red run/commit, then obtain human review of the minimum implementation plan. Preserve green implementation/run, any refactoring and full regression result in chronological commits. Compare BOR01â€“08 against observed results and record met/ambiguous/missed with corrections. Keep an explicit result column in the final record; all eight are currently not executed.
 
+## ELS-33 specification comparison
+
+This execution update supersedes the pending-approval and not-executed statements above. The ELS-33 instruction confirms Hussein Chreif's plan approval and Hussein Chalhoub's red-test approval in Jira; PR #8 records both review decisions. The focused BorrowingContractIT run passed 53/53 cases, and the complete PostgreSQL profile passed 264/264 tests with zero failures, errors or skips. See the [execution evidence](../../ai-log/els-33-atomic-borrowing.md).
+
+| Criterion | Observed result | Status |
+| --- | --- | --- |
+| BOR01 | Exact six-field response and committed active row | Met |
+| BOR02 | Missing reference returns specified 404 with no new loan | Met |
+| BOR03 | Equal and reversed dates fail without writes | Met |
+| BOR04 | Existing active loan remains unchanged on 409 | Met |
+| BOR05 | Coordinated requests yield one 201, one 409 and one active row | Met |
+| BOR06 | Validation and test-only database fault leave no partial write | Met |
+| BOR07 | Returned history is preserved and reborrow succeeds | Met |
+| BOR08 | Unknown/malformed fields return 400 without writes | Met for request shape; authentication remains ELS-46 |
+
 ## Prohibited modifications
 
 Do not alter unrelated student/equipment behavior, approved public contracts, subject files, security boundaries or dependencies without a justified scope decision. Do not implement return/query features in this card. Do not squash away test-first history or invent human plan approval, test execution or actual effort.

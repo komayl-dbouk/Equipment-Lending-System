@@ -49,3 +49,7 @@ Focused red: mvnw.cmd --batch-mode --no-transfer-progress -Pdatabase-test -Dit.t
 Hussein Chalhoub reviews test oracles and observed red output. Hussein Chreif reviews Komayl's minimum implementation plan before ELS-33 production code. Individual reviewer decisions and actual hours remain unrecorded until supplied; the user authorized this test-only task, not a fabricated four-person approval.
 
 Keep the red ELS-32 PR as a draft and do not merge failing tests into main. After review, create a separate ELS-33 issue branch from the reviewed ELS-32 branch tip containing the unchanged red-test commit and its evidence. Its green PR into main includes the preserved test-first and implementation commits. Link/supersede the draft test PR when those tests reach main. Do not squash away required red/green chronology. Each card retains its owner, reviewer and evidence.
+
+## ELS-33 approval update
+
+The ELS-33 implementation instruction confirms the named reviewers approved the plan and red tests in Jira. PR #8 also shows Hussein Chalhoub's APPROVED review and Hussein Chreif's statement approving the minimum implementation plan. The plan, red tests and red evidence remain separate ancestral commits `ef2aa12`, `a847e09` and `b9718fa`. The earlier pending-review wording above records the original ELS-32 handoff state, before those human decisions.

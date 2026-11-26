@@ -53,14 +53,6 @@ public class LoanEntity {
         return id;
     }
 
-    public Long getStudentId() {
-        return student.getId();
-    }
-
-    public Long getEquipmentId() {
-        return equipment.getId();
-    }
-
     public LocalDate getBorrowingDate() {
         return borrowingDate;
     }

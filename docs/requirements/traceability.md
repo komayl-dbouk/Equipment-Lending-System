@@ -18,3 +18,7 @@ Requirement IDs are stable across proposal, detailed requirements and tests. Tar
 | NFR05 | All | ELS-24, ELS-32, ELS-39â€“43 | Test suite, audit, deliberate defect and GQM | Scenario catalog and actual tool results | Plan exists; execution pending |
 
 Test definitions are in [test strategy](../testing/test-strategy.md). Track individual methods/output/commit IDs when implemented; a Jira Done status does not replace this evidence.
+
+## ELS-33 execution update
+
+This update supersedes the pending ELS-33 cells above. FR03 and FR04 are implemented through POST /api/loans, the equipment lock, one committed service transaction and the existing V1 active-loan index. Focused BorrowingContractIT passed 53/53 cases. The complete isolated PostgreSQL 17.5 profile passed 264/264 tests (172 unit, 92 integration), with zero failures, errors or skips. Eight new LoanServiceTest cases cover commit completion and conflict classification. NFR01 is verified for the ELS-33 borrowing portion; ELS-36 remains separate. The [ELS-32 red evidence](../../reports/sprint-2/els-32-test-first-evidence.md) and [ELS-33 green evidence](../../ai-log/els-33-atomic-borrowing.md) retain the sequence.
