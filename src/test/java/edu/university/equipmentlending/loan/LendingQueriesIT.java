@@ -73,6 +73,12 @@ class LendingQueriesIT {
         jdbc.update("DELETE FROM student WHERE email LIKE '%@els35.example.test'");
     }
 
+    private void cleanAllRows() {
+        jdbc.update("DELETE FROM loan");
+        jdbc.update("DELETE FROM equipment");
+        jdbc.update("DELETE FROM student");
+    }
+
     @Test
     void equipmentAvailabilityFiltersReturnDerivedValuesInAscendingIdOrder() throws Exception {
         JsonNode all = array(performGet("/api/equipment"));
@@ -109,7 +115,7 @@ class LendingQueriesIT {
         assertThat(array(performGet("/api/loans?studentId=" + studentOne
                 + "&equipmentId=" + dueTodayEquipment)).size()).isZero();
 
-        cleanFixtures();
+        cleanAllRows();
         assertThat(array(performGet("/api/equipment")).size()).isZero();
         assertThat(array(performGet("/api/loans")).size()).isZero();
         assertThat(array(performGet("/api/loans/overdue")).size()).isZero();

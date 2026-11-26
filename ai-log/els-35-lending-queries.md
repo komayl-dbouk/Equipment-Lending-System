@@ -27,15 +27,20 @@ tests, direct PostgreSQL fixture seeding for returned history, and the required 
 - `mvnw.cmd test` passed: 185 tests, with zero failures, errors, or skipped tests.
 - `mvnw.cmd verify` passed: 185 tests, with zero failures, errors, or skipped tests;
   the Spring Boot artifact was packaged successfully.
-- A local `.env` now supplies the documented separate test-database URL and credentials.
-  `mvnw.cmd -Pdatabase-test verify` was rerun and reached the database profile, but PostgreSQL
-  refused the connection at `localhost:5433`. Docker was unavailable on this workstation, so an
-  isolated PostgreSQL database could not be started.
+- A local `.env` supplies the documented separate test-database URL and credentials.
+  The isolated PostgreSQL 17.5 container started successfully on `localhost:5433`.
+- `mvnw.cmd -Pdatabase-test verify` passed: 185 unit/controller tests and 116 integration tests,
+  with zero failures, errors, or skipped tests.
 
 ## Correction made
 
 The initial integration-test helper name collided with MockMvc’s static `get` request-builder
 method. It was renamed to `performGet`; the focused and full unit checks then passed.
+
+The first PostgreSQL run exposed a test-order assumption: another integration suite retained an
+equipment row, so the ELS-35 empty-dataset assertion was not isolated. The ELS-35 test now clears
+all loan, equipment, and student rows for that explicit empty-dataset scenario. The focused query
+integration suite passed 15 tests, followed by the complete passing database-profile verification.
 
 ## Review status
 

@@ -32,8 +32,6 @@ and overdue loans. Equipment availability is derived from active-loan history; l
 are combined with AND; overdue loans are unreturned loans whose due date is strictly before
 the Beirut-local current date supplied by the application clock.
 
-Verification completed without a database service: focused controller tests passed (28 tests)
-and the full unit suite passed (185 tests). The PostgreSQL verification command was attempted
-could not complete because PostgreSQL was not listening on the configured isolated test port
-(`localhost:5433`) and Docker was unavailable on the workstation. PostgreSQL integration
-verification remains required before review.
+Focused controller tests passed (28 tests) and the full unit suite passed (185 tests).
+The isolated PostgreSQL 17.5 verification also passed: 116 integration tests with zero failures,
+errors, or skips. The complete database-profile verification therefore passed 301 tests.
