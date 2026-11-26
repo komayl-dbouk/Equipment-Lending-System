@@ -36,10 +36,7 @@ public class EquipmentController {
     @GetMapping
     public List<EquipmentResponse> list(
             @RequestParam(name = "available", required = false) String available) {
-        if (available != null) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, "VALIDATION_FAILED", "Invalid request");
-        }
-        return equipmentService.list();
+        return equipmentService.list(parseAvailable(available));
     }
 
     @PutMapping("/{id}")
@@ -53,5 +50,15 @@ public class EquipmentController {
     public ResponseEntity<Void> delete(@PathVariable("id") @Positive long id) {
         equipmentService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private static Boolean parseAvailable(String available) {
+        if (available == null) return null;
+        return switch (available) {
+            case "true" -> true;
+            case "false" -> false;
+            default -> throw new ApiException(
+                    HttpStatus.BAD_REQUEST, "VALIDATION_FAILED", "Invalid request");
+        };
     }
 }
