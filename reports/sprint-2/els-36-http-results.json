@@ -1,0 +1,951 @@
+{
+  "card": "ELS-36",
+  "fixedClock": "2030-06-15T09:00:00Z",
+  "database": {
+    "database": "equipment_lending_workflow_test",
+    "user": "equipment_workflow",
+    "postgresql": "17.5"
+  },
+  "authenticationAndHttps": "not implemented; ELS-46",
+  "status": "passed",
+  "testedCommit": "32cda801f34abd268d16b2b26ec1e72c865db560",
+  "jarSha256": "9634ce5e1915bd54806594854bf2100586989584c3c012540040e19918ca41af",
+  "requestCount": 83,
+  "assertions": 626,
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/api/equipment",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/equipment?available=true",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/equipment?available=false",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans/overdue",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/students",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/students/4",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/students/4",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/students",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/equipment",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/equipment",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "PUT",
+      "path": "/api/equipment/8",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/equipment",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/equipment/9",
+      "status": 204,
+      "expected": 204
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 409,
+      "expected": 409,
+      "code": "EQUIPMENT_UNAVAILABLE"
+    },
+    {
+      "method": "POST",
+      "path": "/api/equipment",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/equipment",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/equipment?available=true",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/equipment?available=false",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans/overdue",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?studentId=4",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?equipmentId=8",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?studentId=4&equipmentId=8",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?studentId=5&equipmentId=8",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?studentId=9223372036854775807",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?equipmentId=9223372036854775807",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/students",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/students",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/students",
+      "status": 409,
+      "expected": 409,
+      "code": "DUPLICATE_EMAIL"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/students/4",
+      "status": 409,
+      "expected": 409,
+      "code": "DUPLICATE_EMAIL"
+    },
+    {
+      "method": "POST",
+      "path": "/api/equipment",
+      "status": 409,
+      "expected": 409,
+      "code": "DUPLICATE_INVENTORY_CODE"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/equipment/8",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 404,
+      "expected": 404,
+      "code": "STUDENT_NOT_FOUND"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 404,
+      "expected": 404,
+      "code": "EQUIPMENT_NOT_FOUND"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 400,
+      "expected": 400,
+      "code": "INVALID_LOAN_DATES"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "status": 400,
+      "expected": 400,
+      "code": "INVALID_RETURN_DATE"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/0/return",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/abc/return",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/9223372036854775808/return",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/9223372036854775807/return",
+      "status": 404,
+      "expected": 404,
+      "code": "LOAN_NOT_FOUND"
+    },
+    {
+      "method": "GET",
+      "path": "/api/equipment?available=",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "GET",
+      "path": "/api/equipment?available=TRUE",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "GET",
+      "path": "/api/equipment?available=1",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?studentId=0",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?equipmentId=0",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?studentId=abc",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?equipmentId=abc",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?studentId=9223372036854775808",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?equipmentId=9223372036854775808",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?studentId=%2B1",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?equipmentId=%2B1",
+      "status": 400,
+      "expected": 400,
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "status": 409,
+      "expected": 409,
+      "code": "LOAN_ALREADY_RETURNED"
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans/overdue",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/equipment?available=true",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/equipment/8",
+      "status": 409,
+      "expected": 409,
+      "code": "EQUIPMENT_HAS_HISTORY"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/loans?studentId=4&equipmentId=8",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/equipment/8",
+      "status": 409,
+      "expected": 409,
+      "code": "EQUIPMENT_HAS_HISTORY"
+    },
+    {
+      "method": "POST",
+      "path": "/api/equipment",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 201,
+      "expected": [
+        201,
+        409
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 409,
+      "expected": [
+        201,
+        409
+      ],
+      "code": "EQUIPMENT_UNAVAILABLE"
+    },
+    {
+      "method": "POST",
+      "path": "/api/equipment",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 409,
+      "expected": [
+        201,
+        409
+      ],
+      "code": "EQUIPMENT_UNAVAILABLE"
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans/13/return",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/equipment",
+      "status": 201,
+      "expected": 201
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/equipment/14",
+      "status": 204,
+      "expected": [
+        204,
+        409
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/loans",
+      "status": 404,
+      "expected": [
+        201,
+        404
+      ],
+      "code": "EQUIPMENT_NOT_FOUND"
+    }
+  ],
+  "databaseChecks": [
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans",
+      "unchanged": true
+    },
+    {
+      "oracle": "valid-query snapshot",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/students",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/students",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/students",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "PUT",
+      "path": "/api/students/4",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/equipment",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "PUT",
+      "path": "/api/equipment/8",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/0/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/abc/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/9223372036854775808/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/9223372036854775807/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "GET",
+      "path": "/api/equipment?available=",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "GET",
+      "path": "/api/equipment?available=TRUE",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "GET",
+      "path": "/api/equipment?available=1",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "GET",
+      "path": "/api/loans?studentId=0",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "GET",
+      "path": "/api/loans?equipmentId=0",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "GET",
+      "path": "/api/loans?studentId=abc",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "GET",
+      "path": "/api/loans?equipmentId=abc",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "GET",
+      "path": "/api/loans?studentId=9223372036854775808",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "GET",
+      "path": "/api/loans?equipmentId=9223372036854775808",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "GET",
+      "path": "/api/loans?studentId=%2B1",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "GET",
+      "path": "/api/loans?equipmentId=%2B1",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "POST",
+      "path": "/api/loans/8/return",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "DELETE",
+      "path": "/api/equipment/8",
+      "unchanged": true
+    },
+    {
+      "oracle": "rejected-write snapshot",
+      "method": "DELETE",
+      "path": "/api/equipment/8",
+      "unchanged": true
+    },
+    {
+      "oracle": "final committed workflow",
+      "rows": {
+        "students": [
+          {
+            "id": 4,
+            "name": "Updated Student",
+            "email": "updated@els36.example.test"
+          },
+          {
+            "id": 5,
+            "name": "Second Student",
+            "email": "second@els36.example.test"
+          }
+        ],
+        "equipment": [
+          {
+            "id": 8,
+            "inventory_code": "ELS36-Z-CAMERA",
+            "name": "Updated Camera",
+            "category": "Camera",
+            "description": null
+          },
+          {
+            "id": 10,
+            "inventory_code": "ELS36-TODAY",
+            "name": "Camera",
+            "category": "Camera",
+            "description": "Synthetic item"
+          },
+          {
+            "id": 11,
+            "inventory_code": "ELS36-TOMORROW",
+            "name": "Camera",
+            "category": "Camera",
+            "description": "Synthetic item"
+          },
+          {
+            "id": 12,
+            "inventory_code": "ELS36-RACE-BORROW",
+            "name": "Camera",
+            "category": "Camera",
+            "description": "Synthetic item"
+          },
+          {
+            "id": 13,
+            "inventory_code": "ELS36-RACE-RETURN",
+            "name": "Camera",
+            "category": "Camera",
+            "description": "Synthetic item"
+          }
+        ],
+        "loans": [
+          {
+            "id": 8,
+            "student_id": 4,
+            "equipment_id": 8,
+            "borrowing_date": "2030-06-10",
+            "due_date": "2030-06-14",
+            "return_date": "2030-06-10"
+          },
+          {
+            "id": 9,
+            "student_id": 5,
+            "equipment_id": 10,
+            "borrowing_date": "2030-06-10",
+            "due_date": "2030-06-15",
+            "return_date": null
+          },
+          {
+            "id": 10,
+            "student_id": 4,
+            "equipment_id": 11,
+            "borrowing_date": "2030-06-10",
+            "due_date": "2030-06-16",
+            "return_date": null
+          },
+          {
+            "id": 11,
+            "student_id": 4,
+            "equipment_id": 8,
+            "borrowing_date": "2030-06-15",
+            "due_date": "2030-06-20",
+            "return_date": null
+          },
+          {
+            "id": 12,
+            "student_id": 4,
+            "equipment_id": 12,
+            "borrowing_date": "2030-06-15",
+            "due_date": "2030-06-20",
+            "return_date": null
+          },
+          {
+            "id": 13,
+            "student_id": 4,
+            "equipment_id": 13,
+            "borrowing_date": "2030-06-10",
+            "due_date": "2030-06-20",
+            "return_date": "2030-06-15"
+          }
+        ]
+      },
+      "orphans": 0,
+      "duplicateActiveEquipment": 0
+    }
+  ],
+  "races": [
+    {
+      "race": "borrow-borrow",
+      "statuses": [
+        409,
+        201
+      ],
+      "observedEquipmentWaiters": 2
+    },
+    {
+      "race": "borrow-return",
+      "statuses": [
+        409,
+        200
+      ],
+      "observedEquipmentWaiters": 2
+    },
+    {
+      "race": "borrow-delete",
+      "statuses": [
+        404,
+        204
+      ],
+      "observedEquipmentWaiters": 2
+    }
+  ]
+}
