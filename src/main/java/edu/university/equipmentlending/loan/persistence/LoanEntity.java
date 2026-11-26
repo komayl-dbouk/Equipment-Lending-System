@@ -53,6 +53,18 @@ public class LoanEntity {
         return id;
     }
 
+    public StudentEntity getStudent() {
+        return student;
+    }
+
+    public EquipmentEntity getEquipment() {
+        return equipment;
+    }
+
+    public void recordReturn(LocalDate date) {
+        this.returnDate = date;
+    }
+
     public LocalDate getBorrowingDate() {
         return borrowingDate;
     }
