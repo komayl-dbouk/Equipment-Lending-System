@@ -17,8 +17,16 @@ spring:
 
 app:
   clock-zone: Asia/Beirut
+  security:
+    staff:
+      username: ${ELS_STAFF_USERNAME}
+      password: ${ELS_STAFF_PASSWORD}
 
 management:
+  endpoint:
+    health:
+      show-components: never
+      show-details: never
   endpoints:
     web:
       exposure:

@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.university.equipmentlending.support.AuthenticatedMockMvcConfiguration;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.time.Instant;
@@ -32,11 +33,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(AuthenticatedMockMvcConfiguration.class)
 class BorrowingContractIT {
     private static final LocalDate BORROWED = LocalDate.of(2030, 1, 10);
     private static final LocalDate DUE = BORROWED.plusDays(3);

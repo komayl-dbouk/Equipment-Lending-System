@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.university.equipmentlending.shared.error.BusinessConflictException;
+import edu.university.equipmentlending.support.AuthenticatedMockMvcConfiguration;
 import edu.university.equipmentlending.student.dto.StudentWrite;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,6 +29,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -37,6 +39,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 /** Spring MVC stack and committed PostgreSQL state; run with -Pdatabase-test verify. */
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(AuthenticatedMockMvcConfiguration.class)
 class StudentPersistenceIT {
     @Autowired private MockMvc mvc;
     @Autowired private ObjectMapper mapper;

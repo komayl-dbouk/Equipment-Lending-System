@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.university.equipmentlending.support.AuthenticatedMockMvcConfiguration;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -26,12 +27,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 /** Missing cross-feature races and database bypass invariants; no production transaction wraps a test. */
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(AuthenticatedMockMvcConfiguration.class)
 class LendingIntegrityIT {
     @Autowired private MockMvc mvc;
     @Autowired private ObjectMapper mapper;
