@@ -57,8 +57,7 @@ public class EquipmentController {
         return switch (available) {
             case "true" -> true;
             case "false" -> false;
-            default -> throw new ApiException(
-                    HttpStatus.BAD_REQUEST, "VALIDATION_FAILED", "Invalid request");
+            default -> throw ApiException.validationFailed();
         };
     }
 }

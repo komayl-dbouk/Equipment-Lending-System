@@ -12,7 +12,6 @@ import edu.university.equipmentlending.shared.persistence.DatabaseConstraintMatc
 import java.util.List;
 import java.util.Locale;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -117,7 +116,7 @@ public class EquipmentService {
         String category = request.category().strip();
         if (inventoryCode.isBlank() || name.isBlank() || category.isBlank()
                 || inventoryCode.length() > 50) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, "VALIDATION_FAILED", "Invalid request");
+            throw ApiException.validationFailed();
         }
         return new NormalizedEquipment(
                 inventoryCode,
