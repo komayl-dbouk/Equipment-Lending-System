@@ -1,0 +1,45 @@
+{
+  "card": "ELS-46",
+  "baselineCommit": "500eabe",
+  "implementationCommit": "ce86f340b165de91980dc35c02aa2bb97dcf7591",
+  "jarSha256": "4d01a6da992b6b5601eb382ebb7ff06f4c946a151a0931aa0fe3dbaa13a22e04",
+  "standardProfile": {
+    "tests": 198,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "status": "passed"
+  },
+  "databaseProfile": {
+    "unitAndControllerTests": 198,
+    "integrationTests": 193,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "postgresql": "17.5",
+    "status": "passed"
+  },
+  "packagedWorkflow": {
+    "requests": 86,
+    "assertions": 651,
+    "databaseChecks": 43,
+    "races": 3,
+    "missingCredentialStatus": 401,
+    "wrongCredentialStatus": 401,
+    "rejectedMutationStatus": 401,
+    "rejectedMutationDatabaseUnchanged": true,
+    "authorizedWorkflow": "passed",
+    "transport": "loopback HTTP only",
+    "remoteHttpsVerified": false,
+    "status": "passed"
+  },
+  "licenseReview": {
+    "runtimeTreeReviewed": true,
+    "authoritativeSourcesUsed": true,
+    "vulnerabilityScanRun": false,
+    "legalApprovalClaimed": false,
+    "thirdPartyNoticesBundlePresent": false
+  },
+  "humanReview": "pending",
+  "jiraWork": "manual by user"
+}
