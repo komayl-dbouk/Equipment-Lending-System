@@ -93,5 +93,13 @@
     "requestedProject": "ELS",
     "connectedSite": "https://lending-system.atlassian.net",
     "result": "ELS-42 unavailable; only KAN project exposed; no transition or comment claimed"
+  },
+  "remoteDelivery": {
+    "branch": "origin/ELS-42-safe-refactorings",
+    "push": "succeeded",
+    "pullRequest": "not created; installed GitHub integration returned HTTP 403 Resource not accessible by integration",
+    "reviewerRequest": "not possible without the pull request",
+    "ci": "no workflow run observed for the pushed evidence head",
+    "credentialWorkaround": "not used"
   }
 }

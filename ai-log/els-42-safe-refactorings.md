@@ -16,6 +16,7 @@
 | Preservation | No migration, dependency, endpoint, query, entity mapping, transaction/lock, business rule, or original borrowing red-test change. `Subject/` remained untouched. |
 | Scope limit | No coverage/static-analysis improvement, latency gain, human effort, approval, CI result, or merge is inferred. ELS-43 remains the quality-comparison owner. |
 | Jira | The connected `lending-system.atlassian.net` resource exposes only `KAN`; ELS-42 is unavailable, so no Jira state/comment is claimed. |
+| Remote delivery | Branch push succeeded. GitHub PR creation returned `403 Resource not accessible by integration`; GitHub CLI was unavailable and no credential workaround was used. No PR, reviewer request, or PR-triggered CI result is claimed. |
 | Review boundary | Request `MaxHusseinChreif`; do not self-approve or merge. |
 
 The detailed narrative and structured command outcomes are in [the execution report](../reports/sprint-3/els-42-safe-refactorings.md) and [verification JSON](../reports/sprint-3/els-42-verification-results.json).
