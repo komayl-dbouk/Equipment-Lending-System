@@ -10,7 +10,8 @@ The system is one Spring Boot application rooted at `edu.university.equipmentlen
 repositories. Controllers bind HTTP and DTO validation. Services own transaction boundaries,
 normalization and business rules. Repositories access JPA entities or read-only DTO
 projections. `shared/config` supplies the strict text parser and application clock;
-`shared/error` supplies the public error contract.
+`shared/error` supplies the public error contract; and `shared/persistence` supplies exact
+SQLSTATE/constraint-name matching for feature conflict classifiers.
 
 ```mermaid
 flowchart TB
@@ -87,11 +88,18 @@ classDiagram
   LoanController ..> LoanDto
   LoanReturnController ..> LoanDto
   LoanQueryController ..> LoanDto
+  LoanService --> LoanMapper
+  LoanReturnService --> LoanMapper
+  LoanMapper ..> LoanDto
+  LoanMapper --> LoanEntity
   LoanRepository --> LoanEntity
   LoanQueryRepository ..> LoanDto
 
   LoanEntity "*" --> "1" StudentEntity
   LoanEntity "*" --> "1" EquipmentEntity
+  StudentService --> DatabaseConstraintMatcher
+  EquipmentService --> DatabaseConstraintMatcher
+  LoanService --> DatabaseConstraintMatcher
   ApiExceptionHandler ..> ApiError
 ```
 

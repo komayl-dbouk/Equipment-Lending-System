@@ -9,6 +9,7 @@ import edu.university.equipmentlending.loan.persistence.LoanRepository;
 import edu.university.equipmentlending.shared.error.ApiException;
 import edu.university.equipmentlending.shared.error.BusinessConflictException;
 import edu.university.equipmentlending.shared.error.ResourceNotFoundException;
+import edu.university.equipmentlending.shared.persistence.DatabaseConstraintMatcher;
 import edu.university.equipmentlending.student.persistence.StudentEntity;
 import edu.university.equipmentlending.student.persistence.StudentRepository;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -44,7 +45,8 @@ public class LoanService {
             // execute returns only after commit. A failed flush or commit rolls back first.
             return writes.execute(status -> createUnderLock(request));
         } catch (DataIntegrityViolationException exception) {
-            if (activeLoanUniqueViolation(exception)) {
+            if (DatabaseConstraintMatcher.matches(
+                    exception, "23505", "ux_loan_active_equipment")) {
                 throw new BusinessConflictException("EQUIPMENT_UNAVAILABLE",
                         "Equipment is already on loan");
             }
@@ -64,18 +66,6 @@ public class LoanService {
 
         LoanEntity saved = loans.saveAndFlush(new LoanEntity(
                 student, item, request.borrowingDate(), request.dueDate()));
-        return new Loan(saved.getId(), student.getId(), item.getId(),
-                saved.getBorrowingDate(), saved.getDueDate(), saved.getReturnDate());
-    }
-
-    private static boolean activeLoanUniqueViolation(DataIntegrityViolationException exception) {
-        for (Throwable cause = exception; cause != null; cause = cause.getCause()) {
-            if (cause instanceof org.hibernate.exception.ConstraintViolationException violation
-                    && "23505".equals(violation.getSQLState())
-                    && "ux_loan_active_equipment".equals(violation.getConstraintName())) {
-                return true;
-            }
-        }
-        return false;
+        return LoanMapper.toDto(saved);
     }
 }

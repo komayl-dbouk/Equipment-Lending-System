@@ -50,8 +50,7 @@ public class LoanReturnService {
 
         loan.recordReturn(request.returnDate());
         loans.flush();
-        return new Loan(loan.getId(), loan.getStudent().getId(), loan.getEquipment().getId(),
-                loan.getBorrowingDate(), loan.getDueDate(), loan.getReturnDate());
+        return LoanMapper.toDto(loan);
     }
 
     private static ResourceNotFoundException missingLoan() {
