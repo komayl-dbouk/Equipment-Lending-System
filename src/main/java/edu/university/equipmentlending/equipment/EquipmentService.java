@@ -8,6 +8,7 @@ import edu.university.equipmentlending.loan.persistence.LoanRepository;
 import edu.university.equipmentlending.shared.error.ApiException;
 import edu.university.equipmentlending.shared.error.BusinessConflictException;
 import edu.university.equipmentlending.shared.error.ResourceNotFoundException;
+import edu.university.equipmentlending.shared.persistence.DatabaseConstraintMatcher;
 import java.util.List;
 import java.util.Locale;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -42,7 +43,7 @@ public class EquipmentService {
         try {
             equipmentRepository.saveAndFlush(equipment);
         } catch (DataIntegrityViolationException exception) {
-            if (causedByConstraint(exception, "23505", DUPLICATE_CONSTRAINT)) {
+            if (DatabaseConstraintMatcher.matches(exception, "23505", DUPLICATE_CONSTRAINT)) {
                 throw duplicateInventoryCode();
             }
             throw exception;
@@ -75,7 +76,7 @@ public class EquipmentService {
         try {
             equipmentRepository.saveAndFlush(equipment);
         } catch (DataIntegrityViolationException exception) {
-            if (causedByConstraint(exception, "23505", DUPLICATE_CONSTRAINT)) {
+            if (DatabaseConstraintMatcher.matches(exception, "23505", DUPLICATE_CONSTRAINT)) {
                 throw duplicateInventoryCode();
             }
             throw exception;
@@ -95,7 +96,7 @@ public class EquipmentService {
             equipmentRepository.delete(equipment);
             equipmentRepository.flush();
         } catch (DataIntegrityViolationException exception) {
-            if (causedByConstraint(exception, "23503", HISTORY_CONSTRAINT)) {
+            if (DatabaseConstraintMatcher.matches(exception, "23503", HISTORY_CONSTRAINT)) {
                 throw equipmentHasHistory();
             }
             throw exception;
@@ -123,20 +124,6 @@ public class EquipmentService {
                 name,
                 category,
                 request.description() == null ? null : request.description().strip());
-    }
-
-    private static boolean causedByConstraint(
-            DataIntegrityViolationException exception, String sqlState, String constraintName) {
-        Throwable cause = exception;
-        while (cause != null) {
-            if (cause instanceof org.hibernate.exception.ConstraintViolationException violation
-                    && sqlState.equals(violation.getSQLState())
-                    && constraintName.equals(violation.getConstraintName())) {
-                return true;
-            }
-            cause = cause.getCause();
-        }
-        return false;
     }
 
     private static ResourceNotFoundException equipmentNotFound() {

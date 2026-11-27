@@ -2,6 +2,7 @@ package edu.university.equipmentlending.student;
 
 import edu.university.equipmentlending.shared.error.BusinessConflictException;
 import edu.university.equipmentlending.shared.error.ResourceNotFoundException;
+import edu.university.equipmentlending.shared.persistence.DatabaseConstraintMatcher;
 import edu.university.equipmentlending.student.dto.Student;
 import edu.university.equipmentlending.student.dto.StudentWrite;
 import edu.university.equipmentlending.student.persistence.StudentEntity;
@@ -74,12 +75,8 @@ public class StudentService {
             return writes.execute(status -> action.get());
         } catch (DataIntegrityViolationException exception) {
             // The transaction has ended. Never query an aborted transaction or parse SQL messages.
-            for (Throwable cause = exception; cause != null; cause = cause.getCause()) {
-                if (cause instanceof org.hibernate.exception.ConstraintViolationException violation
-                        && "23505".equals(violation.getSQLState())
-                        && "student_email_key".equals(violation.getConstraintName())) {
-                    throw new BusinessConflictException("DUPLICATE_EMAIL", "Email already registered");
-                }
+            if (DatabaseConstraintMatcher.matches(exception, "23505", "student_email_key")) {
+                throw new BusinessConflictException("DUPLICATE_EMAIL", "Email already registered");
             }
             throw exception;
         }
