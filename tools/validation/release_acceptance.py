@@ -80,8 +80,9 @@ class ReleaseAcceptance(Workflow):
             good = {'name': 'Boundary', 'email': 'boundary@els47.example.test'}
             for field, value in [('name', ''), ('name', ' '), ('name', None), ('name', 'x'*121),
                                  ('email', 'bad-email'), ('email', ' '), ('email', None), ('email', 'x'*255),
-                                 ('name', True), ('email', ['invalid']), ('extra', 'unknown')]:
-                self.reject('POST', '/api/students', dict(good, **{field: value}), 400, 'VALIDATION_FAILED')
+                                 ('name', True), ('email', ['invalid']), ('extra', 'unknown'), ('name', ' ' + 'N'*120)]:
+                for method, path in [('POST', '/api/students'), ('PUT', f'/api/students/{sid}')]:
+                    self.reject(method, path, dict(good, **{field: value}), 400, 'VALIDATION_FAILED')
             self.reject('POST', '/api/students', dict(good, email=' ONE@ELS47.EXAMPLE.TEST '), 409, 'DUPLICATE_EMAIL')
             self.reject('PUT', f'/api/students/{sid}', dict(good, email=' SECOND@ELS36.EXAMPLE.TEST '), 409, 'DUPLICATE_EMAIL')
             edge = self.call('POST', '/api/students', {'name': 'N'*120, 'email': 'edge@els47.example.test'}, 201)[0]
@@ -89,6 +90,7 @@ class ReleaseAcceptance(Workflow):
             maximum_email = 'a'*64 + '@' + 'b'*63 + '.' + 'c'*63 + '.' + 'd'*61
             edge = self.call('POST', '/api/students', {'name': 'Maximum Email', 'email': maximum_email}, 201)[0]
             self.check(len(edge['email']) == 254 and edge['email'] == maximum_email, 'maximum valid email accepted')
+            self.reject('POST', '/api/students', dict(good, email=' ' + maximum_email), 400, 'VALIDATION_FAILED')
         with self.scenario('TC04', 'TC24'):
             item = self.equipment('ELS47-CAMERA')
             changed = self.call('PUT', f'/api/equipment/{item}',
@@ -102,8 +104,10 @@ class ReleaseAcceptance(Workflow):
             good = {'inventoryCode': 'ELS47-BOUNDARY', 'name': 'Boundary', 'category': 'Camera'}
             for field, value in [('inventoryCode', ' '), ('name', ''), ('category', None),
                     ('inventoryCode', 'X'*51), ('name', 'N'*121), ('category', 'C'*61), ('description', 'D'*1001),
-                    ('inventoryCode', 123), ('category', True), ('description', ['invalid']), ('available', True)]:
-                self.reject('POST', '/api/equipment', dict(good, **{field: value}), 400, 'VALIDATION_FAILED')
+                    ('inventoryCode', 123), ('category', True), ('description', ['invalid']), ('available', True),
+                    ('inventoryCode', ' ' + 'X'*50), ('description', ' ' + 'D'*1000)]:
+                for method, path in [('POST', '/api/equipment'), ('PUT', f'/api/equipment/{item}')]:
+                    self.reject(method, path, dict(good, **{field: value}), 400, 'VALIDATION_FAILED')
             self.reject('PUT', f'/api/equipment/{item}', dict(good, inventoryCode=' els47-other '), 409, 'DUPLICATE_INVENTORY_CODE')
             self.reject('POST', '/api/equipment', dict(good, inventoryCode=' els47-camera '), 409, 'DUPLICATE_INVENTORY_CODE')
             for method, payload in [('PUT', good), ('DELETE', None)]:
