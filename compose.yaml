@@ -2,13 +2,29 @@ services:
   postgres:
     image: postgres:17.5-alpine
     environment:
-      POSTGRES_DB: equipment_lending
+      POSTGRES_DB: ${ELS_DB_NAME:-equipment_lending}
       POSTGRES_USER: ${ELS_DB_USERNAME:?Set ELS_DB_USERNAME in your environment}
       POSTGRES_PASSWORD: ${ELS_DB_PASSWORD:?Set ELS_DB_PASSWORD in your environment}
-    ports:
-      - "${ELS_DB_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s
       timeout: 5s
       retries: 12
+
+  app:
+    build:
+      context: .
+    environment:
+      ELS_DB_URL: jdbc:postgresql://postgres:5432/${ELS_DB_NAME:-equipment_lending}
+      ELS_DB_USERNAME: ${ELS_DB_USERNAME:?Set ELS_DB_USERNAME in your environment}
+      ELS_DB_PASSWORD: ${ELS_DB_PASSWORD:?Set ELS_DB_PASSWORD in your environment}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${ELS_APP_PORT:-8080}:8080"
+
+volumes:
+  postgres-data:
