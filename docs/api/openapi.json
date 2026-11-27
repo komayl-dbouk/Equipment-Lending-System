@@ -3,7 +3,7 @@
   "info": {
     "title": "University Equipment Lending API",
     "version": "1.0.0",
-    "description": "Implemented API through ELS-35. Examples in this file are illustrative; docs/api/examples.ps1 is executable and captures generated IDs. Raw request string maxima apply before trimming; normalized values must remain valid. Loan dates are strict four-digit ISO calendar dates; overdue uses the injected Asia/Beirut clock. Unknown write properties are rejected. Staff authentication and remote HTTPS are required for delivery but remain pending under ELS-46."
+    "description": "Implemented API through ELS-46. Examples in this file are illustrative; docs/api/examples.ps1 is executable and captures generated IDs. Raw request string maxima apply before trimming; normalized values must remain valid. Loan dates are strict four-digit ISO calendar dates; overdue uses the injected Asia/Beirut clock. Unknown write properties are rejected. Every documented API operation requires the environment-configured staff Basic credential. Loopback HTTP is for local demonstration only; remote credential transport requires HTTPS outside this application."
   },
   "servers": [
     {
@@ -12,11 +12,15 @@
     }
   ],
   "x-delivery-security": {
-    "status": "pending",
+    "status": "implemented-local-boundary",
     "jira": "ELS-46",
-    "description": "The current runtime does not authenticate requests or emit 401 responses. Staff Basic authentication and HTTPS for remote access remain delivery requirements."
+    "description": "The runtime requires one environment-configured staff Basic credential for /api/** and emits a sanitized 401 for missing or invalid credentials. /actuator/health is the only deliberately public route and is not part of this OpenAPI path inventory. The application does not terminate or verify remote HTTPS."
   },
-  "security": [],
+  "security": [
+    {
+      "staffBasic": []
+    }
+  ],
   "tags": [
     {
       "name": "Students",
@@ -94,6 +98,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         },
         "requestBody": {
@@ -165,6 +172,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         },
         "parameters": [
@@ -243,6 +253,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         },
         "parameters": [
@@ -330,6 +343,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         },
         "requestBody": {
@@ -399,6 +415,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         },
         "parameters": [
@@ -480,6 +499,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         },
         "parameters": [
@@ -562,6 +584,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         },
         "parameters": [
@@ -637,6 +662,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         },
         "requestBody": {
@@ -690,6 +718,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         },
         "parameters": [
@@ -776,6 +807,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         },
         "parameters": [
@@ -834,6 +868,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         }
       }
@@ -844,7 +881,7 @@
       "staffBasic": {
         "type": "http",
         "scheme": "basic",
-        "description": "Reserved for pending ELS-46 delivery configuration; not active in the current runtime. The future credential must come from the environment and remote use requires HTTPS."
+        "description": "Required for every /api/** operation. Username and password come from the private process environment. Basic credentials require HTTPS outside the loopback-only local demonstration boundary."
       }
     },
     "schemas": {
@@ -1122,6 +1159,26 @@
             "type": "object",
             "additionalProperties": {
               "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "Missing or invalid staff credential; no business processing",
+        "headers": {
+          "WWW-Authenticate": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "Basic realm=\"equipment-lending\""
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
             }
           }
         }

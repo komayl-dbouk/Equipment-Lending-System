@@ -6,6 +6,11 @@ The database-test profile remains the automated-test entry point. Follow [local 
 
 Supply credentials through the process environment or a private ignored/local configuration. Do not put passwords on the command line. The example names below identify separate task-owned databases; port 15436 is illustrative and must be checked for conflicts.
 
+The runner also requires private `ELS_STAFF_USERNAME` and `ELS_STAFF_PASSWORD` values. It sends
+them only in Authorization headers for protected API calls, never to the public health check or
+the JSON evidence file. It proves missing/invalid rejection and an authorized workflow over
+loopback HTTP; it does not prove remote HTTPS.
+
 ```powershell
 $env:JAVA_HOME = 'C:\path\to\jdk-17'
 $env:ELS_TEST_DB_URL = 'jdbc:postgresql://127.0.0.1:15436/equipment_lending_test'
@@ -22,7 +27,7 @@ $env:ELS_PSQL = 'C:\path\to\postgresql-17.5\bin\psql.exe'
 .\tools\validation\run-lending-workflow.ps1
 ```
 
-The Python preflight rejects non-loopback targets, non-_test names, URL query overrides, identical app/test database names or users, an unexpected effective name/user/version, and nonempty workflow tables. It runs before app startup. The database-test startup guard and its existing tests protect the separate integration-test target. Both controls are intentional; neither establishes authentication or HTTPS, which remain ELS-46.
+The Python preflight rejects non-loopback targets, non-_test names, URL query overrides, identical app/test database names or users, an unexpected effective name/user/version, and nonempty workflow tables. It runs before app startup. The database-test startup guard and its existing tests protect the separate integration-test target. Staff access checks are part of the live workflow; HTTPS remains outside this loopback runner.
 
 The PowerShell runner checks that its port is free, that test classes are excluded from the delivery JAR, and starts only the packaged JAR. It builds a separate single-class fixture JAR from `src/test/java/elsvalidation/FixedClockConfiguration.java`, loading it explicitly with Spring Boot PropertiesLauncher and spring.main.sources. This changes the Clock only for this validation process. The fixed business day is 2030-06-15 in Asia/Beirut. HTTP error timestamps and overdue results prove that Clock is active. No production configuration/dependency/endpoint or schema is changed.
 

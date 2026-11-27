@@ -17,8 +17,20 @@ spring:
 
 app:
   clock-zone: Asia/Beirut
+  security:
+    staff:
+      username: ${ELS_STAFF_USERNAME:}
+      password: ${ELS_STAFF_PASSWORD:}
+
+logging:
+  level:
+    org.hibernate.engine.jdbc.spi.SqlExceptionHelper: 'OFF'
 
 management:
+  endpoint:
+    health:
+      show-components: never
+      show-details: never
   endpoints:
     web:
       exposure:

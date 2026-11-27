@@ -18,6 +18,8 @@ services:
       context: .
     environment:
       ELS_DB_URL: jdbc:postgresql://postgres:5432/${ELS_DB_NAME:-equipment_lending}
+      ELS_STAFF_USERNAME: ${ELS_STAFF_USERNAME:?Set ELS_STAFF_USERNAME in your private environment}
+      ELS_STAFF_PASSWORD: ${ELS_STAFF_PASSWORD:?Set ELS_STAFF_PASSWORD in your private environment}
       ELS_DB_USERNAME: ${ELS_DB_USERNAME:?Set ELS_DB_USERNAME in your environment}
       ELS_DB_PASSWORD: ${ELS_DB_PASSWORD:?Set ELS_DB_PASSWORD in your environment}
     depends_on:

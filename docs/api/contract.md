@@ -1,18 +1,25 @@
 # Equipment Lending API Contract
 
-This document describes the behavior implemented on `main` for ELS-29, ELS-26, ELS-33,
-ELS-34 and ELS-35. [openapi.json](openapi.json) is the machine-readable companion. The
+This document describes the behavior implemented through ELS-46 for ELS-29, ELS-26, ELS-33,
+ELS-34, ELS-35 and the delivery access boundary. [openapi.json](openapi.json) is the machine-readable companion. The
 requirements remain authoritative for release scope; this contract records what the current
 application actually exposes.
 
 ## Runtime and delivery boundary
 
 The local base URL is `http://localhost:8080`; every data route starts with `/api` and uses
-JSON, except a successful equipment deletion, which has no response body. The current
-application does **not** enforce authentication or terminate HTTPS. Staff-only Basic
-authentication, `401` responses and HTTPS for remote delivery remain required under ELS-46.
-They are retained as pending delivery requirements rather than reported as implemented
-behavior.
+JSON, except a successful equipment deletion, which has no response body. Every `/api/**`
+operation requires the single staff HTTP Basic credential supplied through
+`ELS_STAFF_USERNAME` and `ELS_STAFF_PASSWORD`. Missing or invalid credentials return the same
+six-field `401 UNAUTHORIZED` body and do not enter a controller. The application refuses to
+start when either credential setting is missing or blank. The exact public exception is
+`/actuator/health`, which returns sanitized status without component details.
+
+The server is stateless and does not create a login session or cookie. CSRF protection is not
+used for the present CLI/API delivery, which accepts JSON writes. Stateless Basic authentication
+alone does not prevent browser CSRF; browser delivery requires a coordinated CSRF/origin review. Basic credentials are encoded, not encrypted: loopback HTTP is only a local
+demonstration boundary. A remote deployment must provide HTTPS before sending the credential;
+this repository does not terminate or verify remote TLS. See the [staff access boundary](../deployment/staff-access.md).
 
 Requests use server-generated positive 64-bit IDs. Loan date inputs accept only JSON strings
 matching `YYYY-MM-DD` with exactly four unsigned year digits and a valid calendar day. Signed,
@@ -43,6 +50,9 @@ normalization.
 All operations may return a sanitized `500 INTERNAL_ERROR` for an unexpected failure. There
 is no student list/delete endpoint, direct equipment/loan retrieval endpoint, loan edit/delete
 endpoint or stored availability field.
+
+Every operation in the table may instead return `401 UNAUTHORIZED` with message
+`Staff credentials required` before request validation or business processing.
 
 ## Request and response fields
 
@@ -110,8 +120,9 @@ Prerequisites:
 1. Configure and start PostgreSQL and the application using
    [local setup](../deployment/local-setup.md). Use an isolated disposable database because the
    API intentionally has no student/loan deletion endpoints.
-2. Leave `ELS_API_BASE_URL` unset for `http://localhost:8080`, or set it to another local base
-   URL. Do not put credentials in the script. ELS-46 authentication is not implemented yet.
+2. Set `ELS_STAFF_USERNAME` and `ELS_STAFF_PASSWORD` privately in the process environment.
+   Leave `ELS_API_BASE_URL` unset for `http://localhost:8080`, or set it to another loopback base
+   URL. Do not put credentials in the script or command line.
 3. From the repository root run:
 
 ```powershell

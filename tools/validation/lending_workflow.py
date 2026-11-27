@@ -1,5 +1,6 @@
 """ELS-36: real HTTP and independent PostgreSQL oracles; Python standard library only."""
 import argparse
+import base64
 import concurrent.futures
 import contextlib
 import hashlib
@@ -36,6 +37,13 @@ class Workflow:
         self.check(self.db.path != test_db.path, "live and integration databases differ")
         self.check(os.environ["ELS_DB_USERNAME"] != os.environ["ELS_TEST_DB_USERNAME"],
                    "live and integration credentials use separate users")
+        for name in ("ELS_STAFF_USERNAME", "ELS_STAFF_PASSWORD"):
+            if not os.environ.get(name):
+                raise ValueError(f"Required private environment variable missing: {name}")
+        staff = f'{os.environ["ELS_STAFF_USERNAME"]}:{os.environ["ELS_STAFF_PASSWORD"]}'.encode("utf-8")
+        self.authorization = "Basic " + base64.b64encode(staff).decode("ascii")
+        invalid = b"invalid-els46-staff:invalid-els46-credential"
+        self.invalid_authorization = "Basic " + base64.b64encode(invalid).decode("ascii")
         self.pg_env = dict(os.environ, PGPASSWORD=os.environ["ELS_DB_PASSWORD"], PGCONNECT_TIMEOUT="5")
         self.psql = [args.psql, "-X", "-q", "-A", "-t", "-v", "ON_ERROR_STOP=1",
                      "-h", self.db.hostname, "-p", str(self.db.port or 5432),
@@ -81,10 +89,15 @@ class Workflow:
             self.check(len(tables) == 3, "existing schema is complete")
             self.check(all(not rows for rows in self.snapshot().values()), "workflow database starts empty")
 
-    def call(self, method, path, payload=None, expected=200, code=None):
+    def call(self, method, path, payload=None, expected=200, code=None, authentication="valid"):
         data = None if payload is None else json.dumps(payload).encode("utf-8")
+        headers = {"Content-Type": "application/json"}
+        if authentication == "valid":
+            headers["Authorization"] = self.authorization
+        elif authentication == "invalid":
+            headers["Authorization"] = self.invalid_authorization
         request = urllib.request.Request(self.args.base_url + path, data=data, method=method,
-                                         headers={"Content-Type": "application/json"})
+                                         headers=headers)
         try:
             response = urllib.request.urlopen(request, timeout=25)
         except urllib.error.HTTPError as error:
@@ -215,6 +228,15 @@ class Workflow:
 
     def run(self):
         self.empty_preflight()
+        before_authentication = self.snapshot()
+        self.call("GET", "/api/equipment", expected=401, code="UNAUTHORIZED", authentication=None)
+        self.call("GET", "/api/equipment", expected=401, code="UNAUTHORIZED", authentication="invalid")
+        self.call("POST", "/api/students",
+                  {"name": "ELS-46 Rejected Student", "email": "els46.rejected@example.test"},
+                  expected=401, code="UNAUTHORIZED", authentication=None)
+        self.check(self.snapshot() == before_authentication,
+                   "unauthenticated mutation leaves all committed rows unchanged")
+        self.database_checks.append({"oracle": "unauthenticated-write snapshot", "unchanged": True})
         for path in ("/api/equipment", "/api/equipment?available=true", "/api/equipment?available=false"):
             self.array(path, [], EQUIPMENT)
         self.array("/api/loans", [])
@@ -408,7 +430,10 @@ def main():
         print(json.dumps({"preflight": "passed", "effectiveTarget": workflow.identity}))
         return
     report = {"card": "ELS-36", "fixedClock": FIXED_INSTANT, "database": workflow.identity,
-              "authenticationAndHttps": "not implemented; ELS-46", "status": "failed"}
+              "staffAccess": {"scheme": "HTTP Basic", "protected": "/api/**",
+                              "credentialSource": "private process environment",
+                              "transport": "loopback HTTP only; remote HTTPS not verified"},
+              "status": "failed"}
     git = ["git", "-c", "safe.directory=" + ROOT.as_posix()]
     report["testedCommit"] = subprocess.check_output(git + ["rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     report["jarSha256"] = hashlib.sha256((ROOT / "target/equipment-lending-system-0.0.1-SNAPSHOT.jar").read_bytes()).hexdigest()

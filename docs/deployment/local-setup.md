@@ -2,7 +2,7 @@
 
 ## Scope and prerequisites
 
-This runbook packages the current Spring Boot backend with PostgreSQL 17.5 for a local demonstration. It uses Java 17, Maven Wrapper 3.9.11, Spring Boot 3.5.16, Docker Desktop and Docker Compose. The current revision has no staff authentication: ELS-46 owns that behavior. Keep the application on the loopback boundary described below and do not expose it publicly.
+This runbook packages the Spring Boot backend with PostgreSQL 17.5 for a local demonstration. It uses Java 17, Maven Wrapper 3.9.11, Spring Boot 3.5.16, Docker Desktop and Docker Compose. Every business request requires the private staff Basic credential. Keep the application on the loopback boundary described below; remote credential transport requires separately configured and verified HTTPS.
 
 Use a clean tracked checkout. Do not copy another working tree: in particular, do not carry `.env`, `target`, `.git`, Docker volumes, credentials or `Subject/` into the checkout or Docker build context.
 
@@ -14,7 +14,7 @@ if (Test-Path -LiteralPath .env) { throw '.env already exists; inspect it rather
 Copy-Item .env.example .env
 ```
 
-Set private, distinct passwords in `.env`. The importer asks Compose for its resolved test values and never parses or prints passwords; quoting, spaces and interpolation follow Compose semantics. Invoke the importer in the same PowerShell process as Maven, not through a child `powershell -File` process. If local policy blocks reviewed repository scripts, use a process-scoped policy permitted by your environment rather than changing machine policy.
+Set private, distinct database passwords plus nonblank `ELS_STAFF_USERNAME` and `ELS_STAFF_PASSWORD` in `.env`. Staff values are deliberately empty in the example: Compose refuses absent/empty values, and application validation also rejects absent/blank values. Never put them in command-line arguments. The importer asks Compose for its resolved test values and never parses or prints passwords; quoting, spaces and interpolation follow Compose semantics. Invoke the importer in the same PowerShell process as Maven, not through a child `powershell -File` process. If local policy blocks reviewed repository scripts, use a process-scoped policy permitted by your environment rather than changing machine policy.
 
 Keep the supplied database names unless deliberately creating a new isolated demo project. `.env` is ignored and must never be committed.
 
@@ -62,11 +62,14 @@ After readiness, create and verify a deterministic namespaced demonstration: one
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\demo\seed-demo.ps1 -ProjectName $demoProject -EnvFile .env -BaseUrl http://localhost:8080
-Invoke-RestMethod http://localhost:8080/api/equipment
-Invoke-RestMethod http://localhost:8080/api/loans
+. .\tools\demo\common.ps1
+$demoContext = Get-ElsDemoContext $demoProject .env http://localhost:8080
+Invoke-RestMethod "$($demoContext.BaseUrl)/api/equipment" -Headers $demoContext.StaffHeaders -MaximumRedirection 0
+Invoke-RestMethod "$($demoContext.BaseUrl)/api/loans" -Headers $demoContext.StaffHeaders -MaximumRedirection 0
+Remove-Variable demoContext
 ```
 
-Before any write, the helper verifies lowercase `els-demo-*` project ownership, checkout labels, actual loopback app binding, internal-only PostgreSQL, the running app database URL/user and effective PostgreSQL database/cluster identity. An optional BaseUrl must match that project. Initial seeding also requires empty application tables. A conflicting application on port 8080 cannot pass this target check.
+Before any write, the helper verifies lowercase `els-demo-*` project ownership, checkout labels, actual loopback app binding, internal-only PostgreSQL, the running app database URL/user and effective PostgreSQL database/cluster identity. It resolves private staff settings using Compose semantics, verifies they match the running app, and sends an Authorization header only after these guards. It refuses redirects and stores no credentials in checkpoints. Do not print or serialize `$demoContext`: it contains the private in-memory header. An optional BaseUrl must match that project. Initial seeding also requires empty application tables. A conflicting application on port 8080 cannot pass this target check.
 
 The checkpoint is project-specific: `target/els45-<project-name>.json`. It is atomically written before the first mutation and after each successful step. A rerun checks its target fingerprint plus exact borrower identity, inventory fields, availability and all loan references/dates/return state, then performs only reads. Drift or an incomplete attempt stops without replaying writes. Inspect the problem and reset only this disposable project if appropriate. Legacy unbound checkpoint files are not automatically trusted or deleted.
 
@@ -92,8 +95,8 @@ For ordinary shutdown without resetting data, use only the final `down` command.
 - **Application health fails:** inspect `docker compose -p $demoProject --env-file .env logs app` and verify that `.env` contains non-placeholder database credentials.
 - **Port conflict:** select a different unused `ELS_APP_PORT`, then restart this same demo project.
 - **Maven cannot connect to PostgreSQL:** start `els-tests`, run the Compose-backed test importer in the Maven shell, and verify the URL ends in `_test`.
-- **Authentication changes arrive:** follow [the ELS-46 packaging handoff](els-46-packaging-handoff.md). Current business examples are unauthenticated only until that card integrates.
+- **Business request receives 401:** verify the private staff values match the running app, then restart only your project after changing them. Health intentionally remains public. Follow the [staff access boundary](staff-access.md).
 
 ## Automated helper checks
 
-Run `python tools/demo/test_demo_helpers.py` with Windows PowerShell or pwsh installed. These checks isolate Docker calls and exercise real loopback HTTP for fixture drift, read-only reruns and a stalled response. CI also runs a real Docker package/seed/rerun/reset/reseed smoke check; fake-Docker unit checks are not represented as a container rehearsal.
+Run `python tools/demo/test_demo_helpers.py` with Windows PowerShell or pwsh installed. These checks isolate Docker calls and exercise real loopback HTTP for authenticated reruns, rejected staff-target changes, fixture drift and a stalled response. CI also runs a real Docker package smoke check: missing/wrong access and no committed writes, authorized seed/rerun, production duplicate-email log privacy, reset/reseed and preserved target guards. Fake-Docker unit checks are not represented as a container rehearsal.

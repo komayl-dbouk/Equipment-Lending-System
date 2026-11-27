@@ -4,7 +4,7 @@ A RESTful Web API for managing equipment loans at a university, built with **Jav
 
 The system will help university staff maintain an inventory of equipment, record student borrowing and returns, check availability, and track overdue loans.
 
-> **Status:** Student, equipment, lending, return and query workflows are implemented. The current delivery package is a loopback-only local demonstration; staff authentication and its final delivery verification remain ELS-46 and ELS-47.
+> **Status:** The staff-managed lending API includes student/equipment maintenance, borrowing, returns, availability/history queries and an environment-configured staff access boundary. The Docker delivery package binds only to loopback; remote use requires HTTPS supplied by the deployment. Final integrated acceptance remains ELS-47.
 
 The [project proposal](docs/proposal.md), [team plan and Sprint 1 kickoff](docs/team-plan.md), and [initial Jira backlog snapshot](docs/jira-backlog.json) define the delivery plan for the submission deadline. Work is tracked on the [ELS Scrum board](https://equipment-lending-system.atlassian.net/jira/software/c/projects/ELS/boards/34).
 

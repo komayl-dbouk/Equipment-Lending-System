@@ -1,5 +1,6 @@
 """Delivery safety regressions using isolated Docker fakes and loopback HTTP."""
 import contextlib
+import base64
 import json
 import os
 from pathlib import Path
@@ -14,6 +15,9 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 ROOT = Path(__file__).resolve().parents[2]
 SHELL = os.environ.get('ELS_HELPER_TEST_SHELL') or shutil.which('powershell') or shutil.which('pwsh')
 PROJECT = 'els-demo-helper-test'
+STAFF_USER = 'synthetic-staff'
+STAFF_PASSWORD = 'synthetic spaced # literal$ password'
+STAFF_AUTHORIZATION = 'Basic '+base64.b64encode(f'{STAFF_USER}:{STAFF_PASSWORD}'.encode()).decode()
 def q(value): return "'" + str(value).replace("'", "''") + "'"
 
 class Helpers(unittest.TestCase):
@@ -26,11 +30,13 @@ class Helpers(unittest.TestCase):
     def state(self, **changes):
         state = dict(version=2, project=PROJECT, checkout=str(ROOT), baseUrl=f'http://127.0.0.1:{self.port}', databaseId='equipment_lending/42/987654321', status='complete', studentId=1, cameraId=2, laptopId=3, activeLoanId=4, returnedLoanId=5, today='2030-06-15', activeDueDate='2030-06-22', previousBorrowingDate='2030-06-08', previousDueDate='2030-06-14')
         state.update(changes); self.state_file.write_text(json.dumps(state)); return state
-    def invoke(self, body, failure=False, test_config=False, down_failure=False, config_password="synthetic password"):
+    def invoke(self, body, failure=False, test_config=False, down_failure=False, config_password="synthetic password", staff_password=STAFF_PASSWORD, live_staff_password=STAFF_PASSWORD):
         labels = {'com.docker.compose.project':PROJECT, 'com.docker.compose.project.working_dir':str(ROOT)}
         app = {'Config':{'Labels':dict(labels, **{'com.docker.compose.service':'app'}), 'Env':['ELS_DB_URL=jdbc:postgresql://postgres:5432/equipment_lending','ELS_DB_USERNAME=equipment_app']}, 'NetworkSettings':{'Ports':{'8080/tcp':[{'HostIp':'127.0.0.1','HostPort':str(self.port)}]}}}
         db = {'Config':{'Labels':dict(labels, **{'com.docker.compose.service':'postgres'})}, 'NetworkSettings':{'Ports':{'5432/tcp':None}}}
         config = {'services':{'app':{'ports':[{'host_ip':'127.0.0.1','target':8080,'published':str(self.port)}]}, 'postgres':{'environment':{'POSTGRES_DB':'equipment_lending_test' if test_config else 'equipment_lending','POSTGRES_USER':'equipment_app','POSTGRES_PASSWORD':config_password}}}, 'volumes':{'postgres-data':{'name':PROJECT+'_postgres-data'}}}
+        config['services']['app']['environment']={'ELS_STAFF_USERNAME':STAFF_USER,'ELS_STAFF_PASSWORD':staff_password.replace('$','$$')}
+        app['Config']['Env'] += ['ELS_STAFF_USERNAME='+STAFF_USER,'ELS_STAFF_PASSWORD='+live_staff_password]
         if test_config: config['services']['postgres']['ports']=[{'host_ip':'127.0.0.1','target':5432,'published':'15499'}]
         prefix='\n'.join(f'$global:{name} = {q(json.dumps(value))}' for name,value in [('MockConfig',config),('MockApp',[app]),('MockDb',[db])])
         prefix += '\n$global:MockDownFailure = '+('$true' if down_failure else '$false')
@@ -62,6 +68,8 @@ function global:docker {
         class Handler(BaseHTTPRequestHandler):
             def do_GET(inner):
                 calls.append(('GET',inner.path))
+                if inner.path.startswith('/api/') and inner.headers.get('Authorization') != STAFF_AUTHORIZATION:
+                    inner.send_error(401);return
                 if inner.path=='/actuator/health': value={'status':'UP'}
                 elif inner.path.startswith('/api/students/'): value=dict(id=1,name='Different Borrower' if wrong_name else 'ELS Demo Borrower',email='els45.demo.borrower@example.test')
                 elif inner.path=='/api/equipment': value=[dict(id=2,inventoryCode='ELS45-CAM-001',name='ELS Demo Camera',category='Camera',description='Synthetic delivery demonstration item',available=False),dict(id=3,inventoryCode='ELS45-LAP-001',name='ELS Demo Laptop',category='Laptop',description='Synthetic returned-history item',available=True)]
@@ -105,6 +113,14 @@ function global:docker {
     def test_interrupted_seed_does_not_retry_writes(self):
         with self.api():
             self.state(status='seeding');self.invoke(self.command('seed-demo.ps1',f'-StatePath {q(self.state_file)}'),failure=True)
+        self.assertEqual(self.calls,[])
+    def test_seed_rejects_missing_staff_secret_before_requests(self):
+        with self.api():
+            self.state();self.invoke(self.command('seed-demo.ps1',f'-StatePath {q(self.state_file)}'),failure=True,staff_password='')
+        self.assertEqual(self.calls,[])
+    def test_seed_rejects_changed_live_staff_secret_before_requests(self):
+        with self.api():
+            self.state();self.invoke(self.command('seed-demo.ps1',f'-StatePath {q(self.state_file)}'),failure=True,live_staff_password='other synthetic password')
         self.assertEqual(self.calls,[])
     def test_import_uses_resolved_password_and_port(self):
         self.invoke(self.command('import-test-environment.ps1')+r'''

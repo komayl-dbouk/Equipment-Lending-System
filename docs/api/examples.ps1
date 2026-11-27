@@ -6,7 +6,22 @@ param(
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Net.Http
 $BaseUrl = $BaseUrl.TrimEnd('/')
-$http = [System.Net.Http.HttpClient]::new()
+$baseUri = $null
+if (-not [Uri]::TryCreate($BaseUrl, [UriKind]::Absolute, [ref]$baseUri) -or
+    $baseUri.Scheme -ne 'http' -or $baseUri.Host -notin @('localhost', '127.0.0.1', '::1') -or
+    $baseUri.UserInfo -or $baseUri.Query -or $baseUri.Fragment -or $baseUri.AbsolutePath -ne '/') {
+    throw 'Examples require a loopback HTTP base URL without credentials, path, query or fragment.'
+}
+foreach ($name in @('ELS_STAFF_USERNAME', 'ELS_STAFF_PASSWORD')) {
+    if (-not [Environment]::GetEnvironmentVariable($name)) {
+        throw "Required private environment variable missing: $name"
+    }
+}
+$staffBytes = [Text.Encoding]::UTF8.GetBytes("$($env:ELS_STAFF_USERNAME):$($env:ELS_STAFF_PASSWORD)")
+$staffAuthorization = 'Basic ' + [Convert]::ToBase64String($staffBytes)
+$handler = [System.Net.Http.HttpClientHandler]::new()
+$handler.AllowAutoRedirect = $false
+$http = [System.Net.Http.HttpClient]::new($handler)
 
 function Assert-Equal {
     param([object]$Actual, [object]$Expected, [string]$Label)
@@ -26,11 +41,16 @@ function Invoke-Api {
         [string]$Path,
         [int]$ExpectedStatus,
         [object]$Body,
-        [string]$ExpectedCode
+        [string]$ExpectedCode,
+        [bool]$Authenticated = $true
     )
 
     $request = [System.Net.Http.HttpRequestMessage]::new(
         [System.Net.Http.HttpMethod]::new($Method), "$BaseUrl$Path")
+    if ($Authenticated) {
+        $request.Headers.Authorization =
+            [System.Net.Http.Headers.AuthenticationHeaderValue]::Parse($staffAuthorization)
+    }
     if ($null -ne $Body) {
         $json = $Body | ConvertTo-Json -Compress -Depth 10
         $request.Content = [System.Net.Http.StringContent]::new(
@@ -89,7 +109,7 @@ try {
     $todayText = $today.ToString('yyyy-MM-dd')
     $futureDue = $today.AddDays(1).ToString('yyyy-MM-dd')
 
-    Invoke-Api GET '/actuator/health' 200 | Out-Null
+    Invoke-Api GET '/actuator/health' 200 $null $null $false | Out-Null
 
     $studentResponse = Invoke-Api POST '/api/students' 201 @{
         name = ' ELS-37 Synthetic Student '

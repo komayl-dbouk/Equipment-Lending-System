@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.university.equipmentlending.equipment.dto.EquipmentWrite;
 import edu.university.equipmentlending.shared.error.ApiException;
+import edu.university.equipmentlending.support.AuthenticatedMockMvcConfiguration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,10 +23,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.http.MediaType;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(AuthenticatedMockMvcConfiguration.class)
 class EquipmentPersistenceIT {
     @Autowired
     private EquipmentService equipmentService;
