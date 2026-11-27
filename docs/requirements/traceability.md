@@ -42,3 +42,18 @@ renders, the full Maven profiles and the executable API workflow all passed. Mer
 evidence is linked in the table and remains distinct from this card's execution. Historical
 red/green files remain unchanged and keep their original chronology. Human review and remote CI
 are separate gates and are not claimed here.
+
+## ELS-41 verified design corrections
+
+Hussein Chreif approved two reproduced important concerns before production edits: equipment
+constraint-message misclassification and per-item list queries. [Review and plan](../reviews/els-41-design-review-and-plan.md)
+record the human decision and screened alternatives. EquipmentRepository now projects the same
+ordered equipment DTO/filter results in one query; EquipmentService matches exact constraint
+name and SQLSTATE metadata. FR02/FR06 response behavior and NFR04 repository/service boundaries
+are preserved, with unrelated failures correctly retaining sanitized internal errors.
+
+[Execution evidence](../../reports/sprint-3/els-41-design-corrections.md) records 381 passing
+unit/controller/PostgreSQL tests, 83 packaged HTTP requests/626 assertions, before/after
+statement counts and constraint outcomes. Original borrowing red tests and delivery schema
+are unchanged. Final implementation review/merge remains the ELS-41 peer gate; this update
+does not claim completion of ELS-39, ELS-42 or ELS-43.

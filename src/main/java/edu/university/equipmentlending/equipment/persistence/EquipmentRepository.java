@@ -1,5 +1,6 @@
 package edu.university.equipmentlending.equipment.persistence;
 
+import edu.university.equipmentlending.equipment.dto.EquipmentResponse;
 import jakarta.persistence.LockModeType;
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,18 @@ import org.springframework.data.repository.query.Param;
 
 public interface EquipmentRepository extends JpaRepository<EquipmentEntity, Long> {
 
-    List<EquipmentEntity> findAllByOrderByIdAsc();
+    @Query("""
+            select new edu.university.equipmentlending.equipment.dto.EquipmentResponse(
+                item.id, item.inventoryCode, item.name, item.category, item.description,
+                case when activeLoan.id is null then true else false end)
+            from EquipmentEntity item
+            left join LoanEntity activeLoan on activeLoan.equipment = item and activeLoan.returnDate is null
+            where :available is null
+               or (:available = true and activeLoan.id is null)
+               or (:available = false and activeLoan.id is not null)
+            order by item.id
+            """)
+    List<EquipmentResponse> findAllResponses(@Param("available") Boolean available);
 
     boolean existsByInventoryCode(String inventoryCode);
 

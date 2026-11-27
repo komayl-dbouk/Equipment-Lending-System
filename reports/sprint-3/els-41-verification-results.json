@@ -1,0 +1,120 @@
+{
+  "card": "ELS-41",
+  "sourceCommit": "dbb2b55314ae8370558016092ad66b37d855624f",
+  "baselineCommit": "bdbbd3e2ab5a31bc12b879665a59380e0e7075d7",
+  "humanDecision": {
+    "owner": "Hussein Chreif",
+    "decision": "approved both important findings and correction plan before production edits",
+    "jiraComment": "10093",
+    "implementationPeerReview": "pending Hussein Chalhoub"
+  },
+  "environment": {
+    "java": "17.0.12",
+    "maven": "3.9.11",
+    "postgresql": "17.5",
+    "databaseMode": "task-owned Docker with separate test/workflow databases and credentials"
+  },
+  "commands": [
+    {
+      "command": "mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dtest=EquipmentServiceTest -Dit.test=EquipmentDesignReviewIT -Dlogging.level.root=WARN verify",
+      "exitCode": 0,
+      "unit": 22,
+      "integration": 8,
+      "scope": "initial focused corrections, before adding positive database race case"
+    },
+    {
+      "command": "mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dlogging.level.root=WARN verify",
+      "exitCode": 0,
+      "unit": 195,
+      "integration": 186,
+      "total": 381
+    },
+    {
+      "command": "mvnw.cmd -o --batch-mode --no-transfer-progress -Dlogging.level.root=WARN verify",
+      "exitCode": 0,
+      "unit": 195
+    }
+  ],
+  "suiteCounts": {
+    "surefire-reports": {
+      "tests": 195,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failsafe-reports": {
+      "tests": 186,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "observations": [
+    "ELS41_CONSTRAINT method=POST status=500",
+    "ELS41_CONSTRAINT method=PUT status=500",
+    "ELS41_GENUINE_RACE statuses=201,409 committed=1 observedInsertWaiters=2",
+    "ELS41_LIST size=1 filter=all statements=1",
+    "ELS41_LIST size=1 filter=true statements=1",
+    "ELS41_LIST size=1 filter=false statements=1",
+    "ELS41_LIST size=24 filter=all statements=1",
+    "ELS41_LIST size=24 filter=true statements=1",
+    "ELS41_LIST size=24 filter=false statements=1"
+  ],
+  "preservation": {
+    "originalBorrowingTests": "unchanged",
+    "migrations": "unchanged",
+    "dependencies": "unchanged",
+    "businessRules": "unchanged",
+    "deliveryAuthentication": "pending ELS-46"
+  },
+  "scopeLimits": [
+    "SQL statement count is measured; no latency benchmark or service-level agreement claimed",
+    "Static-analysis before/after comparison remains ELS-43",
+    "No actual effort or implementation approval inferred"
+  ],
+  "packagedWorkflow": {
+    "testedCommit": "dbb2b55314ae8370558016092ad66b37d855624f",
+    "jarSha256": "effb0c80e1629096763ef34c69fc9f0987fe5eaf25f548f000afa814d0430160",
+    "status": "passed",
+    "requestCount": 83,
+    "assertions": 626,
+    "races": [
+      {
+        "race": "borrow-borrow",
+        "statuses": [
+          409,
+          201
+        ],
+        "observedEquipmentWaiters": 2
+      },
+      {
+        "race": "borrow-return",
+        "statuses": [
+          409,
+          200
+        ],
+        "observedEquipmentWaiters": 2
+      },
+      {
+        "race": "borrow-delete",
+        "statuses": [
+          404,
+          204
+        ],
+        "observedEquipmentWaiters": 2
+      }
+    ]
+  },
+  "documentationChecks": {
+    "changedClassDiagram": "rendered successfully",
+    "jsonAndLinks": "passed using explicit UTF-8",
+    "diffCheck": "passed before evidence staging"
+  },
+  "cleanup": {
+    "testOwnedIndexAndRows": "confirmed absent",
+    "workflowFixtures": "removed",
+    "disposableContainerAndVolumes": "removed",
+    "temporaryCredentialFile": "removed",
+    "appProcess": "stopped by runner"
+  }
+}

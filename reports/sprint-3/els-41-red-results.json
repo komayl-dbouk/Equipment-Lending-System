@@ -1,0 +1,47 @@
+{
+  "baselineCommit": "bdbbd3e2ab5a31bc12b879665a59380e0e7075d7",
+  "tests": 8,
+  "failures": 5,
+  "errors": 0,
+  "skipped": 0,
+  "cases": [
+    {
+      "name": "unrelatedUniqueConstraintCannotMasqueradeAsInventoryConflict(String)[1]",
+      "status": "failed"
+    },
+    {
+      "name": "unrelatedUniqueConstraintCannotMasqueradeAsInventoryConflict(String)[2]",
+      "status": "failed"
+    },
+    {
+      "name": "listingPreservesExactSqlValuesAndUsesBoundedQueries(int, String)[1]",
+      "status": "passed"
+    },
+    {
+      "name": "listingPreservesExactSqlValuesAndUsesBoundedQueries(int, String)[2]",
+      "status": "passed"
+    },
+    {
+      "name": "listingPreservesExactSqlValuesAndUsesBoundedQueries(int, String)[3]",
+      "status": "passed"
+    },
+    {
+      "name": "listingPreservesExactSqlValuesAndUsesBoundedQueries(int, String)[4]",
+      "status": "failed"
+    },
+    {
+      "name": "listingPreservesExactSqlValuesAndUsesBoundedQueries(int, String)[5]",
+      "status": "failed"
+    },
+    {
+      "name": "listingPreservesExactSqlValuesAndUsesBoundedQueries(int, String)[6]",
+      "status": "failed"
+    }
+  ],
+  "observations": [
+    "One-item lists:2 SQL statements for all/true/false",
+    "24-item lists:25 SQL statements for all/true/false",
+    "Unrelated unique index violation:POST409 and PUT409 instead of500"
+  ],
+  "productionChangesAtRun": false
+}
