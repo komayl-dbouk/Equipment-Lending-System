@@ -91,15 +91,32 @@
   },
   "jira": {
     "requestedProject": "ELS",
-    "connectedSite": "https://lending-system.atlassian.net",
-    "result": "ELS-42 unavailable; only KAN project exposed; no transition or comment claimed"
+    "initialConnectedSite": "https://lending-system.atlassian.net",
+    "initialResult": "ELS-42 unavailable; only KAN project exposed; no transition or comment claimed for that attempt",
+    "projectIssue": "https://equipment-lending-system.atlassian.net/browse/ELS-42"
   },
   "remoteDelivery": {
     "branch": "origin/ELS-42-safe-refactorings",
     "push": "succeeded",
-    "pullRequest": "not created; installed GitHub integration returned HTTP 403 Resource not accessible by integration",
-    "reviewerRequest": "not possible without the pull request",
-    "ci": "no workflow run observed for the pushed evidence head",
-    "credentialWorkaround": "not used"
+    "initialPullRequestAttempt": "installed GitHub integration returned HTTP 403 Resource not accessible by integration",
+    "pullRequest": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/19",
+    "reviewerRequest": "MaxHusseinChreif",
+    "ci": {
+      "sourceCommit": "085212e33af839f4e944ab9d8bbe6d09dd752d00",
+      "result": "success",
+      "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/45969302277/job/140405513611"
+    },
+    "humanApproval": "pending",
+    "merge": "pending"
+  },
+  "independentReview": {
+    "sourceCommit": "085212e33af839f4e944ab9d8bbe6d09dd752d00",
+    "verify": { "tests": 195, "failures": 0, "errors": 0, "skipped": 0 },
+    "databaseTest": { "unit": 195, "integration": 188, "total": 383, "failures": 0, "errors": 0, "skipped": 0 },
+    "packagedHttpExamples": "passed against disposable PostgreSQL 17.5 on isolated ports",
+    "environmentCorrection": "Initial restricted standalone verify stalled and was interrupted; unrestricted standalone verify passed",
+    "logs": "ignored target/els42-review/",
+    "cleanup": "review application stopped; review PostgreSQL container and network removed",
+    "productionOrTestSourceChanged": false
   }
 }
