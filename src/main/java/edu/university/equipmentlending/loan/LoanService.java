@@ -66,7 +66,6 @@ public class LoanService {
 
         LoanEntity saved = loans.saveAndFlush(new LoanEntity(
                 student, item, request.borrowingDate(), request.dueDate()));
-        return new Loan(saved.getId(), student.getId(), item.getId(),
-                saved.getBorrowingDate(), saved.getDueDate(), saved.getReturnDate());
+        return LoanMapper.toDto(saved);
     }
 }

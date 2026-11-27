@@ -88,6 +88,10 @@ classDiagram
   LoanController ..> LoanDto
   LoanReturnController ..> LoanDto
   LoanQueryController ..> LoanDto
+  LoanService --> LoanMapper
+  LoanReturnService --> LoanMapper
+  LoanMapper ..> LoanDto
+  LoanMapper --> LoanEntity
   LoanRepository --> LoanEntity
   LoanQueryRepository ..> LoanDto
 
