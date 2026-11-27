@@ -1,0 +1,206 @@
+{
+  "card": "ELS-39",
+  "baseline": "bdbbd3e",
+  "scope": "narrow audit-oracle controls; not the ELS-40 experiment",
+  "probes": [
+    {
+      "id": "W1-returned-history",
+      "path": "src/main/java/edu/university/equipmentlending/loan/persistence/LoanQueryRepository.java",
+      "temporaryDiff": "--- correct-production\n+++ temporary-audit-control\n@@ -16,7 +16,8 @@\n                 loan.borrowingDate, loan.dueDate, loan.returnDate)\r\n             from LoanEntity loan\r\n             where (:studentId is null or loan.student.id = :studentId)\r\n-              and (:equipmentId is null or loan.equipment.id = :equipmentId)\r\n+              and (:equipmentId is null or loan.equipment.id = :equipmentId)\n+              and (:studentId is null or :equipmentId is not null or loan.returnDate is null)\r\n             order by loan.id\r\n             \"\"\")\r\n     List<Loan> findHistory(@Param(\"studentId\") Long studentId,\r\n",
+      "before": {
+        "label": "W1-returned-history-original",
+        "command": "mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dtest=DatabaseTestSafetyProcessorTest -Dit.test=LendingQueriesIT verify",
+        "exitCode": 0,
+        "integration": {
+          "tests": 15,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "guard": {
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "suites": [
+          {
+            "name": "edu.university.equipmentlending.loan.LendingQueriesIT",
+            "tests": 15,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "failingMethods": []
+          }
+        ]
+      },
+      "after": {
+        "label": "W1-returned-history-corrected",
+        "command": "mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dtest=DatabaseTestSafetyProcessorTest -Dit.test=LendingQueriesIT verify",
+        "exitCode": 1,
+        "integration": {
+          "tests": 15,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "guard": {
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "suites": [
+          {
+            "name": "edu.university.equipmentlending.loan.LendingQueriesIT",
+            "tests": 15,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0,
+            "failingMethods": [
+              "historyFiltersCombineWithAndAndReturnExactDtos"
+            ]
+          }
+        ]
+      },
+      "sourceRestored": true
+    },
+    {
+      "id": "W2-Beirut-date",
+      "path": "src/main/java/edu/university/equipmentlending/loan/LoanQueryService.java",
+      "temporaryDiff": "--- correct-production\n+++ temporary-audit-control\n@@ -25,6 +25,6 @@\n \r\n     @Transactional(readOnly = true)\r\n     public List<Loan> overdue() {\r\n-        return repository.findOverdue(LocalDate.now(clock));\r\n+        return repository.findOverdue(LocalDate.ofInstant(clock.instant(), java.time.ZoneOffset.UTC));\r\n     }\r\n }\r\n",
+      "before": {
+        "label": "W2-Beirut-date-original",
+        "command": "mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dtest=DatabaseTestSafetyProcessorTest -Dit.test=LendingQueriesIT verify",
+        "exitCode": 0,
+        "integration": {
+          "tests": 15,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "guard": {
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "suites": [
+          {
+            "name": "edu.university.equipmentlending.loan.LendingQueriesIT",
+            "tests": 15,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "failingMethods": []
+          }
+        ]
+      },
+      "after": {
+        "label": "W2-Beirut-date-corrected",
+        "command": "mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dtest=DatabaseTestSafetyProcessorTest -Dit.test=LendingQueriesIT verify",
+        "exitCode": 1,
+        "integration": {
+          "tests": 15,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "guard": {
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "suites": [
+          {
+            "name": "edu.university.equipmentlending.loan.LendingQueriesIT",
+            "tests": 15,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0,
+            "failingMethods": [
+              "overdueIncludesOnlyUnreturnedLoansStrictlyBeforeFixedToday"
+            ]
+          }
+        ]
+      },
+      "sourceRestored": true
+    },
+    {
+      "id": "W3-index-selectivity",
+      "originalIndex": "CREATE UNIQUE INDEX ux_loan_active_equipment ON public.loan USING btree (equipment_id) WHERE (return_date IS NULL)",
+      "temporaryIndex": "CREATE UNIQUE INDEX ux_loan_active_equipment ON loan (student_id) WHERE return_date IS NULL",
+      "before": {
+        "label": "W3-original",
+        "command": "mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dtest=DatabaseTestSafetyProcessorTest -Dit.test=LendingIntegrityIT verify",
+        "exitCode": 0,
+        "integration": {
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "guard": {
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "suites": [
+          {
+            "name": "edu.university.equipmentlending.loan.LendingIntegrityIT",
+            "tests": 4,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "failingMethods": []
+          }
+        ]
+      },
+      "after": {
+        "label": "W3-corrected",
+        "command": "mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dtest=DatabaseTestSafetyProcessorTest -Dit.test=LoanIndexSelectivityIT verify",
+        "exitCode": 1,
+        "integration": {
+          "tests": 2,
+          "failures": 2,
+          "errors": 0,
+          "skipped": 0
+        },
+        "guard": {
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "suites": [
+          {
+            "name": "edu.university.equipmentlending.loan.LoanIndexSelectivityIT",
+            "tests": 2,
+            "failures": 2,
+            "errors": 0,
+            "skipped": 0,
+            "failingMethods": [
+              "differentStudentCannotCreateASecondActiveLoanForTheSameEquipment",
+              "oneStudentCanHoldTwoDistinctEquipmentItemsWithoutAnInventedQuota"
+            ]
+          }
+        ]
+      },
+      "indexRestored": true
+    }
+  ],
+  "originalTestSha256": "e939c95dd67ecc35f874bdecd3213fb4c60e7b881bae75adbdc8d06f2bddefcb",
+  "correctedTestSha256": "ab1edc4a1671638e51db0a7a800e7d529b5a66673ec9be9996da0e838514701f",
+  "database": {
+    "database": "equipment_lending_test",
+    "user": "equipment_test",
+    "postgresql": "17.5"
+  },
+  "originalIndex": "CREATE UNIQUE INDEX ux_loan_active_equipment ON public.loan USING btree (equipment_id) WHERE (return_date IS NULL)",
+  "status": "expected-original-survival-and-corrected-detection",
+  "allProductionBytesRestored": true,
+  "correctedTestsRestored": true,
+  "finalIndexRestored": true
+}
