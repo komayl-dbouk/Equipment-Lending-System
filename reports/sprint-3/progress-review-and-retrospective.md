@@ -119,3 +119,5 @@ There is no new future-date restriction, fine, endpoint, authentication implemen
 - [ ] ELS-44 PR reviewed by Komayl, current-head CI passed and human merge/Done decision recorded.
 
 Until the unchecked gates are satisfied, this record remains draft and Sprint 3 remains open. Human review/merge and sprint administration remain human actions.
+
+Publication limitation: the ELS-44 branch is pushed, but the GitHub integration rejected draft PR creation with HTTP 403 `Resource not accessible by integration`. The exact title and first-person description are prepared for manual creation; no PR URL, requested-reviewer success or ELS-44 PR CI result is claimed. The repository workflow triggers on PRs to main and pushes to main, not pushes to this feature branch. Required reviewer remains `komayl-dbouk`; ELS-44 stays In Progress until the missing inputs make it reviewable. [Create the draft PR](https://github.com/komayl-dbouk/Equipment-Lending-System/compare/main...ELS-44-sprint-3-closeout?expand=1). The user was asked to share the created PR number for reviewer/CI follow-up.

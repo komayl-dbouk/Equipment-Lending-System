@@ -495,8 +495,15 @@
   "delivery": {
     "draftRequired": true,
     "pullRequest": null,
+    "branch": "ELS-44-sprint-3-closeout",
+    "substantiveCommit": "97dc835fbdb7a4c0e84a1139736275a2d099f6e0",
+    "publicationStatus": "Branch pushed; draft PR creation rejected by GitHub integration: HTTP 403 Resource not accessible by integration",
+    "manualCreationUrl": "https://github.com/komayl-dbouk/Equipment-Lending-System/compare/main...ELS-44-sprint-3-closeout?expand=1",
+    "requiredReviewer": "komayl-dbouk",
+    "reviewerRequested": false,
     "humanApproval": null,
     "latestHeadCi": null,
+    "ciLimitation": "No PR exists; feature-branch push does not trigger this repository workflow. No ELS-44 CI pass inferred from base CI.",
     "els44Done": false,
     "sprintClosed": false,
     "sprint4StartedByThisTask": false
