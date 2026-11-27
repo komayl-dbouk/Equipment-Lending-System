@@ -1,10 +1,10 @@
-# Sprint 3 Quality Review and Closeout Preparation
+# Sprint 3 Quality Review and Closeout Record
 
 Jira: [ELS-44](https://equipment-lending-system.atlassian.net/browse/ELS-44). Owner: Mostafa Younes. Required peer reviewer: Komayl Dbouk (`komayl-dbouk`). The implementation plan was explicitly approved in the task conversation.
 
 ## Decision and scope
 
-ELS-39 through ELS-43 are Done, human-approved and merged. The quality evidence satisfies the technical numerical criteria below. ELS-44 remains In Progress: member-confirmed actual effort, real retrospective feedback and an agreed improvement have not been supplied. This is a draft closeout record, not authorization to close Sprint 3, mark ELS-44 Done or start Sprint 4.
+ELS-39 through ELS-43 are Done, human-approved and merged. The quality evidence satisfies the technical numerical criteria below. Hussein Chreif explicitly confirmed the approximate Sprint 3 member-total effort, project-lead reflection and adopted handoff improvement recorded below. ELS-44 remains CODE REVIEW until the corrected records receive peer review and human merge/Done acceptance. Sprint 3 is not closed and Sprint 4 is not started by this record.
 
 The reviewed main revision is `bd0b2758afbe635ea95bee20ab19d3fc3b25e43c`. Its [merged-revision CI passed](https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/45979783370). ELS-43's final reviewed head is `ed1bc97a38475c8cc1c2d6382f0f52ccafc2efce`; [head CI also passed](https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/45979176208). GitHub records human approval by `younes285`. The assistant's [technical review](../../docs/reviews/els-43-technical-review.md) supports a human decision and does not constitute human approval.
 
@@ -35,7 +35,7 @@ Merge runs were queried by exact SHA and push event. PR-only workflow lookup omi
 | Comparable static analysis | SpotBugs Maven 4.8.3.1 / engine 4.8.3, Max effort, Low threshold, all production classes: 9 to 8 warnings, 0 analysis errors on both sides | Pass; one priority-3 serialization warning removed; all eight priority-2 findings remain visible; no added suppression/exclusion |
 | At least 1 significant measured improvement | Identical six-case probe: list sizes 1/24, filters all/true/false; pre-correction 2/25 statements, corrected 1 throughout | Pass; 25 to 1 = 96% fewer statements for 24 items. Correction is ELS-41 `dbb2b55314ae8370558016092ad66b37d855624f`, measured again in ELS-43; not a latency benchmark or a second production fix |
 | Meaningful regression and observable workflow evidence | Real-PG constraints, rollback, races and independent SQL DTO/state oracles; ELS-41 packaged workflow 83 HTTP requests/626 assertions; ELS-42 packaged examples passed | Pass for quality scope; historical HTTP executions are not relabeled as new ELS-44 runs; final delivery acceptance is ELS-47 |
-| Effort and genuine retrospective confirmation | Original 15h recovered; actuals, attributed feedback and agreed improvement not supplied | Pending human input; ELS-44 remains draft |
+| Effort and retrospective confirmation | Original 15h; project-lead-confirmed approximate actual 22h; attributed lead reflection and adopted improvement | Recorded: +7h, ratio 1.47; member totals are reconstructed approximations, not per-card time logs or a claimed meeting |
 
 ELS-43's `serialVersionUID` addition is a minor maintainability correction. The significant criterion is met by the accepted and remeasured ELS-41 query correction. No finding is inflated to meet a target. [GQM](../../docs/testing/gqm-plan.md) retains interpretation, limitations and actions.
 
@@ -58,37 +58,41 @@ Independent checks performed for ELS-44 are recorded in the [ELS-43 technical re
 
 ## Effort record
 
-Original hours come from the published [backlog snapshot](../../docs/jira-backlog.json) and matching Jira card descriptions, not from retrospective story points. Actual person-hours must include prompting, inspection, correction, review, testing and documentation without double-counting. Elapsed AI/runtime and CI duration cannot supply them.
+Original hours come from the published [backlog snapshot](../../docs/jira-backlog.json) and matching Jira descriptions. Hussein Chreif explicitly confirmed the following reconstructed approximate actual member totals as project lead, including prompting, inspection, correction, review, testing and documentation. They are recorded as confirmed approximate actual effort, not provisional planning estimates. Individual member time logs and per-card allocations were not supplied and are not inferred.
 
-| Card | Owner | Original estimate | Member-confirmed actual | Variance |
-| --- | --- | --- | --- | --- |
-| ELS-39 | Mostafa Younes | 3h | Pending | Pending |
-| ELS-40 | Hussein Chalhoub | 2h | Pending | Pending |
-| ELS-41 | Hussein Chreif | 3h | Pending | Pending |
-| ELS-42 | Komayl Dbouk | 3h | Pending | Pending |
-| ELS-43 | Hussein Chalhoub | 3h | Pending | Pending |
-| ELS-44 | Mostafa Younes | 1h | Pending | Pending |
-| Total | Four members | 15h | Pending | Pending |
+| Card | Owner | Original estimate |
+| --- | --- | --- |
+| ELS-39 | Mostafa Younes | 3h |
+| ELS-40 | Hussein Chalhoub | 2h |
+| ELS-41 | Hussein Chreif | 3h |
+| ELS-42 | Komayl Dbouk | 3h |
+| ELS-43 | Hussein Chalhoub | 3h |
+| ELS-44 | Mostafa Younes | 1h |
+| Total | Four members | 15h |
 
-Assigned estimates by member are Mostafa 4h, Chalhoub 5h, Chreif 3h and Komayl 3h. Actual totals, variance (actual minus original) and ratio (actual / 15h) remain unknown, not zero. No worklogs are inferred. Once supplied, record who confirmed each figure and whether it is per-card or a member total; do not fabricate allocation from a member total. Sprint 2's project-lead-confirmed approximate 20h belongs to Sprint 2 and is not reused.
+| Member | Original assigned estimates | Confirmed approximate actual | Variance |
+| --- | --- | --- | --- |
+| Hussein Chreif | 3h | 6h | +3h |
+| Komayl Dbouk | 3h | 4h | +1h |
+| Mostafa Younes | 4h | 6h | +2h |
+| Hussein Chalhoub | 5h | 6h | +1h |
+| Total | 15h | 22h | +7h |
 
-The current Sprint 3 story-point values are 5, 3, 8, 5, 5 and 2 (28 total). Points were added after sprint start, several after completion. They are retrospective sizing, not an original forecast, velocity or conversion into hours. Completed feature cards ELS-39 through ELS-43 total 26 retrospective points; ELS-44's 2 points are not counted complete.
+Actual/original ratio is 22/15 = 1.47, rounded to two decimals; the total variance is +7h (+46.67%). The confirmed reconstruction includes review and verification overhead beyond the original estimates. Recorded retries and repeated checks are consistent with that overhead, but no exact per-card or per-cause allocation is asserted. AI runtime, CI duration and story points were not converted into human hours. Sprint 2's separately confirmed 20h remains Sprint 2 evidence.
 
-## Retrospective evidence and missing confirmation
+The current Sprint 3 story-point values are 5, 3, 8, 5, 5 and 2 (28 total). Points were added after sprint start, several after completion. They are retrospective sizing, not an original forecast, velocity or conversion into hours. ELS-39 through ELS-43 total 26 completed retrospective points; ELS-44's 2 points remain uncompleted until acceptance.
 
-Technical observations from the retained records:
+## Retrospective and adopted improvement
 
-- SQL snapshots and controlled fault probes exposed plausible weak oracles despite a green baseline. Keep detection evidence alongside coverage.
-- Exact revision/tool/scope records made it possible to distinguish real improvement from changed coverage denominators and historical test totals.
-- Real PostgreSQL and packaged workflows established transaction, locking and rollback behavior beyond mocked status checks.
-- Guessed credentials, stale volumes, a missing import and mismatched integration permissions caused documented retries. Corrections were recorded; no test assertions were weakened to obtain green results.
-- Scope boundaries and separate quality files preserved the borrowing red-test history while multiple features integrated.
+The project lead confirmed this reflection in the project conversation:
 
-These are evidence-based observations, not quotations attributed to members. No four-person meeting or consensus is established. Technical approvals do not substitute for retrospective feedback.
+> Independent SQL checks and controlled fault probes strengthened our verification. Environment and integration setup caused avoidable retries. We should keep source, environment, commands, results and CI together at every handoff.
 
-Proposed improvement for team consideration: before each verification handoff, confirm the effective isolated database identity and exact source revision, then attach the command, counters and current-head CI to the same evidence record. Proposed coordinator: Hussein Chreif, with each card owner responsible for its evidence. Acceptance proposal: the next delivery rehearsal has a complete source/environment/evidence record without an unrecorded retry. This is a proposal; ownership and adoption require human agreement.
+Attribution: Hussein Chreif, project lead. This is his confirmed reflection and adoption decision; no four-person meeting, consensus quotation or feedback from another member is claimed. Async project-lead confirmation supplies the record without inventing a ceremony.
 
-Required confirmations before finalizing ELS-44: member-confirmed actual effort and attribution; real feedback with the speaker identified; one explicitly agreed improvement, owner and acceptance condition. These were requested in the task conversation and remain pending. No meeting is required to invent a record: asynchronous member confirmation is sufficient if accurately attributed.
+The retained evidence supports the reflection: independent SQL/oracle probes detected weaknesses despite green tests; exact source/tool/scope records distinguished real improvement from changed coverage denominators; PostgreSQL checks exercised transactions, locks and rollback. Environment/integration corrections remain documented rather than hidden. Coverage is retained alongside detection evidence, not treated as proof of correctness.
+
+Adopted improvement: each verification handoff records the exact source revision, effective isolated database identity, commands, results and current-head CI in one linked record. Hussein Chreif coordinates; each card owner maintains their handoff evidence. At the next delivery rehearsal, the coordinator checks that each relevant handoff has those fields and any retry documented. Adoption is confirmed; the future rehearsal check remains pending and is not claimed as executed.
 
 ## Prioritized release risks and Sprint 4 handoff
 
@@ -99,7 +103,7 @@ This is planning only; no Sprint 4 card was started or changed by this task. Liv
 | P1 Staff-only access and delivery boundary are incomplete | Komayl, ELS-46 | ELS-37 Done | Environment-provided staff credential; unauthenticated rejection and authorized workflow tests; synthetic data/sanitized errors; license/secret review and documented local/HTTPS boundary |
 | P1 Reproducible delivery setup has not been accepted from a clean clone | Chalhoub, ELS-45 | ELS-43 Done | Reproducible packaging/runbook/seed; clean-clone build/tests/start and key workflows; verified variables and reliable local demo |
 | P1 Final release acceptance is pending | Mostafa, ELS-47 | ELS-45 and ELS-46 | Principal/error/boundary/concurrency scenarios in delivery environment, full automated suite, every core requirement linked to observed results and limitations |
-| P1 Closeout lacks actual effort and genuine retrospective agreement | Mostafa coordinates ELS-44; all four members confirm | Member inputs and Komayl review | Attributed actuals, interpretable estimate/actual comparison, real feedback and agreed improvement; reviewed PR and passing latest-head CI |
+| P1 Corrected closeout still requires final peer review and human acceptance | Mostafa coordinates ELS-44; Komayl reviews | Confirmed lead record and current-head review/CI | Recheck corrected effort/reflection/delivery records, pass latest-head CI and record human merge/Done decision |
 | P2 Final report and maintenance traceability remain draft | Chreif, ELS-48 | ELS-44 accepted | Consolidated report/reference table, lifecycle/AI/maintenance evidence, accurate pending limits and review by all four members |
 | P2 Demo handovers and reset/backup are unverified | Komayl, ELS-49 | ELS-47 and ELS-48 | Individual explanations, deterministic rehearsal, reset/backup and observed rehearsal issue resolution |
 | P2 Eight visible static warnings remain | Chalhoub maintains ELS-43 disposition; Chreif coordinates maintenance/ELS-48 | Retained assumptions and future source changes | Preserve DTO boundaries and contract null semantics; revisit CT_CONSTRUCTOR_THROW if untrusted subclasses/plugins, finalizers or protected resources enter the exception hierarchy; no silent suppression |
@@ -112,12 +116,18 @@ There is no new future-date restriction, fine, endpoint, authentication implemen
 
 - [x] ELS-39/40/41/42/43 reports, criteria, exact PR heads, human approvals, merge commits and merged CI reconciled.
 - [x] Historical counts, measurement denominators, expected red failures and correction attribution retained.
-- [x] Original estimates and retrospective point limitations recorded; missing actuals represented explicitly.
+- [x] Original estimates and retrospective point limitations recorded.
 - [x] Release risks have owners, dependencies and observable acceptance conditions.
-- [ ] Member-confirmed Sprint 3 actual effort and confirmation attribution supplied.
-- [ ] Real team feedback and an agreed improvement supplied.
-- [ ] ELS-44 PR reviewed by Komayl, current-head CI passed and human merge/Done decision recorded.
+- [x] Project-lead-confirmed approximate Sprint 3 member-total actual effort and attribution recorded.
+- [x] Confirmed project-lead reflection and adopted improvement recorded without claiming a meeting or other-member feedback.
+- [x] Komayl approved the original ELS-44 head b76d832; its CI passed.
+- [ ] Corrected current-head record rechecked by Komayl and current-head CI verified.
+- [ ] Human merge/Done decision and subsequent sprint closeout recorded.
 
-Until the unchecked gates are satisfied, this record remains draft and Sprint 3 remains open. Human review/merge and sprint administration remain human actions.
+The evidence record is complete for peer review; final acceptance and sprint administration remain pending. No self-approval, self-merge, Sprint 3 closure or Sprint 4 start is performed by this task.
 
-Publication limitation: the ELS-44 branch is pushed, but the GitHub integration rejected draft PR creation with HTTP 403 `Resource not accessible by integration`. The exact title and first-person description are prepared for manual creation; no PR URL, requested-reviewer success or ELS-44 PR CI result is claimed. The repository workflow triggers on PRs to main and pushes to main, not pushes to this feature branch. Required reviewer remains `komayl-dbouk`; ELS-44 stays In Progress until the missing inputs make it reviewable. [Create the draft PR](https://github.com/komayl-dbouk/Equipment-Lending-System/compare/main...ELS-44-sprint-3-closeout?expand=1). The user was asked to share the created PR number for reviewer/CI follow-up.
+## Publication and review status
+
+[PR #21](https://github.com/komayl-dbouk/Equipment-Lending-System/pull/21) exists and is open for review. The initial integration returned HTTP 403 while attempting draft creation; that historical failure is superseded by the actual PR. Jira ELS-44 is CODE REVIEW. GitHub marks the PR ready for review; this does not mean it has been merged.
+
+Komayl submitted [approval 6090781503](https://github.com/komayl-dbouk/Equipment-Lending-System/pull/21#pullrequestreview-6090781503) on exact head b76d83206cf884bc2107043c225f72402891620d. [CI passed on that head](https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46016073570/job/140563404875). These observations are revision-scoped: they are not relabeled as review or CI on a later unseen commit. The corrected closeout needs a reviewer recheck, and its observed current-head CI result is recorded in the PR/Jira after the follow-up push. No merge, Done or sprint closure is claimed here.

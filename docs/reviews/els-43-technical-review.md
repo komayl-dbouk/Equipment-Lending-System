@@ -26,7 +26,7 @@ The significant measured correction is ELS-41's bounded equipment availability p
 
 JaCoCo 0.8.11 uses fresh execution data appended across the unit and PostgreSQL test JVMs, all production classes and the same five-service aggregate: StudentService, EquipmentService, LoanService, LoanReturnService and LoanQueryService. Reported counters are lines 144/144, branches 37/38 and complexity 57/58; 38 production classes are analyzed. The historical `b5e6a32` counters (160/168, 61/68, 72/77; 31 classes) have different source denominators following ELS-41/42. The report correctly avoids attributing those percentage changes to serialVersionUID or treating coverage as oracle strength.
 
-The [GQM record](../testing/gqm-plan.md) gives interpretation and action, credits the earlier query/design/refactoring work, retains residual warnings and defers release access/setup checks. Effort is explicitly unavailable for Sprint 3; no hours are inferred from coverage, story points or AI runtime.
+The [GQM record](../testing/gqm-plan.md) gives interpretation and action, credits the earlier query/design/refactoring work, retains residual warnings and defers release access/setup checks. At initial technical review, Sprint 3 effort was unavailable. The canonical closeout now records subsequently project-lead-confirmed approximate member totals; no hours are inferred from coverage, story points or AI runtime.
 
 ## Independent checks
 
@@ -51,4 +51,4 @@ After retaining raw logs/XML under ignored target/els44-review, the task-owned c
 
 The serialization identifier does not change HTTP behavior, so no new packaged HTTP result is manufactured for it. The earlier observable ELS-41 query/error correction has a real packaged HTTP/SQL workflow with 83 requests and 626 assertions, including races and committed-state SQL checks, in its [verification record](../../reports/sprint-3/els-41-verification-results.json). ELS-42 also retains a passed packaged-JAR examples run. Those executions remain attributed to their original revisions; final delivery/access verification belongs to ELS-45/46/47.
 
-This review establishes the scoped measurements and regressions, not a universal absence of defects, a statistical mutation score, a latency guarantee, a human retrospective meeting or final release readiness. ELS-44 human inputs and Komayl's review remain separate gates.
+This review establishes the scoped measurements and regressions, not a universal absence of defects, a statistical mutation score, a latency guarantee, a human retrospective meeting or final release readiness. ELS-44's confirmed lead inputs are recorded in the canonical closeout; Komayl's current-head recheck and the human merge remain separate gates.

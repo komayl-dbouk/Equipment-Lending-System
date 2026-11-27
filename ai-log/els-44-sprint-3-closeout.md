@@ -19,3 +19,15 @@
 | Responsibility boundary | The assistant checks source/evidence and drafts documentation. Mostafa reviews the technical recommendation; Komayl performs peer review. Human actual effort/feedback, adoption of an improvement and final merge/Done remain human decisions. No Sprint 4 work is started by this task. |
 
 The [canonical closeout](../reports/sprint-3/progress-review-and-retrospective.md), [technical review](../docs/reviews/els-43-technical-review.md) and [structured reconciliation](../reports/sprint-3/els-44-closeout-results.json) distinguish independently executed checks, historical author/reviewer evidence, pending human inputs and release risks.
+
+## Confirmed closeout correction
+
+The project lead requested all corrections needed for PR #21. Verified that PR #21 exists, Komayl approved b76d832 (review 6090781503), and exact-head CI passed. Reconciled those observations with the original failed publication attempt; previous pending publication statements above describe the initial execution, not current delivery state.
+
+Asked for missing effort/retrospective information. After requesting a draft on his behalf, Hussein Chreif explicitly confirmed reconstructed approximate actual member totals: Chreif 6h, Komayl 4h, Mostafa 6h and Chalhoub 6h, including review/testing, total 22h. The original 15h is preserved; variance +7h and ratio 1.47 are calculated. No per-card allocation, individual member time logs or worklogs are invented.
+
+The project lead also explicitly confirmed the reflection recorded in the report and adopted the source/environment/commands/results/CI handoff checklist, coordinated by Chreif and checked at the next delivery rehearsal. No meeting or feedback from other members is claimed. The future rehearsal check remains pending. These supplied confirmations replace the initial missing-input state; the historical attempt to obtain inputs remains accurately described above.
+
+Updated the canonical report, structured results, GQM and technical-review boundary. This is documentation-only reconciliation; no application, test, build, workflow, dependency, migration or original borrowing test changes. Current-head peer review, CI and human merge/Done remain separate gates. Do not self-approve, merge or close/start sprints.
+
+Correction validation passed: all five changed files, 40 local links and five anchors, JSON/effort arithmetic, confirmed attribution, revision-scoped approval records, prose date check, unchanged source/configuration scope and git diff --check. No new local application test run was needed for documentation-only changes; current-head CI is observed after pushing.

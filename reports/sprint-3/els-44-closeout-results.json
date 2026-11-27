@@ -2,7 +2,7 @@
   "card": "ELS-44",
   "owner": "Mostafa Younes",
   "reviewer": "komayl-dbouk",
-  "status": "draft; human inputs pending",
+  "status": "closeout evidence complete; current-head peer review and human merge pending",
   "planApproval": "Explicit user approval in task conversation",
   "sourceCommit": "bd0b2758afbe635ea95bee20ab19d3fc3b25e43c",
   "canonicalReport": "reports/sprint-3/progress-review-and-retrospective.md",
@@ -262,7 +262,11 @@
       "result": "pass; statement count, not latency"
     },
     "effortAndRetrospective": {
-      "result": "pending human input"
+      "result": "recorded; final peer review and merge pending",
+      "actualHours": 22,
+      "confirmedBy": "Hussein Chreif",
+      "feedbackAttribution": "Project lead only; no meeting or other-member statements claimed",
+      "improvement": "Handoff evidence checklist adopted by project lead"
     }
   },
   "historicalGreenRuns": [
@@ -427,7 +431,8 @@
         "actualHours": null,
         "varianceHours": null,
         "confirmedBy": null,
-        "retrospectivePoints": 5
+        "retrospectivePoints": 5,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
       },
       {
         "card": "ELS-40",
@@ -436,7 +441,8 @@
         "actualHours": null,
         "varianceHours": null,
         "confirmedBy": null,
-        "retrospectivePoints": 3
+        "retrospectivePoints": 3,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
       },
       {
         "card": "ELS-41",
@@ -445,7 +451,8 @@
         "actualHours": null,
         "varianceHours": null,
         "confirmedBy": null,
-        "retrospectivePoints": 8
+        "retrospectivePoints": 8,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
       },
       {
         "card": "ELS-42",
@@ -454,7 +461,8 @@
         "actualHours": null,
         "varianceHours": null,
         "confirmedBy": null,
-        "retrospectivePoints": 5
+        "retrospectivePoints": 5,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
       },
       {
         "card": "ELS-43",
@@ -463,7 +471,8 @@
         "actualHours": null,
         "varianceHours": null,
         "confirmedBy": null,
-        "retrospectivePoints": 5
+        "retrospectivePoints": 5,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
       },
       {
         "card": "ELS-44",
@@ -472,46 +481,101 @@
         "actualHours": null,
         "varianceHours": null,
         "confirmedBy": null,
-        "retrospectivePoints": 2
+        "retrospectivePoints": 2,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
       }
     ],
     "originalEstimateHours": 15,
-    "confirmedActualHours": null,
-    "varianceHours": null,
-    "actualToEstimateRatio": null,
+    "confirmedActualHours": 22,
+    "varianceHours": 7,
+    "actualToEstimateRatio": 1.47,
     "retrospectivePoints": 28,
     "completedRetrospectivePoints": 26,
     "pointsAreOriginalForecast": false,
     "pointsAreHours": false,
-    "include": "Prompting, review, corrections, tests and documentation without double-counting"
+    "include": "Prompting, review, corrections, tests and documentation without double-counting",
+    "confirmation": {
+      "confirmedBy": "Hussein Chreif",
+      "role": "project lead",
+      "source": "Explicit confirmation in the project conversation",
+      "basis": "Project-lead-confirmed reconstructed approximate actual member totals, including prompting, review, corrections, testing and documentation",
+      "perCardAllocation": "Not supplied; no allocation inferred",
+      "individualMemberTimeLogsClaimed": false
+    },
+    "memberActuals": [
+      {
+        "member": "Hussein Chreif",
+        "originalEstimateHours": 3,
+        "actualHours": 6,
+        "varianceHours": 3
+      },
+      {
+        "member": "Komayl Dbouk",
+        "originalEstimateHours": 3,
+        "actualHours": 4,
+        "varianceHours": 1
+      },
+      {
+        "member": "Mostafa Younes",
+        "originalEstimateHours": 4,
+        "actualHours": 6,
+        "varianceHours": 2
+      },
+      {
+        "member": "Hussein Chalhoub",
+        "originalEstimateHours": 5,
+        "actualHours": 6,
+        "varianceHours": 1
+      }
+    ]
   },
   "retrospective": {
     "memberFeedback": [],
-    "agreedImprovement": null,
-    "proposedImprovement": "Verify effective isolated database identity and exact source revision before verification; attach commands, counters and current-head CI to the same evidence record",
-    "proposedCoordinator": "Hussein Chreif; pending agreement",
-    "meetingClaimed": false
+    "projectLeadFeedback": {
+      "author": "Hussein Chreif",
+      "confirmed": true,
+      "text": "Independent SQL checks and controlled fault probes strengthened our verification. Environment and integration setup caused avoidable retries. We should keep source, environment, commands, results and CI together at every handoff."
+    },
+    "agreedImprovement": {
+      "text": "At each verification handoff, record exact source revision, isolated database identity, commands, results and CI together",
+      "adoptedBy": "Hussein Chreif, project lead",
+      "coordinator": "Hussein Chreif",
+      "contributors": "Each card owner records their handoff evidence",
+      "acceptance": "At the next delivery rehearsal, the coordinator verifies that each relevant handoff has a complete source/environment/command/result/CI record and documented retries",
+      "status": "adopted; rehearsal acceptance pending"
+    },
+    "meetingClaimed": false,
+    "otherMemberFeedbackClaimed": false
   },
   "delivery": {
-    "draftRequired": true,
-    "pullRequest": null,
+    "draftRequired": false,
+    "pullRequest": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/21",
     "branch": "ELS-44-sprint-3-closeout",
     "substantiveCommit": "97dc835fbdb7a4c0e84a1139736275a2d099f6e0",
-    "publicationStatus": "Branch pushed; draft PR creation rejected by GitHub integration: HTTP 403 Resource not accessible by integration",
-    "manualCreationUrl": "https://github.com/komayl-dbouk/Equipment-Lending-System/compare/main...ELS-44-sprint-3-closeout?expand=1",
+    "publicationStatus": "PR exists and is open for review; stale initial publication blocker reconciled",
+    "initialPublicationBlocker": "GitHub integration initially rejected draft PR creation with HTTP 403; historical failed attempt only",
     "requiredReviewer": "komayl-dbouk",
-    "reviewerRequested": false,
-    "humanApproval": null,
-    "latestHeadCi": null,
-    "ciLimitation": "No PR exists; feature-branch push does not trigger this repository workflow. No ELS-44 CI pass inferred from base CI.",
+    "priorHumanApproval": {
+      "login": "komayl-dbouk",
+      "sourceCommit": "b76d83206cf884bc2107043c225f72402891620d",
+      "reviewId": 6090781503,
+      "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/21#pullrequestreview-6090781503"
+    },
+    "observedCi": {
+      "sourceCommit": "b76d83206cf884bc2107043c225f72402891620d",
+      "result": "success",
+      "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46016073570/job/140563404875"
+    },
+    "currentHeadReview": "Follow-up closeout records require reviewer recheck; prior approval is not relabeled as approval of an unseen revision",
+    "currentHeadCi": "Record observed result in PR and Jira after the follow-up push",
     "els44Done": false,
     "sprintClosed": false,
     "sprint4StartedByThisTask": false
   },
   "limitations": [
-    "Actual person-hours and member attribution pending",
-    "Genuine retrospective feedback and agreed improvement pending",
-    "ELS-44 human review/merge and latest-head CI pending",
+    "Effort is project-lead-confirmed approximate reconstructed member totals; no per-card allocation or individual member time logs supplied",
+    "Feedback and improvement adoption are attributed to the project lead; no meeting or other-member feedback claimed",
+    "Current-head peer review and human merge remain pending",
     "Final staff access, clean-clone packaging and delivery acceptance remain Sprint 4 work",
     "Eight static warnings remain visible with scoped dispositions",
     "No new HTTP run claimed for serial-only change; ELS-41/42 historical evidence retained"
