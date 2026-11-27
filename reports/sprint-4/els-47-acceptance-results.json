@@ -1170,6 +1170,11 @@
   "delivery": {
     "draftRequired": true,
     "pr": null,
+    "branch": "ELS-47-final-release-acceptance",
+    "preparationCommit": "5acaa96b6ae81555b6c6695ecf7145d10e7cfed7",
+    "publicationStatus": "Preparation branch pushed; GitHub integration rejected draft PR creation with HTTP 403 Resource not accessible by integration",
+    "manualCreationUrl": "https://github.com/komayl-dbouk/Equipment-Lending-System/compare/main...ELS-47-final-release-acceptance?expand=1",
+    "preparedDescription": "ignored target/els47-review/pr-body.md",
     "reviewer": "komayl-dbouk",
     "reviewerRequested": false,
     "ci": null,
