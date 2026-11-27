@@ -3,16 +3,16 @@
   "reviewBaseline": "9eefe40ff28d5c003d86c6708750aca44acb7d51",
   "correctionImplementation": "f5c69204fca4cdfba21b760ca3e94cee19707c43",
   "sourceHashes": {
-    "tools/demo/common.ps1": "cb4a591b5b2d4f6c391b748f5d0457574163e0a384244be6dde785bdf5a87c4d",
-    "tools/demo/import-test-environment.ps1": "d19d949a92ea13fe8ccc2e72dd51210d8db2c5d10454ea7eb1789af7afe6286d",
-    "tools/demo/reset-demo.ps1": "5ea7b82d9c9ba0e09e550e530c1bc867e26de51a67b74fa6e70609b879121fbf",
-    "tools/demo/seed-demo.ps1": "fc9c3b21b4563273c29bdea2115a502e794bdf3d00de80398d7d95d4c06a0386",
-    "tools/demo/wait-for-health.ps1": "fd7b7c559f36ca0c6c9f82132b5d77844e3498b7c03b58acb79a8bacf9378f59",
-    "tools/demo/verify-package.ps1": "84f66a3762f8199728ff49e7439e1cec6c81a569e47564d2aed698edb7e65eea",
-    "tools/demo/test_demo_helpers.py": "14d94a776eccd0de6c2613ecb811a307a29c3fc6771e9cb1e1b93dd389deb8bc",
-    "Dockerfile": "cafd6997b7bf4942a15ff34210450d0d06d4421776c989e549907e80e057e836",
-    "compose.yaml": "508e9bbcc5b2f06b679f7abb0e72a553841da3d84261785054b425071ade2385",
-    ".github/workflows/build-test.yml": "9b4432d6039fa024fe0c4d00f9b4189e7e1161b1e9cae91b6f531bbb624d41bf"
+    "tools/demo/common.ps1": "7e86339370054a1c7e3419835812e5236d89798c8f3fab4248816fac782fa541",
+    "tools/demo/import-test-environment.ps1": "1651f564a9ec786d370f7d9a8d9868698d34598cafa94208a7028df3c0a3f2b9",
+    "tools/demo/reset-demo.ps1": "5f911a9bf84eaadf55a7612a39622df466a8e20303028f8419785ed47a542a2d",
+    "tools/demo/seed-demo.ps1": "0b3f0944aeb42d9e5cb2d60c154b4e207b4876a7102aa95d83655339a49669ca",
+    "tools/demo/wait-for-health.ps1": "5fdbd5aa3cd12555a5c235723de4f0f6f7d3188446d5d66170ee6aa1b5d87cca",
+    "tools/demo/verify-package.ps1": "fb7192a27a36b2cc60534ff6e734c39b1b44112596b540520051f1288dcfcbd8",
+    "tools/demo/test_demo_helpers.py": "10281abbe4f3ab6dab50ae677220c87c0b1bfaf90bd56438f3dec3d770b52ea6",
+    "Dockerfile": "8c1d6ddeb808aafb6b193a525a7e7c5ebf4b0eda904c5cc1543584b94eb72bf8",
+    "compose.yaml": "da80546303849fa20203a3ee796291ece4845db41abed75b62dfc328a8aba1c2",
+    ".github/workflows/build-test.yml": "2c7d63d92629c097e0ab70bc98481de3cd5aa5018504a4b1f132eaf47b26cac5"
   },
   "helperRegressions": {
     "passed": 13,
@@ -88,5 +88,6 @@
     "JSON test server Content-Type corrected",
     "Compose-rendered dollar escaping discovered by real credential probe and decoded once",
     "Windows File.Replace used explicit null-string binding; OS replacement test rerun outside a restricted context"
-  ]
+  ],
+  "sourceHashScope": "SHA-256 of canonical Git blob bytes at correctionImplementation; independent of checkout line endings"
 }
