@@ -40,6 +40,13 @@
     "legalApprovalClaimed": false,
     "thirdPartyNoticesBundlePresent": false
   },
+  "github": {
+    "branchPushed": true,
+    "pullRequestCreated": false,
+    "pullRequestFailure": "403 Resource not accessible by integration",
+    "reviewerRequested": false,
+    "workflowRunsObservedForPushedHead": 0
+  },
   "humanReview": "pending",
   "jiraWork": "manual by user"
 }

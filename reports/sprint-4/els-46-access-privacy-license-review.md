@@ -135,3 +135,14 @@ Corrections are part of the evidence:
 The task-owned workflow database container/network were removed after the run. The integration
 database is removed at task handoff. Jira transitions/comments are intentionally left to the user.
 Human review, remote CI, remote TLS and merge are not inferred from local evidence.
+
+## GitHub handoff
+
+The two implementation/evidence commits were pushed to
+`origin/ELS-46-staff-access-privacy`. The connected GitHub integration returned
+`403 Resource not accessible by integration` when asked to create the pull request, so no PR or
+reviewer assignment is claimed. The prepared first-person review body is retained in
+`docs/reviews/els-46-staff-access-privacy-pr.md`, and GitHub's branch link can be used to open the
+PR manually. A read of workflow runs for the pushed head returned none, which matches the workflow
+configuration: it runs for pull requests into `main`, pushes to `main`, or manual dispatch, not
+feature-branch pushes. CI therefore remains pending until the PR is opened or a run is dispatched.
