@@ -1,6 +1,5 @@
 # ELS-45 Reproducible Packaging Evidence
 
-Date: 2026-11-27
 Implementation commit: `e78d7a3` (`ELS-45 package local demonstration`)
 Branch: `ELS-45-reproducible-packaging`
 

@@ -1,18 +1,28 @@
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory)]
-    [string]$ProjectName,
+    [Parameter(Mandatory)][string]$ProjectName,
+    [string]$EnvFile = '.env',
+    [string]$StatePath,
     [switch]$ConfirmReset
 )
 
-$ErrorActionPreference = "Stop"
-if ($ProjectName -notmatch '^els-demo-[a-z0-9][a-z0-9-]*$') {
-    throw "ProjectName must begin with els-demo- so this command cannot target the normal developer or test database."
+. "$PSScriptRoot/common.ps1"
+Assert-ElsDemoProject $ProjectName
+if (-not $ConfirmReset) { throw 'Pass -ConfirmReset only for your disposable demo project.' }
+$stateFile = Get-ElsStatePath $ProjectName $StatePath
+$compose = Get-ElsComposeConfig $ProjectName $EnvFile
+foreach ($volume in $compose.Config.volumes.PSObject.Properties) {
+    if ($volume.Value.external -or $volume.Value.name -ne "$($ProjectName)_$($volume.Name)") { throw 'Reset refuses external or non-project-owned volumes.' }
 }
-if (-not $ConfirmReset) {
-    throw "Pass -ConfirmReset only after confirming this is a disposable demo project."
+$containers = @(Invoke-ElsDocker -Arguments ($compose.Arguments + @('ps', '-a', '-q')))
+foreach ($id in $containers) {
+    $container = @((Invoke-ElsDocker -Arguments @('inspect', $id)) | ConvertFrom-Json)[0]
+    Assert-ElsContainerOwner $container $ProjectName $container.Config.Labels.'com.docker.compose.service'
 }
-
-docker compose -p $ProjectName --env-file .env -f compose.yaml down -v
-Remove-Item -LiteralPath "target/els45-demo-state.json" -Force -ErrorAction SilentlyContinue
-Write-Output "Removed only the $ProjectName Compose project, its volumes, and this workspace's demo state file."
+if (Test-Path -LiteralPath $stateFile) {
+    $state = Get-Content -LiteralPath $stateFile -Raw | ConvertFrom-Json
+    if ($state.project -ne $ProjectName -or $state.checkout -ne $script:ElsRepoRoot) { throw 'State belongs to another project or checkout.' }
+}
+Invoke-ElsDocker -Arguments ($compose.Arguments + @('down', '-v')) | Out-Null
+if (Test-Path -LiteralPath $stateFile) { Remove-Item -LiteralPath $stateFile -Force }
+Write-Output "Reset completed for $ProjectName; its checkpoint was removed only after Docker succeeded."

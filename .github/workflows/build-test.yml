@@ -51,6 +51,14 @@ jobs:
         run: chmod +x mvnw
       - name: Build and run unit and PostgreSQL integration tests
         run: ./mvnw --batch-mode --no-transfer-progress -Pdatabase-test verify
+      - name: Verify delivery helper safety
+        shell: pwsh
+        run: python3 tools/demo/test_demo_helpers.py
+      - name: Build delivery runtime image
+        run: docker build -t els-demo-ci-app .
+      - name: Verify packaged Docker demonstration
+        shell: pwsh
+        run: ./tools/demo/verify-package.ps1 -ProjectName els-demo-ci -Port 18045
       - name: Retain test reports even on failure
         if: always()
         uses: actions/upload-artifact@v6
