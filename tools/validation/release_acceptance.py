@@ -41,8 +41,8 @@ class ReleaseAcceptance(Workflow):
             yield
             event['status'] = 'passed'
         finally:
-            event.update(requestRange=[first + 1, len(self.requests)],
-                         sqlEvidenceRange=[sql_first + 1, len(self.database_checks)],
+            event.update(requestRange=[first + 1, len(self.requests)] if len(self.requests) > first else None,
+                         sqlEvidenceRange=[sql_first + 1, len(self.database_checks)] if len(self.database_checks) > sql_first else None,
                          assertions=self.assertions - before)
             self.events.append(event)
 
