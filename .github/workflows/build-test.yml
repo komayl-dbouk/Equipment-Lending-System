@@ -58,7 +58,9 @@ jobs:
         run: docker build -t els-demo-ci-app .
       - name: Verify packaged Docker demonstration
         shell: pwsh
-        run: ./tools/demo/verify-package.ps1 -ProjectName els-demo-ci -Port 18045
+        run: ./tools/demo/verify-package.ps1 -ProjectName els-demo-ci -Port 18045 -EvidencePath target/els47-package-results.json
+      - name: Execute requirement-scoped release acceptance
+        run: python3 tools/validation/run-release-acceptance.py --prepared-build
       - name: Retain test reports even on failure
         if: always()
         uses: actions/upload-artifact@v6
@@ -67,5 +69,7 @@ jobs:
           path: |
             target/surefire-reports/
             target/failsafe-reports/
+            target/els47-package-results.json
+            target/els47-acceptance/results.json
           if-no-files-found: warn
           retention-days: 7

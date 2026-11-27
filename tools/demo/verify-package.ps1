@@ -1,11 +1,13 @@
 [CmdletBinding()]
-param([string]$ProjectName = 'els-demo-smoke', [ValidateRange(1024,65535)][int]$Port = 18045)
+param([string]$ProjectName = 'els-demo-smoke', [ValidateRange(1024,65535)][int]$Port = 18045, [string]$EvidencePath)
 
 . "$PSScriptRoot/common.ps1"
 Assert-ElsDemoProject $ProjectName
 $existing = @(Invoke-ElsDocker -Arguments @('ps', '-a', '--filter', "label=com.docker.compose.project=$ProjectName", '-q'))
 $volumes = @(Invoke-ElsDocker -Arguments @('volume', 'ls', '--filter', "label=com.docker.compose.project=$ProjectName", '-q'))
 $checkpoint = Get-ElsStatePath $ProjectName ''
+$evidenceFile = if ($EvidencePath) { Get-ElsStatePath $ProjectName $EvidencePath } else { $null }
+if ($evidenceFile -and ($evidenceFile -eq $checkpoint -or (Test-Path -LiteralPath $evidenceFile))) { throw 'Evidence requires a new target path separate from the checkpoint.' }
 if ($existing.Count -or $volumes.Count -or (Test-Path -LiteralPath $checkpoint)) { throw 'Smoke check requires an unused project and checkpoint.' }
 $privateFile = Join-Path $script:ElsRepoRoot ("target/smoke-" + [Guid]::NewGuid().ToString('N') + '.env')
 New-Item -ItemType Directory -Force (Split-Path -Parent $privateFile) | Out-Null
@@ -88,6 +90,18 @@ try {
     $context = Get-ElsDemoContext $ProjectName $privateFile ''
     $final = Invoke-ElsDocker -Arguments @('exec', $context.DatabaseContainer, 'psql', '-v', 'ON_ERROR_STOP=1', '-U', $context.DatabaseUser, '-d', $context.DatabaseName, '-At', '-c', $countSql)
     if ($final -ne '1|2|2') { throw 'Reset/reseed state differs from expected fixtures.' }
+    if ($evidenceFile) {
+        $source = & git -C $script:ElsRepoRoot rev-parse HEAD
+        if ($LASTEXITCODE -ne 0) { throw 'Cannot identify the tested source.' }
+        $appId = Invoke-ElsDocker -Arguments ($compose.Arguments + @('ps', '-q', 'app'))
+        $imageId = Invoke-ElsDocker -Arguments @('inspect', '--format', '{{.Image}}', $appId)
+        $packageEvidence = [ordered]@{
+            card = 'ELS-47'; sourceCommit = [string]$source; status = 'passed'
+            jarSha256 = (Get-FileHash -LiteralPath (Join-Path $script:ElsRepoRoot 'target/equipment-lending-system-0.0.1-SNAPSHOT.jar') -Algorithm SHA256).Hash.ToLowerInvariant()
+            runtimeImageId = [string]$imageId; databaseIdentity = $context.DatabaseId
+            assertions = @('public health', 'missing/wrong read and write rejected', 'independent unchanged SQL counts', 'authenticated seed and read-only rerun', 'checkpoint secrecy', 'production application log privacy', 'non-root process', 'loopback application/internal PostgreSQL', 'target/fixture drift rejection', 'reset/reseed counts 1|2|2')
+        }
+    }
     Write-Output 'PASS: real container build, missing/invalid access with no writes, authorized workflow, production log privacy, non-root/loopback/identity, seed/rerun, drift rejection and reset/reseed.'
 } finally {
     try {
@@ -97,4 +111,8 @@ try {
         if (Test-Path -LiteralPath $privateFile) { Remove-Item -LiteralPath $privateFile -Force }
         foreach ($name in $old.Keys) { [Environment]::SetEnvironmentVariable($name, $old[$name], 'Process') }
     }
+}
+if ($evidenceFile) {
+    $packageEvidence.cleanup = 'passed; owned project removed by successful Compose down -v, checkpoint and private configuration removed'
+    Write-ElsDemoState $evidenceFile $packageEvidence
 }

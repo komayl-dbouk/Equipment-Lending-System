@@ -41,3 +41,17 @@ python tools/validation/lending_workflow.py --expected-database equipment_lendin
 ```
 
 Cleanup uses only ELS36 inventory-code and synthetic email namespaces after repeating target checks. It does not drop schema/databases. Stop/remove only the database instance or containers provisioned for your run when finished. The committed acceptance report distinguishes actual executed commands/results from these reusable instructions.
+
+## Requirement-scoped release acceptance
+
+From a clean tracked checkout, with Java 17 in `JAVA_HOME` and a working Docker engine:
+
+```powershell
+python tools/validation/run-release-acceptance.py
+```
+
+The runner creates one uniquely labeled PostgreSQL 17.5 container using tmpfs, private generated process credentials, separate integration/workflow databases and users, and unused loopback ports. It runs both full Maven profiles, starts the delivery JAR with the explicit test-only Clock fixture, and extends the unchanged lending workflow/SQL/race oracles with requirement-scoped missing-target, raw field/date boundary, rollback and staff-access checks. It stops its own Java process and removes only its labeled container. It never loads or overwrites `.env` and does not reset/prune Docker.
+
+Results are written to `target/els47-acceptance/results.json`; ignored per-run logs stay below that directory. The result binds the source revision, JAR/configuration hashes, effective database, exact requests, SQL checks, coordinated races, scenario events, JUnit methods and cleanup. Request and SQL ranges are one-based inclusive; an empty range is null. Forced-failure triggers are removed before completion. A failed assertion or cleanup makes the command fail and retains a failed result rather than a release pass.
+
+CI uses `--prepared-build` immediately after its full Maven verification to reuse that job's package and JUnit results. The separate real Docker smoke runs the ordinary application image without the test Clock and retains `target/els47-package-results.json`, including its source/JAR/image identities and successful owned cleanup. Both JSON files are retained with the CI test reports. Packaged-JAR boundary evidence, ordinary Docker delivery evidence and technical architecture/historical-quality review remain distinct in the [ELS-47 acceptance report](../../reports/sprint-4/els-47-final-release-acceptance.md). Neither local HTTP nor these checks establish remote TLS, browser acceptance, human approval or submission.
