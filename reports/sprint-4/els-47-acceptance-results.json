@@ -1159,6 +1159,23 @@
     "generatedJars": "Removed only obsolete task-owned JARs after digest capture to recover host space",
     "unrelatedResources": "Not restarted, removed or pruned"
   },
+  "recoveryRetry": {
+    "userInstruction": "retry now after disk-space request",
+    "observedHostFreeBytes": 3603779584,
+    "packageRebuild": {
+      "command": "mvnw.cmd -o --batch-mode --no-transfer-progress -DskipTests package",
+      "exitCode": 0,
+      "testsRerun": false,
+      "jarSha256": "92808bbe425a64a28b24447d1ae225ee06bd7b3453f37ab0d7d2ca59e1f6ce58",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "purpose": "Restore the generated artifact removed during disk recovery; distinct from the JAR used for the earlier passing HTTP execution"
+    },
+    "dockerVersionProbe": "HTTP 500 from dockerDesktopLinuxEngine/v1.51/version",
+    "dockerContainerProbe": "HTTP 500 from Docker container-list API",
+    "storageHealthRestored": false,
+    "packageSmokeRerun": false,
+    "reason": "Docker API still unhealthy after host space was freed; no unrelated engine restart or prune attempted"
+  },
   "blockers": [
     "Explicit user approval of ELS-47 plan before substantial validation-tool additions",
     "Restore host disk space and Docker containerd metadata health",
