@@ -48,5 +48,6 @@
     "workflowRunsObservedForPushedHead": 0
   },
   "humanReview": "pending",
-  "jiraWork": "manual by user"
+  "jiraWork": "manual by user",
+  "recordScope": "Historical initial implementation ce86f34, before PR publication and review; see els-46-correction-results.json for corrected delivery verification"
 }

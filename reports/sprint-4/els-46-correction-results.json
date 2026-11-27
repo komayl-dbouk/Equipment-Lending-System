@@ -1,0 +1,138 @@
+{
+  "card": "ELS-46",
+  "reviewedBaseline": "729405ebcaceaf58c4d2d5937b49e124fc0f4fb1",
+  "integratedMain": "6ec66be",
+  "correctionImplementation": "ec0d446a940a37d95b4a8969693329ad976ee5be",
+  "sourceHashScope": "SHA-256 of canonical Git blob bytes at correctionImplementation, independent of checkout line endings",
+  "sourceHashes": {
+    "src/main/resources/application.yml": "1056965cf259d66fe7006b9d539b4ef11c6693b92fc13047a0e9de56c39fa7f7",
+    "src/test/java/edu/university/equipmentlending/shared/config/StaffAccessPropertiesTest.java": "49dab34c2d4083efde916efe0fda65216ad4ab9fb9a7263fabf271f08c43e8ce",
+    "compose.yaml": "db78eff5f0e4e5992b3f60a7169c4b959d5e51d31ab6c63495773c94dfc15d8d",
+    "tools/demo/common.ps1": "1bf11aac2d10e94fbe0062629561d7987d636887640e1d1a73346fd3449ccab8",
+    "tools/demo/seed-demo.ps1": "17d3695adb8bcbeb7c705359d5117762bf10b304ad4e5102e50996e5980c5d12",
+    "tools/demo/verify-package.ps1": "2705c2d41c4bd9206ec3718f464881679d3e1f659b4493c33fbacc013c5fa754",
+    "tools/demo/test_demo_helpers.py": "dfa10a6e928c9190e8fa65fd8c03183a99dd893bb59b00f2de608617035ea56a",
+    ".github/workflows/build-test.yml": "2c7d63d92629c097e0ab70bc98481de3cd5aa5018504a4b1f132eaf47b26cac5",
+    "Dockerfile": "8c1d6ddeb808aafb6b193a525a7e7c5ebf4b0eda904c5cc1543584b94eb72bf8"
+  },
+  "localJavaVerification": {
+    "surefire-reports": {
+      "tests": 200,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failsafe-reports": {
+      "tests": 193,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "helperRegressions": {
+    "passed": 15,
+    "platforms": [
+      "Windows PowerShell locally",
+      "Linux pwsh in CI"
+    ],
+    "scope": "Docker fakes and real loopback HTTP; separate from real Docker smoke"
+  },
+  "packagedJar": {
+    "sha256": "91daa0e93ef8aba783367dde71566e1563a8e0034e91302a48565c30f700cee2",
+    "missingCredentialStartup": {
+      "exited": 1,
+      "started": false
+    },
+    "blankCredentialStartup": {
+      "exited": 1,
+      "started": false
+    },
+    "authorizedWorkflow": {
+      "status": "passed",
+      "requests": 86,
+      "assertions": 651,
+      "sqlChecks": 43,
+      "races": [
+        {
+          "race": "borrow-borrow",
+          "statuses": [
+            409,
+            201
+          ],
+          "observedEquipmentWaiters": 2
+        },
+        {
+          "race": "borrow-return",
+          "statuses": [
+            409,
+            200
+          ],
+          "observedEquipmentWaiters": 2
+        },
+        {
+          "race": "borrow-delete",
+          "statuses": [
+            404,
+            204
+          ],
+          "observedEquipmentWaiters": 2
+        }
+      ],
+      "sqlTransport": "docker exec native psql; unchanged workflow oracles"
+    },
+    "productionApplicationLogPrivacy": {
+      "studentEmailAbsent": true,
+      "staffSecretAbsent": true,
+      "sqlValueDetailsAbsent": true
+    },
+    "privateCredentialFeatures": [
+      "spaces",
+      "#",
+      "literal dollar"
+    ],
+    "secretsRetained": false
+  },
+  "ci": {
+    "sourceCommit": "ec0d446a940a37d95b4a8969693329ad976ee5be",
+    "result": "success",
+    "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46064620137/job/140726837343",
+    "steps": {
+      "javaAndPostgresql": "success",
+      "helperRegressions": "success",
+      "runtimeImageBuild": "success",
+      "realDockerProtectedDemo": "success",
+      "containerCleanup": "success"
+    }
+  },
+  "dockerAssertions": [
+    "unused disposable Compose project and private generated settings",
+    "public sanitized health",
+    "missing/wrong authenticated read and mutation rejected with six-field 401/challenge",
+    "independent SQL counts unchanged after rejected writes",
+    "running staff settings match resolved Compose configuration",
+    "authenticated seed and read-only rerun retain exact 1/2/2 counts",
+    "checkpoint excludes private secrets and authorization header",
+    "real duplicate-email conflict with no student email/credential/SQL-value exposure in application logs",
+    "non-root process, loopback app and unpublished PostgreSQL",
+    "database/cluster/checkout/project identity and fixture-drift rejection",
+    "owned reset/reseed and cleanup"
+  ],
+  "unchanged": [
+    "feature endpoints and lending rules",
+    "Flyway migrations and integrity constraints",
+    "existing Java business assertions"
+  ],
+  "limits": [
+    "Local application execution used the packaged JAR; real application-container proof is the linked clean-runner CI",
+    "No remote TLS, browser acceptance, database-server/host/proxy log audit or vulnerability scan claimed",
+    "Distribution notices remain a release obligation",
+    "Human recheck and merge remain pending"
+  ],
+  "executionCorrections": [
+    "Offline review initially lacked two new security dependencies; downloaded them and reran successfully",
+    "Missing credentials had bound to literal placeholders; real YAML regression and packaged exits verify the correction",
+    "Production application logs had exposed student emails; logger policy and real conflict probes verify the correction",
+    "Resolved README integration conflict preserving both access and packaging",
+    "Anonymous review volume cleanup first refused its nonempty Docker marker; verified the anonymous marker, ownership event and no attachment before removal"
+  ]
+}

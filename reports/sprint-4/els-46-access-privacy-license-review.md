@@ -174,3 +174,11 @@ Executed local checks:
 | Static checks | PowerShell parsing, Python syntax, OpenAPI 401 coverage, edited local links and git diff whitespace passed |
 
 The independent SQL transport uses native `psql` inside the task-owned PostgreSQL 17.5 container via `docker exec`; the workflow's HTTP calls, fixed test clock, SQL assertions and coordinated race oracles are unchanged. No native host psql client was available. Only the task-owned review container and Java processes were removed; no existing database, `.env` or Subject material was changed. Runtime image/Docker demonstration results are recorded separately after CI completes; local JAR verification is not relabeled as a local application-container run.
+
+## Observed integrated Docker verification
+
+[CI on correction implementation ec0d446 passed](https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46064620137/job/140726837343). The clean runner completed Java/PostgreSQL verification, 15 helper regressions under Linux pwsh, runtime image build, the real protected Docker demonstration, report retention and container cleanup successfully.
+
+The smoke verified public health, missing/wrong read and write rejection with the sanitized challenge, independent unchanged SQL counts, private authenticated seed/rerun, checkpoint secrecy, real duplicate-email production application-log privacy, non-root/loopback/internal-database identity and fixture drift/reset/reseed. The expected committed counts remain one student, two equipment items and two loans. Local packaged checks and remote Docker checks remain distinct.
+
+[Structured correction results](els-46-correction-results.json) retain the exact implementation revision, canonical Git-blob source hashes, local JAR hash, commands/results scope and observed CI URL without credentials. The older verification JSON is explicitly historical. The evidence-only follow-up's latest-head CI is checked separately in the PR/Jira handoff; the linked implementation run is not attributed to an unseen commit. Human review and merge remain pending.
