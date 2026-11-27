@@ -4,9 +4,7 @@ A RESTful Web API for managing equipment loans at a university, built with **Jav
 
 The system will help university staff maintain an inventory of equipment, record student borrowing and returns, check availability, and track overdue loans.
 
-> **Status:** The staff-managed lending API includes student/equipment maintenance, borrowing,
-> returns, availability/history queries and an environment-configured staff access boundary.
-> Remote use requires HTTPS supplied by the deployment; the repository demonstrates loopback HTTP only.
+> **Status:** The staff-managed lending API includes student/equipment maintenance, borrowing, returns, availability/history queries and an environment-configured staff access boundary. The Docker delivery package binds only to loopback; remote use requires HTTPS supplied by the deployment. Final integrated acceptance remains ELS-47.
 
 The [project proposal](docs/proposal.md), [team plan and Sprint 1 kickoff](docs/team-plan.md), and [initial Jira backlog snapshot](docs/jira-backlog.json) define the delivery plan for the submission deadline. Work is tracked on the [ELS Scrum board](https://equipment-lending-system.atlassian.net/jira/software/c/projects/ELS/boards/34).
 
@@ -105,6 +103,6 @@ The planned deliverables are the Spring Boot source code, relational data model,
 
 ## Local setup
 
-The application foundation uses Java 17, Spring Boot 3.5.16, Maven Wrapper 3.9.11 and PostgreSQL 17.5. Follow the exact environment setup, build, database verification and run commands in [Local setup and verification](docs/deployment/local-setup.md). Credentials are supplied only through environment variables; `.env.example` contains placeholders, not usable secrets.
+The delivery package uses Java 17, Spring Boot 3.5.16, Maven Wrapper 3.9.11 and PostgreSQL 17.5. Follow [Local setup and verification](docs/deployment/local-setup.md) to build a local Docker image, run the loopback-only application/database pair, seed synthetic data and validate the lending workflow. Credentials are supplied only through environment variables; `.env.example` contains placeholders, not usable secrets.
 
 For student requests, replacement-update examples and database-free test commands, see the [API contract](docs/api/contract.md) and [ELS-29 verification evidence](docs/testing/els-29-student-management.md). PostgreSQL tests run through the existing `database-test` profile; local unit/controller checks do not need a database.
