@@ -1,5 +1,7 @@
 # ELS-45 Packaging Review and ELS-47 Handoff
 
+Historical preparation/review snapshot. Its original local failures and publication state are retained below; [final ELS-47 acceptance](../../reports/sprint-4/els-47-final-release-acceptance.md) records the later completed validation and current human-review gate.
+
 Reviewer responsibility: Mostafa Younes. Assistance: Codex. Technical recommendations are not human approvals.
 
 ## Exact reviewed source and decisions

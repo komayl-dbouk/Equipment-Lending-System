@@ -1,5 +1,7 @@
 # ELS-47 Acceptance Preparation and Independent Packaging Review
 
+The original preparation table is historical; the authorized completion follow-up below records later execution and publication.
+
 | Field | Record |
 | --- | --- |
 | Request | Mostafa Younes: review Chalhoub's ELS-45 package and perform ELS-47 final integrated acceptance. Required human reviewer: komayl-dbouk. |
@@ -20,3 +22,13 @@
 | Delivery | Draft preparation commit 5acaa96 pushed to ELS-47-final-release-acceptance. GitHub draft PR creation rejected with HTTP 403 Resource not accessible by integration. Exact author-perspective description prepared under ignored target/els47-review/pr-body.md; no PR URL, successful reviewer request or ELS-47 CI result is invented. Final acceptance and Komayl review remain pending. ELS-47 remains To Do during review/preparation, as requested until actual acceptance execution begins. Do not mark Done, close sprint or submit. |
 
 [Acceptance report](../reports/sprint-4/els-47-final-release-acceptance.md), [structured preparation](../reports/sprint-4/els-47-acceptance-results.json), [ELS-45 review](../docs/reviews/els-45-reproducible-packaging-pr.md).
+
+## Authorized completion follow-up
+
+The project lead authorized all work needed to prepare this PR for human merge, resolving the earlier plan gate. I retained Mostafa's preparation/failure history, added requirement-scoped HTTP/SQL checks around unchanged lending oracles, and ran clean tracked local/CI validation. Explicit POST/PUT raw boundaries, missing targets, strict dates/IDs, full-snapshot rejected writes, real rollback and all 11 protected operations now have results. Ordinary Docker records its source/JAR/image/cleanup without exposing secrets. Product code/schema/dependencies and Java assertions are unchanged.
+
+CI exposed wrapper executable metadata and the temporary PostgreSQL initialization-socket race; I tracked the proper mode and waited for the final TCP listener. No check was disabled. Empty ranges were clarified. Task-local path and UTF-8 download corrections were not counted as successful validation. Exact runs, failures, corrections, commands and cleanup are in the final report/JSON.
+
+All 28 rows have observed technical results and direct evidence. Historical quality remains revision-scoped; current five service blobs match the old quality source. Old resource absence is confirmed only on this engine. Komayl review, human approval/merge, hours, meetings, sprint closure and submission are not invented. The first-person PR and Jira handoff track the final evidence head separately from successful implementation CI.
+
+Final reconciliation validated all 28 scenario observations/evidence references, local/CI counts and event ranges, matching package identities, three race waiters, canonical source hashes and 64 local links. Whitespace and explicit staging checks passed; Subject remained local/untracked.
