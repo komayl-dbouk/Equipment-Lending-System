@@ -85,7 +85,7 @@ def main():
                 env=env, capture_output=True, text=True)
         owned = True
         for _ in range(100):
-            if subprocess.run(['docker', 'exec', name, 'pg_isready', '-U', 'els47_tests', '-d', 'els47_integration_test'], capture_output=True).returncode == 0:
+            if subprocess.run(['docker', 'exec', name, 'pg_isready', '-h', '127.0.0.1', '-U', 'els47_tests', '-d', 'els47_integration_test'], capture_output=True).returncode == 0:
                 break
             time.sleep(.2)
         else:
