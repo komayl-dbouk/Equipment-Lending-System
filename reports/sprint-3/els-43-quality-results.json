@@ -17,14 +17,17 @@
     "correction": "Added serialVersionUID to StrictTextDeserializer",
     "scope": "All production classes; no custom filter or suppression"
   },
-  "jacocoUnitOnly": {
-    "before": { "line": { "covered": 115, "total": 144 }, "branch": { "covered": 31, "total": 38 }, "complexity": { "covered": 43, "total": 58 } },
-    "after": { "line": { "covered": 115, "total": 144 }, "branch": { "covered": 31, "total": 38 }, "complexity": { "covered": 43, "total": 58 } },
-    "limitation": "PostgreSQL integration JVM unavailable locally; this is not comparable to the historical two-JVM baseline."
+  "jacocoTwoJvm": {
+    "historicalBaseline": { "sourceCommit": "b5e6a32ac0485e01cd3dee198785c1cdb45e636b", "line": { "covered": 160, "total": 168 }, "branch": { "covered": 61, "total": 68 }, "complexity": { "covered": 72, "total": 77 } },
+    "after": { "line": { "covered": 144, "total": 144 }, "branch": { "covered": 37, "total": 38 }, "complexity": { "covered": 57, "total": 58 } },
+    "classesAnalyzed": 38,
+    "executionData": "Fresh execution file with append=true across unit and PostgreSQL integration JVMs",
+    "interpretation": "The source denominator changed after accepted ELS-41/42 work; do not attribute coverage movement to the ELS-43 serialization correction."
   },
   "verification": {
     "strictWriteValidationTest": { "tests": 36, "failures": 0, "errors": 0, "skipped": 0 },
     "verify": { "tests": 195, "failures": 0, "errors": 0, "skipped": 0 },
-    "databaseVerify": { "completed": false, "reason": "PostgreSQL connection refused at localhost:5433; Docker CLI unavailable" }
+    "databaseVerify": { "unitControllerTests": 195, "postgresqlIntegrationTests": 188, "failures": 0, "errors": 0, "skipped": 0 },
+    "jacocoTwoJvm": { "tests": 383, "failures": 0, "errors": 0, "skipped": 0 }
   }
 }

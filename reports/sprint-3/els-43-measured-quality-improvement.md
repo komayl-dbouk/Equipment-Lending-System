@@ -17,18 +17,18 @@ The remaining `SE_NO_SERIALVERSIONID` priority-3 warning was confirmed at `Stric
 | Measurement | Before | After | Interpretation |
 | --- | --- | --- | --- |
 | SpotBugs warnings | 9: eight priority 2, one priority 3; 0 errors | 8: eight priority 2; 0 errors | One low-priority serialization warning removed using identical tool, settings and class scope. |
-| Service line coverage | 115/144 (79.86%) | 115/144 (79.86%) | Unit-test-only JaCoCo run. |
-| Service branch coverage | 31/38 (81.58%) | 31/38 (81.58%) | Unit-test-only JaCoCo run. |
-| Service complexity covered/total | 43/58 (74.14%) | 43/58 (74.14%) | JaCoCo complexity counter, not an independent maintainability score. |
+| Service line coverage | b5e6a32: 160/168 (95.24%) | 7fd7233: 144/144 (100.00%) | Same two-JVM measurement method; the denominator changed after accepted ELS-41/42 source changes, so this is not attributed to the serialization correction. |
+| Service branch coverage | b5e6a32: 61/68 (89.71%) | 7fd7233: 37/38 (97.37%) | Same two-JVM measurement method; the denominator changed after accepted source changes. |
+| Service complexity covered/total | b5e6a32: 72/77 (93.51%) | 7fd7233: 57/58 (98.28%) | JaCoCo complexity counter, not an independent maintainability score. |
 
-The unit-only JaCoCo report analyzes 33 classes. It is intentionally not compared as an improvement or regression against the Sprint 2 two-JVM unit-plus-PostgreSQL report, which analyzed a different source revision and includes integration coverage.
+The final JaCoCo report analyzes 38 production classes and contains the unit and PostgreSQL integration JVM sessions. The source revision differs from Sprint 2 because accepted ELS-41/42 work changed service code, so the changed coverage denominators are explicitly retained rather than attributed to ELS-43.
 
 ## Verification and limitation
 
-`mvnw.cmd -Dtest=StrictWriteValidationTest test` passed 36 tests. `mvnw.cmd verify` passed 195 tests with zero failures, errors and skips. JaCoCo before and after commands both passed the same 195 tests.
+`mvnw.cmd -Dtest=StrictWriteValidationTest test` passed 36 tests. `mvnw.cmd verify` passed 195 tests with zero failures, errors and skips. `mvnw.cmd -Pdatabase-test verify` passed 195 unit/controller and 188 PostgreSQL integration tests with zero failures, errors and skips. The two-JVM JaCoCo command passed the same 383 tests.
 
-`mvnw.cmd -Pdatabase-test verify` was attempted with the existing isolated-test credentials but could not connect to `localhost:5433`; the Docker CLI was unavailable in this session and all 188 integration tests failed to load their application context. This is an environment blocker, not application-test evidence. No PostgreSQL result, full comparable two-JVM coverage result, packaged HTTP result, CI result, or human review is claimed here.
+The initial database attempt found PostgreSQL unavailable at localhost:5433. Docker Desktop was then made available, and the isolated `els-tests` PostgreSQL 17.5 container was started before the passing database and coverage commands. No packaged HTTP workflow, CI result or human review is claimed here.
 
 ## GQM action
 
-Retain the historical baseline and this reproducible static-analysis comparison. Restore Docker/PostgreSQL access before making any conclusion about current integration coverage or delivery readiness. The remaining eight SpotBugs warnings need substantive evidence before alteration; warning-count reduction alone is not a quality target.
+Retain the historical baseline and this reproducible static-analysis comparison. The remaining eight SpotBugs warnings need substantive evidence before alteration; warning-count reduction alone is not a quality target. Human review and CI remain required before delivery acceptance.
