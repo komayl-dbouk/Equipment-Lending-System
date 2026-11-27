@@ -1,0 +1,145 @@
+{
+  "card": "ELS-48",
+  "status": "parallel report preparation; final acceptance pending ELS-44 and team review",
+  "sourceCommit": "c1a621df42ec0a8d555b2cfd17bdc8d7c4d094ee",
+  "mergedCi": {
+    "status": "success",
+    "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/45964282514/job/140389125999"
+  },
+  "independentIntegratedVerification": {
+    "sourceCommit": "f61113f3f2d46a462b04d0976fcffd3e8bfa6fee",
+    "unitController": 195,
+    "postgresqlIntegration": 188,
+    "total": 383,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "evidence": "https://equipment-lending-system.atlassian.net/browse/ELS-39?focusedCommentId=10109",
+    "newRuntimeRunForReportPreparation": false
+  },
+  "qualityBaseline": {
+    "sourceCommit": "b5e6a32ac0485e01cd3dee198785c1cdb45e636b",
+    "serviceLines": {
+      "covered": 160,
+      "total": 168,
+      "percent": 95.24
+    },
+    "serviceBranches": {
+      "covered": 61,
+      "total": 68,
+      "percent": 89.71
+    },
+    "spotbugsWarnings": 9,
+    "spotbugsAnalysisErrors": 0,
+    "afterImprovementResult": null,
+    "evidence": "sprint-2/quality-baseline.json"
+  },
+  "completedPractices": {
+    "testAudit": {
+      "methods": 14,
+      "meaningful": 11,
+      "weak": 3,
+      "distinctCorrections": 3,
+      "evidence": "sprint-3/els-39-test-audit.md"
+    },
+    "deliberateDefect": {
+      "serviceTests": 8,
+      "serviceFailuresWithDefect": 1,
+      "contractTests": 53,
+      "contractFailuresWithDefect": 1,
+      "restored": true,
+      "evidence": "sprint-3/els-40-deliberate-defect-experiment.md"
+    },
+    "designReview": {
+      "approvedImportantCorrections": 2,
+      "evidence": "sprint-3/els-41-design-corrections.md"
+    }
+  },
+  "sprint2Effort": {
+    "classification": "project-lead-confirmed approximate actual effort",
+    "confirmedBy": "Hussein Chreif",
+    "members": {
+      "Hussein Chreif": 6,
+      "Komayl Dbouk": 5,
+      "Mostafa Younes": 5,
+      "Hussein Chalhoub": 4
+    },
+    "originalEstimateTotal": 20,
+    "actualApproximateTotal": 20,
+    "perCardSessions": null
+  },
+  "pendingCards": [
+    {
+      "key": "ELS-42",
+      "owner": "Komayl Dbouk",
+      "required": "three verified safe refactorings and synchronized models",
+      "result": null
+    },
+    {
+      "key": "ELS-43",
+      "owner": "Hussein Chalhoub",
+      "required": "confirmed measured concern, correction, comparable after results and GQM",
+      "result": null
+    },
+    {
+      "key": "ELS-44",
+      "owner": "Mostafa Younes",
+      "required": "Sprint 3 quality closeout and supplied effort",
+      "result": null
+    },
+    {
+      "key": "ELS-45",
+      "owner": "Hussein Chalhoub",
+      "required": "final package and clean-clone execution",
+      "result": null
+    },
+    {
+      "key": "ELS-46",
+      "owner": "Komayl Dbouk",
+      "required": "access/privacy/security and dependency/license verification",
+      "result": null
+    },
+    {
+      "key": "ELS-47",
+      "owner": "Mostafa Younes",
+      "required": "final release acceptance and regression",
+      "result": null
+    },
+    {
+      "key": "ELS-48",
+      "owner": "Hussein Chreif",
+      "required": "final evidence consolidation and four-member review; reviewer Hussein Chalhoub",
+      "result": null
+    },
+    {
+      "key": "ELS-49",
+      "owner": "Komayl Dbouk",
+      "required": "presentation, actual rehearsal feedback and individual understanding",
+      "result": null
+    },
+    {
+      "key": "ELS-50",
+      "owner": "Hussein Chalhoub",
+      "required": "release checklist/access and actual submission record",
+      "result": null
+    }
+  ],
+  "scopeLimits": [
+    "No original assignment content copied or committed",
+    "No ELS-42/43 completion or after measurement inferred",
+    "No final release/security/acceptance/rehearsal claim",
+    "No newly measured human effort or meeting record",
+    "No DOCX/PDF export or final submission package produced"
+  ],
+  "documentValidation": {
+    "localLinksAndAnchors": "passed",
+    "localLinkCount": 109,
+    "referencePracticeRows": 13,
+    "allReferenceRowsHaveDirectEvidenceLinks": true,
+    "metricAndEffortArithmetic": "passed against committed baseline/effort sources",
+    "pendingCards": 9,
+    "overviewMermaid": "rendered successfully",
+    "executionDateStampCheck": "passed",
+    "newLocalApplicationTestsRun": false
+  }
+}
