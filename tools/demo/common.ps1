@@ -53,6 +53,17 @@ function Assert-ElsContainerOwner {
         [IO.Path]::GetFullPath($labels.'com.docker.compose.project.working_dir') -ne $script:ElsRepoRoot) { throw 'Container belongs to another project, checkout or service.' }
 }
 
+function Get-ElsStaffHeaders {
+    param($Environment)
+    $username = [string]$Environment.ELS_STAFF_USERNAME
+    $password = [string]$Environment.ELS_STAFF_PASSWORD
+    if ([string]::IsNullOrWhiteSpace($username) -or [string]::IsNullOrWhiteSpace($password)) {
+        throw 'Private staff credentials are required; no authenticated request was attempted.'
+    }
+    $bytes = [Text.Encoding]::UTF8.GetBytes("${username}:$password")
+    return @{ Authorization = 'Basic ' + [Convert]::ToBase64String($bytes) }
+}
+
 function Get-ElsDemoContext {
     param([string]$ProjectName, [string]$EnvFile, [string]$BaseUrl)
     Assert-ElsDemoProject $ProjectName
@@ -83,12 +94,16 @@ function Get-ElsDemoContext {
     $appEnv = @{}
     foreach ($entry in $app.Config.Env) { $pair = $entry -split '=', 2; $appEnv[$pair[0]] = $pair[1] }
     if ($appEnv['ELS_DB_URL'] -ne "jdbc:postgresql://postgres:5432/$dbName" -or $appEnv['ELS_DB_USERNAME'] -ne $dbUser) { throw 'Running app uses another database configuration.' }
+    $staff = $config.services.app.environment
+    $staffHeaders = Get-ElsStaffHeaders $staff
+    if ($appEnv['ELS_STAFF_USERNAME'] -cne $staff.ELS_STAFF_USERNAME -or
+        $appEnv['ELS_STAFF_PASSWORD'] -cne $staff.ELS_STAFF_PASSWORD) { throw 'Running app staff configuration differs; no request was attempted.' }
     $sql = 'SELECT current_database(),current_user,(SELECT oid FROM pg_database WHERE datname=current_database()),system_identifier FROM pg_control_system();'
     $identity = @(Invoke-ElsDocker -Arguments @('exec', $dbIds[0], 'psql', '-v', 'ON_ERROR_STOP=1', '-U', $dbUser, '-d', $dbName, '-At', '-c', $sql))
     $parts = ([string]$identity[0]).Split('|')
     if ($identity.Count -ne 1 -or $parts.Count -ne 4 -or $parts[0] -ne $dbName -or $parts[1] -ne $dbUser) { throw 'Cannot establish the effective demo database identity.' }
     return [pscustomobject]@{ BaseUrl = "http://127.0.0.1:$port"; ProjectName = $ProjectName; Checkout = $script:ElsRepoRoot
-        DatabaseId = "$($parts[0])/$($parts[2])/$($parts[3])"; DatabaseName = $dbName; DatabaseUser = $dbUser; DatabaseContainer = $dbIds[0] }
+        DatabaseId = "$($parts[0])/$($parts[2])/$($parts[3])"; DatabaseName = $dbName; DatabaseUser = $dbUser; DatabaseContainer = $dbIds[0]; StaffHeaders = $staffHeaders }
 }
 
 function Write-ElsDemoState {

@@ -16,8 +16,8 @@ start when either credential setting is missing or blank. The exact public excep
 `/actuator/health`, which returns sanitized status without component details.
 
 The server is stateless and does not create a login session or cookie. CSRF protection is not
-used because the API authenticates every request with an Authorization header rather than a
-browser session. Basic credentials are encoded, not encrypted: loopback HTTP is only a local
+used for the present CLI/API delivery, which accepts JSON writes. Stateless Basic authentication
+alone does not prevent browser CSRF; browser delivery requires a coordinated CSRF/origin review. Basic credentials are encoded, not encrypted: loopback HTTP is only a local
 demonstration boundary. A remote deployment must provide HTTPS before sending the credential;
 this repository does not terminate or verify remote TLS. See the [staff access boundary](../deployment/staff-access.md).
 

@@ -14,7 +14,7 @@ On Windows use `mvnw.cmd`. Required foundation checks are:
 $ErrorActionPreference = 'Stop'
 $env:JAVA_HOME = 'C:\path\to\jdk-17'
 if (-not (Test-Path -LiteralPath .env)) { Copy-Item .env.example .env }
-# Set private distinct passwords in .env before continuing; never overwrite an existing .env.
+# Set private distinct database passwords and nonblank ELS_STAFF_USERNAME / ELS_STAFF_PASSWORD in .env before continuing; never overwrite an existing .env.
 .\mvnw.cmd verify
 if ($LASTEXITCODE -ne 0) { throw 'Verification failed.' }
 docker compose -p els-tests -f compose.test.yaml --env-file .env up -d --wait

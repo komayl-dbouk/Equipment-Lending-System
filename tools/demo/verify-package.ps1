@@ -12,6 +12,7 @@ New-Item -ItemType Directory -Force (Split-Path -Parent $privateFile) | Out-Null
 $settings = @{
     ELS_DB_USERNAME = 'equipment_demo'; ELS_DB_PASSWORD = ([Guid]::NewGuid().ToString('N') + ' spaced # literal$')
     ELS_DB_NAME = 'equipment_lending_demo'; ELS_APP_PORT = [string]$Port
+    ELS_STAFF_USERNAME = 'demo-staff'; ELS_STAFF_PASSWORD = ([Guid]::NewGuid().ToString('N') + ' staff # literal$')
 }
 $old = @{}
 foreach ($name in $settings.Keys) { $old[$name] = [Environment]::GetEnvironmentVariable($name, 'Process') }
@@ -21,10 +22,54 @@ try {
     $compose = Get-ElsComposeConfig $ProjectName $privateFile
     Invoke-ElsDocker -Arguments ($compose.Arguments + @('up', '--build', '-d', '--wait')) | Out-Null
     & "$PSScriptRoot/wait-for-health.ps1" -BaseUrl "http://127.0.0.1:$Port" -TimeoutSeconds 60
-    & "$PSScriptRoot/seed-demo.ps1" -ProjectName $ProjectName -EnvFile $privateFile
     $context = Get-ElsDemoContext $ProjectName $privateFile ''
     $countSql = 'SELECT (SELECT count(*) FROM student),(SELECT count(*) FROM equipment),(SELECT count(*) FROM loan);'
     $psql = @('exec', $context.DatabaseContainer, 'psql', '-v', 'ON_ERROR_STOP=1', '-U', $context.DatabaseUser, '-d', $context.DatabaseName, '-At', '-c')
+    $empty = Invoke-ElsDocker -Arguments ($psql + @($countSql))
+    if ($empty -ne '0|0|0') { throw 'Access probes require an empty owned database.' }
+    Add-Type -AssemblyName System.Net.Http
+    $handler = [System.Net.Http.HttpClientHandler]::new()
+    $handler.AllowAutoRedirect = $false
+    $http = [System.Net.Http.HttpClient]::new($handler)
+    $http.Timeout = [TimeSpan]::FromSeconds(10)
+    try {
+        foreach ($invalid in @($false, $true)) {
+            foreach ($path in @('/api/equipment', '/api/students')) {
+                $method = if ($path -eq '/api/students') { 'POST' } else { 'GET' }
+                $request = [System.Net.Http.HttpRequestMessage]::new([System.Net.Http.HttpMethod]::new($method), "$($context.BaseUrl)$path")
+                $response = $null
+                try {
+                    if ($invalid) { $request.Headers.Authorization = [System.Net.Http.Headers.AuthenticationHeaderValue]::new('Basic', [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('invalid-synthetic:invalid-secret'))) }
+                    if ($method -eq 'POST') { $request.Content = [System.Net.Http.StringContent]::new('{"name":"Rejected Synthetic","email":"rejected@example.test"}', [Text.Encoding]::UTF8, 'application/json') }
+                    $response = $http.SendAsync($request).GetAwaiter().GetResult()
+                    $body = $response.Content.ReadAsStringAsync().GetAwaiter().GetResult() | ConvertFrom-Json
+                    if ([int]$response.StatusCode -ne 401 -or $body.status -ne 401 -or $body.code -ne 'UNAUTHORIZED' -or
+                        $body.message -ne 'Staff credentials required' -or $body.path -ne $path -or
+                        @($body.PSObject.Properties).Count -ne 6 -or $null -eq $body.fieldErrors -or @($body.fieldErrors.PSObject.Properties).Count -ne 0 -or
+                        [string]$response.Headers.WwwAuthenticate -ne 'Basic realm="equipment-lending"') { throw 'Missing/invalid staff access did not return the sanitized challenge.' }
+                } finally { if ($response) { $response.Dispose() }; $request.Dispose() }
+            }
+        }
+        if ((Invoke-ElsDocker -Arguments ($psql + @($countSql))) -ne $empty) { throw 'Rejected access changed committed state.' }
+        & "$PSScriptRoot/seed-demo.ps1" -ProjectName $ProjectName -EnvFile $privateFile
+        $checkpointText = Get-Content -LiteralPath $checkpoint -Raw
+        foreach ($private in @($settings.ELS_STAFF_PASSWORD, $settings.ELS_DB_PASSWORD, $context.StaffHeaders.Authorization)) {
+            if ($checkpointText.Contains($private)) { throw 'Checkpoint retained a private credential.' }
+        }
+        $request = [System.Net.Http.HttpRequestMessage]::new([System.Net.Http.HttpMethod]::Post, "$($context.BaseUrl)/api/students")
+        $response = $null
+        try {
+            $request.Headers.Authorization = [System.Net.Http.Headers.AuthenticationHeaderValue]::Parse($context.StaffHeaders.Authorization)
+            $request.Content = [System.Net.Http.StringContent]::new('{"name":"Duplicate Synthetic","email":"els45.demo.borrower@example.test"}', [Text.Encoding]::UTF8, 'application/json')
+            $response = $http.SendAsync($request).GetAwaiter().GetResult()
+            $body = $response.Content.ReadAsStringAsync().GetAwaiter().GetResult() | ConvertFrom-Json
+            if ([int]$response.StatusCode -ne 409 -or $body.code -ne 'DUPLICATE_EMAIL') { throw 'Duplicate-email privacy probe did not exercise the expected conflict.' }
+        } finally { if ($response) { $response.Dispose() }; $request.Dispose() }
+        $appLogs = (Invoke-ElsDocker -Arguments ($compose.Arguments + @('logs', '--no-color', 'app'))) -join "`n"
+        foreach ($sensitive in @($settings.ELS_STAFF_USERNAME, $settings.ELS_STAFF_PASSWORD, $settings.ELS_DB_PASSWORD, $context.StaffHeaders.Authorization, 'els45.demo.borrower@example.test', 'rejected@example.test', 'Key (email)=')) {
+            if ($appLogs.Contains($sensitive)) { throw 'Packaged application logs exposed private or student data.' }
+        }
+    } finally { $http.Dispose() }
     $before = Invoke-ElsDocker -Arguments ($psql + @($countSql))
     & "$PSScriptRoot/seed-demo.ps1" -ProjectName $ProjectName -EnvFile $privateFile
     $after = Invoke-ElsDocker -Arguments ($psql + @($countSql))
@@ -43,7 +88,7 @@ try {
     $context = Get-ElsDemoContext $ProjectName $privateFile ''
     $final = Invoke-ElsDocker -Arguments @('exec', $context.DatabaseContainer, 'psql', '-v', 'ON_ERROR_STOP=1', '-U', $context.DatabaseUser, '-d', $context.DatabaseName, '-At', '-c', $countSql)
     if ($final -ne '1|2|2') { throw 'Reset/reseed state differs from expected fixtures.' }
-    Write-Output 'PASS: real container build, non-root/loopback/identity checks, seed/rerun, drift rejection and reset/reseed.'
+    Write-Output 'PASS: real container build, missing/invalid access with no writes, authorized workflow, production log privacy, non-root/loopback/identity, seed/rerun, drift rejection and reset/reseed.'
 } finally {
     try {
         if ($compose) { Invoke-ElsDocker -Arguments ($compose.Arguments + @('down', '-v')) | Out-Null }

@@ -12,9 +12,11 @@ $stateFile = Get-ElsStatePath $ProjectName $StatePath
 
 function Invoke-DemoRequest {
     param([string]$Method, [string]$Path, [object]$Body)
-    $parameters = @{ Method = $Method; Uri = "$($context.BaseUrl)$Path"; ContentType = 'application/json'; TimeoutSec = 15 }
+    $parameters = @{ Method = $Method; Uri = "$($context.BaseUrl)$Path"; ContentType = 'application/json'; TimeoutSec = 15
+        Headers = $context.StaffHeaders; MaximumRedirection = 0 }
     if ($null -ne $Body) { $parameters.Body = $Body | ConvertTo-Json -Depth 5 }
-    $result = Invoke-RestMethod @parameters
+    try { $result = Invoke-RestMethod @parameters }
+    catch { throw 'Demo API request failed; inspect the owned application without printing credentials.' }
     return $result
 }
 

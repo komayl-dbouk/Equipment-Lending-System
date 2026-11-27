@@ -4,6 +4,10 @@ Owner: Komayl Dbouk. Assigned reviewer: Hussein Chreif (`MaxHusseinChreif`). Bra
 `ELS-46-staff-access-privacy`. Baseline: `500eabe`. Verified implementation commit:
 `ce86f340b165de91980dc35c02aa2bb97dcf7591`.
 
+The original execution record below belongs to the initial implementation. The independent review
+reproduced an absent-variable fallback and production SQL-detail logging that its property-only
+tests and privacy scan missed. The correction section supersedes those original conclusions.
+
 ## Outcome and acceptance mapping
 
 ELS-46 adds a deliberately small delivery boundary without changing student, equipment, loan,
@@ -19,11 +23,12 @@ are denied. Missing or blank configuration fails startup.
 | Rejected write | Security filter rejects before controller/service entry | Student count and full packaged database snapshot were unchanged |
 | Authorized behavior | In-memory staff principal has only `ROLE_STAFF`; existing tests receive the configured Basic header | Existing business suites and full packaged workflow passed unchanged |
 | Public health | Exact `/actuator/health` permit rule; details and components disabled | Strict body `{"status":"UP"}` passed |
-| Fail closed | `@Validated` required configuration properties have no production defaults | Missing and blank property context tests passed |
+| Fail closed | Corrected YAML maps absent variables to blank for validated rejection | Original property-only tests missed unresolved literal placeholders; correction verification below supersedes that claim |
 | Transport | Basic is allowed for the loopback demonstration only | Remote HTTPS is required by documentation but was not configured or verified |
 
-CSRF is disabled because the API is stateless and authenticates every protected request through
-the Authorization header, not ambient browser cookies. The credential is encoded rather than
+CSRF is disabled for the present CLI/API delivery with JSON writes. Stateless Basic authentication
+is not a general browser CSRF defense; cached browser credentials require a coordinated review
+before frontend delivery. The credential is encoded rather than
 encrypted on the wire. The application hashes the configured password for in-memory comparison,
 but the original value necessarily enters the process through its environment.
 
@@ -36,9 +41,10 @@ but the original value necessarily enters the process through its environment.
 - The packaged workflow JSON records the scheme, protected path and environment source, not the
   header or credential. A targeted scan found no staff username or credential field in the JSON
   or application logs.
-- The existing `database-test` profile enables DEBUG logging and therefore prints synthetic DTO
-  fixture values and SQL. This is acceptable only for disposable synthetic test data. Production
-  defaults do not enable that profile, but operators must not enable it with real student data.
+- The initial review overlooked production-mode Hibernate ERROR details containing student emails
+  on duplicate-key failures. The correction disables `SqlExceptionHelper` detail logging while
+  retaining sanitized application exception-class diagnostics. SQL/bind debug logging remains
+  restricted to disposable synthetic fixtures; production log privacy is checked below.
 - A shared credential cannot attribute actions to individual staff and has no automated rotation,
   lockout, rate limiting or multi-user lifecycle. Those are explicit residual limitations, not
   hidden features and not an implementation of ELS-49.
@@ -46,10 +52,9 @@ but the original value necessarily enters the process through its environment.
   must restrict process/host access, provision the two variables privately and restart after a
   rotation.
 
-The ELS-45 handoff is limited to provisioning `ELS_STAFF_USERNAME` and `ELS_STAFF_PASSWORD` in the
-selected private runtime mechanism, using `/actuator/health` for health checks, and ensuring remote
-traffic reaches this application only through verified HTTPS. No packaging, seed or runbook work
-was taken into ELS-46.
+The initial source deferred packaging integration. The correction integrates private Compose staff
+settings, authenticated guarded seed calls and protected Docker smoke checks on the merged ELS-45
+baseline. Remote traffic still requires separately verified HTTPS.
 
 ## Resolved dependency and license inventory
 
@@ -146,3 +151,26 @@ reviewer assignment is claimed. The prepared first-person review body is retaine
 PR manually. A read of workflow runs for the pushed head returned none, which matches the workflow
 configuration: it runs for pull requests into `main`, pushes to `main`, or manual dispatch, not
 feature-branch pushes. CI therefore remains pending until the PR is opened or a run is dispatched.
+
+## Review corrections and integrated verification
+
+Review baseline: `729405e`. Integrated ELS-45 main baseline: `6ec66be`. The user authorized corrections on the existing ELS-46 branch. The merge resolves the README conflict without dropping either staff access or packaging.
+
+- Absent staff environment values now resolve to blank and fail validation. Five property regressions load the actual application YAML with isolated environment/system property sources, including either missing field. The packaged JAR independently exited with status 1 for both absent and blank credentials; it did not start or accept the original literal-placeholder credential.
+- Compose requires and forwards private staff settings. The seed preserves all ELS-45 ownership/database/fixture/checkpoint guards, verifies running staff settings, authenticates only after preflight, and refuses redirects. The smoke check now checks missing/wrong reads and mutations against independent SQL counts before the authorized seed/rerun/drift/reset/reseed workflow.
+- Production application SQL-exception detail logging is disabled because it exposed student emails even outside the database-test profile. Existing sanitized application exception-class diagnostics remain. The full packaged workflow's duplicate-key failures no longer exposed synthetic student emails, the staff secret or SQL value details in application logs. This is an application-log check, not an audit of PostgreSQL server/host/proxy logging.
+- The runbook, packaging handoff, architecture, staff boundary and OpenAPI now reflect integrated authentication. Every documented operation includes its 401 response. API examples require a loopback target and refuse redirects. Browser Basic/CSRF limitations are disclosed accurately; no browser exploit or remote TLS verification is claimed.
+
+Executed local checks:
+
+| Check | Observed result |
+| --- | --- |
+| Standard offline Maven verification | 200 passed; zero failures/errors/skips |
+| Offline PostgreSQL profile | 200 unit/controller + 193 integration passed; zero failures/errors/skips |
+| Windows PowerShell helper safety | 15 passed, including authenticated read-only rerun and missing/changed staff-target rejection |
+| Packaged JAR startup | Missing and blank credentials both exited 1 before readiness |
+| Packaged authorized workflow | 86 HTTP requests, 651 assertions, 43 SQL checks and 3 coordinated races passed |
+| Production application log privacy | Student emails, staff secret and SQL value details absent after real conflict probes |
+| Static checks | PowerShell parsing, Python syntax, OpenAPI 401 coverage, edited local links and git diff whitespace passed |
+
+The independent SQL transport uses native `psql` inside the task-owned PostgreSQL 17.5 container via `docker exec`; the workflow's HTTP calls, fixed test clock, SQL assertions and coordinated race oracles are unchanged. No native host psql client was available. Only the task-owned review container and Java processes were removed; no existing database, `.env` or Subject material was changed. Runtime image/Docker demonstration results are recorded separately after CI completes; local JAR verification is not relabeled as a local application-container run.

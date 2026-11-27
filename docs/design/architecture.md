@@ -263,16 +263,17 @@ business conflict. Unrelated failures retain the sanitized internal-error respon
 flowchart LR
   Staff[Local staff operator] -->|Basic over loopback HTTP| App[Spring Boot process]
   App -->|JDBC with environment credentials| DB[(PostgreSQL 17.5)]
-  Compose[Docker Compose database option] --> DB
+  Compose[Docker Compose delivery] --> App
+  Compose --> DB
   Flyway[Flyway migrations] --> DB
   DbEnv[ELS_DB_* environment variables] --> App
   StaffEnv[ELS_STAFF_USERNAME and ELS_STAFF_PASSWORD] --> App
   Remote[Remote staff client] -. requires external HTTPS .-> App
 ```
 
-The reproducible baseline runs the Java process locally and may run PostgreSQL through Docker
-Compose. No application container image exists. Secrets belong in an ignored local `.env` and
-process environment. Staff access is enforced by the application, but remote use remains
+The delivery baseline runs the non-root application image and internal-only PostgreSQL through
+Compose, exposing only the loopback application port. Secrets belong in an ignored local `.env`
+and runtime environment; the image contains no credentials. Staff access is enforced by the application, but remote use remains
 prohibited unless the deployment provides and verifies HTTPS. The local run proves only
 loopback HTTP behavior.
 

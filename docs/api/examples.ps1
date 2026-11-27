@@ -6,6 +6,12 @@ param(
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Net.Http
 $BaseUrl = $BaseUrl.TrimEnd('/')
+$baseUri = $null
+if (-not [Uri]::TryCreate($BaseUrl, [UriKind]::Absolute, [ref]$baseUri) -or
+    $baseUri.Scheme -ne 'http' -or $baseUri.Host -notin @('localhost', '127.0.0.1', '::1') -or
+    $baseUri.UserInfo -or $baseUri.Query -or $baseUri.Fragment -or $baseUri.AbsolutePath -ne '/') {
+    throw 'Examples require a loopback HTTP base URL without credentials, path, query or fragment.'
+}
 foreach ($name in @('ELS_STAFF_USERNAME', 'ELS_STAFF_PASSWORD')) {
     if (-not [Environment]::GetEnvironmentVariable($name)) {
         throw "Required private environment variable missing: $name"
@@ -13,7 +19,9 @@ foreach ($name in @('ELS_STAFF_USERNAME', 'ELS_STAFF_PASSWORD')) {
 }
 $staffBytes = [Text.Encoding]::UTF8.GetBytes("$($env:ELS_STAFF_USERNAME):$($env:ELS_STAFF_PASSWORD)")
 $staffAuthorization = 'Basic ' + [Convert]::ToBase64String($staffBytes)
-$http = [System.Net.Http.HttpClient]::new()
+$handler = [System.Net.Http.HttpClientHandler]::new()
+$handler.AllowAutoRedirect = $false
+$http = [System.Net.Http.HttpClient]::new($handler)
 
 function Assert-Equal {
     param([object]$Actual, [object]$Expected, [string]$Label)
