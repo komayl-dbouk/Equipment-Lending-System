@@ -1,0 +1,30 @@
+{
+  "card": "ELS-43",
+  "baselineCommit": "a703a812ff748d76db923776cd14cc8bcd86664c",
+  "correctedCommit": "7fd7233",
+  "tools": {
+    "java": "Temurin 17.0.21",
+    "mavenWrapper": "3.9.11",
+    "jacoco": "0.8.11",
+    "spotbugsPlugin": "4.8.3.1",
+    "spotbugsEngine": "4.8.3",
+    "spotbugsEffort": "Max",
+    "spotbugsThreshold": "Low"
+  },
+  "spotbugs": {
+    "before": { "warnings": 9, "priority2": 8, "priority3": 1, "analysisErrors": 0 },
+    "after": { "warnings": 8, "priority2": 8, "priority3": 0, "analysisErrors": 0 },
+    "correction": "Added serialVersionUID to StrictTextDeserializer",
+    "scope": "All production classes; no custom filter or suppression"
+  },
+  "jacocoUnitOnly": {
+    "before": { "line": { "covered": 115, "total": 144 }, "branch": { "covered": 31, "total": 38 }, "complexity": { "covered": 43, "total": 58 } },
+    "after": { "line": { "covered": 115, "total": 144 }, "branch": { "covered": 31, "total": 38 }, "complexity": { "covered": 43, "total": 58 } },
+    "limitation": "PostgreSQL integration JVM unavailable locally; this is not comparable to the historical two-JVM baseline."
+  },
+  "verification": {
+    "strictWriteValidationTest": { "tests": 36, "failures": 0, "errors": 0, "skipped": 0 },
+    "verify": { "tests": 195, "failures": 0, "errors": 0, "skipped": 0 },
+    "databaseVerify": { "completed": false, "reason": "PostgreSQL connection refused at localhost:5433; Docker CLI unavailable" }
+  }
+}
