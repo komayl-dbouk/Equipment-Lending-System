@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import edu.university.equipmentlending.equipment.dto.EquipmentResponse;
@@ -16,9 +17,14 @@ import edu.university.equipmentlending.shared.error.ApiException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -69,9 +75,8 @@ class EquipmentServiceTest {
 
     @Test
     void confirmedDatabaseUniquenessRaceUsesDuplicateConflict() {
-        when(equipmentRepository.saveAndFlush(any())).thenThrow(new DataIntegrityViolationException(
-                "write failed", new SQLException(
-                        "duplicate key violates constraint equipment_inventory_code_key", "23505")));
+        when(equipmentRepository.saveAndFlush(any()))
+                .thenThrow(failure("23505", "equipment_inventory_code_key"));
 
         assertThatThrownBy(() -> service.create(write("cam-001")))
                 .isInstanceOfSatisfying(ApiException.class,
@@ -89,18 +94,80 @@ class EquipmentServiceTest {
     }
 
     @Test
-    void listPreservesRepositoryIdOrderAndDerivesEachAvailability() {
-        EquipmentEntity first = entity(1L, "CAM-001");
-        EquipmentEntity second = entity(2L, "LAP-001");
-        when(equipmentRepository.findAllByOrderByIdAsc()).thenReturn(List.of(first, second));
-        when(loanRepository.existsByEquipmentIdAndReturnDateIsNull(1L)).thenReturn(true);
-        when(loanRepository.existsByEquipmentIdAndReturnDateIsNull(2L)).thenReturn(false);
+    void listPreservesRepositoryProjectionOrderAndAvailability() {
+        var projected = List.of(
+                new EquipmentResponse(1L, "CAM-001", "Camera", "Camera", null, false),
+                new EquipmentResponse(2L, "LAP-001", "Laptop", "Laptop", null, true));
+        when(equipmentRepository.findAllResponses(null)).thenReturn(projected);
 
         List<EquipmentResponse> responses = service.list();
 
         assertThat(responses).extracting(EquipmentResponse::id).containsExactly(1L, 2L);
         assertThat(responses).extracting(EquipmentResponse::available)
                 .containsExactly(false, true);
+        verifyNoInteractions(loanRepository);
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = {true, false})
+    void availabilityFilterIsDelegatedWithoutPerItemLoanReads(boolean available) {
+        var projected = List.of(new EquipmentResponse(1L, "CAM-001", "Camera", "Camera", null, available));
+        when(equipmentRepository.findAllResponses(available)).thenReturn(projected);
+
+        assertThat(service.list(available)).isEqualTo(projected);
+        verify(equipmentRepository).findAllResponses(available);
+        verifyNoInteractions(loanRepository);
+    }
+
+    @ParameterizedTest
+    @MethodSource("unconfirmedFailures")
+    void errorTextCannotSubstituteForMatchingConstraintMetadata(DataIntegrityViolationException failure) {
+        when(equipmentRepository.saveAndFlush(any())).thenThrow(failure);
+
+        assertThatThrownBy(() -> service.create(write("cam-001"))).isSameAs(failure);
+    }
+
+    static Stream<Arguments> unconfirmedFailures() {
+        return Stream.of(
+                Arguments.of(failure("23505", "unrelated_key")),
+                Arguments.of(failure("23514", "equipment_inventory_code_key")),
+                Arguments.of(failure("23505", null)),
+                Arguments.of(new DataIntegrityViolationException("write failed",
+                        new SQLException("equipment_inventory_code_key is only text", "23505"))),
+                Arguments.of(new DataIntegrityViolationException("equipment_inventory_code_key 23505 in text")));
+    }
+
+    @Test
+    void confirmedUpdateUniquenessViolationKeepsItsBusinessCode() {
+        when(equipmentRepository.findById(7L)).thenReturn(Optional.of(entity(7L, "CAM-001")));
+        when(equipmentRepository.saveAndFlush(any()))
+                .thenThrow(failure("23505", "equipment_inventory_code_key"));
+
+        assertThatThrownBy(() -> service.update(7L, write("CAM-002")))
+                .isInstanceOfSatisfying(ApiException.class, exception ->
+                        assertThat(exception.getCode()).isEqualTo("DUPLICATE_INVENTORY_CODE"));
+    }
+
+    @Test
+    void confirmedDeleteReferenceViolationKeepsItsBusinessCode() {
+        when(equipmentRepository.findByIdForUpdate(7L)).thenReturn(Optional.of(entity(7L, "CAM-001")));
+        org.mockito.Mockito.doThrow(failure("23503", "loan_equipment_id_fkey"))
+                .when(equipmentRepository).flush();
+
+        assertThatThrownBy(() -> service.delete(7L))
+                .isInstanceOfSatisfying(ApiException.class, exception ->
+                        assertThat(exception.getCode()).isEqualTo("EQUIPMENT_HAS_HISTORY"));
+    }
+
+    @Test
+    void unrelatedDeleteReferenceIsNotRecastFromItsMessage() {
+        when(equipmentRepository.findByIdForUpdate(7L)).thenReturn(Optional.of(entity(7L, "CAM-001")));
+        var cause = new org.hibernate.exception.ConstraintViolationException("loan_equipment_id_fkey in text",
+                new SQLException("loan_equipment_id_fkey in text", "23503"), "unrelated_reference");
+        var failure = new DataIntegrityViolationException("write failed", cause);
+        org.mockito.Mockito.doThrow(failure).when(equipmentRepository).flush();
+
+        assertThatThrownBy(() -> service.delete(7L)).isSameAs(failure);
     }
 
     @Test
@@ -193,6 +260,12 @@ class EquipmentServiceTest {
 
     private static EquipmentWrite write(String code) {
         return new EquipmentWrite(code, "Demo Camera", "Camera", "Description");
+    }
+
+    private static DataIntegrityViolationException failure(String state, String constraint) {
+        var cause = new org.hibernate.exception.ConstraintViolationException("equipment_inventory_code_key in text",
+                new SQLException("equipment_inventory_code_key in text", state), constraint);
+        return new DataIntegrityViolationException("write failed", cause);
     }
 
     private static EquipmentEntity entity(long id, String code) {

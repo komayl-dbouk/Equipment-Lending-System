@@ -69,6 +69,8 @@ classDiagram
   EquipmentService --> EquipmentRepository
   EquipmentService --> LoanRepository
   EquipmentRepository --> EquipmentEntity
+  EquipmentRepository ..> EquipmentResponse
+  EquipmentRepository ..> LoanEntity
 
   LoanController --> LoanService
   LoanReturnController --> LoanReturnService
@@ -223,9 +225,17 @@ one committed success and one conflict. The original student, equipment and borr
 remain immutable; reborrowing creates another row.
 
 Read-only query transactions project loan DTOs directly. History filters combine with AND and
-order by loan ID. Equipment availability checks active-loan existence for each listed item.
+order by loan ID. Equipment lists project response DTOs in one repository query, left joining
+only active loans and applying the optional availability filter in the database. The active-loan
+partial unique index prevents duplicate equipment results; returned history does not join.
+Create/update response mapping still checks availability for the single affected item.
 Overdue uses `returnDate IS NULL AND dueDate < today`, where today comes from the injected
 Beirut clock.
+
+Equipment conflict classification uses the exact structured Hibernate constraint name and
+SQLSTATE, following the student/borrowing convention. A constraint name appearing only in an
+exception message or rejected value cannot turn an unrelated persistence failure into a
+business conflict. Unrelated failures retain the sanitized internal-error response.
 
 ## Deployment model
 

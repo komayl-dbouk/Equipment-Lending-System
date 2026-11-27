@@ -77,6 +77,11 @@ Availability is computed from active-loan existence. It is a point-in-time view,
 reservation. A successful return makes the item available when no other active loan exists;
 reborrowing inserts a new loan and preserves the returned row.
 
+Equipment lists derive availability and filter results in a single repository query; inventory
+size does not add one database round trip per item. Database conflicts are classified by exact
+constraint name and SQLSTATE metadata. An unrelated persistence failure remains a sanitized
+`500 INTERNAL_ERROR`, even when its message contains a known business-constraint name.
+
 ## Error body
 
 Every handled error uses the exact shape below. `fieldErrors` maps invalid field names to safe
