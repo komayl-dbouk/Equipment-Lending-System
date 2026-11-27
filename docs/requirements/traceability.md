@@ -57,3 +57,9 @@ unit/controller/PostgreSQL tests, 83 packaged HTTP requests/626 assertions, befo
 statement counts and constraint outcomes. Original borrowing red tests and delivery schema
 are unchanged. Final implementation review/merge remains the ELS-41 peer gate; this update
 does not claim completion of ELS-39, ELS-42 or ELS-43.
+
+## ELS-47 release acceptance preparation
+
+[The release acceptance matrix](../../reports/sprint-4/els-47-final-release-acceptance.md) maps TC01-TC25 and three quality/operations checks to every FR01-FR07 and NFR01-NFR05. Its [structured record](../../reports/sprint-4/els-47-acceptance-results.json) includes preconditions, steps, expected/observed outcomes, status, source/environment and evidence fields. Final scenario outcomes remain planned, not passed.
+
+ELS-45/46 are human-approved, merged and green on exact merge CI. Independent packaging review on integrated `74da749` passed 200 standalone tests, the 200 + 193 PostgreSQL profile, 15 helper regressions and the unchanged authenticated JAR workflow (86 requests, 651 assertions, 43 SQL records and three coordinated races). The [ELS-45 review](../reviews/els-45-reproducible-packaging-pr.md) distinguishes these executed preparation results from historical author evidence. Local Docker runtime build failed with a containerd metadata I/O error when the host disk filled; package rehearsal and owned cleanup remain blocked. User plan review and explicit final scenario execution are pending, so these checks do not establish final release acceptance or remote HTTPS.

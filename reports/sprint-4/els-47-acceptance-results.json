@@ -1,0 +1,1182 @@
+{
+  "card": "ELS-47",
+  "owner": "Mostafa Younes",
+  "reviewer": "komayl-dbouk",
+  "phase": "preparation; plan approval pending",
+  "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+  "branch": "ELS-47-final-release-acceptance",
+  "dependencyGate": {
+    "status": "passed",
+    "dependencies": [
+      {
+        "card": "ELS-45",
+        "pr": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/22",
+        "head": "71944f6dbb2420c13076a59df1038efdc4076da6",
+        "merge": "6ec66befe229818ac3f0d1084a90c2f6c3b6aea1",
+        "humanApproval": [
+          {
+            "login": "younes285",
+            "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/22#pullrequestreview-6092904869"
+          }
+        ],
+        "mergeCi": {
+          "sha": "6ec66befe229818ac3f0d1084a90c2f6c3b6aea1",
+          "result": "success",
+          "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46061249030"
+        }
+      },
+      {
+        "card": "ELS-46",
+        "pr": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/23",
+        "head": "ac339e544916b9df1ff536e6f356d28b55fd1b9f",
+        "merge": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+        "humanApproval": [
+          {
+            "login": "MaxHusseinChreif",
+            "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/23#pullrequestreview-6093273340"
+          }
+        ],
+        "mergeCi": {
+          "sha": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+          "result": "success",
+          "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46066988967"
+        }
+      }
+    ]
+  },
+  "environment": {
+    "delivery": "Documented Docker Compose runtime image plus authenticated packaged JAR with explicit test-only Clock fixture",
+    "postgresql": "17.5",
+    "java": "JBR 17.0.5",
+    "maven": "3.9.11",
+    "data": "Synthetic only; isolated task-owned databases and generated private credentials",
+    "transport": "Loopback HTTP; remote HTTPS not verified"
+  },
+  "scenarios": [
+    {
+      "id": "TC01",
+      "requirements": [
+        "FR01"
+      ],
+      "preconditions": "Empty synthetic student namespace",
+      "steps": "POST /api/students with padded name/case-varied email; GET returned ID",
+      "expected": "201; exact three-field normalized DTO, Location and committed row; retrieved values match",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC02",
+      "requirements": [
+        "FR01"
+      ],
+      "preconditions": "Existing student and a valid unmatched ID",
+      "steps": "PUT self-email replacement; GET/PUT missing ID",
+      "expected": "200 for self update; 404 STUDENT_NOT_FOUND for missing; complete state unchanged on rejection",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC03",
+      "requirements": [
+        "FR01",
+        "NFR01"
+      ],
+      "preconditions": "Two distinct students and SQL snapshot",
+      "steps": "POST/PUT invalid/blank/unknown/overlength/wrong-type values and normalized duplicate email",
+      "expected": "400 VALIDATION_FAILED or 409 DUPLICATE_EMAIL; persisted snapshot unchanged",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC04",
+      "requirements": [
+        "FR02"
+      ],
+      "preconditions": "Empty inventory namespace",
+      "steps": "Create padded/case-varied codes; list and full replacement update",
+      "expected": "201/200; exact six-field values, normalization, ascending IDs, omitted description null",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC05",
+      "requirements": [
+        "FR02",
+        "NFR01"
+      ],
+      "preconditions": "Existing items, unmatched ID and SQL snapshot",
+      "steps": "Invalid equipment fields/types/unknown/overlength; duplicate code; missing update/delete",
+      "expected": "400/409/404 with exact business code and no committed change",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC06",
+      "requirements": [
+        "FR02"
+      ],
+      "preconditions": "Unreferenced equipment item",
+      "steps": "DELETE item and independently query SQL",
+      "expected": "204 with empty body; row removed",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC07",
+      "requirements": [
+        "FR03",
+        "NFR01"
+      ],
+      "preconditions": "Existing student and available equipment",
+      "steps": "Borrow with strictly ordered valid dates; independently query SQL",
+      "expected": "201 after commit; exact six-field loan with null returnDate and exact persisted row",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC08",
+      "requirements": [
+        "FR03",
+        "NFR01"
+      ],
+      "preconditions": "Available item, known student and unmatched ID",
+      "steps": "Borrow with missing student or equipment",
+      "expected": "404 appropriate reference code; all rows unchanged",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC09",
+      "requirements": [
+        "FR03",
+        "NFR01"
+      ],
+      "preconditions": "Known references and SQL snapshot",
+      "steps": "Borrow equal/reversed dates, impossible/expanded/signed/non-string dates, invalid IDs/unknown fields",
+      "expected": "400 INVALID_LOAN_DATES or VALIDATION_FAILED; no partial write",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC10",
+      "requirements": [
+        "FR03",
+        "NFR01"
+      ],
+      "preconditions": "Equipment already has an active loan",
+      "steps": "Borrow the unavailable item",
+      "expected": "409 EQUIPMENT_UNAVAILABLE; original loan and all rows preserved",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC11",
+      "requirements": [
+        "FR04",
+        "NFR01"
+      ],
+      "preconditions": "Available equipment; two request threads and independent blocking connection",
+      "steps": "Coordinate competing borrow HTTP requests; observe both equipment lock waiters, then release",
+      "expected": "One 201 and one 409; exact winner row, one active loan, zero orphan or duplicate-active groups",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC12",
+      "requirements": [
+        "FR05",
+        "NFR01"
+      ],
+      "preconditions": "Active loan and committed pre-return row",
+      "steps": "Return on/after borrowing date; compare DTO and SQL",
+      "expected": "200 exact updated Loan; only returnDate changes; history retained and derived availability restored",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC13",
+      "requirements": [
+        "FR05",
+        "NFR01"
+      ],
+      "preconditions": "Returned loan, unmatched ID and SQL snapshot",
+      "steps": "Duplicate return with a different date; return missing loan",
+      "expected": "409 LOAN_ALREADY_RETURNED preserves original date; 404 LOAN_NOT_FOUND",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC14",
+      "requirements": [
+        "FR05",
+        "NFR01"
+      ],
+      "preconditions": "Active loan and SQL snapshot",
+      "steps": "Return earlier date; strict invalid payload/date; return same borrowing day",
+      "expected": "Earlier date 400 INVALID_RETURN_DATE; malformed 400 VALIDATION_FAILED; same-day return permitted",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC15",
+      "requirements": [
+        "FR05",
+        "NFR01"
+      ],
+      "preconditions": "Completed loan and available item",
+      "steps": "Borrow again and query combined history",
+      "expected": "Distinct new loan; exact old returned row preserved; ordered history contains both",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC16",
+      "requirements": [
+        "FR06"
+      ],
+      "preconditions": "Unloaned, active-loan and returned items",
+      "steps": "Read all/available=true/available=false and compare independent SQL",
+      "expected": "Exact sorted DTO arrays; active only in false, unloaned/returned in true; reads preserve state",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC17",
+      "requirements": [
+        "FR06"
+      ],
+      "preconditions": "Controlled Beirut clock; yesterday/today/tomorrow and returned loans",
+      "steps": "GET /api/loans/overdue; examine date boundary regressions",
+      "expected": "Only unreturned loans due strictly before Beirut-local day; due-today/future/returned excluded",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC18",
+      "requirements": [
+        "FR06"
+      ],
+      "preconditions": "Two students, distinct equipment and retained history",
+      "steps": "Query single and combined student/equipment filters, valid unmatched IDs",
+      "expected": "Exact ordered AND-filter results and [] for no matches; no writes",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC19",
+      "requirements": [
+        "FR07",
+        "NFR01"
+      ],
+      "preconditions": "Equipment with active and returned history",
+      "steps": "DELETE each referenced item",
+      "expected": "409 EQUIPMENT_HAS_HISTORY; equipment, loans and students unchanged",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC20",
+      "requirements": [
+        "FR03",
+        "FR05",
+        "FR07",
+        "NFR01"
+      ],
+      "preconditions": "Disposable PostgreSQL; dedicated synthetic fixtures",
+      "steps": "Run rollback tests plus real coordinated borrow/return and borrow/delete HTTP races",
+      "expected": "Complete rollback; either valid serial winner; original history/active counts match; no orphan",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC21",
+      "requirements": [
+        "NFR03"
+      ],
+      "preconditions": "Private generated staff credential and pre-request SQL snapshot",
+      "steps": "Missing/wrong credentials on protected reads and mutations; authorized lifecycle; public health",
+      "expected": "Exact sanitized six-field 401 and Basic challenge; no rejected writes or session cookie; public health only status",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC22",
+      "requirements": [
+        "NFR03"
+      ],
+      "preconditions": "Real conflict/invalid/authentication requests in owned application",
+      "steps": "Inspect response schema, checkpoint and production application logs for private tokens/SQL/error details",
+      "expected": "No secrets or stack trace exposed; no private header/password in retained evidence; no student email/SQL values in app logs",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC23",
+      "requirements": [
+        "NFR02"
+      ],
+      "preconditions": "Clean tracked checkout; isolated generated settings and Docker project",
+      "steps": "Build both profiles, runtime image/start/readiness/seed/rerun/drift/reset/reseed/shutdown",
+      "expected": "Recorded package/image identities, Flyway migration, non-root/loopback/internal DB, exact persisted seed counts and owned cleanup",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC24",
+      "requirements": [
+        "FR01",
+        "FR02",
+        "NFR01"
+      ],
+      "preconditions": "Normalized records and before/after snapshots",
+      "steps": "Boundary lengths/blanks/types/unknown fields; own identifier updates and cross-record conflicts",
+      "expected": "Documented normalized self updates pass; invalid or duplicate writes leave complete state unchanged",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "TC25",
+      "requirements": [
+        "FR06",
+        "NFR01"
+      ],
+      "preconditions": "Known active/returned inventory and no-match IDs",
+      "steps": "Unavailable filter, AND query, malformed/nonpositive/overflow filters",
+      "expected": "Exact correct result or 400 VALIDATION_FAILED; valid unmatched IDs yield []",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "AQ01",
+      "requirements": [
+        "NFR04"
+      ],
+      "preconditions": "Merged design/security/package source and exact diff",
+      "steps": "Review DTO/service/transaction/repository boundaries, API/OpenAPI consistency and migrations",
+      "expected": "Existing architecture and contract retained; no rule change or alternate schema owner",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "AQ02",
+      "requirements": [
+        "NFR05"
+      ],
+      "preconditions": "Historical ELS-39/40/41/42/43 quality records and current regression",
+      "steps": "Reconcile audited tests, fault detection, refactorings and revision-scoped coverage against final regression",
+      "expected": "Historical 100% service-line result identified by original source; no new coverage/static-analysis measurement inferred",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    },
+    {
+      "id": "AQ03",
+      "requirements": [
+        "NFR02",
+        "NFR03"
+      ],
+      "preconditions": "Documented CLI/local delivery boundary",
+      "steps": "Compare verified exposure with deployment instructions and remaining transport/distribution limits",
+      "expected": "Loopback HTTP only; remote HTTPS/browser CSRF/origin and distribution notices explicitly outside verified local acceptance",
+      "observed": null,
+      "status": "planned",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "environment": "Isolated integrated delivery; see environment",
+      "evidence": []
+    }
+  ],
+  "independentPreparation": {
+    "cleanCheckout": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+    "standalone": {
+      "tests": 200,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "exitCode": 0
+    },
+    "helpers": {
+      "tests": 15,
+      "failures": 0,
+      "exitCode": 0
+    },
+    "database": {
+      "exitCode": 0,
+      "unit": {
+        "tests": 200,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "integration": {
+        "tests": 193,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "total": 393,
+      "command": "mvnw.cmd --batch-mode --no-transfer-progress -Pdatabase-test verify",
+      "configuration": "Documented Compose-backed importer, separate generated credentials; PostgreSQL 17.5, loopback port 15447"
+    },
+    "runtimeImage": {
+      "status": "blocked",
+      "smokeExitCode": 1,
+      "diagnosticExitCode": 1,
+      "error": "write /var/lib/desktop-containerd/daemon/io.containerd.metadata.v1.bolt/meta.db: input/output error",
+      "hostObservation": "C: reached zero free space; storage exhaustion is an environmental inference, not a proven application defect",
+      "runtimeImageId": null,
+      "realDockerWorkflowPassed": false
+    },
+    "packagedJar": {
+      "status": "passed",
+      "runnerCard": "ELS-36",
+      "executionContext": "Independent ELS-45 review on integrated source, not final ELS-47 acceptance",
+      "sourceCommit": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "jarSha256": "5fdf429cba4adf6eb1c0be95db5ff16f4ce59b327e7904c0b31795fffd389b74",
+      "fixedClock": "2030-06-15T09:00:00Z",
+      "requests": 86,
+      "assertions": 651,
+      "sqlEvidenceRecords": 43,
+      "database": {
+        "database": "equipment_lending_workflow_test",
+        "user": "equipment_workflow",
+        "postgresql": "17.5"
+      },
+      "races": [
+        {
+          "race": "borrow-borrow",
+          "statuses": [
+            409,
+            201
+          ],
+          "observedEquipmentWaiters": 2
+        },
+        {
+          "race": "borrow-return",
+          "statuses": [
+            409,
+            200
+          ],
+          "observedEquipmentWaiters": 2
+        },
+        {
+          "race": "borrow-delete",
+          "statuses": [
+            201,
+            409
+          ],
+          "observedEquipmentWaiters": 2
+        }
+      ],
+      "requestResults": [
+        {
+          "method": "GET",
+          "path": "/api/equipment",
+          "status": 401,
+          "expected": 401,
+          "code": "UNAUTHORIZED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/equipment",
+          "status": 401,
+          "expected": 401,
+          "code": "UNAUTHORIZED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/students",
+          "status": 401,
+          "expected": 401,
+          "code": "UNAUTHORIZED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/equipment",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/equipment?available=true",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/equipment?available=false",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans/overdue",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/students",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "GET",
+          "path": "/api/students/1",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "PUT",
+          "path": "/api/students/1",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/students",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/equipment",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/equipment",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "PUT",
+          "path": "/api/equipment/1",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/equipment",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/equipment/2",
+          "status": 204,
+          "expected": 204
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 409,
+          "expected": 409,
+          "code": "EQUIPMENT_UNAVAILABLE"
+        },
+        {
+          "method": "POST",
+          "path": "/api/equipment",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/equipment",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "GET",
+          "path": "/api/equipment?available=true",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/equipment?available=false",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans/overdue",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?studentId=1",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?equipmentId=1",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?studentId=1&equipmentId=1",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?studentId=2&equipmentId=1",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?studentId=9223372036854775807",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?equipmentId=9223372036854775807",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/students",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/students",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/students",
+          "status": 409,
+          "expected": 409,
+          "code": "DUPLICATE_EMAIL"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/students/1",
+          "status": 409,
+          "expected": 409,
+          "code": "DUPLICATE_EMAIL"
+        },
+        {
+          "method": "POST",
+          "path": "/api/equipment",
+          "status": 409,
+          "expected": 409,
+          "code": "DUPLICATE_INVENTORY_CODE"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/equipment/1",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 404,
+          "expected": 404,
+          "code": "STUDENT_NOT_FOUND"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 404,
+          "expected": 404,
+          "code": "EQUIPMENT_NOT_FOUND"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 400,
+          "expected": 400,
+          "code": "INVALID_LOAN_DATES"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/1/return",
+          "status": 400,
+          "expected": 400,
+          "code": "INVALID_RETURN_DATE"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/1/return",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/1/return",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/1/return",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/1/return",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/1/return",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/1/return",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/0/return",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/abc/return",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/9223372036854775808/return",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/9223372036854775807/return",
+          "status": 404,
+          "expected": 404,
+          "code": "LOAN_NOT_FOUND"
+        },
+        {
+          "method": "GET",
+          "path": "/api/equipment?available=",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/equipment?available=TRUE",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/equipment?available=1",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?studentId=0",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?equipmentId=0",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?studentId=abc",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?equipmentId=abc",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?studentId=9223372036854775808",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?equipmentId=9223372036854775808",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?studentId=%2B1",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?equipmentId=%2B1",
+          "status": 400,
+          "expected": 400,
+          "code": "VALIDATION_FAILED"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/1/return",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/1/return",
+          "status": 409,
+          "expected": 409,
+          "code": "LOAN_ALREADY_RETURNED"
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans/overdue",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/equipment?available=true",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/equipment/1",
+          "status": 409,
+          "expected": 409,
+          "code": "EQUIPMENT_HAS_HISTORY"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "GET",
+          "path": "/api/loans?studentId=1&equipmentId=1",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/equipment/1",
+          "status": 409,
+          "expected": 409,
+          "code": "EQUIPMENT_HAS_HISTORY"
+        },
+        {
+          "method": "POST",
+          "path": "/api/equipment",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 201,
+          "expected": [
+            201,
+            409
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 409,
+          "expected": [
+            201,
+            409
+          ],
+          "code": "EQUIPMENT_UNAVAILABLE"
+        },
+        {
+          "method": "POST",
+          "path": "/api/equipment",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 409,
+          "expected": [
+            201,
+            409
+          ],
+          "code": "EQUIPMENT_UNAVAILABLE"
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans/6/return",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/equipment",
+          "status": 201,
+          "expected": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/loans",
+          "status": 201,
+          "expected": [
+            201,
+            404
+          ]
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/equipment/7",
+          "status": 409,
+          "expected": [
+            204,
+            409
+          ],
+          "code": "EQUIPMENT_HAS_HISTORY"
+        }
+      ],
+      "rawEvidence": "ignored target/els47-review/existing-workflow-results.json"
+    },
+    "privateValueScan": {
+      "staffPasswordInEvidence": false,
+      "databasePasswordInEvidence": false,
+      "authorizationHeaderInEvidence": false,
+      "staffPasswordInAppLogs": false,
+      "databasePasswordInAppLogs": false,
+      "authorizationHeaderInAppLogs": false,
+      "scope": "Generated private values only; no host/proxy/database-server log audit"
+    }
+  },
+  "finalAcceptance": "pending execution and plan approval",
+  "productionChange": false,
+  "coverageRerun": false,
+  "staticAnalysisRerun": false,
+  "cleanup": {
+    "status": "blocked by Docker metadata I/O failure",
+    "packagedJarProcess": "exited/stopped by runner",
+    "dockerStopExitCode": 0,
+    "composeDownExitCode": 1,
+    "container": {
+      "name": "els47-tests-postgres-1",
+      "id": "7f636bf70217036cdc6e6867d9b19953ffa9e3dda1006a3649d8aa2647777376",
+      "inspectedState": "dead"
+    },
+    "anonymousVolume": "cd1d81e4c92e734eda142f04f020abcef797804d997456b25346fc0d52b1ba84",
+    "network": "els47-tests_default",
+    "demoProject": "els-demo-els47-review; no demo containers or project volumes observed after failure",
+    "privateCleanupConfiguration": "ignored target/els47-review/clean/target/review.private.env retained until cleanup recovery",
+    "generatedJars": "Removed only obsolete task-owned JARs after digest capture to recover host space",
+    "unrelatedResources": "Not restarted, removed or pruned"
+  },
+  "blockers": [
+    "Explicit user approval of ELS-47 plan before substantial validation-tool additions",
+    "Restore host disk space and Docker containerd metadata health",
+    "Repeat failed real Docker build and authenticated package seed/reset checks",
+    "Add and execute remaining explicit per-scenario acceptance gaps after approval",
+    "Finish task-owned dead-container/volume/network cleanup after recovery",
+    "ELS-47 PR human review and latest-head CI remain pending"
+  ],
+  "delivery": {
+    "draftRequired": true,
+    "pr": null,
+    "reviewer": "komayl-dbouk",
+    "reviewerRequested": false,
+    "ci": null,
+    "jiraState": "To Do; preparation/review only, acceptance execution not started",
+    "humanApproval": null,
+    "done": false,
+    "sprintClosed": false,
+    "submissionPerformed": false
+  }
+}
