@@ -26,6 +26,8 @@ These are project-lead-relayed confirmations, not agent-observed meetings or inf
 
 ## Remaining release gates
 
+The [ELS-50 release audit](sprint-4/els-50-release-review-submission-checklist.md) records the audited source/evidence baseline and separates checked repository facts from pending external actions. It does not establish course access, deadline time or submission receipt.
+
 | Gate | Owner / card | Required observable record |
 | --- | --- | --- |
 | Final effort/review/retrospective | Chalhoub coordinates ELS-50; members supply records | Completed Sprint 4 estimates versus confirmed actuals, known variance reasons and real reflection; no invented sessions or meeting |
