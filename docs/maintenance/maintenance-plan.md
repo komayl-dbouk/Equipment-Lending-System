@@ -1,15 +1,15 @@
 # Equipment Lending Maintenance Plan
 
-Owner: Hussein Chreif. ELS-48 preparation. This plan defines safe change procedures; its examples are proposed maintenance actions rather than implemented features or completed release controls.
+Owner: Hussein Chreif. ELS-48 report review. This plan distinguishes completed engineering examples from procedures for future changes; it does not claim that proposed features or final human release gates are implemented.
 
 ## Maintenance categories
 
 | Category | Equipment project example | Validation and ownership |
 | --- | --- | --- |
-| Corrective | Repair a reproduced lending, validation, error-classification or integrity defect | Feature owner writes a meaningful regression; peer checks requirements, committed state and PostgreSQL results |
-| Adaptive | Support an approved runtime/database/environment update or new staff-access requirement | Chalhoub coordinates environment/tool changes; Komayl checks persistence/dependency effects; pin candidates and verify compatibility, licensing/security and clean setup |
-| Perfective | Improve a measured query/maintainability concern or approved pagination/filter behavior | Chreif confirms value/scope; feature owner measures before/after and versions changed contracts where necessary |
-| Preventive | Strengthen oracles, update agent context and maintain repeatable quality/release checks | Mostafa audits tests; Chalhoub maintains tooling; all members preserve evidence and remove verified causes of future failure |
+| Corrective | Completed examples: strict date/constraint classification and missing staff-variable/log-privacy corrections. Future defects need a reproduced failure and issue-linked fix | Feature owner writes a discriminating regression; peer checks requirements, exact errors, committed state and PostgreSQL results; see [ELS-41](../../reports/sprint-3/els-41-design-corrections.md) and [ELS-46](../../reports/sprint-4/els-46-correction-results.json) |
+| Adaptive | Completed package/auth integration changed runtime configuration. Future runtime/database upgrades or browser clients require approved compatibility/security changes | Chalhoub coordinates environment/tool changes; Komayl checks persistence/dependencies; verify pinned candidates, licensing, migration order, rollback and clean setup |
+| Perfective | Completed example: bounded equipment projection replaces N+1 queries. Future UI/search/pagination work needs an explicit contract and measured value | Chreif confirms scope; feature owner measures comparable before/after outcomes and preserves exact DTOs/filter/order semantics; see [measurement](../../reports/sprint-3/els-43-measured-quality-improvement.md) |
+| Preventive | Completed examples: stronger audit oracles, shared helpers, secret/target guards and automated release acceptance. Future changes maintain these protections | Mostafa audits tests; Chalhoub maintains tooling; keep context and evidence current; see [audit](../../reports/sprint-3/els-39-test-audit.md) and [acceptance](../../reports/sprint-4/els-47-final-release-acceptance.md) |
 
 ## Change and rollback workflow
 
@@ -27,9 +27,11 @@ Preserve restrictive references, normalized uniqueness, date checks, history ind
 
 ## Dependencies deployment and security
 
-Maintain runtime/dependency/license inventories. For updates, record the reason, upstream compatibility/security information, pinned candidates and rollback path. Review generated/copied examples for provenance. Initial governance/access verification remains ELS-46 and is not claimed complete by this plan.
+Maintain the [runtime/dependency/license inventory](../../reports/sprint-4/els-46-access-privacy-license-review.md). For updates, record the reason, authoritative compatibility/security information, pinned candidates and rollback path. Review generated/copied examples for provenance. Staff access and the local delivery boundary are implemented and verified; remote TLS, browser policy and exact redistribution notices remain separate obligations. No legal approval or vulnerability scan is inferred.
 
-Keep credentials outside Git and real borrower information out of examples/AI prompts. Review response/log exposure when error handling changes. Verify successful and rejected authentication plus transport controls once implemented. Recheck environment templates, database isolation, health checks and clean startup when deployment changes.
+Keep credentials outside Git and real borrower information out of examples/AI prompts. Recheck successful/rejected authentication and full no-write snapshots after boundary changes. Preserve production application-log sanitization and public aggregate-only health. Verify HTTPS before remote credential transport; coordinate browser CSRF/origin policy before the planned frontend. Recheck templates, isolation, target guards, checkpoint secrecy and clean startup after deployment changes.
+
+Use `tools/validation/run-release-acceptance.py` for repeatable packaged HTTP/SQL regression and the documented Docker smoke for ordinary-image verification. Keep actual source/JAR/image identities, test Clock scope and cleanup together. Never replace a blocked Docker run with a relabeled JAR pass. Back up real data before risky changes and rehearse restoration in an owned environment; disposable seed/reset helpers are not production backup/restore tools. After credential rotation, update private runtime settings and restart the owned application; no automated rotation service is claimed.
 
 ## Test context and documentation upkeep
 
@@ -41,12 +43,14 @@ Keep measurement settings/scope compatible and explain denominator changes. Upda
 
 | Area | Current evidence or limitation | Follow-up |
 | --- | --- | --- |
-| Access/transport | Local runtime is unauthenticated; delivery controls pending | ELS-46, then acceptance/rehearsal |
-| Static analysis | Baseline has nine untriaged warnings; intentional patterns require context | ELS-43 verifies a significant concern and compares results |
-| Refactoring/models | ELS-42 underway; final structure not yet accepted | Link three changes and synchronize models/context after merge |
-| Release reproducibility | Packaged checks exist; final clean-clone verification pending | ELS-45 and ELS-47 |
-| Effort | Sprint 2 approximate actuals confirmed; precise sessions/other actuals incomplete | Collect supplied records through the effort template |
-| Documentation/understanding | Report preparation exists; four-member review/rehearsal pending | ELS-48, ELS-49 and ELS-50 |
+| Access/transport | Staff-only local API verified; remote TLS and browser authentication/CSRF/origin not verified | Komayl/Chalhoub coordinate approved frontend/deployment work before exposure |
+| Dependency/distribution | License/provenance inventory exists; final notices bundle and supported-stack updates remain explicit | Release owner checks ELS-50 distribution obligations; update inventory after any dependency/image change |
+| Static analysis | Historical same-configuration result is nine to eight warnings; eight priority-2 findings remain visible with dispositions | Preserve DTO/null/exception-hierarchy assumptions; remeasure changed source before accepting a new warning disposition |
+| Refactoring/models | Three accepted refactorings and current architecture include shared classifier, mapper and validation factory | Keep models/API/ADRs/context synchronized for future changes; do not report a new refactoring without before/after evidence |
+| Release reproducibility | Ordinary Docker and expanded acceptance passed; base image uses a maintained major-version tag | Retain actual image identity; pin an immutable digest if byte-identical rebuilds become a requirement; rehearse under ELS-49 |
+| Environment ownership | New final-run cleanup passed; old failed-run IDs absent only on the current engine | Original owner checks another workstation if applicable; never reset/prune unrelated Docker projects |
+| Effort | Sprint 2 20h and Sprint 3 22h confirmed approximate actual totals; Sprint 1 actuals missing and Sprint 4 open | Record only supplied/confirmed actuals and known variance reasons; no inferred sessions, AI savings or retrospective velocity forecast |
+| Documentation/understanding | Report content consolidated; four-member review and live rehearsal remain human gates | [ELS-48 review record](../../reports/els-48-team-review.md), ELS-49 and ELS-50 |
 
 Warnings are not automatically defects. Reservations, notifications, quotas or institutional integration require explicit scope decisions rather than opportunistic maintenance additions.
 

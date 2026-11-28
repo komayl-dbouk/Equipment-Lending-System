@@ -1,37 +1,38 @@
-# Final Report and Submission Evidence Checklist
+# Report and Submission Evidence Checklist
 
-Owner: Hussein Chreif. ELS-48 preparation. These are acceptance gates, not prefilled proof. Verify the final revision and actual linked results before checking an item.
+Owner: Hussein Chreif. ELS-48 report contents are consolidated against merged acceptance baseline `62be246`. Checked technical items have actual linked results; open human/release items are not prefilled proof. See the [report](final-report.md), [evidence ledger](final-report-evidence.json) and [team review register](els-48-team-review.md).
 
-## Evidence available
+## Technical evidence incorporated
 
-- [x] Scope, requirements, architecture/API models and borrowing specification linked.
-- [x] Borrowing red-test commit and green/correction evidence preserved.
-- [x] ELS-39 audits 14 methods and corrects three distinct weaknesses with before/after evidence.
-- [x] ELS-40 records detection, exact restoration and regression.
-- [x] ELS-41 records two approved important findings and tested corrections.
-- [x] Pre-change quality baseline and confirmed Sprint 2 approximate effort linked with scope/precision.
-- [x] Required reference-practice table and four maintenance categories prepared.
+- [x] Scope, twelve core requirements, current architecture/API models and borrowing specification linked.
+- [x] Borrowing test-first commit, expected red result, implementation/correction chronology and green regression retained.
+- [x] ELS-39 audit: 14 methods, three distinct weaknesses corrected, controlled probes and restoration.
+- [x] ELS-40 deliberate defect: observed detection, unexpected passes, exact restoration and regression.
+- [x] ELS-41 two approved important findings and verified corrections.
+- [x] ELS-42 three safe refactorings with before/after, green tests and maintenance implications.
+- [x] ELS-43 query improvement, comparable static analysis, historical coverage denominators, warning dispositions and GQM action.
+- [x] ELS-44 accepted closeout, confirmed Sprint 3 approximate actuals and lead reflection; no fabricated meeting/member feedback.
+- [x] ELS-45/46 package/auth/private configuration/runbook, governance findings, human approvals/merges and merged CI reconciled.
+- [x] ELS-47 all 28 observed scenarios, full regression, ordinary Docker, HTTP/SQL/races, package/image identity and scoped cleanup recorded.
+- [x] All 13 required reference practices have direct report links; four maintenance categories and debt/change procedures are updated.
+- [x] Confirmed Sprint 2/3 effort is distinguished from missing Sprint 1 actuals and unfinished Sprint 4 records.
 
-## Final acceptance gates
+## Remaining human and release gates
 
-| Gate | Owner and card | Required evidence |
+| Gate | Owner / card | Required observable record |
 | --- | --- | --- |
-| Three safe refactorings | Komayl, ELS-42 | Three real smells, before/after diffs, green baselines/regressions, maintenance rationale and current models |
-| Measured improvement | Chalhoub, ELS-43 | Significant confirmed concern, original result/correction, comparable rerun, coverage denominators, warning triage and GQM action |
-| Quality closeout | Mostafa, ELS-44 | Numerical criteria, actual reviews/effort and remaining risks; no duplicated credit across separate quality cards |
-| Final clean setup | Chalhoub, ELS-45 | Clean-clone build/start, package/configuration, synthetic setup, runbook and observed outcomes |
-| Access privacy and provenance | Komayl, ELS-46 | Staff success/401 checks, remote HTTPS where used, secret/history/log and dependency/license/IP findings |
-| Final acceptance | Mostafa, ELS-47 | Principal scenarios with expected/observed outcomes and final regression on the release revision |
-| Team report review | Chreif and all members, ELS-48; reviewer Chalhoub | Final evidence links, accurate contributions/effort and actual review decisions/corrections |
-| Rehearsal/understanding | Komayl and all members, ELS-49 | Slides, demonstrated workflow and supplied rehearsal feedback; individual explanation of required engineering choices |
-| Release/submission | Chalhoub coordinates ELS-50; Chreif submits | Instructor access, final artifact/version consistency, limitations and actual submission receipt |
+| Four-member report content review | Chreif and all members, ELS-48; primary reviewer Chalhoub | Actual reviewed revision, findings/decisions and links in the review register or PR/Jira; green CI is not review |
+| Presentation and individual understanding | Komayl and all members, ELS-49 | Slides, deterministic live workflow, reset/backup, handovers and actual rehearsal results; each member explains requirement/architecture/oracle/AI correction/improvement/contribution |
+| Final effort/review/retrospective | Chalhoub coordinates ELS-50; members supply records | Completed Sprint 4 estimates versus confirmed actuals, known variance reasons and real reflection; no invented sessions or meeting |
+| Distribution and access | Chalhoub, ELS-50 | Exact third-party license/NOTICE materials for distributed artifacts, instructor repository/board access and final artifact/version consistency |
+| Final submission | Chreif submits under ELS-50 | Agreed package format, final reviewed revision, actual deadline confirmation and receipt; no submission status before evidence |
 
-## Update procedure
+## Handoff rules
 
-After accepted dependencies merge, update [the report](final-report.md) and [evidence status](final-report-evidence.json) with exact source/run/PR links. Replace only the corresponding pending result. Preserve historical metrics and distinguish them from new measurements. Recheck models/ADRs/context against final source.
+ELS-47 is merged with a recorded project-lead approval on the final PR head; the intended Komayl reviewer is not substituted for that actual event. ELS-48 has not completed four-member review merely because report contents are prepared. Preserve the real reviewer/revision distinction in later closeout.
 
-Record Sprint 3/4 actual effort when supplied/confirmed. Preserve original estimates and the Sprint 2 approximation classification. Add interruption/variance explanations only when known; exact model IDs require actual metadata.
+Sprints 2/3 use project-lead-confirmed approximate actual member totals, not independently logged sessions or per-card allocations. Record Sprint 4 actuals only when supplied/confirmed after work completes. Historical metrics keep their source/tool/scope identities; new measurements require an actual run.
 
-Validate links/anchors, table completeness, arithmetic, pending-state consistency and revision identity after updates. If a DOCX/PDF export is requested later, generate it from the agreed source and inspect every rendered page. No export or final package is claimed by this preparation.
+Keep source, environment, commands, results, failures/corrections and CI together. Local packaged-JAR acceptance, ordinary Docker and remote/browser limits remain distinct. Old failed-run resource absence on this engine does not establish cleanup on another workstation. Never reset/prune unrelated resources.
 
-Keep the original assignment local, untracked and outside both .gitignore and the submission package. Use no execution-date stamps in document names/prose; business-date fixtures needed to explain tests remain distinct.
+Validate final links/anchors, reference rows, arithmetic, sources, diagrams and status consistency. A later DOCX/PDF export must come from the agreed reviewed source and be visually inspected; none is claimed here. Keep the original assignment local/untracked, unignored and outside submission archives. Use no execution-date stamps in document names/prose; necessary synthetic business-date fixtures remain distinct.
