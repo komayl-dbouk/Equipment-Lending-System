@@ -5,9 +5,9 @@
     "tools/demo/els49-live-workflow.ps1": "f1cc56db99e1881ed398e55167a9b95668d6932d48e357079dd313e0a4580f24",
     "tools/demo/els49-rehearsal.ps1": "8eb9e6cb99d41275fe46e6758ae841c6b00a52c420686d5833908b7493feb39a",
     "tools/demo/build-els49-deck.mjs": "2b0c3aeaa03b2ae823421b30cfa581624cde082466be608d5845bfed4639e20f",
-    "docs/presentation/els-49-deck.json": "12ae1e175d29388f1a7f763d4aeca88211e97fd46842c35f210febe174ae61b0",
-    "docs/presentation/els-49-presentation.pptx": "a2e90d168763395645bd52a105b10a8f2608bcff2870e18ebf5f603626f538ac",
-    "docs/presentation/els-49-presentation.pdf": "087c28fb27df01718fb991c13e5cb20bc6f73b3bf0539fd277833c57b69df543"
+    "docs/presentation/els-49-deck.json": "212c8487e7d91f8d543b3dee42398d30230ee92df36fb1da684d72c1f3612998",
+    "docs/presentation/els-49-presentation.pptx": "a79ad02ae7ac53ebcf54ccfdfddac2f5e7c16faec8fd678b9b28f8a61b4ad395",
+    "docs/presentation/els-49-presentation.pdf": "bf8dfd3f9f6fdc626c8813a9ef7259a959b3c52bef6905eb50d13ea397495050"
   },
   "checks": {
     "standard": {

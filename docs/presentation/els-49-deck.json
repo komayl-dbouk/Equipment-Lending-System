@@ -29,7 +29,7 @@
   },
   {
     "title": "Borrow and return oracles",
-    "body": "Compare exact DTO fields with committed SQL\nReject a second return without changing history\nReturn restores availability\nReborrow creates a new loan; the old row remains",
+    "body": "Compare exact DTO fields with committed SQL\nSecond returns are rejected; history stays intact\nReturn restores availability\nReborrow creates a new loan; the old row remains",
     "speaker": "Mostafa Younes",
     "seconds": 60,
     "notes": "Explain your student/return work and another member's borrowing rule. ELS-32 preserved red tests before implementation; ELS-47 TC12-TC15 verified return/reborrow. A green HTTP status alone is insufficient. Sources: reports/sprint-2/els-32-test-first-evidence.md; reports/sprint-4/els-47-final-release-acceptance.md."
