@@ -1,0 +1,36 @@
+# ELS-49 presentation and rehearsal evidence
+
+Owner: Komayl Dbouk. Human reviewer requested for the PR: Hussein Chreif (`MaxHusseinChreif`). This is a repository handoff, not a claim that four people attended or approved a rehearsal. ELS-50 release/submission is out of scope.
+
+## Source and dependency identity
+
+- Jira: [ELS-49](https://equipment-lending-system.atlassian.net/browse/ELS-49) on the [ELS board](https://equipment-lending-system.atlassian.net/jira/software/c/projects/ELS/boards/34), Sprint 4. The card was read live as To Do, with three comments and ELS-47/48 blocking links; it was moved to In Progress only when implementation began.
+- Fetched `origin/main` and branched from `8b1161ba4c44e75c246300335cb4444f5cc9fced`. `HEAD` matched `origin/main` before branching and the worktree was clean. Main's `8b1161b` is merge PR #18 for ELS-48; it contains ELS-47 merge PR #24 (`62be246`) and ELS-46 merge PR #23 (`74da749`). The live ELS-48 dependency was **Done** during this work. The reported earlier Jira/merge mismatch was not still present; stale status alone was not used as a blocker.
+- Current branch: `ELS-49-presentation-rehearsal`. The local application source remained `8b1161b` during verification; ELS-49's new script/docs were uncommitted at execution. The tested JAR SHA-256 was `4d38df88a033ab78fc67511b3d792afbc8e83f43c820301597748036895fb858`; the initial ordinary-image runtime ID was `sha256:1f563278af430efd50f2356517e61653146ce2112037239562d06a81533b15b0`. A reset/rebuild with the same JAR succeeded, but its new image ID was not separately recorded. These are not labeled as a post-commit PR-head build.
+
+## Reused verified baseline (not new ELS-49 test results)
+
+[ELS-47](els-47-final-release-acceptance.md) records its own source-specific 200 unit/controller plus 193 PostgreSQL tests, 15 helper checks, 227 HTTP requests/3409 CI assertions and three races. [ELS-45](els-45-reproducible-packaging.md) owns the guarded seed/reset/packaging helpers; [ELS-46](els-46-access-privacy-license-review.md) owns authentication/privacy; [ELS-48](../final-report.md) owns the consolidated report. ELS-49 reuses these claims only with their revision and links. The [slides](../../docs/presentation/els-49-slides.md), [runbook](../../docs/presentation/els-49-demo-runbook.md), and [task-owned HTTP probe](../../tools/demo/els49-rehearsal.ps1) are the new handoff assets.
+
+## ELS-49 execution register
+
+| Check | Exact command / source | Observed result | Limitation or correction |
+| --- | --- | --- | --- |
+| Initial environment | `java -version`; alternate cached `java.exe -version` | `java` not on PATH; cached Temurin 17.0.21.1 worked and was used for Maven | Set `JAVA_HOME` only in the command process. |
+| Initial Docker | `docker version --format '{{.Server.Version}}'`; start installed Docker Desktop; repeat | Initial config warning/engine pipe absent; repeat returned server `29.7.2` | First probe was not a container pass. |
+| Static/helper checks | PowerShell `Parser.ParseFile` on `tools/demo/els49-rehearsal.ps1`; `python tools/demo/test_demo_helpers.py`; local-link check | 0 parse errors; 15/15 helper tests; all four new Markdown files' local links resolved | Helpers are fake-Docker/loopback tests, not the live package check. |
+| Standard Maven | `mvnw.cmd --batch-mode --no-transfer-progress verify` with cached Java 17 | BUILD SUCCESS; 200 tests, 0 failures/errors/skips; delivery JAR built | Application Java source unchanged from `8b1161b`. |
+| First PostgreSQL attempt | `docker compose -p els49-tests -f compose.test.yaml --env-file .env up -d --wait`; dot-source importer | PostgreSQL healthy, but process execution policy denied the importer; `finally` stopped only `els49-tests` | Corrected using process-only `Set-ExecutionPolicy -Scope Process Bypass -Force`; machine policy and `.env` unchanged. |
+| PostgreSQL retry | Same isolated project on private process `ELS_TEST_DB_PORT=15493`, dot-source importer in Maven shell, `mvnw.cmd --batch-mode --no-transfer-progress -Pdatabase-test verify`; Compose down in `finally` | BUILD SUCCESS; 200 unit/controller + 193 PostgreSQL tests, all 0 failures/errors/skips; importer did not print credentials | No unrelated test database stopped. |
+| First packaged attempt | `docker compose -p els-demo-els49 --env-file .env config --quiet` with port `18049` | Refused missing `ELS_STAFF_USERNAME/PASSWORD` in the existing `.env` | Preserved `.env`; generated synthetic staff credential only as process variables for the live run. |
+| Packaged health/auth/seed/queries/error/rerun | `docker compose -p els-demo-els49 --env-file .env up --build -d --wait`; `tools/demo/wait-for-health.ps1`; `tools/demo/els49-rehearsal.ps1` on `http://127.0.0.1:18049` | Container healthy; public health `UP`; **14/14** live script assertions passed: missing/wrong 401, unchanged rejected-write SQL counts, authorized student/available-item/filtered active-and-returned history, duplicate-email 409/unchanged counts, read-only guarded rerun | Java base image was downloaded because it was not cached. Script checks counts, not a full SQL snapshot. No remote/browser acceptance claimed. |
+| Guarded reset/reseed/cleanup | `tools/demo/reset-demo.ps1 -ProjectName els-demo-els49 -EnvFile .env -ConfirmReset`; Compose up/health; same rehearsal script; confirmed reset again | First reset removed only the owned volume/checkpoint; fresh start passed health and **14/14** assertions; final confirmed reset succeeded. Post-run checks found no `els-demo-els49` containers, labeled volumes or checkpoint and no `els49-tests` container. | The second image ID was not recorded; no unrelated resource was removed. |
+| PR-head CI | Pending PR | Pending | Check latest head, not an older successful run. |
+
+## Rehearsal register for actual team use
+
+No four-person rehearsal, questions, handover delivery, human approval, presentation outcome or submission receipt has been observed by this agent. The [handoff script](../../docs/presentation/els-49-demo-runbook.md) allocates speaking and likely questions, but these are preparation, not observed answers. After an actual rehearsal, the team should append: source/JAR identity, attendees, each speaker's oracle and corrected-AI explanation, question and answer, handover issue, debugging step, correction/retest, and reviewer decision. Do not fabricate missing sessions or effort.
+
+## Limits and handoff
+
+The fallback slides and historical ELS-47/45 evidence are usable offline but are not a live ELS-49 runtime pass. Remote HTTPS, browser auth/CSRF/origin tests, distribution notices, team sign-off and ELS-50 submission remain separate. Hussein Chreif should review claim-to-source accuracy and runbook safety; each member should execute their assigned explanation and record any corrections before release closeout.
