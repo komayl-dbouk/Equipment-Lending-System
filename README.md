@@ -2,9 +2,9 @@
 
 A RESTful Web API for managing equipment loans at a university, built with **Java** and **Spring Boot**.
 
-The system will help university staff maintain an inventory of equipment, record student borrowing and returns, check availability, and track overdue loans.
+The system helps university staff maintain an inventory of equipment, record student borrowing and returns, check availability, and track overdue loans.
 
-> **Status:** The staff-managed lending API includes student/equipment maintenance, borrowing, returns, availability/history queries and an environment-configured staff access boundary. The Docker delivery package binds only to loopback; remote use requires HTTPS supplied by the deployment. Final integrated acceptance remains ELS-47.
+> **Status:** The staff-managed backend and authenticated Docker delivery passed final technical acceptance. Requirements, quality results and source-scoped evidence are consolidated in the [report](reports/final-report.md); [report review, presentation and release closeout](reports/finalization-checklist.md) remain human delivery gates. Remote deployment requires verified HTTPS; the current demonstration binds to loopback.
 
 The [project proposal](docs/proposal.md), [team plan and Sprint 1 kickoff](docs/team-plan.md), and [initial Jira backlog snapshot](docs/jira-backlog.json) define the delivery plan for the submission deadline. Work is tracked on the [ELS Scrum board](https://equipment-lending-system.atlassian.net/jira/software/c/projects/ELS/boards/34).
 
@@ -18,7 +18,7 @@ University equipment such as laptops, projectors, cameras, and laboratory tools 
 
 This project aims to centralize those records and enforce consistent lending rules. The first version will be a **staff-managed backend API**; student accounts and a user interface are outside the initial scope.
 
-## Planned Features
+## MVP Features
 
 - **Student management:** Register, view, and update student records.
 - **Equipment management:** Add, view, update, and, when permitted, delete equipment records.
@@ -63,7 +63,7 @@ A student can have many loans. An equipment item can have many loans over time, 
 - Students and equipment referenced by existing loans cannot be deleted, preserving loan history.
 - Concurrent borrowing requests must not create more than one active loan for the same item.
 
-## Planned API Endpoints
+## API Endpoints
 
 All endpoints use the `/api` prefix and exchange JSON data.
 
@@ -82,7 +82,7 @@ All endpoints use the `/api` prefix and exchange JSON data.
 | `POST` | `/api/loans/{id}/return` | Record an equipment return. |
 | `GET` | `/api/loans/overdue` | List overdue active loans. |
 
-Endpoints may be refined during implementation.
+The [API contract](docs/api/contract.md) and [OpenAPI](docs/api/openapi.json) describe implemented behavior. Behavior changes require reviewed contract updates.
 
 ## Example Workflow
 
@@ -97,7 +97,7 @@ If the due date passes without a recorded return, the loan appears in the overdu
 
 ## Testing and Deliverables
 
-Core tests will cover successful borrowing and returns, unavailable equipment, duplicate returns, invalid dates, overdue detection, and simultaneous requests for the same item.
+Core automated tests cover successful borrowing and returns, unavailable equipment, duplicate returns, invalid dates, overdue detection, and simultaneous requests for the same item.
 
 The planned deliverables are the Spring Boot source code, relational data model, documented API with sample requests, automated tests, and a demonstration of the lending workflow.
 
@@ -106,3 +106,7 @@ The planned deliverables are the Spring Boot source code, relational data model,
 The delivery package uses Java 17, Spring Boot 3.5.16, Maven Wrapper 3.9.11 and PostgreSQL 17.5. Follow [Local setup and verification](docs/deployment/local-setup.md) to build a local Docker image, run the loopback-only application/database pair, seed synthetic data and validate the lending workflow. Credentials are supplied only through environment variables; `.env.example` contains placeholders, not usable secrets.
 
 For student requests, replacement-update examples and database-free test commands, see the [API contract](docs/api/contract.md) and [ELS-29 verification evidence](docs/testing/els-29-student-management.md). PostgreSQL tests run through the existing `database-test` profile; local unit/controller checks do not need a database.
+
+## Consolidated Engineering Report
+
+The [report](reports/final-report.md) contains the reference-practice traceability table and links verified lifecycle evidence. The [maintenance plan](docs/maintenance/maintenance-plan.md) defines future change procedures. Final refactoring, measurement, delivery, acceptance and team-review evidence is tracked in the [finalization checklist](reports/finalization-checklist.md); report preparation is not final submission acceptance.

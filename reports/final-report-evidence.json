@@ -1,0 +1,729 @@
+{
+  "card": "ELS-48",
+  "status": "report contents complete for four-member review; no report approval/merge/submission inferred",
+  "sourceCommit": "62be2464b7281d2657e3de207891fc7e5a95507d",
+  "mergedCi": {
+    "status": "success",
+    "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46082812139/job/140785480679"
+  },
+  "reportOwner": "Hussein Chreif",
+  "primaryReviewer": "Hussein Chalhoub (husseinchalhoubb)",
+  "preparationBaseline": {
+    "sourceCommit": "c1a621df42ec0a8d555b2cfd17bdc8d7c4d094ee",
+    "mergedCi": {
+      "status": "success",
+      "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/45964282514/job/140389125999"
+    },
+    "historicalIndependentVerification": {
+      "sourceCommit": "f61113f3f2d46a462b04d0976fcffd3e8bfa6fee",
+      "unitController": 195,
+      "postgresqlIntegration": 188,
+      "total": 383,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "evidence": "https://equipment-lending-system.atlassian.net/browse/ELS-39?focusedCommentId=10109",
+      "newRuntimeRunForReportPreparation": false
+    },
+    "scope": "Original parallel preparation; later evidence below supersedes its pending-state snapshot"
+  },
+  "observedMergedDelivery": {
+    "21": {
+      "pr": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/21",
+      "merged": true,
+      "head": "2b869f7b21a5050d37577b5d9d474f98c971d168",
+      "merge": "500eabef93d3d0068e8fe39c7b6337208663e94b",
+      "reviews": [
+        {
+          "login": "komayl-dbouk",
+          "state": "APPROVED",
+          "commit": "b76d83206cf884bc2107043c225f72402891620d"
+        },
+        {
+          "login": "MaxHusseinChreif",
+          "state": "APPROVED",
+          "commit": "2b869f7b21a5050d37577b5d9d474f98c971d168"
+        }
+      ],
+      "ci": [
+        {
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46044317230/job/140659624424"
+        }
+      ]
+    },
+    "22": {
+      "pr": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/22",
+      "merged": true,
+      "head": "71944f6dbb2420c13076a59df1038efdc4076da6",
+      "merge": "6ec66befe229818ac3f0d1084a90c2f6c3b6aea1",
+      "reviews": [
+        {
+          "login": "younes285",
+          "state": "APPROVED",
+          "commit": "71944f6dbb2420c13076a59df1038efdc4076da6"
+        }
+      ],
+      "ci": [
+        {
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46061249030/job/140715774218"
+        }
+      ]
+    },
+    "23": {
+      "pr": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/23",
+      "merged": true,
+      "head": "ac339e544916b9df1ff536e6f356d28b55fd1b9f",
+      "merge": "74da749eb0e7ec8419cc2c87384dd688578972e6",
+      "reviews": [
+        {
+          "login": "MaxHusseinChreif",
+          "state": "APPROVED",
+          "commit": "ac339e544916b9df1ff536e6f356d28b55fd1b9f"
+        }
+      ],
+      "ci": [
+        {
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46066988967/job/140734586099"
+        }
+      ]
+    },
+    "24": {
+      "pr": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/24",
+      "merged": true,
+      "head": "79730396e25c1ef640a118a27fc0c2d891745af6",
+      "merge": "62be2464b7281d2657e3de207891fc7e5a95507d",
+      "reviews": [
+        {
+          "login": "MaxHusseinChreif",
+          "state": "APPROVED",
+          "commit": "79730396e25c1ef640a118a27fc0c2d891745af6"
+        }
+      ],
+      "ci": [
+        {
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46082812139/job/140785480679"
+        }
+      ]
+    }
+  },
+  "completedPractices": {
+    "testAudit": {
+      "methods": 14,
+      "meaningful": 11,
+      "weak": 3,
+      "distinctCorrections": 3,
+      "evidence": "sprint-3/els-39-test-audit.md"
+    },
+    "deliberateDefect": {
+      "serviceTests": 8,
+      "serviceFailuresWithDefect": 1,
+      "contractTests": 53,
+      "contractFailuresWithDefect": 1,
+      "restored": true,
+      "evidence": "sprint-3/els-40-deliberate-defect-experiment.md"
+    },
+    "designReview": {
+      "approvedImportantCorrections": 2,
+      "evidence": "sprint-3/els-41-design-corrections.md"
+    },
+    "refactorings": {
+      "count": 3,
+      "evidence": "sprint-3/els-42-safe-refactorings.md",
+      "changes": [
+        "shared exact database classifier",
+        "loan DTO mapper",
+        "common validation factory"
+      ],
+      "finalUnitController": 195,
+      "finalPostgresqlIntegration": 188
+    },
+    "qualityCloseout": {
+      "merge": "500eabef93d3d0068e8fe39c7b6337208663e94b",
+      "effortEvidence": "sprint-3/els-44-closeout-results.json",
+      "estimatedHours": 15,
+      "confirmedApproximateActualHours": 22
+    }
+  },
+  "qualityBaseline": {
+    "sourceCommit": "b5e6a32ac0485e01cd3dee198785c1cdb45e636b",
+    "serviceLines": {
+      "covered": 160,
+      "total": 168,
+      "percent": 95.24
+    },
+    "serviceBranches": {
+      "covered": 61,
+      "total": 68,
+      "percent": 89.71
+    },
+    "spotbugsWarnings": 9,
+    "spotbugsAnalysisErrors": 0,
+    "afterImprovementResult": "See qualityAfter; historical baseline retained without reattributing denominator changes",
+    "evidence": "sprint-2/quality-baseline.json"
+  },
+  "qualityAfter": {
+    "sourceCommit": "7fd7233",
+    "evidence": "sprint-3/els-43-quality-results.json",
+    "serviceLineCoverage": {
+      "covered": 144,
+      "total": 144,
+      "percent": 100.0
+    },
+    "serviceBranchCoverage": {
+      "covered": 37,
+      "total": 38,
+      "percent": 97.37
+    },
+    "spotbugs": {
+      "before": {
+        "warnings": 9,
+        "priority2": 8,
+        "priority3": 1,
+        "analysisErrors": 0
+      },
+      "after": {
+        "warnings": 8,
+        "priority2": 8,
+        "priority3": 0,
+        "analysisErrors": 0
+      },
+      "correction": "Added serialVersionUID to StrictTextDeserializer",
+      "scope": "All production classes; no custom filter or suppression",
+      "remainingFindings": [
+        {
+          "rule": "EI_EXPOSE_REP2",
+          "priority": 2,
+          "class": "edu.university.equipmentlending.equipment.EquipmentController",
+          "line": 27
+        },
+        {
+          "rule": "NP_BOOLEAN_RETURN_NULL",
+          "priority": 2,
+          "class": "edu.university.equipmentlending.equipment.EquipmentController",
+          "line": 56
+        },
+        {
+          "rule": "EI_EXPOSE_REP",
+          "priority": 2,
+          "class": "edu.university.equipmentlending.loan.persistence.LoanEntity",
+          "line": 61
+        },
+        {
+          "rule": "EI_EXPOSE_REP",
+          "priority": 2,
+          "class": "edu.university.equipmentlending.loan.persistence.LoanEntity",
+          "line": 57
+        },
+        {
+          "rule": "EI_EXPOSE_REP2",
+          "priority": 2,
+          "class": "edu.university.equipmentlending.loan.persistence.LoanEntity",
+          "line": 47
+        },
+        {
+          "rule": "EI_EXPOSE_REP2",
+          "priority": 2,
+          "class": "edu.university.equipmentlending.loan.persistence.LoanEntity",
+          "line": 46
+        },
+        {
+          "rule": "CT_CONSTRUCTOR_THROW",
+          "priority": 2,
+          "class": "edu.university.equipmentlending.shared.error.ApiException",
+          "line": 13
+        },
+        {
+          "rule": "EI_EXPOSE_REP2",
+          "priority": 2,
+          "class": "edu.university.equipmentlending.student.StudentController",
+          "line": 22
+        }
+      ],
+      "constructorWarningDisposition": {
+        "rule": "CT_CONSTRUCTOR_THROW",
+        "class": "edu.university.equipmentlending.shared.error.ApiException",
+        "status": "retain visible as a scoped residual risk; peer review pending",
+        "evidence": "The constructor enforces the 4xx contract; the two project subclasses are final; no finalizers, protected-resource acquisition or untrusted extension loading in the project hierarchy.",
+        "notAFalsePositiveClaim": true,
+        "revisitWhen": "Hierarchy gains untrusted subclasses/plugins, finalizers or protected resources",
+        "suppressionAdded": false
+      }
+    },
+    "twoJvmScope": {
+      "historicalBaseline": {
+        "sourceCommit": "b5e6a32ac0485e01cd3dee198785c1cdb45e636b",
+        "line": {
+          "covered": 160,
+          "total": 168
+        },
+        "branch": {
+          "covered": 61,
+          "total": 68
+        },
+        "complexity": {
+          "covered": 72,
+          "total": 77
+        }
+      },
+      "after": {
+        "line": {
+          "covered": 144,
+          "total": 144
+        },
+        "branch": {
+          "covered": 37,
+          "total": 38
+        },
+        "complexity": {
+          "covered": 57,
+          "total": 58
+        }
+      },
+      "classesAnalyzed": 38,
+      "executionData": "Fresh execution file with append=true across unit and PostgreSQL integration JVMs",
+      "interpretation": "The source denominator changed after accepted ELS-41/42 work; do not attribute coverage movement to the ELS-43 serialization correction."
+    },
+    "significantMeasuredImprovement": {
+      "originCard": "ELS-41",
+      "measurementCard": "ELS-43",
+      "finding": "Equipment-list database round trips grow with inventory size",
+      "productionCorrectionCommit": "dbb2b55314ae8370558016092ad66b37d855624f",
+      "beforeSourceCommit": "bdbbd3e2ab5a31bc12b879665a59380e0e7075d7",
+      "afterSourceCommit": "3f96d90e9b0f13ad918b3cb034fb488a8221f76e",
+      "probe": "src/test/java/edu/university/equipmentlending/equipment/EquipmentDesignReviewIT.java",
+      "identicalProbeSha256": "4ed4130e17f8d44039142dea45e294782f17aec823dcd3633ca0dc5a58c2a72e",
+      "probeMethod": "listingPreservesExactSqlValuesAndUsesBoundedQueries",
+      "comparisonCommand": "mvnw.cmd -o --batch-mode --no-transfer-progress -Pdatabase-test -Dtest=DatabaseTestSafetyProcessorTest '-Dit.test=EquipmentDesignReviewIT#listingPreservesExactSqlValuesAndUsesBoundedQueries' -Dlogging.level.root=WARN verify",
+      "environment": {
+        "java": "17.0.12",
+        "maven": "3.9.11",
+        "postgresql": "17.5",
+        "database": "task-owned isolated equipment_lending_test"
+      },
+      "before": {
+        "cases": [
+          {
+            "size": 1,
+            "filter": "all",
+            "statements": 2
+          },
+          {
+            "size": 1,
+            "filter": "true",
+            "statements": 2
+          },
+          {
+            "size": 1,
+            "filter": "false",
+            "statements": 2
+          },
+          {
+            "size": 24,
+            "filter": "all",
+            "statements": 25
+          },
+          {
+            "size": 24,
+            "filter": "true",
+            "statements": 25
+          },
+          {
+            "size": 24,
+            "filter": "false",
+            "statements": 25
+          }
+        ],
+        "tests": 6,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0,
+        "exitCode": 1,
+        "interpretation": "Expected bounded-query assertion failures; not infrastructure errors"
+      },
+      "after": {
+        "cases": [
+          {
+            "size": 1,
+            "filter": "all",
+            "statements": 1
+          },
+          {
+            "size": 1,
+            "filter": "true",
+            "statements": 1
+          },
+          {
+            "size": 1,
+            "filter": "false",
+            "statements": 1
+          },
+          {
+            "size": 24,
+            "filter": "all",
+            "statements": 1
+          },
+          {
+            "size": 24,
+            "filter": "true",
+            "statements": 1
+          },
+          {
+            "size": 24,
+            "filter": "false",
+            "statements": 1
+          }
+        ],
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "exitCode": 0
+      },
+      "preservation": "Exact DTO values, ordering and unchanged equipment/loan state asserted against independent SQL for all six cases",
+      "significance": "Removes one round trip per item: 24-item lists use 1 rather than 25 statements (96% fewer). Growth changes from N+1 statements to one for the tested filters.",
+      "attribution": "Production correction belongs to ELS-41; ELS-43 reproduces its significant measured improvement, separately from the minor serialization fix. No latency benchmark or new production correction claimed."
+    },
+    "freshMeasurementForThisReport": false,
+    "currentServiceSourceIdentity": {
+      "historicalQualitySource": "7fd7233",
+      "services": {
+        "src/main/java/edu/university/equipmentlending/equipment/EquipmentService.java": {
+          "currentBlob": "791c41f5595b4ba25dcf52fa90ca1ddf366ac535",
+          "qualitySourceBlob": "791c41f5595b4ba25dcf52fa90ca1ddf366ac535"
+        },
+        "src/main/java/edu/university/equipmentlending/loan/LoanQueryService.java": {
+          "currentBlob": "6844bb7bf1eebf5c33aa3a0ac9056f2cdd9057e6",
+          "qualitySourceBlob": "6844bb7bf1eebf5c33aa3a0ac9056f2cdd9057e6"
+        },
+        "src/main/java/edu/university/equipmentlending/loan/LoanReturnService.java": {
+          "currentBlob": "f113cd1837a7627801680c2e702eb6f5bfa515c8",
+          "qualitySourceBlob": "f113cd1837a7627801680c2e702eb6f5bfa515c8"
+        },
+        "src/main/java/edu/university/equipmentlending/loan/LoanService.java": {
+          "currentBlob": "8491b0c33555ad2940d9d5c063f4ee4702b4b040",
+          "qualitySourceBlob": "8491b0c33555ad2940d9d5c063f4ee4702b4b040"
+        },
+        "src/main/java/edu/university/equipmentlending/student/StudentService.java": {
+          "currentBlob": "a7e20528b79248af5028e1a991ad46db996f17c4",
+          "qualitySourceBlob": "a7e20528b79248af5028e1a991ad46db996f17c4"
+        }
+      },
+      "allServiceSourcesIdentical": true,
+      "newCoverageMeasurement": false
+    }
+  },
+  "finalAcceptance": {
+    "evidence": "sprint-4/els-47-acceptance-results.json",
+    "scenarioCount": 28,
+    "allScenariosObservedAndPassed": true,
+    "unitControllerTests": 200,
+    "postgresqlIntegrationTests": 193,
+    "helperRegressions": 15,
+    "httpRequests": 227,
+    "sqlChecks": 154,
+    "coordinatedRaces": 3,
+    "localAssertions": 3406,
+    "ciAssertions": 3409,
+    "canonicalImplementationRun": {
+      "result": "success",
+      "branchHead": "e11e02717b3997280364d979a11671b7250dff32",
+      "checkoutSha": "21cd9a67be2a0337a6e6538995a3f0da839258e0",
+      "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46081222820/job/140780400923",
+      "artifact": "test-reports: els47-package-results.json and els47-acceptance/results.json",
+      "scope": "Every job step succeeded; actual merge-ref checkout is distinct from PR branch head"
+    },
+    "docker": {
+      "card": "ELS-47",
+      "sourceCommit": "21cd9a67be2a0337a6e6538995a3f0da839258e0",
+      "status": "passed",
+      "jarSha256": "84cbab21390b46f4439469a8afd1178a91686cea8810e954f21260809df99e91",
+      "runtimeImageId": "sha256:1623bed97aae4a250eb9a057abbf5e5e4aa6c77b1fc405bd395195d322a19dde",
+      "databaseIdentity": "equipment_lending_demo/16384/7712993778445570083",
+      "assertions": [
+        "public health",
+        "missing/wrong read and write rejected",
+        "independent unchanged SQL counts",
+        "authenticated seed and read-only rerun",
+        "checkpoint secrecy",
+        "production application log privacy",
+        "non-root process",
+        "loopback application/internal PostgreSQL",
+        "target/fixture drift rejection",
+        "reset/reseed counts 1|2|2"
+      ],
+      "cleanup": "passed; owned project removed by successful Compose down -v, checkpoint and private configuration removed"
+    },
+    "actualHumanMergeApproval": [
+      {
+        "login": "MaxHusseinChreif",
+        "state": "APPROVED",
+        "commit": "79730396e25c1ef640a118a27fc0c2d891745af6"
+      }
+    ],
+    "cleanupScope": {
+      "finalLocal": {
+        "status": "passed",
+        "scope": "owned Java process and labeled tmpfs PostgreSQL container; no host files or other projects removed"
+      },
+      "finalCI": {
+        "status": "passed",
+        "scope": "owned Java process and labeled tmpfs PostgreSQL container; no host files or other projects removed"
+      },
+      "ordinaryDocker": "passed; owned project removed by successful Compose down -v, checkpoint and private configuration removed",
+      "historicalHandoff": {
+        "scope": "Current Docker engine only; original run did not retain an engine ID, so this does not claim cleanup on another workstation",
+        "engineId": "d24adc90-7b1e-4e65-bddf-4c81ddec9e68",
+        "historicalResources": {
+          "container": {
+            "identity": "7f636bf70217036cdc6e6867d9b19953ffa9e3dda1006a3649d8aa2647777376",
+            "presentOnCurrentEngine": false
+          },
+          "anonymousVolume": {
+            "identity": "cd1d81e4c92e734eda142f04f020abcef797804d997456b25346fc0d52b1ba84",
+            "presentOnCurrentEngine": false
+          },
+          "network": {
+            "identity": "els47-tests_default",
+            "presentOnCurrentEngine": false
+          }
+        }
+      }
+    },
+    "interpretation": "Counts are per run, not cumulative; local fixed-Clock JAR, ordinary Docker and merged CI stay separately identified"
+  },
+  "sprint2Effort": {
+    "classification": "project-lead-confirmed approximate actual effort",
+    "confirmedBy": "Hussein Chreif",
+    "members": {
+      "Hussein Chreif": 6,
+      "Komayl Dbouk": 5,
+      "Mostafa Younes": 5,
+      "Hussein Chalhoub": 4
+    },
+    "originalEstimateTotal": 20,
+    "actualApproximateTotal": 20,
+    "perCardSessions": null
+  },
+  "sprint3Effort": {
+    "source": "docs/jira-backlog.json original planning snapshot and Jira card descriptions",
+    "cards": [
+      {
+        "card": "ELS-39",
+        "owner": "Mostafa Younes",
+        "estimatedHours": 3,
+        "actualHours": null,
+        "varianceHours": null,
+        "confirmedBy": null,
+        "retrospectivePoints": 5,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
+      },
+      {
+        "card": "ELS-40",
+        "owner": "Hussein Chalhoub",
+        "estimatedHours": 2,
+        "actualHours": null,
+        "varianceHours": null,
+        "confirmedBy": null,
+        "retrospectivePoints": 3,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
+      },
+      {
+        "card": "ELS-41",
+        "owner": "Hussein Chreif",
+        "estimatedHours": 3,
+        "actualHours": null,
+        "varianceHours": null,
+        "confirmedBy": null,
+        "retrospectivePoints": 8,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
+      },
+      {
+        "card": "ELS-42",
+        "owner": "Komayl Dbouk",
+        "estimatedHours": 3,
+        "actualHours": null,
+        "varianceHours": null,
+        "confirmedBy": null,
+        "retrospectivePoints": 5,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
+      },
+      {
+        "card": "ELS-43",
+        "owner": "Hussein Chalhoub",
+        "estimatedHours": 3,
+        "actualHours": null,
+        "varianceHours": null,
+        "confirmedBy": null,
+        "retrospectivePoints": 5,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
+      },
+      {
+        "card": "ELS-44",
+        "owner": "Mostafa Younes",
+        "estimatedHours": 1,
+        "actualHours": null,
+        "varianceHours": null,
+        "confirmedBy": null,
+        "retrospectivePoints": 2,
+        "actualAllocationStatus": "Not allocated from confirmed member totals"
+      }
+    ],
+    "originalEstimateHours": 15,
+    "confirmedActualHours": 22,
+    "varianceHours": 7,
+    "actualToEstimateRatio": 1.47,
+    "retrospectivePoints": 28,
+    "completedRetrospectivePoints": 26,
+    "pointsAreOriginalForecast": false,
+    "pointsAreHours": false,
+    "include": "Prompting, review, corrections, tests and documentation without double-counting",
+    "confirmation": {
+      "confirmedBy": "Hussein Chreif",
+      "role": "project lead",
+      "source": "Explicit confirmation in the project conversation",
+      "basis": "Project-lead-confirmed reconstructed approximate actual member totals, including prompting, review, corrections, testing and documentation",
+      "perCardAllocation": "Not supplied; no allocation inferred",
+      "individualMemberTimeLogsClaimed": false
+    },
+    "memberActuals": [
+      {
+        "member": "Hussein Chreif",
+        "originalEstimateHours": 3,
+        "actualHours": 6,
+        "varianceHours": 3
+      },
+      {
+        "member": "Komayl Dbouk",
+        "originalEstimateHours": 3,
+        "actualHours": 4,
+        "varianceHours": 1
+      },
+      {
+        "member": "Mostafa Younes",
+        "originalEstimateHours": 4,
+        "actualHours": 6,
+        "varianceHours": 2
+      },
+      {
+        "member": "Hussein Chalhoub",
+        "originalEstimateHours": 5,
+        "actualHours": 6,
+        "varianceHours": 1
+      }
+    ]
+  },
+  "sprint3Reflection": {
+    "memberFeedback": [],
+    "projectLeadFeedback": {
+      "author": "Hussein Chreif",
+      "confirmed": true,
+      "text": "Independent SQL checks and controlled fault probes strengthened our verification. Environment and integration setup caused avoidable retries. We should keep source, environment, commands, results and CI together at every handoff."
+    },
+    "agreedImprovement": {
+      "text": "At each verification handoff, record exact source revision, isolated database identity, commands, results and CI together",
+      "adoptedBy": "Hussein Chreif, project lead",
+      "coordinator": "Hussein Chreif",
+      "contributors": "Each card owner records their handoff evidence",
+      "acceptance": "At the next delivery rehearsal, the coordinator verifies that each relevant handoff has a complete source/environment/command/result/CI record and documented retries",
+      "status": "adopted; rehearsal acceptance pending"
+    },
+    "meetingClaimed": false,
+    "otherMemberFeedbackClaimed": false
+  },
+  "effortLimits": {
+    "sprint1Actual": "not supplied",
+    "sprint4Actual": "sprint still active; collect supplied/confirmed totals during ELS-50",
+    "perCardSessions": "not inferred",
+    "aiSavingsMeasured": false,
+    "memberFeedbackOrMeetingInvented": false
+  },
+  "review": {
+    "record": "els-48-team-review.md",
+    "allFourMemberReviewRequired": true,
+    "members": [
+      {
+        "member": "Hussein Chreif",
+        "decision": null,
+        "evidence": null
+      },
+      {
+        "member": "Hussein Chalhoub",
+        "decision": null,
+        "evidence": null
+      },
+      {
+        "member": "Komayl Dbouk",
+        "decision": null,
+        "evidence": null
+      },
+      {
+        "member": "Mostafa Younes",
+        "decision": null,
+        "evidence": null
+      }
+    ],
+    "humanApprovalClaimed": false,
+    "doneClaimed": false
+  },
+  "pendingCards": [
+    {
+      "key": "ELS-48",
+      "owner": "Hussein Chreif",
+      "required": "actual four-member content review and primary Chalhoub decision"
+    },
+    {
+      "key": "ELS-49",
+      "owner": "Komayl Dbouk",
+      "required": "slides, actual rehearsal and individual understanding"
+    },
+    {
+      "key": "ELS-50",
+      "owner": "Hussein Chalhoub",
+      "required": "effort/retro, notices, instructor access, release consistency and actual submission receipt"
+    }
+  ],
+  "scopeLimits": [
+    "Original assignment read in place, not modified/copied/staged/ignored",
+    "No new application, metric or vulnerability-scan execution claimed for report editing",
+    "Remote HTTPS/browser CSRF-origin acceptance and exact distribution notices remain separate duties",
+    "Old resource absence on current engine does not prove another workstation cleanup",
+    "No invented effort, meeting, team review, rehearsal, export or submission",
+    "Sprint 5 frontend is future backlog scope, not an implemented interface"
+  ],
+  "documentValidation": {
+    "status": "passed",
+    "localLinksAndAnchors": 175,
+    "referencePracticeRows": 13,
+    "coreRequirementRows": 12,
+    "observedAcceptanceScenarios": 28,
+    "metricEffortAndIdentityChecks": "passed against canonical records",
+    "humanReviewStatus": "four decisions not recorded; no approval inferred",
+    "remainingCardGates": 3,
+    "mermaidOverview": "structure/source alignment checked; no new rendering claim",
+    "executionDateStampCheck": "passed",
+    "assignmentProtection": "untracked and unignored",
+    "newLocalApplicationTestsRun": false
+  },
+  "canonicalSourceHashes": {
+    "sourceCommit": "62be2464b7281d2657e3de207891fc7e5a95507d",
+    "scope": "SHA-256 of canonical Git blob bytes at the merged report baseline",
+    "files": {
+      "docs/requirements/requirements.md": "d2b37eda57b9cd7d863d307cca7602d85ad83eab016fdcc9e5aaae860d8ada73",
+      "docs/design/architecture.md": "f43195bc85373b73ecbff5a813ad77107238b35b401b22ee599f39a043878c8f",
+      "docs/api/openapi.json": "980d7e40e897c911757f6b02f73d91ec1ecad691872b0c17f501cafa340f0860",
+      "reports/sprint-3/els-42-verification-results.json": "51a71a98d8a36ce16a4bff0990db1dcd03492a02c0b13e15310e1cac729f62d0",
+      "reports/sprint-3/els-43-quality-results.json": "41705c1befd7d9b7fde89d11bb8e4b71f137453b67c0c00cc9e8d885f71b53c5",
+      "reports/sprint-3/els-44-closeout-results.json": "3ca232ccf3d572fc8ac6779c6ce83d99b78bab4e2421a7568bbf84f5a3c8d2e5",
+      "reports/sprint-4/els-46-correction-results.json": "e4a794513b7aca3ac57094acaaa06ff891f83a7c831c925db3114e69de56616c",
+      "reports/sprint-4/els-47-acceptance-results.json": "ee89752bf126f43802de51803f47d84e6e4a3b49c4fec9ce72fc722f32e5af9e"
+    }
+  }
+}
