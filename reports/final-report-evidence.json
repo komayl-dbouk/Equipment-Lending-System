@@ -640,7 +640,7 @@
   },
   "effortLimits": {
     "sprint1Actual": "not supplied",
-    "sprint4Actual": "sprint still active; collect supplied/confirmed totals during ELS-50",
+    "sprint4Actual": "Project-lead-confirmed reconstructed approximate actuals: Chreif 8h, Komayl 5h, Mostafa 6h, Chalhoub 7h; 26h total versus original Jira 13h. Includes shared review/testing/rehearsal; no per-card sessions inferred.",
     "perCardSessions": "not inferred",
     "aiSavingsMeasured": false,
     "memberFeedbackOrMeetingInvented": false
@@ -689,7 +689,7 @@
     {
       "key": "ELS-50",
       "owner": "Hussein Chalhoub",
-      "required": "effort/retro, notices, instructor access, release consistency and actual submission receipt"
+      "required": "Final PR human acceptance, official channel/format/time and instructor access, regenerated reviewed-revision candidate and actual submission receipt. Engineering source/notices/effort handoff is prepared."
     }
   ],
   "scopeLimits": [
@@ -747,5 +747,17 @@
     "canonicalHistoricalGitBlobHashes": "passed",
     "scope": "Documentation, JSON and status/source consistency only; no new application or metric run",
     "priorLinkAnchorCount": "175 is the original report-finalization validation, not a new anchor check"
+  },
+  "sprint4Closeout": {
+    "record": "sprint-4/els-50-release-closeout.json",
+    "retrospective": "sprint-4/progress-review-and-retrospective.md",
+    "submissionChecklist": "release/submission-checklist.md",
+    "originalEstimateHours": 13,
+    "confirmedActualHours": 26,
+    "varianceHours": 13,
+    "actualToEstimateRatio": 2.0,
+    "confirmation": "Explicit project-conversation approval by Hussein Chreif of proposed approximate actuals, lead reflection and owned improvement.",
+    "noticesScope": "71 runtime-reference artifacts plus redistributed Maven Wrapper; source candidate excludes runtime/JRE/container/database binaries.",
+    "submission": "not performed; official channel/time/access and actual receipt remain unverified"
   }
 }

@@ -1,0 +1,4 @@
+# Preserve exact vendored legal bytes, including upstream line endings/spacing.
+third-party-licenses/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab
+third-party-licenses/inventory.json text eol=lf whitespace=blank-at-eol,blank-at-eof,space-before-tab
+third-party-licenses/README.md text eol=lf whitespace=blank-at-eol,blank-at-eof,space-before-tab

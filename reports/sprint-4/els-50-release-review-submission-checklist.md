@@ -21,7 +21,7 @@ The audit began from pulled `origin/main` revision `213c751`, which contains the
 - The active history contains the incremental ELS-47 acceptance merge, ELS-48 report/review merges, ELS-49 presentation/rehearsal merges and their source-specific evidence commits.
 - `git ls-tree -r --name-only HEAD` found no tracked `Subject/` path. `.gitignore` does not add `Subject/`; the original assignment remains excluded from tracked/submission material by process, not by an ignore rule.
 - `git diff --check` passed before ELS-50 edits. `git fsck --no-reflogs --unreachable --no-progress` completed successfully; it reported historical unreachable objects from prior branch activity, not an active-ref corruption or a tracked release artifact. They were not pruned or otherwise modified.
-- Before any final archive is created, compare its manifest with `git ls-files`, exclude ignored/private `.env` and `target/` content, exclude `Subject/`, and identify the exact reviewed commit placed in the archive. No archive has been created or inspected by this card.
+- The original audit did not create an archive. The correction now provides an explicit-revision Git source export, full member/blob/hash verification and Wrapper notice checks; actual candidate identities are recorded in the [closeout JSON](els-50-release-closeout.json). Regenerate from the final reviewed merge commit before instructor submission; an unmerged candidate is not relabeled final.
 
 ## Release checklist
 
@@ -37,10 +37,10 @@ The audit began from pulled `origin/main` revision `213c751`, which contains the
 
 - [ ] Confirm the exact submission channel, deadline time and timezone from an authoritative course/instructor source. Jira establishes only the December 1 date; it does not establish a time.
 - [ ] Confirm that the instructor has the required GitHub repository and Jira-board access. The repository records this as a requirement, not as an observed grant.
-- [ ] Select the final artifact format and exact reviewed commit; generate any requested archive, DOCX or PDF only from that revision and visually inspect it.
-- [ ] Assemble/verify the exact third-party license and NOTICE materials if a binary or archive will be distributed. ELS-46 explicitly records that the repository does not yet assemble this bundle.
+- [x] Select a backend source candidate and implement explicit-revision export with inspected archive manifest/checksums; see the [candidate handoff](../release/submission-checklist.md). Final instructor format and reviewed merge revision remain to be confirmed/regenerated.
+- [x] Assemble the exact [notices inventory/materials](../../docs/deployment/third-party-notices.md) for the source candidate and reference runtime audit: 71 runtime-reference artifacts and the redistributed Wrapper; binary/image distribution remains separately scoped.
 - [x] Checked the pulled `213c751` workflow; **Build and test** completed successfully.
-- [ ] Record confirmed Sprint 4 effort and an actual retrospective input if supplied by the team. No Sprint 4 total, attendance duration or per-card allocation is reconstructed here.
+- [x] Record the project-lead-confirmed Sprint 4 actual effort (26h versus original 13h), reflection and owned improvement in the [review/retrospective](progress-review-and-retrospective.md). These are reconstructed approximate member totals, not per-card sessions or a claimed meeting.
 - [ ] Hussein Chreif submits through the confirmed channel and retains the actual confirmation/receipt. Only then may a submission-complete statement be made.
 
 ## Sprint 4 evidence-based retrospective
@@ -57,13 +57,13 @@ The audit began from pulled `origin/main` revision `213c751`, which contains the
 | --- | --- | --- |
 | Submission deadline/channel and instructor access not evidenced | Hussein Chreif, with ELS-50 coordination | Confirm against course/instructor source and record only the confirmed facts. |
 | Future source changes can invalidate the audited workflow | Hussein Chalhoub | Recheck the exact workflow result for any later review/submission revision. |
-| Distribution notices are not assembled | Hussein Chalhoub / submission owner | Determine whether a distributable binary/archive is required; if so, assemble exact notices from resolved artifacts. |
-| Sprint 4 actual effort and retrospective inputs are absent | All members supply facts; Hussein Chalhoub records them | Record confirmed totals/reflection or leave them explicitly unavailable. |
+| A later binary/image distribution expands license scope | Hussein Chalhoub / submission owner | The source-candidate Wrapper materials are assembled; perform component-specific and base-image review before distributing runtime binaries/images. |
+| Approximate effort must not be treated as per-card logged sessions | Hussein Chalhoub | Retain the lead-confirmed 26h scope and approximation limits with the original 13h estimate. |
 | Submission receipt does not exist yet | Hussein Chreif | Retain the actual receipt after authorized submission; do not infer one from a GitHub merge or Jira status. |
 
 ### Process improvement
 
-For final handoffs, record the exact source identity, environment, command/result, CI state and whether each human fact is directly observed, project-lead-confirmed or still pending. This keeps later status corrections from silently converting a planned activity into claimed evidence.
+The lead adopted a concrete action: Chalhoub maintains the source/archive/checksums/notices/CI handoff and Chreif verifies it before submission. The [retrospective](progress-review-and-retrospective.md) records the confirmed reflection, original/actual effort, owner and observable check. The new export guards and CI exercise machine checks without substituting for the final human handoff.
 
 ## Submission handoff for Hussein Chreif
 
@@ -73,4 +73,4 @@ For final handoffs, record the exact source identity, environment, command/resul
 4. Confirm the latest workflow result for the selected submission commit and retain its exact URL/commit in the release record.
 5. Submit only after explicit authorization, retain the destination's receipt/confirmation, and attach or link that receipt through the approved project record.
 
-Until step 5 is evidenced, this release is **prepared for submission, not submitted**.
+The engineering handoff is prepared for review. Instructor-facing readiness still requires the confirmed official destination/format/time, access and final reviewed candidate. Until step 5 is evidenced, the coursework is **not submitted**.
