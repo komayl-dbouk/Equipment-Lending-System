@@ -1,0 +1,2118 @@
+{
+  "schema": "els-notices-v1",
+  "applicationBuildRevision": "336db47db07d4eb9523403bf08a336c0f7308596",
+  "applicationJarSha256": "df26fce35bea86a02d96255b60a498dbb9ee19c98f386ffca038f6ce940f4195",
+  "buildInputsSha256": {
+    "pom.xml": "22fac68237b6b05868f70711a4286f65a2281b75be232f5193d5baf1c97abbfb",
+    "src/main/java/edu/university/equipmentlending/EquipmentLendingApplication.java": "d28e4a30dac97b0a5d80689ace58328be831b4f18195eda2abd16701684b9f16",
+    "src/main/java/edu/university/equipmentlending/equipment/EquipmentController.java": "94e2b518926a413b77ebbf4b4205fc124203ff7a1e769d98294115f19ae5c986",
+    "src/main/java/edu/university/equipmentlending/equipment/EquipmentService.java": "4bab78d54b6a65ad63a28427bac55619149a3964a85ae7d53a46a4424187165a",
+    "src/main/java/edu/university/equipmentlending/equipment/dto/EquipmentResponse.java": "a9ca2820f595d0527582bde9b1f504dc8285a7b25e5d6bcbb3e567f9c77e5049",
+    "src/main/java/edu/university/equipmentlending/equipment/dto/EquipmentWrite.java": "70de6e916a910914ac55577699df93f5fbd25356e530a6d8e686b8f3c50f1482",
+    "src/main/java/edu/university/equipmentlending/equipment/persistence/EquipmentEntity.java": "d27d8f4f1e08fd1747ade477cf323604c55d0e4a8a5a53796a2c86a4b5cde071",
+    "src/main/java/edu/university/equipmentlending/equipment/persistence/EquipmentRepository.java": "e44e7c4a627dae780f064c505c8109e5d3b937f043fecb8a208158710b6f675c",
+    "src/main/java/edu/university/equipmentlending/loan/LoanController.java": "645892830814a4541317ab9ff0f6ff332ec636fb38efb01feccaf958c8d8cbe7",
+    "src/main/java/edu/university/equipmentlending/loan/LoanMapper.java": "8778c396f41e462434a6db9e57c060db99e338e6a773239954e38f204a5176b0",
+    "src/main/java/edu/university/equipmentlending/loan/LoanQueryController.java": "caf33023414bc8b526ee3163eb4d45530710b6f51aebfb8d4b6a45b16f22a9af",
+    "src/main/java/edu/university/equipmentlending/loan/LoanQueryService.java": "3d244a57180de8191bf836921efe8623ecd16d0846178c5cf65be4ceff3bdf29",
+    "src/main/java/edu/university/equipmentlending/loan/LoanReturnController.java": "32740d6698c86c3208a3056ad7a30714abf7d5da309fdd812770d2e0a23f2c36",
+    "src/main/java/edu/university/equipmentlending/loan/LoanReturnService.java": "078f38f4c6a56e0f5a9a648e8afa15822bcc30eca576b22be2bb5458d62621c4",
+    "src/main/java/edu/university/equipmentlending/loan/LoanService.java": "c99bf6afe8cee71589ffc7cb1f8a9ad81c0382e9fe20941156e36e7c23344857",
+    "src/main/java/edu/university/equipmentlending/loan/dto/Loan.java": "f6a3d15c3b9ddc8919e421a8e50a12ee00a308f46b2a1403f4e6516f2f994d3f",
+    "src/main/java/edu/university/equipmentlending/loan/dto/LoanWrite.java": "b49a8c37a821e3b8b23160add6a92f36b547212cd946b15eade622c83c3a371c",
+    "src/main/java/edu/university/equipmentlending/loan/dto/ReturnWrite.java": "b032ada7051c68bebdeeddc0d8ceac8149807def1f3c1123e5bc27464f6d681f",
+    "src/main/java/edu/university/equipmentlending/loan/dto/StrictLoanDateDeserializer.java": "a133b0e252327e60e4558f2b5d4ed8af468b7d8bfb2a26e7f826fd90a2b0e801",
+    "src/main/java/edu/university/equipmentlending/loan/dto/StrictLoanIdDeserializer.java": "088ece4690dbdb131b946d265952036da9e29414bd18b918b16b2a34ff304942",
+    "src/main/java/edu/university/equipmentlending/loan/persistence/LoanEntity.java": "9a2a06b23dc731b4d48ba2fa27077279e1bb5cde05515ee576ae64eaf91b19d1",
+    "src/main/java/edu/university/equipmentlending/loan/persistence/LoanQueryRepository.java": "5aa1b006b72fdb22d2582cadc27892e17f76e8fbb1b761e7c823e13d6d8049e1",
+    "src/main/java/edu/university/equipmentlending/loan/persistence/LoanRepository.java": "7e7e16b61e2bb5b5443f3dee6c4dcb9149b52f875755affa0d7fd2ef1cdda329",
+    "src/main/java/edu/university/equipmentlending/shared/config/SecurityConfiguration.java": "68fb471db57e82b3b2d7b4f914920e11425eac6d3ec0b80272e45416af193538",
+    "src/main/java/edu/university/equipmentlending/shared/config/StaffAccessProperties.java": "5513b189e47a971d05c63079d8dc24fb4a75c176c725fb56f301963df2406466",
+    "src/main/java/edu/university/equipmentlending/shared/config/StaffAuthenticationEntryPoint.java": "c580364778b7e86a28b8793c01c8aaba2a7a3c6bc45d7bd72ae832d04b324ba3",
+    "src/main/java/edu/university/equipmentlending/shared/config/StrictTextDeserializer.java": "9dcd1778d241e8bcc1c39153d5bda03416fe90764fa3baf27ca7e4055bb4eae1",
+    "src/main/java/edu/university/equipmentlending/shared/config/TimeConfiguration.java": "ffa26743e11cfc10137757214d55f85a0235e2e4d741eb6573e9152267f5d71a",
+    "src/main/java/edu/university/equipmentlending/shared/error/ApiError.java": "3fcb16569719638a27f6f59518d6472e7b3fb14b8dbc8c82d95e8a3ec2219c8d",
+    "src/main/java/edu/university/equipmentlending/shared/error/ApiException.java": "0e7f30120b38381d86692161a1ab4b7899a547c7f31bae9c66db888d40a06e7d",
+    "src/main/java/edu/university/equipmentlending/shared/error/ApiExceptionHandler.java": "a670ddaf66b9d8432ff79d29f79ccc35f87fc53ed8e3fba77681b5ffb2781026",
+    "src/main/java/edu/university/equipmentlending/shared/error/BusinessConflictException.java": "4561654941e061527d8d1a740c426d86c4cf069574fa3f276c760ccc353c18b2",
+    "src/main/java/edu/university/equipmentlending/shared/error/ResourceNotFoundException.java": "66ee256f84b7e8fbeb3c21b629fdd50b70a9c55e1366e59a3fbe3476efe3d488",
+    "src/main/java/edu/university/equipmentlending/shared/persistence/DatabaseConstraintMatcher.java": "25c3960921e39711c25c513d855c0da485f30094f5331fba972bb4bfd03d1de0",
+    "src/main/java/edu/university/equipmentlending/student/StudentController.java": "7bf86dc0229c82982d67b7ee636c6426d4c3de2a387d09a4b2b4f9f9d37d3fc3",
+    "src/main/java/edu/university/equipmentlending/student/StudentService.java": "61bbea000fcd87d29eb9469550ce20355f87b887a13a23d9c8d4ec9f6d7305d8",
+    "src/main/java/edu/university/equipmentlending/student/dto/Student.java": "553b6ddf207d75a53a035c6bec8b45194bd629abe6519ed3e6ab5a7701bb65cf",
+    "src/main/java/edu/university/equipmentlending/student/dto/StudentWrite.java": "f241f341eb9acbee62d87f6e41b76b8c632b34686d444efcf5e5f4a9270a03e8",
+    "src/main/java/edu/university/equipmentlending/student/persistence/StudentEntity.java": "12a93ae72471b744e19f6fa732ec8c8a69db9a81ded177dc4d5e388fadbcb54a",
+    "src/main/java/edu/university/equipmentlending/student/persistence/StudentRepository.java": "e83e8e89af0bd83a262bba8b16978fa404f54d2faaabd413cb2e5e19bc539df3",
+    "src/main/resources/application-database-test.yml": "b3edca0964bb5ecb5d8505987353600cd3e9603f6182d234c72c0e98bc8d4e11",
+    "src/main/resources/application.yml": "1056965cf259d66fe7006b9d539b4ef11c6693b92fc13047a0e9de56c39fa7f7",
+    "src/main/resources/db/migration/V1__initial_lending_schema.sql": "dea2405f9d9cd05bd8bb45b2bb800f3a24d5789f118b65077c2e5702447a0dcc",
+    "src/test/java/edu/university/equipmentlending/DatabaseSetupIT.java": "8f267d6ad4605049262376093e8627dfac9bc96cb3d854475e3a2266f5ca1735",
+    "src/test/java/edu/university/equipmentlending/DatabaseTestSafetyProcessor.java": "71b64672edf0a5fe8f5c4e65c3acaca14ccc5c394a5f64f7b155bc0ead58314c",
+    "src/test/java/edu/university/equipmentlending/DatabaseTestSafetyProcessorTest.java": "9653f98d6b99c64a3b5ccb4773df15379828e0df408793f684bc42cff5a5c25c",
+    "src/test/java/edu/university/equipmentlending/StrictWriteValidationTest.java": "cb09e94d011cb64f585a012831bc49c15545d4871520d37da51ec9403a36ab45",
+    "src/test/java/edu/university/equipmentlending/equipment/EquipmentControllerTest.java": "01037bb9d000f2cb9ee919f41b96b8cc571186b3258b9ab810a1266a779888fa",
+    "src/test/java/edu/university/equipmentlending/equipment/EquipmentDesignReviewIT.java": "ce5a463f8eabaeca76fe4858ed4855d0ba5d9d8c15cb38fcb6e45ef343b12b0a",
+    "src/test/java/edu/university/equipmentlending/equipment/EquipmentNormalizationTest.java": "bac576c6aaf8e297e90df3f3f4c298dec40585871ca7d20e32ba0eb7efb6ce9e",
+    "src/test/java/edu/university/equipmentlending/equipment/EquipmentPersistenceIT.java": "e23c74727355e1058315f07ed146eba575cfd96adead63081e0ef83d402287eb",
+    "src/test/java/edu/university/equipmentlending/equipment/EquipmentServiceTest.java": "42ac5a1148ba30bedb8c1c9dd3434f13cd59e27bd0083eb8e650c6f6118e6449",
+    "src/test/java/edu/university/equipmentlending/loan/BorrowingContractIT.java": "edc1a02b35d98857ce0c4a9c46cdfe967a2702611ec0d93cd609088219178661",
+    "src/test/java/edu/university/equipmentlending/loan/LendingIntegrityIT.java": "3ea291ba2e58684f7b7343ecf88044a0a23263cd922f062c3039a5ddffa6af3e",
+    "src/test/java/edu/university/equipmentlending/loan/LendingQueriesIT.java": "d400ce697e80e95d45072db78ba622b5c2ba69aec5f3d08c802a732da29e40a3",
+    "src/test/java/edu/university/equipmentlending/loan/LoanDateValidationIT.java": "e661778944eeb8e4278e59a4efadf6e2de228d13a713d3fd440c9630ee0b39c8",
+    "src/test/java/edu/university/equipmentlending/loan/LoanIndexSelectivityIT.java": "e262e0b68085554def66f20917c8a79a22dfe7ae2f454f146b5ca6096e584e4e",
+    "src/test/java/edu/university/equipmentlending/loan/LoanQueryControllerTest.java": "5fc999ff74d5ab80dea775f59456532833f163e18322b44964db9314d67d1626",
+    "src/test/java/edu/university/equipmentlending/loan/LoanReturnContractIT.java": "eceeeae3e295c10a4e02f9e8ea80408647ec8135e27fe630f6b020f30610ace4",
+    "src/test/java/edu/university/equipmentlending/loan/LoanServiceTest.java": "126db5d19499776ad250199110566c313c9511b9c6261b0d5820d87583a6697a",
+    "src/test/java/edu/university/equipmentlending/shared/config/StaffAccessPropertiesTest.java": "49dab34c2d4083efde916efe0fda65216ad4ab9fb9a7263fabf271f08c43e8ce",
+    "src/test/java/edu/university/equipmentlending/shared/config/StaffAccessSecurityIT.java": "0f0fd0606bedb5b465bbc4f39eda0e24b030e88db75dae77bb5b55c722cd7f8c",
+    "src/test/java/edu/university/equipmentlending/shared/error/ApiExceptionHandlerTest.java": "5441f969a074912c4c712cbcd2192af7ffbf15f08425352bbe6afbd4f1d514e4",
+    "src/test/java/edu/university/equipmentlending/student/StudentControllerTest.java": "3bf59a8214e6d910b5c09b62ea048c963930dd1e2c1f251a30725f8d8cc3bfaa",
+    "src/test/java/edu/university/equipmentlending/student/StudentPersistenceIT.java": "edcfe4f17a4f39865467ac924cce172b27c3d30ad819b74d9bd353c7a65c712d",
+    "src/test/java/edu/university/equipmentlending/student/StudentServiceTest.java": "d407fa3ed57dfbcce2b361506c65389b1ac0b8339935f7f11dd49db4f455473c",
+    "src/test/java/edu/university/equipmentlending/support/AuthenticatedMockMvcConfiguration.java": "6a3e06654d52746747e1143799ae5c9d0f94ce5b0faf8493db3a5ec188a75126",
+    "src/test/java/elsvalidation/FixedClockConfiguration.java": "93a0cb053d054d03556cf4005fe017a38fae3a451be34649c0d87fff8f99cd17",
+    "src/test/resources/META-INF/spring.factories": "772fd509c2e1c4c8ccd34bdeb02b5ffd8e9efe8a9647ce88d1d5868914b915ab"
+  },
+  "distribution": "Backend source candidate; runtime JAR, JRE, image and database are not redistributed.",
+  "components": [
+    {
+      "id": "org.hdrhistogram:HdrHistogram:2.2.2",
+      "filename": "HdrHistogram-2.2.2.jar",
+      "sha256": "22d1d4316c4ec13a68b559e98c8256d69071593731da96136640f864fa14fad8",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/hdrhistogram/HdrHistogram/2.2.2/HdrHistogram-2.2.2.jar",
+      "licenses": [
+        {
+          "comments": "* This code was Written by Gil Tene of Azul Systems, and released to the\n                * public domain, as explained at http://creativecommons.org/publicdomain/zero/1.0/",
+          "name": "Public Domain, per Creative Commons CC0",
+          "url": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/hdrhistogram/HdrHistogram/2.2.2/HdrHistogram-2.2.2.pom",
+          "metadataSha256": "2623346537f706f22059b9117209cb0681b0241145b35c75d2c5e3ec41826766"
+        },
+        {
+          "name": "BSD-2-Clause",
+          "url": "https://opensource.org/licenses/BSD-2-Clause",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/hdrhistogram/HdrHistogram/2.2.2/HdrHistogram-2.2.2.pom",
+          "metadataSha256": "2623346537f706f22059b9117209cb0681b0241145b35c75d2c5e3ec41826766"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.hdrhistogram/HdrHistogram/2.2.2/META-INF/LICENSE.txt",
+          "sha256": "ba550515c77c9e6f8b6a400381eacd3c47569297f8f27884801a95dff5309483",
+          "origin": "BOOT-INF/lib/HdrHistogram-2.2.2.jar!/META-INF/LICENSE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "com.zaxxer:HikariCP:6.3.3",
+      "filename": "HikariCP-6.3.3.jar",
+      "sha256": "709f378c05756280939ce50fc1b1f1a53bb8e1899dc1b249f21f12703640b48b",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/com/zaxxer/HikariCP/6.3.3/HikariCP-6.3.3.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/com/zaxxer/HikariCP/6.3.3/HikariCP-6.3.3.pom",
+          "metadataSha256": "244efe009ef5300bad308de418cb29083de278c10bae816c59daaa281981fce5"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.latencyutils:LatencyUtils:2.0.3",
+      "filename": "LatencyUtils-2.0.3.jar",
+      "sha256": "a32a9ffa06b2f4e01c5360f8f9df7bc5d9454a5d373cd8f361347fa5a57165ec",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.jar",
+      "licenses": [
+        {
+          "comments": "* This code was Written by Gil Tene of Azul Systems, and released to the\n                * public domain, as explained at http://creativecommons.org/publicdomain/zero/1.0/",
+          "name": "Public Domain, per Creative Commons CC0",
+          "url": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.pom",
+          "metadataSha256": "8f0c0153790b84af6c09316d569bd106ee0f008b9393e80ba478f5bf65738a28"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.eclipse.angus:angus-activation:2.0.3",
+      "filename": "angus-activation-2.0.3.jar",
+      "sha256": "a6bd35c538cf90fff941ad6258c40c08fca0b5c9c3f536c657114f27ce0527a7",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/eclipse/angus/angus-activation/2.0.3/angus-activation-2.0.3.jar",
+      "licenses": [
+        {
+          "name": "EDL 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/eclipse/angus/angus-activation-project/2.0.3/angus-activation-project-2.0.3.pom",
+          "metadataSha256": "d34967386837899646292a451a3ecf1e4efd1262c291b37d15e10d3d90ec2bcd"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.eclipse.angus/angus-activation/2.0.3/META-INF/LICENSE.md",
+          "sha256": "87eba02f8a415f1a25de6ca3ac6b5c77eb33f33f00ae5a5f9d6ee963147f7956",
+          "origin": "BOOT-INF/lib/angus-activation-2.0.3.jar!/META-INF/LICENSE.md"
+        },
+        {
+          "path": "third-party-licenses/org.eclipse.angus/angus-activation/2.0.3/META-INF/NOTICE.md",
+          "sha256": "203414df1bdc467ff3d2c53e44ed7a7b9bcba90067bd2f3442b1d509a308b21e",
+          "origin": "BOOT-INF/lib/angus-activation-2.0.3.jar!/META-INF/NOTICE.md"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.antlr:antlr4-runtime:4.13.2",
+      "filename": "antlr4-runtime-4.13.2.jar",
+      "sha256": "dd3e8a13a2d669bf84fb8d834de35ce4875f27157698d206241ec8488aadcaf7",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/antlr/antlr4-runtime/4.13.2/antlr4-runtime-4.13.2.jar",
+      "licenses": [
+        {
+          "name": "BSD-3-Clause",
+          "url": "https://www.antlr.org/license.html",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/antlr/antlr4-master/4.13.2/antlr4-master-4.13.2.pom",
+          "metadataSha256": "0adda026685873f651360178bffc446ceee4833081739e3ae9d6e8f07e8d902a"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.aspectj:aspectjweaver:1.9.25.1",
+      "filename": "aspectjweaver-1.9.25.1.jar",
+      "sha256": "4fe86fdc18faea571f29129c70eaad5d121363504a06d7907be88f6c60ba3116",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/aspectj/aspectjweaver/1.9.25.1/aspectjweaver-1.9.25.1.jar",
+      "licenses": [
+        {
+          "name": "Eclipse Public License - v 2.0",
+          "url": "https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/aspectj/aspectjweaver/1.9.25.1/aspectjweaver-1.9.25.1.pom",
+          "metadataSha256": "261019d2c87dd7cf49c808b46124d9c3d1c5eac8886c9c61734b61f88fdaaa4f"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.aspectj/aspectjweaver/1.9.25.1/LICENSE-AspectJ.adoc",
+          "sha256": "4e2c7d9f5cc62bfe8ca3461be6fd659f744f508af1207bf5d633fd5f4270bb98",
+          "origin": "BOOT-INF/lib/aspectjweaver-1.9.25.1.jar!/LICENSE-AspectJ.adoc"
+        },
+        {
+          "path": "third-party-licenses/org.aspectj/aspectjweaver/1.9.25.1/licenses/LICENSE-Apache-1.1.txt",
+          "sha256": "bf39ff355cccc08dc6d1eff1fde8a3829caa03a9e00df32320ab1dddd1650491",
+          "origin": "BOOT-INF/lib/aspectjweaver-1.9.25.1.jar!/licenses/LICENSE-Apache-1.1.txt"
+        },
+        {
+          "path": "third-party-licenses/org.aspectj/aspectjweaver/1.9.25.1/licenses/LICENSE-BSD-3-CLAUSE.txt",
+          "sha256": "d01a0236c408fdab84e7ce7f5f91a221a6c41f5b1900980ef510d34b646fba89",
+          "origin": "BOOT-INF/lib/aspectjweaver-1.9.25.1.jar!/licenses/LICENSE-BSD-3-CLAUSE.txt"
+        },
+        {
+          "path": "third-party-licenses/org.aspectj/aspectjweaver/1.9.25.1/licenses/LICENSE-EPL-2.0.txt",
+          "sha256": "0becf16567beb77fa252b7664631dd177c8f9a1889e48995b45379c7130e5303",
+          "origin": "BOOT-INF/lib/aspectjweaver-1.9.25.1.jar!/licenses/LICENSE-EPL-2.0.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "net.bytebuddy:byte-buddy:1.17.8",
+      "filename": "byte-buddy-1.17.8.jar",
+      "sha256": "2b5ddc8c1f4234bdb7cb45338a8e10a13e0e3ca473e91d5d821d681127ea8ba1",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": "A business-friendly OSS license",
+          "metadataSource": "https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-parent/1.17.8/byte-buddy-parent-1.17.8.pom",
+          "metadataSha256": "fe6b00bcd5063d46b844af9c29df2eef117142c8738930a11a2c5f5455129e16"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/net.bytebuddy/byte-buddy/1.17.8/META-INF/LICENSE",
+          "sha256": "8913cd1b544595ebb1aa5be0c4c39b52b162c282e58b45039feec5742166f7d3",
+          "origin": "BOOT-INF/lib/byte-buddy-1.17.8.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/net.bytebuddy/byte-buddy/1.17.8/META-INF/NOTICE",
+          "sha256": "cfb119f8db2decb24e756fddec0e089029eaa73a7be594b2dd9676433d95d6e5",
+          "origin": "BOOT-INF/lib/byte-buddy-1.17.8.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "com.fasterxml:classmate:1.7.3",
+      "filename": "classmate-1.7.3.jar",
+      "sha256": "75fbda45456f123fb6e2028a6189442d8d0730b357adce4c0a6d7e789f70669b",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/com/fasterxml/classmate/1.7.3/classmate-1.7.3.pom",
+          "metadataSha256": "ba4b3c0bbc05e9069fca3469750d0e222a56c487be715af2edb43218faefdb70"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/com.fasterxml/classmate/1.7.3/META-INF/LICENSE",
+          "sha256": "7d8d549eb31995fe67822c860acc7ac3dd958a03a5a71aef4069033e7df72d94",
+          "origin": "BOOT-INF/lib/classmate-1.7.3.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/com.fasterxml/classmate/1.7.3/META-INF/NOTICE",
+          "sha256": "1a8c67aaade274bc7bf06a7044571ab280d59fe3686941b6499b2176a072ea6d",
+          "origin": "BOOT-INF/lib/classmate-1.7.3.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.flywaydb:flyway-core:11.7.2",
+      "filename": "flyway-core-11.7.2.jar",
+      "sha256": "ff01fab3bcfd79e9345df191ecf82cbe1f9f65a757266158bd691564b1c1282c",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/flywaydb/flyway-core/11.7.2/flyway-core-11.7.2.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://flywaydb.org/licenses/flyway-oss",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/flywaydb/flyway-parent/11.7.2/flyway-parent-11.7.2.pom",
+          "metadataSha256": "3f1d1603d1ea1d876fbcd6570d054eb7f421bd2f61efdf8c459d859126d6b758"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.flywaydb/flyway-core/11.7.2/META-INF/LICENSE.txt",
+          "sha256": "73332bc915a16b4ca4bb913d4a55b66e865c6ef0d5feb289063248556fab48b8",
+          "origin": "BOOT-INF/lib/flyway-core-11.7.2.jar!/META-INF/LICENSE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.flywaydb:flyway-database-postgresql:11.7.2",
+      "filename": "flyway-database-postgresql-11.7.2.jar",
+      "sha256": "1d586e14ea772c75613df2c27ddc20f5c065e8a32283815338611af82e48f9a2",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/flywaydb/flyway-database-postgresql/11.7.2/flyway-database-postgresql-11.7.2.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://flywaydb.org/licenses/flyway-oss",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/flywaydb/flyway-parent/11.7.2/flyway-parent-11.7.2.pom",
+          "metadataSha256": "3f1d1603d1ea1d876fbcd6570d054eb7f421bd2f61efdf8c459d859126d6b758"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.hibernate.common:hibernate-commons-annotations:7.0.3.Final",
+      "filename": "hibernate-commons-annotations-7.0.3.Final.jar",
+      "sha256": "0db2fd57d5e43688ac6ed5cdf36deaf05d84340dcc24c2dd2a2114de38e5175d",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/hibernate/common/hibernate-commons-annotations/7.0.3.Final/hibernate-commons-annotations-7.0.3.Final.jar",
+      "licenses": [
+        {
+          "name": "Apache License Version 2.0",
+          "url": "https://opensource.org/licenses/Apache-2.0",
+          "distribution": "repo",
+          "comments": "See http://hibernate.org/community/license/ for more details.",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/hibernate/common/hibernate-commons-annotations/7.0.3.Final/hibernate-commons-annotations-7.0.3.Final.pom",
+          "metadataSha256": "66f6e607b30740e391989825a5ae076a6c877a99b78eb054a8146650aaff72eb"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.hibernate.orm:hibernate-core:6.6.53.Final",
+      "filename": "hibernate-core-6.6.53.Final.jar",
+      "sha256": "8df110bacf8f4fe72be585cc7fa0a1687c8d360210826bdd35b0fbcaa3e9c09a",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/hibernate/orm/hibernate-core/6.6.53.Final/hibernate-core-6.6.53.Final.jar",
+      "licenses": [
+        {
+          "name": "GNU Library General Public License v2.1 or later",
+          "url": "https://www.opensource.org/licenses/LGPL-2.1",
+          "distribution": "repo",
+          "comments": "See discussion at https://hibernate.org/community/license/ for more details.",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/hibernate/orm/hibernate-core/6.6.53.Final/hibernate-core-6.6.53.Final.pom",
+          "metadataSha256": "0e6c83fc864e93f245ee871871d77a2b055506ad9a5e4c5e05fa74acf0ead6bd"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.hibernate.validator:hibernate-validator:8.0.3.Final",
+      "filename": "hibernate-validator-8.0.3.Final.jar",
+      "sha256": "2ad24670fd08e21d3f43d3105d5326bd5ef6b01e819c5cd103823866b954517e",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/hibernate/validator/hibernate-validator/8.0.3.Final/hibernate-validator-8.0.3.Final.jar",
+      "licenses": [
+        {
+          "name": "Apache License 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/hibernate/validator/hibernate-validator/8.0.3.Final/hibernate-validator-8.0.3.Final.pom",
+          "metadataSha256": "b8f6fd01f3c861d63a55a9cb726cb1776917aa37c58fedf7aca2ed692f4f739d"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "com.sun.istack:istack-commons-runtime:4.1.2",
+      "filename": "istack-commons-runtime-4.1.2.jar",
+      "sha256": "7fd6792361f4dd00f8c56af4a20cecc0066deea4a8f3dec38348af23fc2296ee",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar",
+      "licenses": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/com/sun/istack/istack-commons/4.1.2/istack-commons-4.1.2.pom",
+          "metadataSha256": "d8883eb70364701dae0e37449c88fd9275117ac3d86040e89f1be3e9d47e9c9d"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "com.fasterxml.jackson.core:jackson-annotations:2.21",
+      "filename": "jackson-annotations-2.21.jar",
+      "sha256": "53ca085f4a150f703f49e1aabd935bd03b43e1ea3d55d135438292af22cef56b",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.pom",
+          "metadataSha256": "71cac5392151e2a528cc9a09179f0a334179f05c52f8e596cf58ddf12bb27f2b"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.core/jackson-annotations/2.21/META-INF/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "origin": "BOOT-INF/lib/jackson-annotations-2.21.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.core/jackson-annotations/2.21/META-INF/NOTICE",
+          "sha256": "612b14bc77c944ce229cbba0d14919162cfea8ed802cbf06a8e865e032d03201",
+          "origin": "BOOT-INF/lib/jackson-annotations-2.21.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "com.fasterxml.jackson.core:jackson-core:2.21.4",
+      "filename": "jackson-core-2.21.4.jar",
+      "sha256": "4b40a06396f239f8de2da57419adde6e94e5edc18a2171d471ea05eeed4e5c2d",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.21.4/jackson-core-2.21.4.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.21.4/jackson-core-2.21.4.pom",
+          "metadataSha256": "e74ac8ef4ae9d5e504ab7fbda5f61a39645b7a3e662246d5d090a9c0b22e7fdf"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.core/jackson-core/2.21.4/META-INF/FastDoubleParser-LICENSE",
+          "sha256": "59067508e44346bf93dc9c5e4d673a67ecd77988c2020bb5e0f8667eb199f396",
+          "origin": "BOOT-INF/lib/jackson-core-2.21.4.jar!/META-INF/FastDoubleParser-LICENSE"
+        },
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.core/jackson-core/2.21.4/META-INF/FastDoubleParser-ThirdParty-LICENSE",
+          "sha256": "dbc36f9422a40d58d1a214080583667cfd37d61c2fae1657d981edda2a60727f",
+          "origin": "BOOT-INF/lib/jackson-core-2.21.4.jar!/META-INF/FastDoubleParser-ThirdParty-LICENSE"
+        },
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.core/jackson-core/2.21.4/META-INF/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "origin": "BOOT-INF/lib/jackson-core-2.21.4.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.core/jackson-core/2.21.4/META-INF/NOTICE",
+          "sha256": "e6aef1c0f4cf5b0f802c16b31fce309b3c3737450b93c40d6291bf6540aae3d1",
+          "origin": "BOOT-INF/lib/jackson-core-2.21.4.jar!/META-INF/NOTICE"
+        },
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.core/jackson-core/2.21.4/META-INF/Schubfach-LICENSE",
+          "sha256": "12d39a6615219d73202300715e365bec2b958f858d1e837c8f2dace57f905969",
+          "origin": "BOOT-INF/lib/jackson-core-2.21.4.jar!/META-INF/Schubfach-LICENSE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "com.fasterxml.jackson.core:jackson-databind:2.21.4",
+      "filename": "jackson-databind-2.21.4.jar",
+      "sha256": "3888e9e69ab66fbacaacc9aea0e9ffbf15368288e4aca468b024dba11c09fbf9",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.21.4/jackson-databind-2.21.4.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.21.4/jackson-databind-2.21.4.pom",
+          "metadataSha256": "58c9c87c3d46ec8fb57d855fc675185e01147f3a9a415a92a2e464a5c02b9cec"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.core/jackson-databind/2.21.4/META-INF/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "origin": "BOOT-INF/lib/jackson-databind-2.21.4.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.core/jackson-databind/2.21.4/META-INF/NOTICE",
+          "sha256": "612b14bc77c944ce229cbba0d14919162cfea8ed802cbf06a8e865e032d03201",
+          "origin": "BOOT-INF/lib/jackson-databind-2.21.4.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "com.fasterxml.jackson.dataformat:jackson-dataformat-toml:2.21.4",
+      "filename": "jackson-dataformat-toml-2.21.4.jar",
+      "sha256": "c22e9f650a45d5697116e9beb85cb218792f03d19cf79134e692fe1a65f50cc6",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-toml/2.21.4/jackson-dataformat-toml-2.21.4.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-toml/2.21.4/jackson-dataformat-toml-2.21.4.pom",
+          "metadataSha256": "1fc46ffeaa5d269cc6d874082e6349fa8d5a9c411665b38f88eb494e49280922"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.dataformat/jackson-dataformat-toml/2.21.4/META-INF/LICENSE",
+          "sha256": "eef8e359fd7799a1740765099fa4d114dcd296bb96dcfa7d45d5b81b2504bed2",
+          "origin": "BOOT-INF/lib/jackson-dataformat-toml-2.21.4.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.dataformat/jackson-dataformat-toml/2.21.4/META-INF/NOTICE",
+          "sha256": "5828ffe74ea0ee4bf896654026f05fed1ead1d22acd577cc1eec9be0bc0de1ed",
+          "origin": "BOOT-INF/lib/jackson-dataformat-toml-2.21.4.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.21.4",
+      "filename": "jackson-datatype-jdk8-2.21.4.jar",
+      "sha256": "2dde4a8f1aad3306c040f56ff40da81c6d58dcef3434c00849c9bce09f56a074",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.21.4/jackson-datatype-jdk8-2.21.4.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/jackson-base/2.21.4/jackson-base-2.21.4.pom",
+          "metadataSha256": "91e9c95e0ced7356bfa6e28297f2c1e2acdae67306713fa945aa5245c0d0fef5"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.datatype/jackson-datatype-jdk8/2.21.4/META-INF/LICENSE",
+          "sha256": "bc3d1a9b9fe02f5b9186447ca2896a63015e5e626eccfdda6a04bd7d71be3ce0",
+          "origin": "BOOT-INF/lib/jackson-datatype-jdk8-2.21.4.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.datatype/jackson-datatype-jdk8/2.21.4/META-INF/NOTICE",
+          "sha256": "7347397a0665f6898b32894a1869a514251abef7da7620902b0e57c5026cf1ed",
+          "origin": "BOOT-INF/lib/jackson-datatype-jdk8-2.21.4.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.21.4",
+      "filename": "jackson-datatype-jsr310-2.21.4.jar",
+      "sha256": "d1ac4b98b70304e56448423589fde5e775b100889643ad1ead62cc7811633684",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.21.4/jackson-datatype-jsr310-2.21.4.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/jackson-base/2.21.4/jackson-base-2.21.4.pom",
+          "metadataSha256": "91e9c95e0ced7356bfa6e28297f2c1e2acdae67306713fa945aa5245c0d0fef5"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.datatype/jackson-datatype-jsr310/2.21.4/META-INF/LICENSE",
+          "sha256": "66ea9c8987b1674aababbcc24f61c83ab4fb7baf3af1d701caf0a3aaea97fa92",
+          "origin": "BOOT-INF/lib/jackson-datatype-jsr310-2.21.4.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.datatype/jackson-datatype-jsr310/2.21.4/META-INF/NOTICE",
+          "sha256": "7347397a0665f6898b32894a1869a514251abef7da7620902b0e57c5026cf1ed",
+          "origin": "BOOT-INF/lib/jackson-datatype-jsr310-2.21.4.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "com.fasterxml.jackson.module:jackson-module-parameter-names:2.21.4",
+      "filename": "jackson-module-parameter-names-2.21.4.jar",
+      "sha256": "9510f91a4be2c700753ad244596b67424cb32c23659db1dc534219226e5df3a3",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/module/jackson-module-parameter-names/2.21.4/jackson-module-parameter-names-2.21.4.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/jackson-base/2.21.4/jackson-base-2.21.4.pom",
+          "metadataSha256": "91e9c95e0ced7356bfa6e28297f2c1e2acdae67306713fa945aa5245c0d0fef5"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.module/jackson-module-parameter-names/2.21.4/META-INF/LICENSE",
+          "sha256": "a09ba3adcfdcac2d7e31b89e8e7799cec96d7303dc82c0bb3d38d8a352d41d19",
+          "origin": "BOOT-INF/lib/jackson-module-parameter-names-2.21.4.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/com.fasterxml.jackson.module/jackson-module-parameter-names/2.21.4/META-INF/NOTICE",
+          "sha256": "7347397a0665f6898b32894a1869a514251abef7da7620902b0e57c5026cf1ed",
+          "origin": "BOOT-INF/lib/jackson-module-parameter-names-2.21.4.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "jakarta.activation:jakarta.activation-api:2.1.4",
+      "filename": "jakarta.activation-api-2.1.4.jar",
+      "sha256": "c9db52100ce6c8aac95cc39075f95720d2e561b11f8051b81c121ad4effd7004",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar",
+      "licenses": [
+        {
+          "name": "EDL 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.pom",
+          "metadataSha256": "7577970dc09f1131a4a42769e1771ed062f08d22f40da3041ff3e16d5b2fdea8"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/jakarta.activation/jakarta.activation-api/2.1.4/META-INF/LICENSE.md",
+          "sha256": "87eba02f8a415f1a25de6ca3ac6b5c77eb33f33f00ae5a5f9d6ee963147f7956",
+          "origin": "BOOT-INF/lib/jakarta.activation-api-2.1.4.jar!/META-INF/LICENSE.md"
+        },
+        {
+          "path": "third-party-licenses/jakarta.activation/jakarta.activation-api/2.1.4/META-INF/NOTICE.md",
+          "sha256": "9d80664e28e61982d66ea3f65474597088d71b76b4259f139bb44a7a184c26f2",
+          "origin": "BOOT-INF/lib/jakarta.activation-api-2.1.4.jar!/META-INF/NOTICE.md"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "jakarta.annotation:jakarta.annotation-api:2.1.1",
+      "filename": "jakarta.annotation-api-2.1.1.jar",
+      "sha256": "5f65fdaf424eee2b55e1d882ba9bb376be93fb09b37b808be6e22e8851c909fe",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar",
+      "licenses": [
+        {
+          "name": "EPL 2.0",
+          "url": "http://www.eclipse.org/legal/epl-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.pom",
+          "metadataSha256": "af650eca1de1b98741006acd82507e4408cffedd2fee33a0ea463d61508db7ec"
+        },
+        {
+          "name": "GPL2 w/ CPE",
+          "url": "https://www.gnu.org/software/classpath/license.html",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.pom",
+          "metadataSha256": "af650eca1de1b98741006acd82507e4408cffedd2fee33a0ea463d61508db7ec"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/jakarta.annotation/jakarta.annotation-api/2.1.1/META-INF/LICENSE.md",
+          "sha256": "6e1f002892b81cbe0647019b150c8a056efc1add565671a4f8af629b6cd2cc7b",
+          "origin": "BOOT-INF/lib/jakarta.annotation-api-2.1.1.jar!/META-INF/LICENSE.md"
+        },
+        {
+          "path": "third-party-licenses/jakarta.annotation/jakarta.annotation-api/2.1.1/META-INF/NOTICE.md",
+          "sha256": "3852834ebb4c2e04ecc18c9d099a05eab72cbd6edf35fb191390be6306019b4c",
+          "origin": "BOOT-INF/lib/jakarta.annotation-api-2.1.1.jar!/META-INF/NOTICE.md"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "jakarta.inject:jakarta.inject-api:2.0.1",
+      "filename": "jakarta.inject-api-2.0.1.jar",
+      "sha256": "f7dc98062fccf14126abb751b64fab12c312566e8cbdc8483598bffcea93af7c",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.pom",
+          "metadataSha256": "e7fd7232e96307a575b2494c9367d68cf43ec98244aace3ccc23e1773ffa6fda"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/jakarta.inject/jakarta.inject-api/2.0.1/META-INF/LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "origin": "BOOT-INF/lib/jakarta.inject-api-2.0.1.jar!/META-INF/LICENSE.txt"
+        },
+        {
+          "path": "third-party-licenses/jakarta.inject/jakarta.inject-api/2.0.1/META-INF/NOTICE.md",
+          "sha256": "992ed62dd3ee17d73ce6a4a5e02dd0fed9eb326bf386aa5304e6a512214df540",
+          "origin": "BOOT-INF/lib/jakarta.inject-api-2.0.1.jar!/META-INF/NOTICE.md"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "jakarta.persistence:jakarta.persistence-api:3.1.0",
+      "filename": "jakarta.persistence-api-3.1.0.jar",
+      "sha256": "475389446d35c6f46c565728b756dc508c284644ea2690644e0d8e7e339d42fd",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar",
+      "licenses": [
+        {
+          "name": "Eclipse Public License v. 2.0",
+          "url": "http://www.eclipse.org/legal/epl-2.0",
+          "distribution": "repo",
+          "comments": "Standard Eclipse Licence",
+          "metadataSource": "https://repo.maven.apache.org/maven2/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.pom",
+          "metadataSha256": "f876fc8d886733540f59815ab77b1b998beec7080032dfb1526cade46ceeccbd"
+        },
+        {
+          "name": "Eclipse Distribution License v. 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "comments": "Standard Eclipse Distribution License",
+          "metadataSource": "https://repo.maven.apache.org/maven2/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.pom",
+          "metadataSha256": "f876fc8d886733540f59815ab77b1b998beec7080032dfb1526cade46ceeccbd"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/jakarta.persistence/jakarta.persistence-api/3.1.0/META-INF/LICENSE.md",
+          "sha256": "d269e92b25f0d30192f5a6937e1c20c0c30bd3130e084143fd5758e591544369",
+          "origin": "BOOT-INF/lib/jakarta.persistence-api-3.1.0.jar!/META-INF/LICENSE.md"
+        },
+        {
+          "path": "third-party-licenses/jakarta.persistence/jakarta.persistence-api/3.1.0/META-INF/NOTICE.md",
+          "sha256": "40948f176f9c175035a18412ab8faab4c0d3e7905840384b76f70f8418497911",
+          "origin": "BOOT-INF/lib/jakarta.persistence-api-3.1.0.jar!/META-INF/NOTICE.md"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "jakarta.transaction:jakarta.transaction-api:2.0.1",
+      "filename": "jakarta.transaction-api-2.0.1.jar",
+      "sha256": "50c0a7c760c13ae6c042acf182b28f0047413db95b4636fb8879bcffab5ba875",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar",
+      "licenses": [
+        {
+          "name": "EPL 2.0",
+          "url": "http://www.eclipse.org/legal/epl-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.pom",
+          "metadataSha256": "5fe349981c156fbbe26388d59949fdac16bb8d7879ee61b34c49c7b5ce0f2f23"
+        },
+        {
+          "name": "GPL2 w/ CPE",
+          "url": "https://www.gnu.org/software/classpath/license.html",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.pom",
+          "metadataSha256": "5fe349981c156fbbe26388d59949fdac16bb8d7879ee61b34c49c7b5ce0f2f23"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/jakarta.transaction/jakarta.transaction-api/2.0.1/META-INF/LICENSE.md",
+          "sha256": "d2168df0a3797b5eb7bd8975e4568824d67a1e3efcd3054875b4d9d312805396",
+          "origin": "BOOT-INF/lib/jakarta.transaction-api-2.0.1.jar!/META-INF/LICENSE.md"
+        },
+        {
+          "path": "third-party-licenses/jakarta.transaction/jakarta.transaction-api/2.0.1/META-INF/NOTICE.md",
+          "sha256": "4a6e9bab2092f9df1d6fc0eca9b24a74f32b24ef8391da6564c20a3486392e69",
+          "origin": "BOOT-INF/lib/jakarta.transaction-api-2.0.1.jar!/META-INF/NOTICE.md"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "jakarta.validation:jakarta.validation-api:3.0.2",
+      "filename": "jakarta.validation-api-3.0.2.jar",
+      "sha256": "291c25e6910cc6a7ebd96d4c6baebf6d7c37676c5482c2d96146e901b62c1fc9",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/jakarta/validation/jakarta.validation-api/3.0.2/jakarta.validation-api-3.0.2.jar",
+      "licenses": [
+        {
+          "name": "Apache License 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "metadataSource": "https://repo.maven.apache.org/maven2/jakarta/validation/jakarta.validation-api/3.0.2/jakarta.validation-api-3.0.2.pom",
+          "metadataSha256": "0a7b9c6327968afe0d82f7cf4facbda7e157968c5808d69bcb8019863b298dc4"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "jakarta.xml.bind:jakarta.xml.bind-api:4.0.5",
+      "filename": "jakarta.xml.bind-api-4.0.5.jar",
+      "sha256": "5e489b6c874c4119e003ff1403db523ee3a8959ec499f3de29e77245efccf216",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar",
+      "licenses": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/jakarta/xml/bind/jakarta.xml.bind-api-parent/4.0.5/jakarta.xml.bind-api-parent-4.0.5.pom",
+          "metadataSha256": "68e78c21a934cd37ab48c07a95aa7f8cbb98cafcfa2bb9ef92d54399accdbf15"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/jakarta.xml.bind/jakarta.xml.bind-api/4.0.5/META-INF/LICENSE.md",
+          "sha256": "dcbbdbb512a272b5f1e01e82225a23eba92406ec28f7b36e490057478d8d1570",
+          "origin": "BOOT-INF/lib/jakarta.xml.bind-api-4.0.5.jar!/META-INF/LICENSE.md"
+        },
+        {
+          "path": "third-party-licenses/jakarta.xml.bind/jakarta.xml.bind-api/4.0.5/META-INF/NOTICE.md",
+          "sha256": "b8dab89e51c7aa1d7f355c1bebcdef97a8d4b4e4deb9d7307b9257c58aa0d7a0",
+          "origin": "BOOT-INF/lib/jakarta.xml.bind-api-4.0.5.jar!/META-INF/NOTICE.md"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "io.smallrye:jandex:3.2.0",
+      "filename": "jandex-3.2.0.jar",
+      "sha256": "6da3e9ce8d0c0a433f3e7ce610a3c66accb00c71fee67aa0ff3e5a841395ac15",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/io/smallrye/jandex/3.2.0/jandex-3.2.0.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/io/smallrye/smallrye-build-parent/42/smallrye-build-parent-42.pom",
+          "metadataSha256": "1412456b0345490f8d0b4d0be529d04a1d58d19d5ad85bf31c3740c13f90d6de"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.glassfish.jaxb:jaxb-core:4.0.9",
+      "filename": "jaxb-core-4.0.9.jar",
+      "sha256": "6b014df25d22c8446cc2df0a378c5b2137747f197a731d99eb24c756b26f7e8d",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/jaxb-core/4.0.9/jaxb-core-4.0.9.jar",
+      "licenses": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/jaxb-parent/4.0.9/jaxb-parent-4.0.9.pom",
+          "metadataSha256": "fa633fabcd4c925e54f92edebda13b048d634124940a764dfbb08e7312481a6f"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.glassfish.jaxb/jaxb-core/4.0.9/META-INF/LICENSE.md",
+          "sha256": "c56e52168c596cb8ca8dca3a648886f19924461928eb8102f5eb31710aee9e31",
+          "origin": "BOOT-INF/lib/jaxb-core-4.0.9.jar!/META-INF/LICENSE.md"
+        },
+        {
+          "path": "third-party-licenses/org.glassfish.jaxb/jaxb-core/4.0.9/META-INF/NOTICE.md",
+          "sha256": "757d97415f437b8e48ee96694425bbcf25330a2b355348272494fdf57950391a",
+          "origin": "BOOT-INF/lib/jaxb-core-4.0.9.jar!/META-INF/NOTICE.md"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.glassfish.jaxb:jaxb-runtime:4.0.9",
+      "filename": "jaxb-runtime-4.0.9.jar",
+      "sha256": "93e09b7316b6af68d6e2083e4c297daf28e8957f45d725077af812c0b12c39ab",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/jaxb-runtime/4.0.9/jaxb-runtime-4.0.9.jar",
+      "licenses": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/jaxb-parent/4.0.9/jaxb-parent-4.0.9.pom",
+          "metadataSha256": "fa633fabcd4c925e54f92edebda13b048d634124940a764dfbb08e7312481a6f"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.glassfish.jaxb/jaxb-runtime/4.0.9/META-INF/LICENSE.md",
+          "sha256": "c56e52168c596cb8ca8dca3a648886f19924461928eb8102f5eb31710aee9e31",
+          "origin": "BOOT-INF/lib/jaxb-runtime-4.0.9.jar!/META-INF/LICENSE.md"
+        },
+        {
+          "path": "third-party-licenses/org.glassfish.jaxb/jaxb-runtime/4.0.9/META-INF/NOTICE.md",
+          "sha256": "757d97415f437b8e48ee96694425bbcf25330a2b355348272494fdf57950391a",
+          "origin": "BOOT-INF/lib/jaxb-runtime-4.0.9.jar!/META-INF/NOTICE.md"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.jboss.logging:jboss-logging:3.6.3.Final",
+      "filename": "jboss-logging-3.6.3.Final.jar",
+      "sha256": "7c12ee575508f81e22b1db9334b969d0ec54ef0fd1dcba24eeab1a44235fc366",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar",
+      "licenses": [
+        {
+          "name": "Apache License 2.0",
+          "url": "https://repository.jboss.org/licenses/apache-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.pom",
+          "metadataSha256": "e673490683b352b79e85c22df13b396e4b39e5f25cfef9c1b9e835ed123c0ca4"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.slf4j:jul-to-slf4j:2.0.18",
+      "filename": "jul-to-slf4j-2.0.18.jar",
+      "sha256": "cbb7d1aaaa9e871eb1a06594abd911bf97027152976edf1edc315be75239204e",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar",
+      "licenses": [
+        {
+          "name": "MIT",
+          "url": "https://opensource.org/license/mit",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-bom/2.0.18/slf4j-bom-2.0.18.pom",
+          "metadataSha256": "9219aab601575126c4e66e1331eb2b0c6c17a330ac4d5a07e3cd11d580a0c12d"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.slf4j/jul-to-slf4j/2.0.18/META-INF/LICENSE.txt",
+          "sha256": "4e7f90c86ab51278228bce153122f1d8df30149d13ce9ef524c8444a84c32dcc",
+          "origin": "BOOT-INF/lib/jul-to-slf4j-2.0.18.jar!/META-INF/LICENSE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.apache.logging.log4j:log4j-api:2.24.3",
+      "filename": "log4j-api-2.24.3.jar",
+      "sha256": "5b4a0a0cd0e751ded431c162442bdbdd53328d1f8bb2bae5fc1bbeee0f66d80f",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.pom",
+          "metadataSha256": "bc05de33533a1259adbacbfcc826cd66376a2d9c4ee53fb836009f44a45b8239"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.apache.logging.log4j/log4j-api/2.24.3/META-INF/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "origin": "BOOT-INF/lib/log4j-api-2.24.3.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/org.apache.logging.log4j/log4j-api/2.24.3/META-INF/NOTICE",
+          "sha256": "6d95ce9a738c31425a584ee91eb6d9b6fbe18e351fb206b9f79104bcf7d7bf15",
+          "origin": "BOOT-INF/lib/log4j-api-2.24.3.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.apache.logging.log4j:log4j-to-slf4j:2.24.3",
+      "filename": "log4j-to-slf4j-2.24.3.jar",
+      "sha256": "c7f2b0c612a4eb05b1587d1c880eb4cf5f4f53850676a8ede8da2b8fabb4f73f",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.pom",
+          "metadataSha256": "635e52e3474e7f4dc30d2ccbcb68a163888395e3c252961275d04e3db5f6e230"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.apache.logging.log4j/log4j-to-slf4j/2.24.3/META-INF/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "origin": "BOOT-INF/lib/log4j-to-slf4j-2.24.3.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/org.apache.logging.log4j/log4j-to-slf4j/2.24.3/META-INF/NOTICE",
+          "sha256": "a57ab7958eb6d37c460b0f64080c67ab184c4ffc97abdf06187168019c62b047",
+          "origin": "BOOT-INF/lib/log4j-to-slf4j-2.24.3.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "ch.qos.logback:logback-classic:1.5.34",
+      "filename": "logback-classic-1.5.34.jar",
+      "sha256": "b65e05076a5c1aadb659b4fe4bc5fee31cb26cd70390292eb03e4a7a24cff10f",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar",
+      "licenses": [
+        {
+          "name": "EPL-2.0",
+          "url": "https://www.eclipse.org/legal/epl-v20.html",
+          "comments": "Eclipse Public License 2.0",
+          "metadataSource": "https://repo.maven.apache.org/maven2/ch/qos/logback/logback-parent/1.5.34/logback-parent-1.5.34.pom",
+          "metadataSha256": "db4effc33ccbc645873e47aa66a837be29c963ff7e6571728c73d72fbcc3def7"
+        },
+        {
+          "name": "LGPL-2.1-only",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html",
+          "comments": "GNU Lesser General Public License v2.1 only",
+          "metadataSource": "https://repo.maven.apache.org/maven2/ch/qos/logback/logback-parent/1.5.34/logback-parent-1.5.34.pom",
+          "metadataSha256": "db4effc33ccbc645873e47aa66a837be29c963ff7e6571728c73d72fbcc3def7"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "ch.qos.logback:logback-core:1.5.34",
+      "filename": "logback-core-1.5.34.jar",
+      "sha256": "42eda264c0c650c2bec59e66151a88b708a8663dc1b49d788202d53e78b8caae",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar",
+      "licenses": [
+        {
+          "name": "EPL-2.0",
+          "url": "https://www.eclipse.org/legal/epl-v20.html",
+          "comments": "Eclipse Public License 2.0",
+          "metadataSource": "https://repo.maven.apache.org/maven2/ch/qos/logback/logback-parent/1.5.34/logback-parent-1.5.34.pom",
+          "metadataSha256": "db4effc33ccbc645873e47aa66a837be29c963ff7e6571728c73d72fbcc3def7"
+        },
+        {
+          "name": "LGPL-2.1-only",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html",
+          "comments": "GNU Lesser General Public License v2.1 only",
+          "metadataSource": "https://repo.maven.apache.org/maven2/ch/qos/logback/logback-parent/1.5.34/logback-parent-1.5.34.pom",
+          "metadataSha256": "db4effc33ccbc645873e47aa66a837be29c963ff7e6571728c73d72fbcc3def7"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "io.micrometer:micrometer-commons:1.15.12",
+      "filename": "micrometer-commons-1.15.12.jar",
+      "sha256": "4b779cf7acb0534bb1f8e964f25200037ecb3944368f859a630fa637d6d5d7c0",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-commons/1.15.12/micrometer-commons-1.15.12.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-commons/1.15.12/micrometer-commons-1.15.12.pom",
+          "metadataSha256": "cd1c64187bdf9b851d1900de45918978416df79abab66859be51cd6f7c89e651"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/io.micrometer/micrometer-commons/1.15.12/META-INF/LICENSE",
+          "sha256": "62fb8a3a9621dc2388174caaabe9c2317b694bb9a1d46c98bcf5655b68f51be3",
+          "origin": "BOOT-INF/lib/micrometer-commons-1.15.12.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/io.micrometer/micrometer-commons/1.15.12/META-INF/NOTICE",
+          "sha256": "df207ca1a2ea3794caf112d7c1f024c87b4ddfe91d3f243977ad1d3cd085d538",
+          "origin": "BOOT-INF/lib/micrometer-commons-1.15.12.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "io.micrometer:micrometer-core:1.15.12",
+      "filename": "micrometer-core-1.15.12.jar",
+      "sha256": "30f6136353e39bc067b26745a6c31b0b6e419d8ff59c05b5364d7c1d4b78083e",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-core/1.15.12/micrometer-core-1.15.12.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-core/1.15.12/micrometer-core-1.15.12.pom",
+          "metadataSha256": "8fd361fdd79734cab248bcf6db9df8ac2e14ddea383bd3a9d76cd106961ee70a"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/io.micrometer/micrometer-core/1.15.12/META-INF/LICENSE",
+          "sha256": "62fb8a3a9621dc2388174caaabe9c2317b694bb9a1d46c98bcf5655b68f51be3",
+          "origin": "BOOT-INF/lib/micrometer-core-1.15.12.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/io.micrometer/micrometer-core/1.15.12/META-INF/NOTICE",
+          "sha256": "df207ca1a2ea3794caf112d7c1f024c87b4ddfe91d3f243977ad1d3cd085d538",
+          "origin": "BOOT-INF/lib/micrometer-core-1.15.12.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "io.micrometer:micrometer-jakarta9:1.15.12",
+      "filename": "micrometer-jakarta9-1.15.12.jar",
+      "sha256": "08bfce8241e9de35906a24afd9ee942e0c71784231762dc3984bf794ba269251",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-jakarta9/1.15.12/micrometer-jakarta9-1.15.12.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-jakarta9/1.15.12/micrometer-jakarta9-1.15.12.pom",
+          "metadataSha256": "d4bd6cb5b4aef84926870d707d33ed4cffc30c264cb3fcab5a8acc6d6aff3ac7"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/io.micrometer/micrometer-jakarta9/1.15.12/META-INF/LICENSE",
+          "sha256": "62fb8a3a9621dc2388174caaabe9c2317b694bb9a1d46c98bcf5655b68f51be3",
+          "origin": "BOOT-INF/lib/micrometer-jakarta9-1.15.12.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/io.micrometer/micrometer-jakarta9/1.15.12/META-INF/NOTICE",
+          "sha256": "df207ca1a2ea3794caf112d7c1f024c87b4ddfe91d3f243977ad1d3cd085d538",
+          "origin": "BOOT-INF/lib/micrometer-jakarta9-1.15.12.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "io.micrometer:micrometer-observation:1.15.12",
+      "filename": "micrometer-observation-1.15.12.jar",
+      "sha256": "54483e68ed44af1bb0c36d1df2235d36f233e459d52f5a3be3e69813827a6300",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-observation/1.15.12/micrometer-observation-1.15.12.jar",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-observation/1.15.12/micrometer-observation-1.15.12.pom",
+          "metadataSha256": "7bc391b32ca147fd5df32f425f4ea91f153ee04afe808c4676c039f4b1340f48"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/io.micrometer/micrometer-observation/1.15.12/META-INF/LICENSE",
+          "sha256": "62fb8a3a9621dc2388174caaabe9c2317b694bb9a1d46c98bcf5655b68f51be3",
+          "origin": "BOOT-INF/lib/micrometer-observation-1.15.12.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/io.micrometer/micrometer-observation/1.15.12/META-INF/NOTICE",
+          "sha256": "df207ca1a2ea3794caf112d7c1f024c87b4ddfe91d3f243977ad1d3cd085d538",
+          "origin": "BOOT-INF/lib/micrometer-observation-1.15.12.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.postgresql:postgresql:42.7.11",
+      "filename": "postgresql-42.7.11.jar",
+      "sha256": "1981b31d3993c58702783c1cddf10a34e48c1f413d70ff1cb6def0a143484647",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/42.7.11/postgresql-42.7.11.jar",
+      "licenses": [
+        {
+          "name": "BSD-2-Clause",
+          "url": "https://jdbc.postgresql.org/about/license.html",
+          "distribution": "repo",
+          "comments": "BSD-2-Clause, copyright PostgreSQL Global Development Group",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/42.7.11/postgresql-42.7.11.pom",
+          "metadataSha256": "443ca7c8d835a9d396630870666845a70c7a8a8d4eaf5c52e21076fca8d8359e"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.postgresql/postgresql/42.7.11/META-INF/LICENSE",
+          "sha256": "08bb580d3cb8f9a4a05f008466a294fdb019e0e177d03a035d46f1eb94077de5",
+          "origin": "BOOT-INF/lib/postgresql-42.7.11.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/org.postgresql/postgresql/42.7.11/META-INF/licenses/com.ongres.scram/scram-client-3.2/META-INF/LICENSE",
+          "sha256": "7c89807167a03a92d2fbfc936aff4f87d8ce31434637381c89e38282c8c99198",
+          "origin": "BOOT-INF/lib/postgresql-42.7.11.jar!/META-INF/licenses/com.ongres.scram/scram-client-3.2/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/org.postgresql/postgresql/42.7.11/META-INF/licenses/com.ongres.scram/scram-common-3.2/META-INF/LICENSE",
+          "sha256": "7c89807167a03a92d2fbfc936aff4f87d8ce31434637381c89e38282c8c99198",
+          "origin": "BOOT-INF/lib/postgresql-42.7.11.jar!/META-INF/licenses/com.ongres.scram/scram-common-3.2/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/org.postgresql/postgresql/42.7.11/META-INF/licenses/com.ongres.stringprep/saslprep-2.2/META-INF/LICENSE",
+          "sha256": "5c49fc155ebccd206277e0d1f424aadbf365f0a9ccfb54d400d728a375d523f9",
+          "origin": "BOOT-INF/lib/postgresql-42.7.11.jar!/META-INF/licenses/com.ongres.stringprep/saslprep-2.2/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/org.postgresql/postgresql/42.7.11/META-INF/licenses/com.ongres.stringprep/stringprep-2.2/META-INF/LICENSE",
+          "sha256": "5c49fc155ebccd206277e0d1f424aadbf365f0a9ccfb54d400d728a375d523f9",
+          "origin": "BOOT-INF/lib/postgresql-42.7.11.jar!/META-INF/licenses/com.ongres.stringprep/stringprep-2.2/META-INF/LICENSE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.slf4j:slf4j-api:2.0.18",
+      "filename": "slf4j-api-2.0.18.jar",
+      "sha256": "44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar",
+      "licenses": [
+        {
+          "name": "MIT",
+          "url": "https://opensource.org/license/mit",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-bom/2.0.18/slf4j-bom-2.0.18.pom",
+          "metadataSha256": "9219aab601575126c4e66e1331eb2b0c6c17a330ac4d5a07e3cd11d580a0c12d"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.slf4j/slf4j-api/2.0.18/META-INF/LICENSE.txt",
+          "sha256": "4e7f90c86ab51278228bce153122f1d8df30149d13ce9ef524c8444a84c32dcc",
+          "origin": "BOOT-INF/lib/slf4j-api-2.0.18.jar!/META-INF/LICENSE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.yaml:snakeyaml:2.4",
+      "filename": "snakeyaml-2.4.jar",
+      "sha256": "ef779af5d29a9dde8cc70ce0341f5c6f7735e23edff9685ceaa9d35359b7bb7f",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/yaml/snakeyaml/2.4/snakeyaml-2.4.pom",
+          "metadataSha256": "e154a3231cd6cde68aabf274fd18964d49a9c1a5f5e9ed3bf471e9ae7bdf08e6"
+        }
+      ],
+      "materials": [],
+      "embeddedMaterialStatus": "no standalone legal text in artifact",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-aop:6.2.19",
+      "filename": "spring-aop-6.2.19.jar",
+      "sha256": "a11b93539d80b02caf76171db2da96df39abebbfef49a2fadd6dda0779f2e20b",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-aop/6.2.19/spring-aop-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-aop/6.2.19/spring-aop-6.2.19.pom",
+          "metadataSha256": "c27a6385a8ba4f01f226bee38d6c97ac6b697e06e59bd6f38a3538218848ac98"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-aop/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-aop-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-aop/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-aop-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-aspects:6.2.19",
+      "filename": "spring-aspects-6.2.19.jar",
+      "sha256": "4b323ae36dd6d5a7c0ca2f134ac83fa2d16628ee8205e96ff6965ec0f35ea142",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-aspects/6.2.19/spring-aspects-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-aspects/6.2.19/spring-aspects-6.2.19.pom",
+          "metadataSha256": "efc3d6c224d9aad2f9cdfa161216dc06bddd71cf6e3a14178ba395bf428b5341"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-aspects/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-aspects-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-aspects/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-aspects-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-beans:6.2.19",
+      "filename": "spring-beans-6.2.19.jar",
+      "sha256": "846dc8f30a639a36eb551ee99a30469be4d11bd285ca9daf164d98321571b404",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-beans/6.2.19/spring-beans-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-beans/6.2.19/spring-beans-6.2.19.pom",
+          "metadataSha256": "bd2c451646f1e2cb0df22485aff498f5cde979aedb117f9bb54f01100e9bdb43"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-beans/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-beans-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-beans/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-beans-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework.boot:spring-boot:3.5.16",
+      "filename": "spring-boot-3.5.16.jar",
+      "sha256": "2d5b16632402b840b0425ed52610071890bf8cb24c6c49af343bbde574123265",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot/3.5.16/spring-boot-3.5.16.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot/3.5.16/spring-boot-3.5.16.pom",
+          "metadataSha256": "c9a0e75f1c06467fb6932ba2f3e8724d0d6db57aaae8305d7d86274795d74e53"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework.boot/spring-boot/3.5.16/META-INF/LICENSE.txt",
+          "sha256": "7200000367e0e8b47822d563a5ddd2dd3a97cc05b32bd7dbcc7b4eeb92b76628",
+          "origin": "BOOT-INF/lib/spring-boot-3.5.16.jar!/META-INF/LICENSE.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework.boot/spring-boot/3.5.16/META-INF/NOTICE.txt",
+          "sha256": "41391e2ffd9dee837d975ae5128c69099a1cf92724d69234696a26ef38cd96d9",
+          "origin": "BOOT-INF/lib/spring-boot-3.5.16.jar!/META-INF/NOTICE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework.boot:spring-boot-actuator:3.5.16",
+      "filename": "spring-boot-actuator-3.5.16.jar",
+      "sha256": "3251e8197ea7df906086a86730e069deb7290ea17ce87c25a1f7db79661abbd6",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-actuator/3.5.16/spring-boot-actuator-3.5.16.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-actuator/3.5.16/spring-boot-actuator-3.5.16.pom",
+          "metadataSha256": "8b6d85f40978cf4e05de681820f40ed9e13b5e688443cb6016c33e21be79f968"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework.boot/spring-boot-actuator/3.5.16/META-INF/LICENSE.txt",
+          "sha256": "7200000367e0e8b47822d563a5ddd2dd3a97cc05b32bd7dbcc7b4eeb92b76628",
+          "origin": "BOOT-INF/lib/spring-boot-actuator-3.5.16.jar!/META-INF/LICENSE.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework.boot/spring-boot-actuator/3.5.16/META-INF/NOTICE.txt",
+          "sha256": "41391e2ffd9dee837d975ae5128c69099a1cf92724d69234696a26ef38cd96d9",
+          "origin": "BOOT-INF/lib/spring-boot-actuator-3.5.16.jar!/META-INF/NOTICE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework.boot:spring-boot-actuator-autoconfigure:3.5.16",
+      "filename": "spring-boot-actuator-autoconfigure-3.5.16.jar",
+      "sha256": "50a5630e503c24f4421b2b3dde8b4f58ff5aedf263899aa80213ba5e02787fc3",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-actuator-autoconfigure/3.5.16/spring-boot-actuator-autoconfigure-3.5.16.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-actuator-autoconfigure/3.5.16/spring-boot-actuator-autoconfigure-3.5.16.pom",
+          "metadataSha256": "8c086ccec97d7a6acbcf2e3c6e43ae884a4a3648f49c7cbc30b0eaad11f8f10e"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework.boot/spring-boot-actuator-autoconfigure/3.5.16/META-INF/LICENSE.txt",
+          "sha256": "7200000367e0e8b47822d563a5ddd2dd3a97cc05b32bd7dbcc7b4eeb92b76628",
+          "origin": "BOOT-INF/lib/spring-boot-actuator-autoconfigure-3.5.16.jar!/META-INF/LICENSE.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework.boot/spring-boot-actuator-autoconfigure/3.5.16/META-INF/NOTICE.txt",
+          "sha256": "41391e2ffd9dee837d975ae5128c69099a1cf92724d69234696a26ef38cd96d9",
+          "origin": "BOOT-INF/lib/spring-boot-actuator-autoconfigure-3.5.16.jar!/META-INF/NOTICE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework.boot:spring-boot-autoconfigure:3.5.16",
+      "filename": "spring-boot-autoconfigure-3.5.16.jar",
+      "sha256": "0198331231e9bf872a135741d59c6d1f9e9007ff207a1ca910179c550bb12bfc",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-autoconfigure/3.5.16/spring-boot-autoconfigure-3.5.16.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-autoconfigure/3.5.16/spring-boot-autoconfigure-3.5.16.pom",
+          "metadataSha256": "dfba627e9b59000f5b60eddc9d3d289adca4fec203c5f57427b9d8deb2abbd84"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework.boot/spring-boot-autoconfigure/3.5.16/META-INF/LICENSE.txt",
+          "sha256": "7200000367e0e8b47822d563a5ddd2dd3a97cc05b32bd7dbcc7b4eeb92b76628",
+          "origin": "BOOT-INF/lib/spring-boot-autoconfigure-3.5.16.jar!/META-INF/LICENSE.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework.boot/spring-boot-autoconfigure/3.5.16/META-INF/NOTICE.txt",
+          "sha256": "41391e2ffd9dee837d975ae5128c69099a1cf92724d69234696a26ef38cd96d9",
+          "origin": "BOOT-INF/lib/spring-boot-autoconfigure-3.5.16.jar!/META-INF/NOTICE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework.boot:spring-boot-jarmode-tools:3.5.16",
+      "filename": "spring-boot-jarmode-tools-3.5.16.jar",
+      "sha256": "d05beb46a7eac0f1a06733c75828b190a1cb250076ce03be2213aca4a5c0f03f",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-jarmode-tools/3.5.16/spring-boot-jarmode-tools-3.5.16.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-jarmode-tools/3.5.16/spring-boot-jarmode-tools-3.5.16.pom",
+          "metadataSha256": "0702ee56962d57157bf7d12f20a97ae5bd0b21eaabe2c9c1ac2c3952dc067e82"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework.boot/spring-boot-jarmode-tools/3.5.16/META-INF/LICENSE.txt",
+          "sha256": "7200000367e0e8b47822d563a5ddd2dd3a97cc05b32bd7dbcc7b4eeb92b76628",
+          "origin": "BOOT-INF/lib/spring-boot-jarmode-tools-3.5.16.jar!/META-INF/LICENSE.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework.boot/spring-boot-jarmode-tools/3.5.16/META-INF/NOTICE.txt",
+          "sha256": "41391e2ffd9dee837d975ae5128c69099a1cf92724d69234696a26ef38cd96d9",
+          "origin": "BOOT-INF/lib/spring-boot-jarmode-tools-3.5.16.jar!/META-INF/NOTICE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-context:6.2.19",
+      "filename": "spring-context-6.2.19.jar",
+      "sha256": "ead4b645f94a7f665f00093eaafde634e97b34524294de653b51e43e0b3fc4a4",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-context/6.2.19/spring-context-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-context/6.2.19/spring-context-6.2.19.pom",
+          "metadataSha256": "9ffe29ed9203202a564114a6b4d86d7b88914ab4c97ed2c162844892e921503b"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-context/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-context-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-context/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-context-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-core:6.2.19",
+      "filename": "spring-core-6.2.19.jar",
+      "sha256": "52146689e71a911c92bac26677d73c692512a739893a57710cc233591756bff6",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-core/6.2.19/spring-core-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-core/6.2.19/spring-core-6.2.19.pom",
+          "metadataSha256": "e7dffe4f61be06ed3b4e811fc587a2e47bc59c4ba55563a2916d94de1dabcbc4"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-core/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-core-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-core/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-core-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework.data:spring-data-commons:3.5.13",
+      "filename": "spring-data-commons-3.5.13.jar",
+      "sha256": "0959c03a3c8777051afb8730ed82b1d0d116ecf52d78d71defda7a678c00dd75",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/data/spring-data-commons/3.5.13/spring-data-commons-3.5.13.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "comments": "Copyright 2008-2020 the original author or authors.\n\n\t\t\t\tLicensed under the Apache License, Version 2.0 (the \"License\");\n\t\t\t\tyou may not use this file except in compliance with the License.\n\t\t\t\tYou may obtain a copy of the License at\n\n\t\t\t\thttps://www.apache.org/licenses/LICENSE-2.0\n\n\t\t\t\tUnless required by applicable law or agreed to in writing, software\n\t\t\t\tdistributed under the License is distributed on an \"AS IS\" BASIS,\n\t\t\t\tWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\n\t\t\t\timplied.\n\t\t\t\tSee the License for the specific language governing permissions and\n\t\t\t\tlimitations under the License.",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/data/build/spring-data-parent/3.5.13/spring-data-parent-3.5.13.pom",
+          "metadataSha256": "b619ae7307fa3addc8507e07b4f744c18763295b7ce912d874968c06af77348a"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework.data/spring-data-commons/3.5.13/license.txt",
+          "sha256": "90aa4a23c24e6120e00ced9b3a8a3b15524c07ac522c03e92a755a709f93c1f7",
+          "origin": "BOOT-INF/lib/spring-data-commons-3.5.13.jar!/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework.data/spring-data-commons/3.5.13/notice.txt",
+          "sha256": "2bb7e298991f1c3ce27981b19bfd83de59b7568753f3472f7819288ee79dcbd2",
+          "origin": "BOOT-INF/lib/spring-data-commons-3.5.13.jar!/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework.data:spring-data-jpa:3.5.13",
+      "filename": "spring-data-jpa-3.5.13.jar",
+      "sha256": "28cb8754567abc5bef9aa18331e1bf72018bedeef7969a2af82a12eb170a35c7",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/data/spring-data-jpa/3.5.13/spring-data-jpa-3.5.13.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "comments": "Copyright 2008-2020 the original author or authors.\n\n\t\t\t\tLicensed under the Apache License, Version 2.0 (the \"License\");\n\t\t\t\tyou may not use this file except in compliance with the License.\n\t\t\t\tYou may obtain a copy of the License at\n\n\t\t\t\thttps://www.apache.org/licenses/LICENSE-2.0\n\n\t\t\t\tUnless required by applicable law or agreed to in writing, software\n\t\t\t\tdistributed under the License is distributed on an \"AS IS\" BASIS,\n\t\t\t\tWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\n\t\t\t\timplied.\n\t\t\t\tSee the License for the specific language governing permissions and\n\t\t\t\tlimitations under the License.",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/data/build/spring-data-parent/3.5.13/spring-data-parent-3.5.13.pom",
+          "metadataSha256": "b619ae7307fa3addc8507e07b4f744c18763295b7ce912d874968c06af77348a"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework.data/spring-data-jpa/3.5.13/license.txt",
+          "sha256": "90aa4a23c24e6120e00ced9b3a8a3b15524c07ac522c03e92a755a709f93c1f7",
+          "origin": "BOOT-INF/lib/spring-data-jpa-3.5.13.jar!/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework.data/spring-data-jpa/3.5.13/notice.txt",
+          "sha256": "fcd558a5cc07c4536c46bb383405ec5d8c9cfd71d6ddbc7e40230bb82ef1c069",
+          "origin": "BOOT-INF/lib/spring-data-jpa-3.5.13.jar!/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-expression:6.2.19",
+      "filename": "spring-expression-6.2.19.jar",
+      "sha256": "d710a44417d890353895b341a722d7d08199e2b7da52f0a11c0e92571e1d6e19",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-expression/6.2.19/spring-expression-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-expression/6.2.19/spring-expression-6.2.19.pom",
+          "metadataSha256": "f3f99dfcd0b1229a15faaeda0fba11e3a25f85d01aa11737271a2bce854ef42a"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-expression/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-expression-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-expression/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-expression-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-jcl:6.2.19",
+      "filename": "spring-jcl-6.2.19.jar",
+      "sha256": "9994478bcea1423b8892d4eb0db942c94da0090167c3c684050c1eaef04491d0",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-jcl/6.2.19/spring-jcl-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-jcl/6.2.19/spring-jcl-6.2.19.pom",
+          "metadataSha256": "cc00211d807821dae35df9dd361a08f9988db588eef76f07369e524e2032636e"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-jcl/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-jcl-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-jcl/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-jcl-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-jdbc:6.2.19",
+      "filename": "spring-jdbc-6.2.19.jar",
+      "sha256": "c81fd8aca952aac243d9327af12596c2058012c9d3784f1313477a6d2cc56306",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-jdbc/6.2.19/spring-jdbc-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-jdbc/6.2.19/spring-jdbc-6.2.19.pom",
+          "metadataSha256": "bb7fb057dbeb2e44bedc78c4abb27594f579c3f430c1c31ea87261dc3f66d8d9"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-jdbc/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-jdbc-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-jdbc/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-jdbc-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-orm:6.2.19",
+      "filename": "spring-orm-6.2.19.jar",
+      "sha256": "32c1221bfb2eac7a73beee46da4150a6d941aa90f00228d0a2c80a5772c5c03d",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-orm/6.2.19/spring-orm-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-orm/6.2.19/spring-orm-6.2.19.pom",
+          "metadataSha256": "6677added819f19ebf28396304a0466cf8857cc6d62c0222019436092fd53c15"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-orm/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-orm-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-orm/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-orm-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework.security:spring-security-config:6.5.11",
+      "filename": "spring-security-config-6.5.11.jar",
+      "sha256": "218685930013a2d1c126a896490ac3c44cf6fe90cf3d0286f2266bb877f916f7",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/security/spring-security-config/6.5.11/spring-security-config-6.5.11.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/security/spring-security-config/6.5.11/spring-security-config-6.5.11.pom",
+          "metadataSha256": "da9f710053c8575eddfc036410812eaafdde863a9760f19a98d3b84b56be6c7b"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework.security/spring-security-config/6.5.11/META-INF/LICENSE.txt",
+          "sha256": "7200000367e0e8b47822d563a5ddd2dd3a97cc05b32bd7dbcc7b4eeb92b76628",
+          "origin": "BOOT-INF/lib/spring-security-config-6.5.11.jar!/META-INF/LICENSE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework.security:spring-security-core:6.5.11",
+      "filename": "spring-security-core-6.5.11.jar",
+      "sha256": "26ac26527cc015c5c71f3832add705a2410129a8f8de847054f2bc3b1d2e4465",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/security/spring-security-core/6.5.11/spring-security-core-6.5.11.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/security/spring-security-core/6.5.11/spring-security-core-6.5.11.pom",
+          "metadataSha256": "0574e823b5f84ca6c111dd6e0abd9941a3da2193590256f37b39a8095cd52a7a"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework.security/spring-security-core/6.5.11/META-INF/LICENSE.txt",
+          "sha256": "7200000367e0e8b47822d563a5ddd2dd3a97cc05b32bd7dbcc7b4eeb92b76628",
+          "origin": "BOOT-INF/lib/spring-security-core-6.5.11.jar!/META-INF/LICENSE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework.security:spring-security-crypto:6.5.11",
+      "filename": "spring-security-crypto-6.5.11.jar",
+      "sha256": "dcdd2f3b2d5d2bb1531986b5cc1737b464a76d8b5831f93fc8da9cdd67e6797f",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/security/spring-security-crypto/6.5.11/spring-security-crypto-6.5.11.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/security/spring-security-crypto/6.5.11/spring-security-crypto-6.5.11.pom",
+          "metadataSha256": "3769add868d55ecb936138ea5a398b4c036880d17acb80456d4d97ca90d04a28"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework.security/spring-security-crypto/6.5.11/META-INF/LICENSE.txt",
+          "sha256": "7200000367e0e8b47822d563a5ddd2dd3a97cc05b32bd7dbcc7b4eeb92b76628",
+          "origin": "BOOT-INF/lib/spring-security-crypto-6.5.11.jar!/META-INF/LICENSE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework.security:spring-security-web:6.5.11",
+      "filename": "spring-security-web-6.5.11.jar",
+      "sha256": "50df9fc76162d33cf8b5410cf7a7a969abd42a5ecddb284aab4f453cb5512306",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/security/spring-security-web/6.5.11/spring-security-web-6.5.11.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/security/spring-security-web/6.5.11/spring-security-web-6.5.11.pom",
+          "metadataSha256": "d0ff3f67692d7e0009efb3eb787bc5000b6dc269e773e3585a3554c1ad524d37"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework.security/spring-security-web/6.5.11/META-INF/LICENSE.txt",
+          "sha256": "7200000367e0e8b47822d563a5ddd2dd3a97cc05b32bd7dbcc7b4eeb92b76628",
+          "origin": "BOOT-INF/lib/spring-security-web-6.5.11.jar!/META-INF/LICENSE.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-tx:6.2.19",
+      "filename": "spring-tx-6.2.19.jar",
+      "sha256": "34a1b6f5d87ef4cca6849e1bc70a0f965eec6476737b3cae73ff2561a266ef73",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-tx/6.2.19/spring-tx-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-tx/6.2.19/spring-tx-6.2.19.pom",
+          "metadataSha256": "17fff13681d40905632d6d0187542ed5744daab09c64f5493002351848294f67"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-tx/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-tx-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-tx/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-tx-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-web:6.2.19",
+      "filename": "spring-web-6.2.19.jar",
+      "sha256": "ca88e364ecebee61163e2260e8a20584138eca74e28a050d6a2ef6302bad2f2d",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-web/6.2.19/spring-web-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-web/6.2.19/spring-web-6.2.19.pom",
+          "metadataSha256": "db4b8eaa596332f537a2b5d1cc5a31f50b2b7b7b448490acc7893ea0f9525966"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-web/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-web-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-web/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-web-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.springframework:spring-webmvc:6.2.19",
+      "filename": "spring-webmvc-6.2.19.jar",
+      "sha256": "134f42320cedd31f54f683d2ca9936a4e015c011fb1882a31fa7213e2d8c7e94",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/springframework/spring-webmvc/6.2.19/spring-webmvc-6.2.19.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/springframework/spring-webmvc/6.2.19/spring-webmvc-6.2.19.pom",
+          "metadataSha256": "7ef11f14cf0d365c38b1b866359e506c7c93f993aa512ed6db656129bc992822"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.springframework/spring-webmvc/6.2.19/META-INF/license.txt",
+          "sha256": "9b57549a55aa67c9e0cd3f5dc96cd5177c5f9b2036aabdfbbd2aee18e0586fea",
+          "origin": "BOOT-INF/lib/spring-webmvc-6.2.19.jar!/META-INF/license.txt"
+        },
+        {
+          "path": "third-party-licenses/org.springframework/spring-webmvc/6.2.19/META-INF/notice.txt",
+          "sha256": "b6585e3017d5f718716a54430b3ac8e0a968be53c179752e9dc717185093330a",
+          "origin": "BOOT-INF/lib/spring-webmvc-6.2.19.jar!/META-INF/notice.txt"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.apache.tomcat.embed:tomcat-embed-core:10.1.55",
+      "filename": "tomcat-embed-core-10.1.55.jar",
+      "sha256": "82473f841824095e03f2c938c18707e44e388e34fb1735b2b338bb4f22fd54f0",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/apache/tomcat/embed/tomcat-embed-core/10.1.55/tomcat-embed-core-10.1.55.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/apache/tomcat/embed/tomcat-embed-core/10.1.55/tomcat-embed-core-10.1.55.pom",
+          "metadataSha256": "231081c2f8f02478cb1eacae9f5db0e78948cd7fff9444fcfa0f5a5307e3bd29"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.apache.tomcat.embed/tomcat-embed-core/10.1.55/META-INF/LICENSE",
+          "sha256": "b15780b4c93aef25618df419dcde6cc9646f497c29fc615c1b67b6fa3bb26a65",
+          "origin": "BOOT-INF/lib/tomcat-embed-core-10.1.55.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/org.apache.tomcat.embed/tomcat-embed-core/10.1.55/META-INF/NOTICE",
+          "sha256": "234d3234bb332895157270092fa2a11e80aa0b3d70d59e13de0eed4c2adb1790",
+          "origin": "BOOT-INF/lib/tomcat-embed-core-10.1.55.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.apache.tomcat.embed:tomcat-embed-el:10.1.55",
+      "filename": "tomcat-embed-el-10.1.55.jar",
+      "sha256": "a527fe51c6f9428c5116f78fe28588e55357b4492309b51fb0453372da16fa5f",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/apache/tomcat/embed/tomcat-embed-el/10.1.55/tomcat-embed-el-10.1.55.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/apache/tomcat/embed/tomcat-embed-el/10.1.55/tomcat-embed-el-10.1.55.pom",
+          "metadataSha256": "b1da977b652d7b4f5138e820426c2e2cdf0e69c8307e3a3de0b47a7b2c52c473"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.apache.tomcat.embed/tomcat-embed-el/10.1.55/META-INF/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "origin": "BOOT-INF/lib/tomcat-embed-el-10.1.55.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/org.apache.tomcat.embed/tomcat-embed-el/10.1.55/META-INF/NOTICE",
+          "sha256": "0317acaa42a5e48bec061cf009cb5c8b4b8ff845f3c6ba548f67c5c22c29fc96",
+          "origin": "BOOT-INF/lib/tomcat-embed-el-10.1.55.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.apache.tomcat.embed:tomcat-embed-websocket:10.1.55",
+      "filename": "tomcat-embed-websocket-10.1.55.jar",
+      "sha256": "81800431395fe2ef317fc14075ed49faaa64679a3458ee8791159111a1aa1b37",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.55/tomcat-embed-websocket-10.1.55.jar",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.55/tomcat-embed-websocket-10.1.55.pom",
+          "metadataSha256": "b8d23e4fee98927b4c18c441f4868adb1884a555e56c038f7920a6f4665e73bc"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.apache.tomcat.embed/tomcat-embed-websocket/10.1.55/META-INF/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "origin": "BOOT-INF/lib/tomcat-embed-websocket-10.1.55.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/org.apache.tomcat.embed/tomcat-embed-websocket/10.1.55/META-INF/NOTICE",
+          "sha256": "0317acaa42a5e48bec061cf009cb5c8b4b8ff845f3c6ba548f67c5c22c29fc96",
+          "origin": "BOOT-INF/lib/tomcat-embed-websocket-10.1.55.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.glassfish.jaxb:txw2:4.0.9",
+      "filename": "txw2-4.0.9.jar",
+      "sha256": "d6343e5945d87266ca4e8974a0a2a876e1bd147a00fb65ed3f2e1a3a00f3a82a",
+      "scope": "runtime-reference-only",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/txw2/4.0.9/txw2-4.0.9.jar",
+      "licenses": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "metadataSource": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/jaxb-parent/4.0.9/jaxb-parent-4.0.9.pom",
+          "metadataSha256": "fa633fabcd4c925e54f92edebda13b048d634124940a764dfbb08e7312481a6f"
+        }
+      ],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.glassfish.jaxb/txw2/4.0.9/META-INF/LICENSE.md",
+          "sha256": "c56e52168c596cb8ca8dca3a648886f19924461928eb8102f5eb31710aee9e31",
+          "origin": "BOOT-INF/lib/txw2-4.0.9.jar!/META-INF/LICENSE.md"
+        },
+        {
+          "path": "third-party-licenses/org.glassfish.jaxb/txw2/4.0.9/META-INF/NOTICE.md",
+          "sha256": "757d97415f437b8e48ee96694425bbcf25330a2b355348272494fdf57950391a",
+          "origin": "BOOT-INF/lib/txw2-4.0.9.jar!/META-INF/NOTICE.md"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    },
+    {
+      "id": "org.apache.maven.wrapper:maven-wrapper:3.3.4",
+      "filename": "maven-wrapper-3.3.4.jar",
+      "sha256": "4e2fbf6554bc8a4702cdfdd3bef464f423393d784ddbb037216320ce55d5e4e1",
+      "scope": "redistributed-source-build-tool",
+      "artifactUrl": "https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.3.4/maven-wrapper-3.3.4.jar",
+      "licenses": [],
+      "materials": [
+        {
+          "path": "third-party-licenses/org.apache.maven.wrapper/maven-wrapper/3.3.4/META-INF/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "origin": ".mvn/wrapper/maven-wrapper.jar!/META-INF/LICENSE"
+        },
+        {
+          "path": "third-party-licenses/org.apache.maven.wrapper/maven-wrapper/3.3.4/META-INF/NOTICE",
+          "sha256": "aeadf60b46ddea6cda6a60526d64e05569a97c487b7c4a880a8a465bf99b2c64",
+          "origin": ".mvn/wrapper/maven-wrapper.jar!/META-INF/NOTICE"
+        }
+      ],
+      "embeddedMaterialStatus": "preserved",
+      "binaryDistributionReview": "not claimed; runtime binaries are excluded from the source candidate"
+    }
+  ],
+  "limits": [
+    "Embedded text and resolved POM declarations are preserved, not a legal approval.",
+    "Some runtime artifacts have no standalone embedded notice text; listed individually.",
+    "Binary/image distribution requires its own complete obligation/source/base-image review."
+  ]
+}

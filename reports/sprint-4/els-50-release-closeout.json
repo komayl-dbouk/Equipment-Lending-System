@@ -1,0 +1,140 @@
+{
+  "card": "ELS-50",
+  "status": "engineering preparation under review; instructor submission not performed",
+  "submissionOwner": "Hussein Chreif",
+  "coordinator": "Hussein Chalhoub",
+  "peerReviewer": "Mostafa Younes",
+  "auditBaseline": "213c7515d0194b537489e07358644f576dc86417",
+  "originalPrHead": "336db47db07d4eb9523403bf08a336c0f7308596",
+  "applicationInventory": {
+    "path": "../../third-party-licenses/inventory.json",
+    "buildRevision": "336db47db07d4eb9523403bf08a336c0f7308596",
+    "jarSha256": "df26fce35bea86a02d96255b60a498dbb9ee19c98f386ffca038f6ce940f4195",
+    "runtimeReferenceArtifacts": 71,
+    "redistributedWrapperArtifacts": 1,
+    "preservedMaterials": 116,
+    "scope": "Backend source candidate; no application/JRE/container/database runtime binaries redistributed."
+  },
+  "originalCardEstimatesHours": {
+    "ELS-45": 3,
+    "ELS-46": 2,
+    "ELS-47": 2,
+    "ELS-48": 3,
+    "ELS-49": 2,
+    "ELS-50": 1
+  },
+  "effort": {
+    "basis": "Project-lead-confirmed reconstructed approximate actual Sprint 4 member totals, including prompting, corrections, review, testing, documentation and rehearsal. Not per-card logged sessions or measured AI time.",
+    "confirmation": "Hussein Chreif explicitly approved the proposed record in the project conversation.",
+    "members": [
+      {
+        "member": "Hussein Chreif",
+        "originalOwnedCardEstimateHours": 3,
+        "actualHours": 8,
+        "varianceHours": 5
+      },
+      {
+        "member": "Komayl Dbouk",
+        "originalOwnedCardEstimateHours": 4,
+        "actualHours": 5,
+        "varianceHours": 1
+      },
+      {
+        "member": "Mostafa Younes",
+        "originalOwnedCardEstimateHours": 2,
+        "actualHours": 6,
+        "varianceHours": 4
+      },
+      {
+        "member": "Hussein Chalhoub",
+        "originalOwnedCardEstimateHours": 4,
+        "actualHours": 7,
+        "varianceHours": 3
+      }
+    ],
+    "originalTotalHours": 13,
+    "actualTotalHours": 26,
+    "varianceHours": 13,
+    "actualToEstimateRatio": 2.0,
+    "estimateSource": "Live Jira timeoriginalestimate values for ELS-45 through ELS-50; scope reflects original card ownership, while actuals include shared reviews."
+  },
+  "retrospective": {
+    "lead": "Hussein Chreif",
+    "confirmation": "Explicit project-conversation approval; no meeting or separate member quotations claimed.",
+    "reflection": "Packaging, access checks and independent SQL evidence made the backend reproducible. Stale status records and incomplete release artifacts caused extra handoffs. We should deliver the revision, inspected archive, checksums, notices and CI together.",
+    "adoptedImprovement": {
+      "owner": "Hussein Chalhoub",
+      "verifier": "Hussein Chreif",
+      "action": "Maintain a release handoff with exact revision, inspected archive manifest/checksums, notices inventory and CI link.",
+      "observableCheck": "Before submission, Chreif checks that archive members and hashes match the selected reviewed commit, all Wrapper notice hashes match and exact-revision CI succeeded.",
+      "finalHumanVerification": "Pending final reviewed revision and instructor handoff; not inferred from script execution."
+    }
+  },
+  "candidate": {
+    "status": "candidate, not submitted or declared a final release",
+    "scope": "Backend source, team-authored documentation/slides and Maven Wrapper; no application runtime/JRE/image.",
+    "sourceRevision": "b5ca727706daa50f7af95e5af33593e01055588e",
+    "sourceTree": "3098bd313e535e5945436f14050754bbfed27a17",
+    "archive": "equipment-lending-source.zip",
+    "archiveSha256": "5bb73b2ba4711d55a24dff7d4ae9dd2a9c3bc8e87dc4ed4abc526e0b4073fb17",
+    "memberCount": 348,
+    "noticeInventorySha256": "cb0ab0dcada6bcd8fb28038cb9c411a92eb39509bd25edf9a5b7c7d1a4fd1c99",
+    "directory": "target/release/els50-b5ca7277",
+    "manifestSha256": "88169536cf22a7b90e78232ef09cafe21975388ab0e2fbc6356f7ddaa1f52edb",
+    "archiveBytes": 1052377,
+    "inspection": "All 348 archive members and bytes matched selected Git blobs; independent ZIP/manifest/SHA256SUMS recheck passed; no Subject/private/build/runtime content; only the verified Maven Wrapper JAR.",
+    "regeneration": "Regenerate from the eventual human-reviewed merge revision using tools/release/prepare_submission.py; this unmerged implementation candidate is not relabeled final."
+  },
+  "checks": {
+    "standardMaven": {
+      "command": "mvnw.cmd --batch-mode --no-transfer-progress verify",
+      "java": "17",
+      "tests": 200,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "result": "BUILD SUCCESS",
+      "scope": "Application inputs matched original PR head; release helper changes do not alter production source."
+    },
+    "sourceCandidateTests": {
+      "command": "python -B tools/release/test_prepare_submission.py",
+      "tests": 10,
+      "result": "passed",
+      "scope": "Synthetic isolated Git repositories; exact export, dirty/untracked exclusion, unsafe/runtime paths, stale source inventory, changed notices, Wrapper identity, symlink mode, duplicates/tampering, outside paths and overwrite rejection."
+    },
+    "noticeMaterialIntegrity": {
+      "artifacts": 72,
+      "materials": 116,
+      "result": "Exact SHA-256 and original nested-JAR byte comparison passed."
+    },
+    "ciReleaseCandidate": "CI exports and retains its own exact-checkout candidate after running all ten release guards; latest-head CI is verified in PR/Jira after push."
+  },
+  "externalGates": [
+    {
+      "item": "Official submission channel, required format, deadline time/timezone",
+      "status": "not supplied",
+      "owner": "Hussein Chreif"
+    },
+    {
+      "item": "Instructor repository and board access",
+      "status": "not independently verified",
+      "owner": "Hussein Chreif"
+    },
+    {
+      "item": "Final human-reviewed revision and regenerated candidate",
+      "status": "after human merge",
+      "owner": "Hussein Chreif / Hussein Chalhoub"
+    },
+    {
+      "item": "Submission and actual receipt",
+      "status": "not performed; no receipt supplied",
+      "owner": "Hussein Chreif"
+    }
+  ],
+  "scopeLimits": [
+    "No sprint closure, human PR approval or instructor submission claimed.",
+    "No remote/browser acceptance or binary/image legal approval claimed.",
+    "Sprint 5 frontend remains future scope.",
+    "Earlier technical and human evidence retain their original sources; source reconciliation does not rerun those experiments."
+  ]
+}
