@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.university.equipmentlending.support.AuthenticatedMockMvcConfiguration;
 import java.sql.Date;
 import java.time.Clock;
 import java.time.Instant;
@@ -31,7 +32,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Import(LendingQueriesIT.FixedClockConfiguration.class)
+@Import({AuthenticatedMockMvcConfiguration.class, LendingQueriesIT.FixedClockConfiguration.class})
 class LendingQueriesIT {
     private static final LocalDate TODAY = LocalDate.of(2030, 6, 15);
 

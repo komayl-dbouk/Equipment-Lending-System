@@ -16,6 +16,10 @@ public class ApiException extends RuntimeException {
         this.code = code;
     }
 
+    public static ApiException validationFailed() {
+        return new ApiException(HttpStatus.BAD_REQUEST, "VALIDATION_FAILED", "Invalid request");
+    }
+
     public HttpStatus getStatus() { return status; }
     public String getCode() { return code; }
 }

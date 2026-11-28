@@ -4,7 +4,7 @@ A RESTful Web API for managing equipment loans at a university, built with **Jav
 
 The system helps university staff maintain an inventory of equipment, record student borrowing and returns, check availability, and track overdue loans.
 
-> **Status:** Student/equipment management, atomic borrowing, returns and lending queries are merged, with PostgreSQL and packaged-workflow evidence. The test audit, deliberate-defect experiment and verified design corrections are merged. Refactoring, final measured improvement and delivery/access acceptance remain in progress or planned; see the [consolidated report](reports/final-report.md) and [finalization checklist](reports/finalization-checklist.md).
+> **Status:** The staff-managed backend and authenticated Docker delivery passed final technical acceptance. Requirements, quality results and source-scoped evidence are consolidated in the [report](reports/final-report.md); [report review, presentation and release closeout](reports/finalization-checklist.md) remain human delivery gates. Remote deployment requires verified HTTPS; the current demonstration binds to loopback.
 
 The [project proposal](docs/proposal.md), [team plan and Sprint 1 kickoff](docs/team-plan.md), and [initial Jira backlog snapshot](docs/jira-backlog.json) define the delivery plan for the submission deadline. Work is tracked on the [ELS Scrum board](https://equipment-lending-system.atlassian.net/jira/software/c/projects/ELS/boards/34).
 
@@ -103,7 +103,7 @@ The planned deliverables are the Spring Boot source code, relational data model,
 
 ## Local setup
 
-The application foundation uses Java 17, Spring Boot 3.5.16, Maven Wrapper 3.9.11 and PostgreSQL 17.5. Follow the exact environment setup, build, database verification and run commands in [Local setup and verification](docs/deployment/local-setup.md). Credentials are supplied only through environment variables; `.env.example` contains placeholders, not usable secrets.
+The delivery package uses Java 17, Spring Boot 3.5.16, Maven Wrapper 3.9.11 and PostgreSQL 17.5. Follow [Local setup and verification](docs/deployment/local-setup.md) to build a local Docker image, run the loopback-only application/database pair, seed synthetic data and validate the lending workflow. Credentials are supplied only through environment variables; `.env.example` contains placeholders, not usable secrets.
 
 For student requests, replacement-update examples and database-free test commands, see the [API contract](docs/api/contract.md) and [ELS-29 verification evidence](docs/testing/els-29-student-management.md). PostgreSQL tests run through the existing `database-test` profile; local unit/controller checks do not need a database.
 

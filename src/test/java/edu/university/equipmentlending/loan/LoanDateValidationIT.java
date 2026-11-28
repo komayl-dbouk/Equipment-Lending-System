@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.university.equipmentlending.support.AuthenticatedMockMvcConfiguration;
 import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,10 +22,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(AuthenticatedMockMvcConfiguration.class)
 class LoanDateValidationIT {
     @Autowired private MockMvc mvc;
     @Autowired private ObjectMapper mapper;

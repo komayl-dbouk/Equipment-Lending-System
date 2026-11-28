@@ -12,7 +12,8 @@ try {
     Set-Location -LiteralPath $repo
     if (-not $Psql) { $Psql = 'psql' }
     foreach ($name in @('JAVA_HOME','ELS_DB_URL','ELS_DB_USERNAME','ELS_DB_PASSWORD',
-            'ELS_TEST_DB_URL','ELS_TEST_DB_USERNAME','ELS_TEST_DB_PASSWORD')) {
+            'ELS_TEST_DB_URL','ELS_TEST_DB_USERNAME','ELS_TEST_DB_PASSWORD',
+            'ELS_STAFF_USERNAME','ELS_STAFF_PASSWORD')) {
         if (-not [Environment]::GetEnvironmentVariable($name)) { throw "Required environment variable missing: $name" }
     }
     if ($Port -lt 1024 -or $Port -gt 65535) { throw 'Choose an unprivileged validation port' }

@@ -11,22 +11,26 @@ Flyway is the sole delivery schema owner. Add sequential migrations under `src/m
 On Windows use `mvnw.cmd`. Required foundation checks are:
 
 ```powershell
+$ErrorActionPreference = 'Stop'
 $env:JAVA_HOME = 'C:\path\to\jdk-17'
-Copy-Item .env.example .env
-docker compose --env-file .env up -d --wait
-$env:ELS_DB_USERNAME = 'equipment_app'
-$env:ELS_DB_PASSWORD = '<your-local-secret>'
-$env:ELS_DB_URL = 'jdbc:postgresql://localhost:5432/equipment_lending'
-$env:ELS_TEST_DB_USERNAME = 'equipment_test'
-$env:ELS_TEST_DB_PASSWORD = '<your-separate-test-secret>'
-$env:ELS_TEST_DB_URL = 'jdbc:postgresql://localhost:5433/equipment_lending_test'
-docker compose -p els-tests -f compose.test.yaml --env-file .env up -d --wait
+if (-not (Test-Path -LiteralPath .env)) { Copy-Item .env.example .env }
+# Set private distinct database passwords and nonblank ELS_STAFF_USERNAME / ELS_STAFF_PASSWORD in .env before continuing; never overwrite an existing .env.
 .\mvnw.cmd verify
+if ($LASTEXITCODE -ne 0) { throw 'Verification failed.' }
+docker compose -p els-tests -f compose.test.yaml --env-file .env up -d --wait
+if ($LASTEXITCODE -ne 0) { throw 'Test database startup failed.' }
+.\tools\demo\import-test-environment.ps1 -EnvFile .env -ProjectName els-tests
 .\mvnw.cmd -Pdatabase-test verify
-.\mvnw.cmd spring-boot:run
+if ($LASTEXITCODE -ne 0) { throw 'Database verification failed.' }
+docker compose -p els-tests -f compose.test.yaml --env-file .env down
+$demoProject = 'els-demo-local'
+docker compose -p $demoProject --env-file .env up --build -d --wait
+if ($LASTEXITCODE -ne 0) { throw 'Demo startup failed.' }
+.\tools\demo\wait-for-health.ps1 -BaseUrl http://localhost:8080
+.\tools\demo\seed-demo.ps1 -ProjectName $demoProject -EnvFile .env
 ```
 
-Run `docker compose --env-file .env down` and `docker compose -p els-tests -f compose.test.yaml --env-file .env down` when finished. Do not commit `.env` or any credential. Use `./mvnw` on POSIX shells.
+The importer uses resolved Compose test credentials/port in the same shell as Maven, including quoted values; do not print its private configuration. The delivery database has no host port and the application runs in Compose, so the old host `spring-boot:run`/localhost delivery JDBC path is not a packaging command. Use the runbook for port overrides. Stop only your demo project with `docker compose -p $demoProject --env-file .env down`; reset volumes only through the explicitly confirmed disposable-project helper. Do not commit `.env` or any credential. Use `./mvnw` on POSIX shells; demo scripts require PowerShell. Run `python tools/demo/test_demo_helpers.py` after helper changes.
 
 ## Conventions and scope
 

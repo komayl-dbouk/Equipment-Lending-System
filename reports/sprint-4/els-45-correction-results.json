@@ -1,0 +1,93 @@
+{
+  "card": "ELS-45",
+  "reviewBaseline": "9eefe40ff28d5c003d86c6708750aca44acb7d51",
+  "correctionImplementation": "f5c69204fca4cdfba21b760ca3e94cee19707c43",
+  "sourceHashes": {
+    "tools/demo/common.ps1": "7e86339370054a1c7e3419835812e5236d89798c8f3fab4248816fac782fa541",
+    "tools/demo/import-test-environment.ps1": "1651f564a9ec786d370f7d9a8d9868698d34598cafa94208a7028df3c0a3f2b9",
+    "tools/demo/reset-demo.ps1": "5f911a9bf84eaadf55a7612a39622df466a8e20303028f8419785ed47a542a2d",
+    "tools/demo/seed-demo.ps1": "0b3f0944aeb42d9e5cb2d60c154b4e207b4876a7102aa95d83655339a49669ca",
+    "tools/demo/wait-for-health.ps1": "5fdbd5aa3cd12555a5c235723de4f0f6f7d3188446d5d66170ee6aa1b5d87cca",
+    "tools/demo/verify-package.ps1": "fb7192a27a36b2cc60534ff6e734c39b1b44112596b540520051f1288dcfcbd8",
+    "tools/demo/test_demo_helpers.py": "10281abbe4f3ab6dab50ae677220c87c0b1bfaf90bd56438f3dec3d770b52ea6",
+    "Dockerfile": "8c1d6ddeb808aafb6b193a525a7e7c5ebf4b0eda904c5cc1543584b94eb72bf8",
+    "compose.yaml": "da80546303849fa20203a3ee796291ece4845db41abed75b62dfc328a8aba1c2",
+    ".github/workflows/build-test.yml": "2c7d63d92629c097e0ab70bc98481de3cd5aa5018504a4b1f132eaf47b26cac5"
+  },
+  "helperRegressions": {
+    "passed": 13,
+    "platforms": [
+      "local Windows PowerShell",
+      "CI Linux pwsh"
+    ],
+    "scope": "Docker fakes plus real loopback HTTP; distinct from Docker smoke"
+  },
+  "localJavaVerification": {
+    "surefire-reports": {
+      "tests": 195,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failsafe-reports": {
+      "tests": 188,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "credentials": {
+    "realComposeRoundTrip": "passed against isolated PostgreSQL 17.5",
+    "features": [
+      "quoted values",
+      "spaces",
+      "#",
+      "literal dollar"
+    ],
+    "secretsRetainedInArtifacts": false
+  },
+  "ci": {
+    "sourceCommit": "f5c69204fca4cdfba21b760ca3e94cee19707c43",
+    "result": "success",
+    "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46058992205/job/140708368667",
+    "steps": {
+      "javaAndPostgresql": "success",
+      "helperRegressions": "success",
+      "dockerRuntimeBuild": "success",
+      "realPackagedDemo": "success"
+    }
+  },
+  "packagedSmokeAssertions": [
+    "unused task-owned Compose project",
+    "non-root application process",
+    "loopback-only application binding",
+    "unpublished PostgreSQL",
+    "actual checkout/project/database/cluster identity",
+    "empty initial target",
+    "seed persisted counts 1 student/2 equipment/2 loans",
+    "read-only rerun with unchanged counts",
+    "changed fixture identity rejected",
+    "successful reset and reseed",
+    "owned-resource and private-configuration cleanup"
+  ],
+  "limits": [
+    "Local original image download was slow and canceled; it is not a claimed local container pass",
+    "Actual corrected container proof is the linked clean-runner CI execution",
+    "ELS-46 authentication and ELS-47 integrated final acceptance remain separate",
+    "Human peer review and merge remain pending"
+  ],
+  "preservation": {
+    "javaBusinessSource": "unchanged",
+    "javaTests": "unchanged",
+    "schemaAndDependencies": "unchanged",
+    "originalAssignment": "untouched"
+  },
+  "executionCorrections": [
+    "Duplicate-target patch rejected before writes; split edits",
+    "PowerShell JSON array enumeration corrected after positive fixture test failed",
+    "JSON test server Content-Type corrected",
+    "Compose-rendered dollar escaping discovered by real credential probe and decoded once",
+    "Windows File.Replace used explicit null-string binding; OS replacement test rerun outside a restricted context"
+  ],
+  "sourceHashScope": "SHA-256 of canonical Git blob bytes at correctionImplementation; independent of checkout line endings"
+}

@@ -9,16 +9,21 @@ The system is one Spring Boot application rooted at `edu.university.equipmentlen
 `student`, `equipment` and `loan` own their controllers, DTOs, services and feature-specific
 repositories. Controllers bind HTTP and DTO validation. Services own transaction boundaries,
 normalization and business rules. Repositories access JPA entities or read-only DTO
-projections. `shared/config` supplies the strict text parser and application clock;
-`shared/error` supplies the public error contract.
+projections. `shared/config` supplies the strict text parser, application clock and stateless
+staff access filter;
+`shared/error` supplies the public error contract; and `shared/persistence` supplies exact
+SQLSTATE/constraint-name matching for feature conflict classifiers.
 
 ```mermaid
 flowchart TB
-  Client[Local staff API client] --> StudentC[StudentController]
-  Client --> EquipmentC[EquipmentController]
-  Client --> LoanC[LoanController]
-  Client --> ReturnC[LoanReturnController]
-  Client --> QueryC[LoanQueryController]
+  Client[Local staff API client] -->|Basic credential| Security[SecurityFilterChain]
+  Client -->|No credential| Health[Sanitized health]
+  Security --> StudentC[StudentController]
+  Security --> EquipmentC[EquipmentController]
+  Security --> LoanC[LoanController]
+  Security --> ReturnC[LoanReturnController]
+  Security --> QueryC[LoanQueryController]
+  Entry[StaffAuthenticationEntryPoint] -. sanitized 401 .-> Client
 
   StudentC --> StudentS[StudentService]
   EquipmentC --> EquipmentS[EquipmentService]
@@ -46,17 +51,25 @@ flowchart TB
   Errors -.-> LoanC
   Errors -.-> ReturnC
   Errors -.-> QueryC
-  Pending[ELS-46 staff authentication and remote HTTPS] -. pending delivery boundary .-> Client
 ```
 
-The pending ELS-46 node is a requirement, not an active filter. The current application has no
-Spring Security configuration and does not emit an authentication challenge. Remote deployment
-must not be represented as staff-protected until ELS-46 is implemented and verified.
+Spring Security protects every `/api/**` operation with one environment-configured staff
+credential. The filter is stateless; missing and invalid credentials share one sanitized JSON
+challenge. `/actuator/health` is the only public route. The application does not terminate TLS,
+so remote access remains conditional on external HTTPS.
 
 ## Implementation class model
 
 ```mermaid
 classDiagram
+  SecurityConfiguration --> StaffAccessProperties
+  SecurityConfiguration --> StaffAuthenticationEntryPoint
+  SecurityConfiguration --> StudentController
+  SecurityConfiguration --> EquipmentController
+  SecurityConfiguration --> LoanController
+  SecurityConfiguration --> LoanReturnController
+  SecurityConfiguration --> LoanQueryController
+
   StudentController --> StudentService
   StudentController ..> StudentWrite
   StudentController ..> StudentDto
@@ -87,11 +100,18 @@ classDiagram
   LoanController ..> LoanDto
   LoanReturnController ..> LoanDto
   LoanQueryController ..> LoanDto
+  LoanService --> LoanMapper
+  LoanReturnService --> LoanMapper
+  LoanMapper ..> LoanDto
+  LoanMapper --> LoanEntity
   LoanRepository --> LoanEntity
   LoanQueryRepository ..> LoanDto
 
   LoanEntity "*" --> "1" StudentEntity
   LoanEntity "*" --> "1" EquipmentEntity
+  StudentService --> DatabaseConstraintMatcher
+  EquipmentService --> DatabaseConstraintMatcher
+  LoanService --> DatabaseConstraintMatcher
   ApiExceptionHandler ..> ApiError
 ```
 
@@ -241,18 +261,21 @@ business conflict. Unrelated failures retain the sanitized internal-error respon
 
 ```mermaid
 flowchart LR
-  Staff[Local staff operator] -->|HTTP on localhost| App[Spring Boot process]
+  Staff[Local staff operator] -->|Basic over loopback HTTP| App[Spring Boot process]
   App -->|JDBC with environment credentials| DB[(PostgreSQL 17.5)]
-  Compose[Docker Compose database option] --> DB
+  Compose[Docker Compose delivery] --> App
+  Compose --> DB
   Flyway[Flyway migrations] --> DB
-  Env[ELS_DB_* environment variables] --> App
-  Security[ELS-46 auth and remote HTTPS] -. not implemented .-> App
+  DbEnv[ELS_DB_* environment variables] --> App
+  StaffEnv[ELS_STAFF_USERNAME and ELS_STAFF_PASSWORD] --> App
+  Remote[Remote staff client] -. requires external HTTPS .-> App
 ```
 
-The reproducible baseline runs the Java process locally and may run PostgreSQL through Docker
-Compose. No application container image exists. Secrets belong in an ignored local `.env` and
-process environment. Remote access remains prohibited until transport security and staff access
-are implemented and verified.
+The delivery baseline runs the non-root application image and internal-only PostgreSQL through
+Compose, exposing only the loopback application port. Secrets belong in an ignored local `.env`
+and runtime environment; the image contains no credentials. Staff access is enforced by the application, but remote use remains
+prohibited unless the deployment provides and verifies HTTPS. The local run proves only
+loopback HTTP behavior.
 
 ## Decision records
 

@@ -1,0 +1,122 @@
+{
+  "card": "ELS-42",
+  "baselineCommit": "c1a621df42ec0a8d555b2cfd17bdc8d7c4d094ee",
+  "implementationCommit": "b8bcd3bcc15d5522cd37ac9a5130227f4a63332f",
+  "implementationCommits": [
+    "8ec3736 ELS-42 refactor: centralize structured constraint matching",
+    "3d572f8 ELS-42 refactor: centralize loan response mapping",
+    "b8bcd3b ELS-42 refactor: name shared validation failures"
+  ],
+  "approval": "user approved the three-item plan before production edits",
+  "environment": {
+    "java": "Eclipse Temurin 17.0.21.1",
+    "mavenWrapper": "3.9.11",
+    "postgresql": "17.5",
+    "credentials": "ignored local environment; no credential committed"
+  },
+  "baseline": {
+    "verify": { "tests": 195, "failures": 0, "errors": 0, "skipped": 0 },
+    "databaseTest": {
+      "unit": 195,
+      "integration": 188,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "focused": [
+    {
+      "refactoring": "structured constraint matcher",
+      "unit": 59,
+      "databaseSafety": 12,
+      "integration": 84,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "refactoring": "loan response mapper",
+      "unit": 8,
+      "databaseSafety": 12,
+      "integration": 110,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "refactoring": "validation failure factory",
+      "unit": 46,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "final": {
+    "verify": { "tests": 195, "failures": 0, "errors": 0, "skipped": 0 },
+    "databaseTest": {
+      "unit": 195,
+      "integration": 188,
+      "total": 383,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "packagedHttpExamples": {
+      "status": "passed",
+      "baseUrl": "http://localhost:18042",
+      "database": "local PostgreSQL 17.5 test service",
+      "jarSha256": "36c2924856731056be8e73308f46b1370ad336aad93b66a0481f15fdea752ba6"
+    }
+  },
+  "duplication": {
+    "structuredConstraintMatcherImplementations": { "before": 3, "after": 1 },
+    "sixFieldLoanDtoConstructors": { "before": 2, "after": 1 },
+    "repeatedValidationExceptionConstructors": { "before": 3, "after": 1 },
+    "namedValidationFactoryCalls": 3
+  },
+  "corrections": [
+    "Restored the HttpStatus import after the initial combined focused compile identified its remaining CREATED use.",
+    "Replaced guessed database-profile credentials with values loaded from the ignored local environment.",
+    "Used the verified PostgreSQL test service because the app volume retained an older local password.",
+    "Retried packaged validation on isolated port 18042 after a transient port-release collision."
+  ],
+  "preservation": {
+    "migrations": "unchanged",
+    "dependencies": "unchanged",
+    "endpoints": "unchanged",
+    "transactionsAndLocks": "unchanged",
+    "businessRules": "unchanged",
+    "originalBorrowingTests": "unchanged",
+    "subjectDirectory": "untouched"
+  },
+  "jira": {
+    "requestedProject": "ELS",
+    "initialConnectedSite": "https://lending-system.atlassian.net",
+    "initialResult": "ELS-42 unavailable; only KAN project exposed; no transition or comment claimed for that attempt",
+    "projectIssue": "https://equipment-lending-system.atlassian.net/browse/ELS-42"
+  },
+  "remoteDelivery": {
+    "branch": "origin/ELS-42-safe-refactorings",
+    "push": "succeeded",
+    "initialPullRequestAttempt": "installed GitHub integration returned HTTP 403 Resource not accessible by integration",
+    "pullRequest": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/19",
+    "reviewerRequest": "MaxHusseinChreif",
+    "ci": {
+      "sourceCommit": "085212e33af839f4e944ab9d8bbe6d09dd752d00",
+      "result": "success",
+      "url": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/45969302277/job/140405513611"
+    },
+    "humanApproval": "pending",
+    "merge": "pending"
+  },
+  "independentReview": {
+    "sourceCommit": "085212e33af839f4e944ab9d8bbe6d09dd752d00",
+    "verify": { "tests": 195, "failures": 0, "errors": 0, "skipped": 0 },
+    "databaseTest": { "unit": 195, "integration": 188, "total": 383, "failures": 0, "errors": 0, "skipped": 0 },
+    "packagedHttpExamples": "passed against disposable PostgreSQL 17.5 on isolated ports",
+    "environmentCorrection": "Initial restricted standalone verify stalled and was interrupted; unrestricted standalone verify passed",
+    "logs": "ignored target/els42-review/",
+    "cleanup": "review application stopped; review PostgreSQL container and network removed",
+    "productionOrTestSourceChanged": false
+  }
+}

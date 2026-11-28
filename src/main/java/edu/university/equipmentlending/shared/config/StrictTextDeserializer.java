@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
 
 public final class StrictTextDeserializer extends StdDeserializer<String> {
+    private static final long serialVersionUID = 1L;
+
     public StrictTextDeserializer() { super(String.class); }
 
     @Override
