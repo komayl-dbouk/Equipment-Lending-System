@@ -1,6 +1,6 @@
 {
   "card": "ELS-48",
-  "status": "report contents complete for four-member review; no report approval/merge/submission inferred",
+  "status": "report content accepted by all four after status correction; project-lead-confirmed human record; ELS-50 release/submission remains separate",
   "sourceCommit": "62be2464b7281d2657e3de207891fc7e5a95507d",
   "mergedCi": {
     "status": "success",
@@ -651,39 +651,41 @@
     "members": [
       {
         "member": "Hussein Chreif",
-        "decision": null,
-        "evidence": null
+        "decision": "accept after status correction",
+        "evidence": "Project-lead-relayed confirmation in the direct project conversation; see els-48-team-review.md"
       },
       {
         "member": "Hussein Chalhoub",
-        "decision": null,
-        "evidence": null
+        "decision": "accept after status correction",
+        "evidence": "Project-lead-relayed confirmation in the direct project conversation; see els-48-team-review.md"
       },
       {
         "member": "Komayl Dbouk",
-        "decision": null,
-        "evidence": null
+        "decision": "accept after status correction",
+        "evidence": "Project-lead-relayed confirmation in the direct project conversation; see els-48-team-review.md"
       },
       {
         "member": "Mostafa Younes",
-        "decision": null,
-        "evidence": null
+        "decision": "accept after status correction",
+        "evidence": "Project-lead-relayed confirmation in the direct project conversation; see els-48-team-review.md"
       }
     ],
-    "humanApprovalClaimed": false,
-    "doneClaimed": false
+    "humanApprovalClaimed": true,
+    "doneClaimed": true,
+    "confirmationSource": "Direct project conversation: Hussein Chreif confirmed all four read/checked the report and all four accept after correction, including Chalhoub as primary peer reviewer.",
+    "gitHubApprovalClaimed": false,
+    "reviewedReportHead": "209053ea1bbba57525eec5c11e8e5a4b1d14a867",
+    "reportMergeCommit": "8b1161ba4c44e75c246300335cb4444f5cc9fced",
+    "reconciliationBaseline": "2291d0e0d42a9e96e8a520605e3d7bb89cface22",
+    "finding": {
+      "id": "ELS-48-R1",
+      "finder": "Codex documentation reconciliation",
+      "problem": "Human review/rehearsal status remained stale after project-lead confirmation.",
+      "correction": "Update current report/register/ledger/checklist status, preserving historical run identity and ELS-50 duties.",
+      "status": "corrected"
+    }
   },
   "pendingCards": [
-    {
-      "key": "ELS-48",
-      "owner": "Hussein Chreif",
-      "required": "actual four-member content review and primary Chalhoub decision"
-    },
-    {
-      "key": "ELS-49",
-      "owner": "Komayl Dbouk",
-      "required": "slides, actual rehearsal and individual understanding"
-    },
     {
       "key": "ELS-50",
       "owner": "Hussein Chalhoub",
@@ -705,8 +707,8 @@
     "coreRequirementRows": 12,
     "observedAcceptanceScenarios": 28,
     "metricEffortAndIdentityChecks": "passed against canonical records",
-    "humanReviewStatus": "four decisions not recorded; no approval inferred",
-    "remainingCardGates": 3,
+    "humanReviewStatus": "four content decisions explicitly confirmed by project lead; no GitHub review events invented",
+    "remainingCardGates": 1,
     "mermaidOverview": "structure/source alignment checked; no new rendering claim",
     "executionDateStampCheck": "passed",
     "assignmentProtection": "untracked and unignored",
@@ -725,5 +727,25 @@
       "reports/sprint-4/els-46-correction-results.json": "e4a794513b7aca3ac57094acaaa06ff891f83a7c831c925db3114e69de56616c",
       "reports/sprint-4/els-47-acceptance-results.json": "ee89752bf126f43802de51803f47d84e6e4a3b49c4fec9ce72fc722f32e5af9e"
     }
+  },
+  "completedHumanGates": [
+    {
+      "key": "ELS-48",
+      "basis": "All four report content decisions, including primary Chalhoub peer acceptance, relayed by the project lead."
+    },
+    {
+      "key": "ELS-49",
+      "basis": "All four rehearsal participation and requested explanation/Q&A/debugging/handover coverage explicitly confirmed by the project lead.",
+      "record": "sprint-4/els-49-team-rehearsal.json"
+    }
+  ],
+  "reconciliationValidation": {
+    "localFileLinks": 117,
+    "fourMemberDecisions": "passed",
+    "fourMemberRehearsalCoverage": "passed against ELS-49-rehearsal-records",
+    "referencePracticeRows": 13,
+    "canonicalHistoricalGitBlobHashes": "passed",
+    "scope": "Documentation, JSON and status/source consistency only; no new application or metric run",
+    "priorLinkAnchorCount": "175 is the original report-finalization validation, not a new anchor check"
   }
 }
