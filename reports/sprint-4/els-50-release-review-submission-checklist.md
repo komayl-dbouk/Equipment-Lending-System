@@ -74,3 +74,7 @@ The lead adopted a concrete action: Chalhoub maintains the source/archive/checks
 5. Submit only after explicit authorization, retain the destination's receipt/confirmation, and attach or link that receipt through the approved project record.
 
 The engineering handoff is prepared for review. Instructor-facing readiness still requires the confirmed official destination/format/time, access and final reviewed candidate. Until step 5 is evidenced, the coursework is **not submitted**.
+
+## Observed source-candidate handoff
+
+The corrected implementation candidate was generated with `python -B tools/release/prepare_submission.py --revision b5ca727706daa50f7af95e5af33593e01055588e --output target/release/els50-b5ca7277`. All **348** exported members and bytes matched the selected Git tree. Archive SHA-256: `5bb73b2ba4711d55a24dff7d4ae9dd2a9c3bc8e87dc4ed4abc526e0b4073fb17`. The manifest/SHA256SUMS and every member were independently reread; the only JAR is the checksum-matched Maven Wrapper, with original license/NOTICE material. Subject, private env, Git metadata, caches, build outputs and runtime JAR/image content were absent. The [structured record](els-50-release-closeout.json) includes tree, manifest/inventory hashes, size and regeneration instructions. Generated outputs remain ignored, not committed. This is an unmerged implementation candidate; CI also exports its own exact checkout, and the final reviewed main revision must be regenerated before instructor handoff.

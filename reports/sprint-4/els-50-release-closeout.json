@@ -71,7 +71,19 @@
     }
   },
   "candidate": {
-    "status": "Will be filled with observed export identities after the implementation commit, never inferred from a command proposal."
+    "status": "candidate, not submitted or declared a final release",
+    "scope": "Backend source, team-authored documentation/slides and Maven Wrapper; no application runtime/JRE/image.",
+    "sourceRevision": "b5ca727706daa50f7af95e5af33593e01055588e",
+    "sourceTree": "3098bd313e535e5945436f14050754bbfed27a17",
+    "archive": "equipment-lending-source.zip",
+    "archiveSha256": "5bb73b2ba4711d55a24dff7d4ae9dd2a9c3bc8e87dc4ed4abc526e0b4073fb17",
+    "memberCount": 348,
+    "noticeInventorySha256": "cb0ab0dcada6bcd8fb28038cb9c411a92eb39509bd25edf9a5b7c7d1a4fd1c99",
+    "directory": "target/release/els50-b5ca7277",
+    "manifestSha256": "88169536cf22a7b90e78232ef09cafe21975388ab0e2fbc6356f7ddaa1f52edb",
+    "archiveBytes": 1052377,
+    "inspection": "All 348 archive members and bytes matched selected Git blobs; independent ZIP/manifest/SHA256SUMS recheck passed; no Subject/private/build/runtime content; only the verified Maven Wrapper JAR.",
+    "regeneration": "Regenerate from the eventual human-reviewed merge revision using tools/release/prepare_submission.py; this unmerged implementation candidate is not relabeled final."
   },
   "checks": {
     "standardMaven": {
@@ -94,7 +106,8 @@
       "artifacts": 72,
       "materials": 116,
       "result": "Exact SHA-256 and original nested-JAR byte comparison passed."
-    }
+    },
+    "ciReleaseCandidate": "CI exports and retains its own exact-checkout candidate after running all ten release guards; latest-head CI is verified in PR/Jira after push."
   },
   "externalGates": [
     {
