@@ -1,6 +1,6 @@
 # ELS-49 — Equipment lending presentation
 
-Editable speaker slides for the staff-managed backend. Advance at each `---`; the [demo runbook](els-49-demo-runbook.md) supplies commands and handovers. Evidence describes observed technical work, not an unheld team rehearsal or human sign-off.
+Detailed source outline for the staff-managed backend. The [PowerPoint](els-49-presentation.pptx) and matching [PDF](els-49-presentation.pdf) contain the final 12-slide sequence, generated from [editable content and notes](els-49-deck.json). The [demo runbook](els-49-demo-runbook.md) supplies commands and handovers. Evidence describes observed technical work, not an unheld team rehearsal or human sign-off.
 
 ---
 

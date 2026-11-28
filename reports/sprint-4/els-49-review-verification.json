@@ -1,0 +1,60 @@
+{
+  "baseCommit": "867323a0ab99ac34d1e70bcf55e908dcc926c59c",
+  "scope": "Working correction files on the PR base; no application/schema/dependency edits",
+  "fileSha256": {
+    "tools/demo/els49-live-workflow.ps1": "f1cc56db99e1881ed398e55167a9b95668d6932d48e357079dd313e0a4580f24",
+    "tools/demo/els49-rehearsal.ps1": "8eb9e6cb99d41275fe46e6758ae841c6b00a52c420686d5833908b7493feb39a",
+    "tools/demo/build-els49-deck.mjs": "2b0c3aeaa03b2ae823421b30cfa581624cde082466be608d5845bfed4639e20f",
+    "docs/presentation/els-49-deck.json": "12ae1e175d29388f1a7f763d4aeca88211e97fd46842c35f210febe174ae61b0",
+    "docs/presentation/els-49-presentation.pptx": "a2e90d168763395645bd52a105b10a8f2608bcff2870e18ebf5f603626f538ac",
+    "docs/presentation/els-49-presentation.pdf": "087c28fb27df01718fb991c13e5cb20bc6f73b3bf0539fd277833c57b69df543"
+  },
+  "checks": {
+    "standard": {
+      "tests": 200,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "database": {
+      "unitController": 200,
+      "postgresql": 193,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "helperTests": 15,
+    "originalProbe": 14,
+    "independentFixtureCases": 4,
+    "slides": 12,
+    "embeddedNotes": 12,
+    "pdfPages": 12,
+    "plannedSeconds": 780,
+    "humanRehearsal": "not_observed"
+  },
+  "packaged": {
+    "project": "els-demo-els49-review",
+    "port": 18059,
+    "image": "sha256:299a03d1f98d446aa731b80ac2968553a778904c04896ab67ca6c06701903210",
+    "jarSha256": "91daa0e93ef8aba783367dde71566e1563a8e0034e91302a48565c30f700cee2",
+    "steps": [
+      "original 14-assertion probe",
+      "unavailable borrow conflict and unchanged SQL loan snapshot",
+      "return and availability",
+      "duplicate return and unchanged SQL loan snapshot",
+      "reborrow with exact fields and new ID",
+      "overdue inclusion and unavailable item",
+      "return removes overdue and retains both filtered history rows",
+      "mutated checkpoint rejects seed rerun",
+      "guarded reset and restart/reseed",
+      "existing package privacy/non-root/drift/reset checks"
+    ],
+    "cleanup": "owned containers, volumes, checkpoint and private configuration removed"
+  },
+  "limitations": [
+    "No four-person attendance/answers/approval observed",
+    "No native PowerPoint application test",
+    "New workflow ran locally; existing CI does not invoke it separately",
+    "No remote HTTPS/browser acceptance claimed"
+  ]
+}

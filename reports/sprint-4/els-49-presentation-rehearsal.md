@@ -36,3 +36,27 @@ No four-person rehearsal, questions, handover delivery, human approval, presenta
 ## Limits and handoff
 
 The fallback slides and historical ELS-47/45 evidence are usable offline but are not a live ELS-49 runtime pass. Remote HTTPS, browser auth/CSRF/origin tests, distribution notices, team sign-off and ELS-50 submission remain separate. Hussein Chreif should review claim-to-source accuracy and runbook safety; each member should execute their assigned explanation and record any corrections before release closeout.
+
+## PR review corrections
+
+The preparation package now includes a 12-slide editable PowerPoint, matching offline PDF, embedded source-backed notes and planned timings (13 minutes including a four-minute demo). All slide renders were inspected and PDF title/body text matched the JSON source on all 12 pages. First-party package/layout/import checks passed; no native PowerPoint application test is claimed. Cloud authoring was rejected by automatic approval review because the personal destination was not authorized; delivery stayed local in this repository.
+
+The [live sequence](../../docs/presentation/els-49-live-workflow.md) adds debugging, return, repeat-return rejection, reborrow, overdue and retained history. Its script verifies the guarded seed and marks the checkpoint before mutation. An interrupted or completed sequence cannot masquerade as an untouched seed. Rejected writes compare full committed loan snapshots. The original probe remains unchanged.
+
+[Structured verification](els-49-review-verification.json) identifies the PR base and SHA-256 of each tested/generated correction file. Observed commands and results:
+
+| Check | Command / environment | Result |
+| --- | --- | --- |
+| Standard | `mvnw.cmd --batch-mode --no-transfer-progress verify`, Java 17 | 200 tests; zero failures/errors/skips; BUILD SUCCESS. |
+| Database | Same command with `-Pdatabase-test`, isolated `els49-review-tests`, port 15459; importer in the same shell | 200 unit/controller plus 193 PostgreSQL tests; zero failures/errors/skips; BUILD SUCCESS; owned container/network removed. |
+| Helpers | `python tools/demo/test_demo_helpers.py` | 15/15 passed. |
+| Independent original-script harness | Real loopback HTTP with isolated fake Docker/SQL transport | Valid 14-assertion case passed; wrong health shape, challenge and duplicate code each rejected. These four cases are not real container evidence. |
+| Packaged workflow | Task-local copy of `verify-package.ps1`, inserting both ELS-49 script calls before ordinary drift/reset checks; project `els-demo-els49-review`, port 18059 | Original probe 14/14; new sequence passed every stage; mutated checkpoint refused rerun; guarded reset/restart/reseed passed; original privacy/non-root/drift/reset checks passed. Owned containers, volumes, checkpoint and private settings removed. |
+| Presentation | `node tools/demo/build-els49-deck.mjs` with bundled paths | 12-slide package/layout/import checks passed; all slides rendered/inspected; all 12 PDF title/body texts matched; 12 embedded notes. |
+| Static | PowerShell Parser.ParseFile, local-link scan, `git diff --check` | Both scripts parsed; links resolved; whitespace passed. |
+
+The tested retained image is `sha256:299a03d1f98d446aa731b80ac2968553a778904c04896ab67ca6c06701903210`; its own `/app/app.jar` hashes to `91daa0e93ef8aba783367dde71566e1563a8e0034e91302a48565c30f700cee2`. This identifies the actual package independently of later Maven rebuilds. Application source/schema/dependencies were unchanged; the live workflow script was unchanged after its successful run.
+
+Failures and corrections: sandboxed Mockito agent attachment stalled; only identified task Maven/fork/attacher processes were stopped and the permitted retry passed. An absent `.env` stopped the initial database attempt; retry used an ignored task-owned empty env file with generated private process credentials, then removed the file. Presentation build attempts exposed missing runtime-module configuration, Windows hard-link permission, PDF font registration, receipt reuse and a text encoding/render issue; all were corrected before final export. No failed attempt is counted as a pass.
+
+The [team record](els-49-team-rehearsal.json) remains unobserved. Merging prepared assets does not establish the four-person rehearsal acceptance item or authorize marking it done. Record actual speaking, answers, corrections and handovers before rehearsal closeout; ELS-50 must preserve this distinction.

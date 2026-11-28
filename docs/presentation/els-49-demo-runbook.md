@@ -12,6 +12,14 @@ This is an operator script, not evidence of a team rehearsal. Use only a **fresh
 
 The fixtures are fixed in identity/fields, while generated IDs and Beirut-local business dates are read from the guarded checkpoint. Rerun is an exact-state, no-write assertion. An interrupted or drifted checkpoint fails closed; investigate before explicitly resetting a disposable project. Health is public aggregate `{"status":"UP"}`; all eleven business operations require staff Basic access. [Staff boundary](../deployment/staff-access.md).
 
+## Presentation and live sequence
+
+Open the [PowerPoint deck](els-49-presentation.pptx) or matching [offline PDF](els-49-presentation.pdf). The 12-slide [editable source](els-49-deck.json) contains notes, source pointers and planned timings: 780 seconds (13 minutes), including four minutes of live demonstration. These are targets, not measured durations. The original [outline](els-49-slides.md) supplies detailed evidence links.
+
+After setup step 4, follow the [live workflow](els-49-live-workflow.md) for visible return, reborrow, overdue, history and debugging. It intentionally invalidates the seeded checkpoint; use step 5's guarded reset before another seed/rerun. Pause between steps and explain each oracle.
+
+Rebuild with bundled Artifact Tool using `node tools/demo/build-els49-deck.mjs`: set `ELS_PRESENTATION_MODULES` to the bundled Node modules, `ELS_PRESENTATION_SKILL` to the presentation skill directory and `ELS_PRESENTATION_PYTHON` to bundled Python. The finalizer refuses overwriting: move the prior generated PPTX aside first, rebuild, inspect all slide PNGs under `target/els49-corrections`, then compare the PDF. No package installation is needed.
+
 ## Handovers and likely questions
 
 | Speaker | Explanation and demonstration | Expected oracle and likely question | Handover sentence |
