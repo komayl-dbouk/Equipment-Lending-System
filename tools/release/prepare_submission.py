@@ -84,7 +84,7 @@ def prepare(repo, revision, output):
             name = material['path']
             if name not in files or files[name]['sha256'] != material['sha256']:
                 raise ValueError('Selected notice material missing or changed: ' + name)
-    archive = git(repo, 'archive', '--format=zip', commit)
+    archive = git(repo, '-c', 'core.autocrlf=false', '-c', 'core.eol=lf', 'archive', '--format=zip', commit)
     inspect_archive(archive, files)
     manifest = {'schema': 'els-source-candidate-v1', 'status': 'candidate, not submitted or declared a final release',
                 'scope': 'Backend source, team-authored documentation/slides and Maven Wrapper; no application runtime/JRE/image.',

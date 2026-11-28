@@ -77,6 +77,13 @@ class CandidateTests(unittest.TestCase):
         self.assertTrue(release.safe_name('.env.example'))
         self.assertTrue(release.safe_name('.mvn/wrapper/maven-wrapper.jar'))
 
+    def test_windows_checkout_conversion_does_not_change_archive_bytes(self):
+        self.git('config', 'core.autocrlf', 'true')
+        self.git('config', 'core.eol', 'crlf')
+        result = release.prepare(self.repo, self.revision, self.output)
+        with zipfile.ZipFile(self.output / result['archive']) as z:
+            self.assertEqual(z.read('README.md'), b'Synthetic source fixture\n')
+
     def test_tracked_runtime_binary_prevents_export(self):
         self.write('runtime.jar', b'SYNTHETIC RUNTIME')
         self.commit()

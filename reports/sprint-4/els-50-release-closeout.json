@@ -86,7 +86,7 @@
     },
     "sourceCandidateTests": {
       "command": "python -B tools/release/test_prepare_submission.py",
-      "tests": 9,
+      "tests": 10,
       "result": "passed",
       "scope": "Synthetic isolated Git repositories; exact export, dirty/untracked exclusion, unsafe/runtime paths, stale source inventory, changed notices, Wrapper identity, symlink mode, duplicates/tampering, outside paths and overwrite rejection."
     },
