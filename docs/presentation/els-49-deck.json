@@ -1,0 +1,86 @@
+[
+  {
+    "title": "Equipment Lending System",
+    "body": "A staff-managed university lending API\nReliable availability, borrowing and return history",
+    "speaker": "Hussein Chreif",
+    "seconds": 30,
+    "notes": "Introduce all four contributors. Explain the paper/spreadsheet problem and the backend release boundary. Handover: first, the workflow we protect. Source: docs/requirements/requirements.md."
+  },
+  {
+    "title": "Release scope",
+    "body": "Student and equipment records\nBorrow, return, availability and overdue history\nStaff Basic access; public aggregate health\nFrontend planned separately in Sprint 5",
+    "speaker": "Hussein Chreif",
+    "seconds": 45,
+    "notes": "Students are borrower records, not login users. Describe one active loan per item and retained history. Do not imply remote HTTPS or browser acceptance. Source: docs/api/contract.md; reports/final-report.md."
+  },
+  {
+    "title": "Application architecture",
+    "body": "Controllers: validated DTOs\nServices: normalization, rules and transactions\nRepositories: PostgreSQL persistence\nFlyway: sole schema owner",
+    "speaker": "Komayl Dbouk",
+    "seconds": 60,
+    "notes": "Trace POST /api/loans through the loan package. Shared code is config/errors, not a second application. Explain Hibernate validation versus Flyway migration. Source: docs/design/architecture.md; src/main/java/edu/university/equipmentlending."
+  },
+  {
+    "title": "Database invariants",
+    "body": "One active loan per equipment item\nRestrictive foreign keys retain history\nDue date must follow borrowing date\nLock ordering and transactions protect competing writes",
+    "speaker": "Komayl Dbouk",
+    "seconds": 60,
+    "notes": "The partial unique index is the final concurrency invariant; service checks alone cannot prevent a race. A returned loan remains in history when a new loan is inserted. Source: docs/api/contract.md; src/main/resources/db/migration; ELS-47 TC11. Handover: Mostafa will connect these rules to observable tests."
+  },
+  {
+    "title": "Borrow and return oracles",
+    "body": "Compare exact DTO fields with committed SQL\nSecond returns are rejected; history stays intact\nReturn restores availability\nReborrow creates a new loan; the old row remains",
+    "speaker": "Mostafa Younes",
+    "seconds": 60,
+    "notes": "Explain your student/return work and another member's borrowing rule. ELS-32 preserved red tests before implementation; ELS-47 TC12-TC15 verified return/reborrow. A green HTTP status alone is insufficient. Sources: reports/sprint-2/els-32-test-first-evidence.md; reports/sprint-4/els-47-final-release-acceptance.md."
+  },
+  {
+    "title": "Reviewing AI-assisted work",
+    "body": "Weak generated assertions needed independent oracles\nA functional query still made 25 database statements\nConfiguration and SQL logging needed packaged checks\nFault probes and SQL checks exposed hidden gaps",
+    "speaker": "Mostafa Younes",
+    "seconds": 60,
+    "notes": "Distinguish examples: ELS-39 strengthened generated tests; ELS-41 corrected N+1 and SQL-message matching; ELS-46 removed a credential fallback and SQL logging leak. Each speaker should explain one original weakness, correction and test. No unmeasured AI time saving is claimed. Sources: reports/sprint-3/els-39-test-audit.md; reports/sprint-3/els-43-measured-quality-improvement.md; reports/sprint-4/els-46-access-privacy-license-review.md."
+  },
+  {
+    "title": "Measured quality",
+    "body": "24-item list: 25 → 1 SQL statements\n96% fewer statements; no latency claim\nSpotBugs: 9 → 8 warnings\nEight assessed warnings remain",
+    "speaker": "Hussein Chalhoub",
+    "seconds": 45,
+    "notes": "Historical ELS-43 measurements, not fresh measurements of this deck. Explain query projection preserving filters/order/DTOs. Do not compare coverage denominators as if unchanged. Source: reports/sprint-3/els-43-measured-quality-improvement.md."
+  },
+  {
+    "title": "Release acceptance",
+    "body": "200 unit/controller + 193 PostgreSQL tests\n15 helper checks\n227 HTTP requests and three coordinated races\nSource-scoped evidence and independent SQL oracles",
+    "speaker": "Hussein Chalhoub",
+    "seconds": 45,
+    "notes": "All counts are historical ELS-47 results at its recorded source; CI assertion count was 3409, local count differed legitimately with race outcomes. This is not proof a team rehearsal occurred. Source: reports/sprint-4/els-47-final-release-acceptance.md; reports/sprint-4/els-47-acceptance-results.json. Handover: we will now show the owned local package."
+  },
+  {
+    "title": "Live demonstration",
+    "body": "Health and rejected staff access\nSynthetic records, active and returned history\nReturn → reborrow → overdue → return\nRead history, then reset only the owned project",
+    "speaker": "All four",
+    "seconds": 240,
+    "notes": "Follow els-49-demo-runbook.md and els-49-live-workflow.md. Chreif frames health/auth; Mostafa returns; Komayl reborrows and checks overdue; Chalhoub checks history and cleanup. Stop immediately on a failed oracle. Ordinary current Beirut clock; no SQL fixture rewriting. Offline fallback must be labeled historical evidence, not a live pass."
+  },
+  {
+    "title": "Debugging exercise",
+    "body": "Symptom: borrowing returns 409\nInspect the public code and request identity\nCompare active history and availability\nExplain the invariant before changing anything",
+    "speaker": "All four",
+    "seconds": 60,
+    "notes": "Use the scripted unavailable-equipment conflict on the active camera. Expected code EQUIPMENT_UNAVAILABLE; verify unchanged history. Ask another speaker to trace controller, service lock and partial unique index. Do not remove constraints or edit database rows to make the request pass. See runbook Q&A and contract."
+  },
+  {
+    "title": "Safe delivery and limits",
+    "body": "Loopback app; database has no host port\nPrivate credentials and synthetic fixtures\nGuarded, explicit reset of disposable resources\nRemote HTTPS and browser acceptance remain separate",
+    "speaker": "Hussein Chalhoub",
+    "seconds": 45,
+    "notes": "Explain checkpoint target identity and failure-closed reset/seed guards. Neither a Docker run nor these slides prove remote deployment readiness. Distribution closeout belongs to ELS-50. Source: docs/deployment/local-setup.md; docs/deployment/staff-access.md."
+  },
+  {
+    "title": "Discussion",
+    "body": "Which independent oracle protects each rule?\nWhat did review correct in AI-assisted output?\nWhat remains outside this release?",
+    "speaker": "Hussein Chreif",
+    "seconds": 30,
+    "notes": "Invite questions. Each member answers one question and explains another feature during the real rehearsal. Record actual answers/corrections in els-49-team-rehearsal.json. Do not mark human rehearsal completed from technical checks. Source: reports/final-report.md; docs/reference-practice-traceability.md."
+  }
+]

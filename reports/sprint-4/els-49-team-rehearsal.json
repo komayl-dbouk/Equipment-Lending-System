@@ -1,0 +1,14 @@
+{
+  "status": "not_observed",
+  "sourceRevision": null,
+  "jarSha256": null,
+  "imageId": null,
+  "attendees": [],
+  "speakers": [],
+  "questionsAndAnswers": [],
+  "handoverIssues": [],
+  "debuggingExercise": null,
+  "correctionsAndRetests": [],
+  "reviewerDecision": null,
+  "instructions": "After the actual session, record each speaker, elapsed seconds, own and cross-feature explanation, independent oracle, corrected AI example, question, observed answer and correction. No attendance, answer or approval is inferred from automation."
+}
