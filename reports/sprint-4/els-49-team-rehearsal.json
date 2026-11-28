@@ -1,14 +1,111 @@
 {
-  "status": "not_observed",
+  "status": "completed_project_lead_confirmed",
   "sourceRevision": null,
   "jarSha256": null,
   "imageId": null,
-  "attendees": [],
-  "speakers": [],
+  "attendees": [
+    "Hussein Chreif",
+    "Hussein Chalhoub",
+    "Komayl Dbouk",
+    "Mostafa Younes"
+  ],
+  "speakers": [
+    {
+      "member": "Hussein Chreif",
+      "explanationTopicsConfirmed": [
+        "own feature",
+        "architecture and rules",
+        "test oracle",
+        "corrected AI output",
+        "quality improvement"
+      ]
+    },
+    {
+      "member": "Hussein Chalhoub",
+      "explanationTopicsConfirmed": [
+        "own feature",
+        "architecture and rules",
+        "test oracle",
+        "corrected AI output",
+        "quality improvement"
+      ]
+    },
+    {
+      "member": "Komayl Dbouk",
+      "explanationTopicsConfirmed": [
+        "own feature",
+        "architecture and rules",
+        "test oracle",
+        "corrected AI output",
+        "quality improvement"
+      ]
+    },
+    {
+      "member": "Mostafa Younes",
+      "explanationTopicsConfirmed": [
+        "own feature",
+        "architecture and rules",
+        "test oracle",
+        "corrected AI output",
+        "quality improvement"
+      ]
+    }
+  ],
   "questionsAndAnswers": [],
   "handoverIssues": [],
-  "debuggingExercise": null,
+  "debuggingExercise": {
+    "practised": true,
+    "basis": "Project lead confirmation",
+    "detailedSteps": "Not supplied; no exact request, answer or fault outcome reconstructed."
+  },
   "correctionsAndRetests": [],
-  "reviewerDecision": null,
-  "instructions": "After the actual session, record each speaker, elapsed seconds, own and cross-feature explanation, independent oracle, corrected AI example, question, observed answer and correction. No attendance, answer or approval is inferred from automation."
+  "reviewerDecision": {
+    "reviewer": "Hussein Chreif",
+    "decision": "Rehearsal occurrence, participation and coverage confirmed",
+    "source": "Direct project conversation"
+  },
+  "instructions": "This records the confirmed rehearsal and verified asset acceptance. Retain provenance and historical technical checks. Do not invent timings, quotes, findings or a submission receipt.",
+  "artifactAcceptance": {
+    "pullRequest": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/25",
+    "reviewedCommit": "6e70508bb665cc89acfc82c030de61bdd6dc23e7",
+    "mergeCommit": "2291d0e0d42a9e96e8a520605e3d7bb89cface22",
+    "mergedBy": "MaxHusseinChreif",
+    "approvals": [
+      {
+        "reviewer": "MaxHusseinChreif",
+        "decision": "APPROVED",
+        "reviewedCommit": "6e70508bb665cc89acfc82c030de61bdd6dc23e7",
+        "evidence": "https://github.com/komayl-dbouk/Equipment-Lending-System/pull/25#pullrequestreview-6098201760"
+      }
+    ],
+    "checks": [
+      {
+        "name": "Java and PostgreSQL verification",
+        "status": "completed",
+        "conclusion": "success",
+        "evidence": "https://github.com/komayl-dbouk/Equipment-Lending-System/actions/runs/46149766172/job/140993646456"
+      }
+    ],
+    "scope": "Approval and merge of presentation assets; does not establish attendance, individual answers or a performed rehearsal."
+  },
+  "confirmation": {
+    "source": "Direct project conversation with Hussein Chreif",
+    "reportedFact": "All four members participated in the presentation rehearsal and covered the requested explanation and practice topics.",
+    "basis": [
+      "Project lead confirmed: yes, all of us.",
+      "Project lead answered yes when asked whether every member covered feature, architecture/rules, test oracle, corrected AI output, quality improvement, Q&A, debugging and handovers."
+    ],
+    "scope": "Project-lead-confirmed human record; not an independently observed or timed session."
+  },
+  "practiceCoverage": {
+    "questionsAndAnswers": true,
+    "debugging": true,
+    "handovers": true,
+    "basis": "Project lead confirmed the full coverage question."
+  },
+  "recordLimits": [
+    "Exact rehearsal source/JAR/image identity not supplied; asset acceptance has its own independently verified identities.",
+    "No elapsed times or verbatim questions/answers supplied.",
+    "No specific rehearsal issue or correction supplied; absence of supplied details is not a finding that no issues occurred."
+  ]
 }

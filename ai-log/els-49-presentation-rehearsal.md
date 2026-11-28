@@ -17,3 +17,7 @@ No unobserved team test, meeting, new measured quality improvement, review decis
 ## Review correction assistance
 
 Added the editable 12-slide deck/PDF, embedded timed notes and source pointers, debugging/Q&A guide, guarded live return/reborrow/overdue/history script and an empty factual human-rehearsal record. Reviewed all rendered slides and corrected rendering/encoding issues before delivery. Full standard and PostgreSQL verification passed (200 and 193); 15 helpers and real packaged sequence/reset/cleanup passed. Exact scope, file hashes, failures/corrections and limitations are in the ELS-49 review verification and evidence. No attendance, answer, approval or meeting was invented; actual four-person rehearsal remains outstanding. Cloud authoring was rejected for an unapproved personal destination and the deck was built locally instead.
+
+## Human-record reconciliation
+
+Recorded the project lead's explicit confirmation that all four members rehearsed and covered individual explanations, Q&A, debugging and handovers. Verified final-head GitHub approval, merge identity and successful CI separately. Preserved earlier technical evidence and the distinction between a reported human session and agent-observed execution. No individual quotation, timing, issue or correction was invented. This documentation correction does not rerun or relabel earlier application tests.
