@@ -17,19 +17,24 @@ Owner: Hussein Chreif. ELS-48 report contents are consolidated against merged ac
 - [x] All 13 required reference practices have direct report links; four maintenance categories and debt/change procedures are updated.
 - [x] Confirmed Sprint 2/3 effort is distinguished from missing Sprint 1 actuals and unfinished Sprint 4 records.
 
-## Remaining human and release gates
+## Confirmed human gates
+
+- [x] All four members read/checked the report and accepted after correction of stale status, including Chalhoub as primary peer reviewer; [confirmation and finding](els-48-team-review.md).
+- [x] All four participated in rehearsal and covered feature/architecture/oracle/corrected-AI/improvement explanations, Q&A, debugging and handovers, confirmed by Hussein Chreif; [record](sprint-4/els-49-team-rehearsal.json).
+
+These are project-lead-relayed confirmations, not agent-observed meetings or inferred GitHub reviews. Verbatim speaker answers, timings and specific rehearsal issues were not supplied.
+
+## Remaining release gates
 
 | Gate | Owner / card | Required observable record |
 | --- | --- | --- |
-| Four-member report content review | Chreif and all members, ELS-48; primary reviewer Chalhoub | Actual reviewed revision, findings/decisions and links in the review register or PR/Jira; green CI is not review |
-| Presentation and individual understanding | Komayl and all members, ELS-49 | Slides, deterministic live workflow, reset/backup, handovers and actual rehearsal results; each member explains requirement/architecture/oracle/AI correction/improvement/contribution |
 | Final effort/review/retrospective | Chalhoub coordinates ELS-50; members supply records | Completed Sprint 4 estimates versus confirmed actuals, known variance reasons and real reflection; no invented sessions or meeting |
 | Distribution and access | Chalhoub, ELS-50 | Exact third-party license/NOTICE materials for distributed artifacts, instructor repository/board access and final artifact/version consistency |
 | Final submission | Chreif submits under ELS-50 | Agreed package format, final reviewed revision, actual deadline confirmation and receipt; no submission status before evidence |
 
 ## Handoff rules
 
-ELS-47 is merged with a recorded project-lead approval on the final PR head; the intended Komayl reviewer is not substituted for that actual event. ELS-48 has not completed four-member review merely because report contents are prepared. Preserve the real reviewer/revision distinction in later closeout.
+ELS-47 is merged with a recorded project-lead approval on the final PR head; the intended Komayl reviewer is not substituted for that actual event. ELS-48 four-member content acceptance and ELS-49 rehearsal coverage now have explicit project-lead confirmation. Preserve that provenance separately from actual GitHub review/merge events and historical technical evidence.
 
 Sprints 2/3 use project-lead-confirmed approximate actual member totals, not independently logged sessions or per-card allocations. Record Sprint 4 actuals only when supplied/confirmed after work completes. Historical metrics keep their source/tool/scope identities; new measurements require an actual run.
 
